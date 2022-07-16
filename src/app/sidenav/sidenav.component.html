@@ -1,0 +1,23 @@
+<mat-sidenav-container class="container" [class.dark-theme]="isDark">
+  <mat-sidenav class="sidenav" mode="side" [opened]="isOpen">
+    <h2>Hello</h2>
+    <h2>Sidenav stuff goes here</h2>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <button mat-raised-button color="primary" (click)="toggleSidenav()">
+      Toggle sidenav
+    </button>
+    <button mat-raised-button color="accent" (click)="toggleTheme()">
+      Toggle theme
+    </button>
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Spotify</mat-card-title>
+        <mat-card-subtitle>Using Angular</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Made by Kevin</p>
+      </mat-card-content>
+    </mat-card>
+  </mat-sidenav-content>
+</mat-sidenav-container>
