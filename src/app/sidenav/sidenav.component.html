@@ -1,16 +1,42 @@
 <mat-sidenav-container class="container" [class.dark-theme]="isDark">
-  <mat-sidenav class="sidenav" mode="side" [opened]="isOpen">
-    <h2>Hello</h2>
-    <h2>Sidenav stuff goes here</h2>
+  <mat-sidenav #sidenav class="sidenav" mode="side" [opened]="isOpen">
+    <button mat-flat-button class="sidenav-button" [routerLink]="['/']">
+      <mat-icon class="sidenav-icon">home</mat-icon>
+      Home
+    </button>
+    <button mat-flat-button class="sidenav-button">
+      <mat-icon class="sidenav-icon">search</mat-icon>
+      Search
+    </button>
+    <button mat-flat-button class="sidenav-button">
+      <mat-icon class="sidenav-icon">library_music</mat-icon>
+      Your Library
+    </button>
+    <mat-divider class="space"></mat-divider>
+    <button mat-flat-button class="sidenav-button">
+      <mat-icon class="sidenav-icon">playlist_add</mat-icon>
+      Create a playlist
+    </button>
+    <button mat-flat-button class="sidenav-button">
+      <mat-icon class="sidenav-icon">library_add</mat-icon>
+      Liked Songs
+    </button>
+    <mat-divider class="space"></mat-divider>
+    <div style="text-align: center">
+      <a mat-raised-button color="primary" style="width: 50%" [href]="AUTH_LINK"
+        >Authorize
+      </a>
+    </div>
   </mat-sidenav>
   <mat-sidenav-content>
-    <button mat-raised-button color="primary" (click)="toggleSidenav()">
-      Toggle sidenav
-    </button>
-    <button mat-raised-button color="accent" (click)="toggleTheme()">
-      Toggle theme
-    </button>
-    <mat-card>
+    <div class="center">
+      <router-outlet></router-outlet>
+    </div>
+    <!-- <spotify-toolbar
+      (toggleSidenav)="toggleSidenav()"
+      (toggleTheme)="toggleTheme()"
+    ></spotify-toolbar> -->
+    <!-- <mat-card>
       <mat-card-header>
         <mat-card-title>Spotify</mat-card-title>
         <mat-card-subtitle>Using Angular</mat-card-subtitle>
@@ -18,6 +44,6 @@
       <mat-card-content>
         <p>Made by Kevin</p>
       </mat-card-content>
-    </mat-card>
+    </mat-card> -->
   </mat-sidenav-content>
 </mat-sidenav-container>

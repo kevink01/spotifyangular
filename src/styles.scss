@@ -1,20 +1,18 @@
 @use "@angular/material" as mat;
+// @use "./material-theme/themes" as palette;
+@use "./material-theme/palette" as palette;
 @include mat.core();
+
 $warn: mat.define-palette(mat.$orange-palette);
+$light-green: mat.define-palette(palette.$green, 500);
+$dark-green: mat.define-palette(palette.$green, 900);
+$grey-palette: mat.define-palette(palette.$grey);
 
-$light-primary: mat.define-palette(mat.$blue-palette);
-$light-accent: mat.define-palette(mat.$grey-palette);
-
-$dark-primary: mat.define-palette(mat.$green-palette);
-$dark-accent: mat.define-palette(mat.$purple-palette);
-
-// Create the theme object. A theme consists of configurations for individual
-// theming systems such as "color" or "typography".
 $light-theme: mat.define-light-theme(
   (
     color: (
-      primary: $light-primary,
-      accent: $light-accent,
+      primary: $dark-green,
+      accent: $grey-palette,
       warn: $warn,
     ),
   )
@@ -23,29 +21,28 @@ $light-theme: mat.define-light-theme(
 $dark-theme: mat.define-dark-theme(
   (
     color: (
-      primary: $dark-primary,
-      accent: $dark-accent,
+      primary: $light-green,
+      accent: $grey-palette,
       warn: $warn,
     ),
   )
 );
 
-// Include theme styles for core and each component used in your app.
-// Alternatively, you can import and @include the theme mixins for each component
-// that you are using.
 @include mat.all-component-themes($light-theme);
 
 .dark-theme {
   @include mat.all-component-themes($dark-theme);
 }
 
-/* You can add global styles to this file, and also import other style files */
-
+$light-config: mat.get-color-config($light-theme);
+$dark-config: mat.get-color-config($dark-theme);
 html,
 body {
   height: 100%;
 }
 body {
   margin: 0;
+  // display: flex;
+  // flex: 5 5;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }

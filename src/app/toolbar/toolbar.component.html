@@ -1,0 +1,30 @@
+<mat-toolbar [class.toolbar-dark]="isDark">
+  <mat-toolbar-row>
+    <button mat-icon-button color="primary" (click)="toggleSidenavEmit()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span>Spotify Clone</span>
+    <span class="spacer"></span>
+    <button mat-icon-button color="primary" (click)="toggleTheme()">
+      <mat-icon>dark_mode</mat-icon>
+    </button>
+    <div>
+      <button mat-icon-button color="primary" [matMenuTriggerFor]="menu">
+        <mat-icon>settings</mat-icon>
+      </button>
+      <mat-menu #menu class="menu" id="menu">
+        <button mat-menu-item class="menu-button">
+          <mat-icon class="menu-icon">account_circle</mat-icon>Profile
+        </button>
+        <button mat-menu-item class="menu-button">
+          <mat-icon class="menu-icon">settings</mat-icon>Settings
+        </button>
+        <mat-divider style="background-color: hsl(132, 6%, 60%)"></mat-divider>
+        <button mat-menu-item class="menu-button">
+          <mat-icon class="menu-icon">logout</mat-icon>Logout
+        </button>
+      </mat-menu>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>
+<spotify-sidenav #sidenav></spotify-sidenav>

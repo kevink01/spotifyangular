@@ -1,9 +1,51 @@
 .container {
-  flex: 1;
-  min-width: 100%;
-  min-height: 100%;
+  flex: 1 1 auto;
+  width: 100%;
+  height: 89vh;
 }
 
 .sidenav {
   width: 20%;
+  padding: 3px;
+}
+
+.sidenav-button {
+  width: 100%;
+  text-align: left;
+  font-size: 1rem;
+  justify-content: center;
+  color: hsl(132, 6%, 60%);
+  &:hover {
+    color: black;
+  }
+}
+
+.sidenav-icon {
+  margin-right: 20px;
+}
+
+.dark-theme .sidenav-button:hover {
+  color: white;
+}
+
+.center {
+  // display: flex;
+  width: 100%;
+  height: 89vh;
+  margin: auto;
+  // flex: 1 1 auto;
+  // margin: auto;
+  // flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.dark-theme .center {
+  background-color: black;
+}
+
+.space {
+  $space: 0.5rem;
+  margin-top: $space;
+  margin-bottom: $space;
 }
