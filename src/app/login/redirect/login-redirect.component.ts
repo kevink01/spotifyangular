@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { User } from 'src/app/shared/models/user';
+import { Credentials } from 'src/app/models/credentials';
 import { LoginService } from '../login.service';
 
 @Component({
@@ -22,11 +22,13 @@ export class LoginRedirectComponent implements OnInit {
     ) as string;
     this.loginService.login(this.code).subscribe((data) => {
       if (data) {
-        this.loginService
-          .setUser(<User>JSON.parse(data.toString()))
-          .then(() => {
-            this.router.navigate(['/home']);
-          });
+        // console.log(data);
+        // this.loginService
+        //   .setUser(<Credentials>JSON.parse(data.toString()))
+        //   .then(() => {
+        //     this.router.navigate(['/dashboard']);
+        //   });
+        this.router.navigate(['/dashboard']);
       }
     });
   }

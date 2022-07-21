@@ -36,13 +36,13 @@ $dark-theme: mat.define-dark-theme(
 
 $light-config: mat.get-color-config($light-theme);
 $dark-config: mat.get-color-config($dark-theme);
-html,
-body {
-  height: 100%;
-}
+
 body {
   margin: 0;
-  // display: flex;
-  // flex: 5 5;
+  flex: 1 1 auto;
+  // height: 100%;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+body .dark-theme {
+  background-color: black;
 }

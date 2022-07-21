@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { User } from '../shared/models/user';
+import { Credentials } from '../models/credentials';
 
 @Injectable({
   providedIn: 'root',
@@ -21,7 +21,6 @@ export class LoginService {
   constructor(private http: HttpClient, private router: Router) {}
 
   login(code: string): Observable<Object> {
-    console.log(code);
     return this.http.post(
       'http://localhost:4201/login',
       { code: JSON.stringify(code) },
@@ -51,31 +50,16 @@ export class LoginService {
     return this._refreshToken;
   }
 
-  setUser(user: User): Promise<void> {
-    console.log(user);
-
-    return new Promise<void>(async (resolve, reject) => {
-      if (user) {
-        console.log('In resolve');
-        console.log(user.access_token);
-
-        this.accessToken = await user.access_token;
-        this.refreshToken = await user.refresh_token;
-        this.expiresIn = await user.expires_in;
-        console.log(
-          `ACCESS_TOKEN: ${this.accessToken}\nREFRESH_TOKEN: ${this.refreshToken}\nEXPIRES_IN: ${this.expiresIn}\n`
-        );
-
-        resolve();
-      } else {
-        console.log('In reject');
-
-        reject(new Error('Invalid User Object'));
-      }
-    });
-  }
-
-  test(): string {
-    return this.accessToken;
-  }
+  // setUser(credentials: Credentials): Promise<void> {
+  //   return new Promise<void>(async (resolve, reject) => {
+  //     if (credentials) {
+  //       // this.accessToken = await credentials.access_token;
+  //       // this.refreshToken = await credentials.refresh_token;
+  //       // this.expiresIn = await credentials.expires_in;
+  //       resolve();
+  //     } else {
+  //       reject(new Error('Invalid User Object'));
+  //     }
+  //   });
+  // }
 }

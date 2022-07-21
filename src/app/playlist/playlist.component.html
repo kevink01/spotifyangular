@@ -1,0 +1,14 @@
+<div
+  fxLayout="row"
+  fxLayoutAlign="start center"
+  *ngFor="let i of [1, 2, 3, 4, 5, 6, 7, 8]"
+>
+  <mat-card fxFlex>
+    <mat-card-header>
+      <mat-card-title>My title {{ i }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p>Hello {{ i }}</p>
+    </mat-card-content>
+  </mat-card>
+</div>

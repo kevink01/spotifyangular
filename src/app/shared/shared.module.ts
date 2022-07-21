@@ -9,6 +9,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 const MODULES = [
   MatButtonModule,
@@ -17,6 +18,7 @@ const MODULES = [
   MatIconModule,
   MatMenuModule,
   MatProgressSpinnerModule,
+  ScrollingModule,
   MatSidenavModule,
   MatToolbarModule,
 ];
