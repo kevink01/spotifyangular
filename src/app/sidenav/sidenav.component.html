@@ -3,10 +3,10 @@
     fixedInViewport
     fixedTopGap="64"
     class="sidenav"
-    mode="side"
+    mode="over"
     [opened]="isOpen"
   >
-    <button mat-flat-button class="sidenav-button" [routerLink]="['/']">
+    <button mat-flat-button class="sidenav-button" [routerLink]="'/'">
       <mat-icon class="sidenav-icon">home</mat-icon>
       Home
     </button>
@@ -14,7 +14,7 @@
       <mat-icon class="sidenav-icon">search</mat-icon>
       Search
     </button>
-    <button mat-flat-button class="sidenav-button">
+    <button mat-flat-button class="sidenav-button" [routerLink]="'/library'">
       <mat-icon class="sidenav-icon">library_music</mat-icon>
       Your Library
     </button>
@@ -34,7 +34,7 @@
       </a>
     </div>
   </mat-sidenav>
-  <mat-sidenav-content class="sidenav-content">
+  <mat-sidenav-content class="sidenav-content" [class.dark-theme]="isDark">
     <div>
       <router-outlet class="fill"></router-outlet>
     </div>

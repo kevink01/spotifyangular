@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AccountService } from '../account/account.service';
-import { Playlist } from '../models/playlist';
+import { IPlaylist } from '../models/core/IPlaylist';
 
 @Component({
   selector: 'spotify-dashboard',
@@ -8,15 +8,9 @@ import { Playlist } from '../models/playlist';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
-  playlists: Playlist[] = [];
+  playlists: IPlaylist[] = [];
   constructor(private accountService: AccountService) {}
 
   ngOnInit(): void {
-    this.accountService.getPlaylists().subscribe((data) => {
-      data.forEach((value) => {
-        console.log(Object.values(value));
-      });
-      this.playlists = data;
-    });
   }
 }
