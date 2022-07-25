@@ -2,8 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { Credentials } from '../models/credentials';
-
+import { Constants } from '../shared/constants';
 @Injectable({
   providedIn: 'root',
 })
@@ -22,7 +21,7 @@ export class LoginService {
 
   login(code: string): Observable<Object> {
     return this.http.post(
-      'http://localhost:4201/login',
+      `${Constants.SERVER_URL}/login`,
       { code: JSON.stringify(code) },
       this.httpHeaders
     );
@@ -49,17 +48,4 @@ export class LoginService {
   private get refreshToken(): string {
     return this._refreshToken;
   }
-
-  // setUser(credentials: Credentials): Promise<void> {
-  //   return new Promise<void>(async (resolve, reject) => {
-  //     if (credentials) {
-  //       // this.accessToken = await credentials.access_token;
-  //       // this.refreshToken = await credentials.refresh_token;
-  //       // this.expiresIn = await credentials.expires_in;
-  //       resolve();
-  //     } else {
-  //       reject(new Error('Invalid User Object'));
-  //     }
-  //   });
-  // }
 }

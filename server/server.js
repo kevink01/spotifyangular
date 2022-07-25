@@ -1,6 +1,7 @@
 /* Express JS backend server */
 const express = require("express");
 const Utility = require("./Utility");
+
 /**
  * Utility class that wraps the Sptofiy API wrapper: https://github.com/thelinmichael/spotify-web-api-node
  * Exports functions that parses JSON responses and errors
@@ -18,11 +19,9 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-
-/**
- * Post call for logging in to Spotify.
- * Returns the access_token, refresh_token, and expires_in duration
- */
+/* ***************** */
+/*       LOGIN       */
+/* ***************** */
 app.post("/login", (req, res) => {
   util
     .login(JSON.parse(req.body.code))
@@ -34,7 +33,10 @@ app.post("/login", (req, res) => {
     });
 });
 
-app.get("/user", (req, res) => {
+/* ******************** */
+/*       PROFILE        */
+/* ******************** */
+app.get("/profile", (req, res) => {
   util
     .getMe()
     .then((data) => {
@@ -45,7 +47,54 @@ app.get("/user", (req, res) => {
     });
 });
 
-app.get("/playlists", (req, res) => {
+app.get("/library/artists", (req, res) => {
+  util
+    .getFollowedArtists()
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((err) => {
+      res.json(err);
+    });
+});
+
+app.get("/library/albums", (req, res) => {
+  return util
+    .getMySavedAlbums()
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((err) => {
+      res.json(err);
+    });
+});
+
+app.get("/top/tracks", (req, res) => {
+  util
+    .getMyTopTracks()
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((err) => {
+      res.json(err);
+    });
+});
+
+app.get("/top/artists", (req, res) => {
+  util
+    .getMyTopArtists()
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((err) => {
+      res.json(err);
+    });
+});
+
+/* ********************** */
+/*        Playlist        */
+/* ********************** */
+app.get("/library/playlists", (req, res) => {
   util
     .getPlaylists()
     .then((data) => {
@@ -67,9 +116,9 @@ app.get("/playlist", (req, res) => {
     });
 });
 
-app.get("/artists", (req, res) => {
+app.get("/featured", (req, res) => {
   util
-    .getFollowedArtists()
+    .getFeaturedPlaylists()
     .then((data) => {
       res.json(data);
     })
@@ -78,49 +127,9 @@ app.get("/artists", (req, res) => {
     });
 });
 
-app.get("/recommendations", (req, res) => {
-  util
-    .getRecommendations()
-    .then((data) => {
-      res.json(data);
-    })
-    .catch((err) => {
-      res.json(err);
-    });
-});
-
-app.get("/tracks", (req, res) => {
-  util
-    .getPlaylistTracks(req.body.id)
-    .then((data) => {
-      res.json(data);
-    })
-    .catch((err) => {
-      res.json(err);
-    });
-});
-
-app.get("/top/artists", (req, res) => {
-  util
-    .getMyTopArtists()
-    .then((data) => {
-      res.json(data);
-    })
-    .catch((err) => {
-      res.json(err);
-    });
-});
-
-app.get("/top/tracks", (req, res) => {
-  util
-    .getMyTopTracks()
-    .then((data) => {
-      res.json(data);
-    })
-    .catch((err) => {
-      res.json(err);
-    });
-});
+/* ****************** */
+/*       Artist       */
+/* ****************** */
 
 app.get("/artist/albums", (req, res) => {
   return util
@@ -155,9 +164,12 @@ app.get("/artist/related", (req, res) => {
     });
 });
 
-app.get("/saved/albums", (req, res) => {
-  return util
-    .getMySavedAlbums()
+/* *************** */
+/*       MISC      */
+/* *************** */
+app.get("/recommendations", (req, res) => {
+  util
+    .getRecommendations()
     .then((data) => {
       res.json(data);
     })
@@ -177,16 +189,3 @@ app.get("/test", (req, res) => {
     });
 });
 app.listen(4201);
-
-
-
-app.get("/featured", (req, res) => {
-  util
-    .getFeaturedPlaylists()
-    .then((data) => {
-      res.json(data);
-    })
-    .catch((err) => {
-      res.json(err);
-    });
-});

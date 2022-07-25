@@ -41,7 +41,7 @@ module.exports = class Utility {
   }
 
   getMySavedAlbums() {
-    return spotify.getMySavedAlbums().then((data) => {
+  return spotify.getMySavedAlbums().then((data) => {
       return convertMySavedAlbums(data);
     });
   }

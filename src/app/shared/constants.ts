@@ -28,8 +28,36 @@ export class Constants {
     // 'app-remote-control',
     // 'streaming'
   ].join(' ');
+  public static readonly AUTH_URL: string = `https://accounts.spotify.com/authorize?client_id=${environment.clientID}&response_type=code&redirect_uri=http://localhost:4200/login&scope=${this.SCOPES}`;
 
   public static readonly SERVER_URL: string = 'http://localhost:4201';
 
-  public static readonly AUTH_URL: string = `https://accounts.spotify.com/authorize?client_id=${environment.clientID}&response_type=code&redirect_uri=http://localhost:4200/login&scope=${this.SCOPES}`;
+  /* ***************** */
+  /*       LOGIN       */
+  /* ***************** */
+  public static readonly LOGIN_URL: string = 'login';
+
+
+  /* ******************** */
+  /*       PROFILE        */
+  /* ******************** */
+  public static readonly USER_ME_URL: string = 'profile';
+  public static readonly FOLLOWED_ARTISTS_URL: string = 'library/artists';
+  public static readonly SAVED_ALBUMS_URL: string = 'library/albums';
+  public static readonly TOP_TRACKS_URL: string = 'top/tracks';
+  public static readonly TOP_ARTISTS_URL: string = 'top/artists';
+
+  /* ********************** */
+  /*        Playlist        */
+  /* ********************** */
+  public static readonly USER_PLAYLISTS_URL: string = 'library/playlists';
+  public static readonly PLAYLIST_URL: string = 'playlist';
+  public static readonly FEAUTRED_PLAYLISTS_URL: string = 'featured';
+
+  /* ****************** */
+  /*       Artist       */
+  /* ****************** */
+  public static readonly ARTIST_ALBUMS_URL: string = 'artist/albums';
+  public static readonly ARTIST_TOP_TRACKS_URL: string = 'artist/tracks';
+  public static readonly ARTIST_RELATED_URL: string = 'artist/related';
 }

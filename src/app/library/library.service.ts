@@ -13,14 +13,14 @@ export class LibraryService {
   constructor(private http: HttpClient) {}
 
   getPlaylists(): Observable<IPlaylist[]> {
-    return this.http.get<IPlaylist[]>(`${Constants.SERVER_URL}/playlists`);
+    return this.http.get<IPlaylist[]>(`${Constants.SERVER_URL}/${Constants.USER_PLAYLISTS_URL}`);
   }
 
   getLibraryAlbums(): Observable<IAlbum[]> {
-    return this.http.get<IAlbum[]>(`${Constants.SERVER_URL}/saved/albums`);
+    return this.http.get<IAlbum[]>(`${Constants.SERVER_URL}/${Constants.SAVED_ALBUMS_URL}`);
   }
 
   getFollowedArtists(): Observable<IArtist[]> {
-    return this.http.get<IArtist[]>(`${Constants.SERVER_URL}/artists`);
+    return this.http.get<IArtist[]>(`${Constants.SERVER_URL}/${Constants.FOLLOWED_ARTISTS_URL}`);
   }
 }

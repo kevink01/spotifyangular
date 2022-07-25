@@ -21,10 +21,7 @@ export class ToolbarComponent implements OnInit {
   ngOnInit(): void {}
 
   toggleSidenavEmit(): void {
-    console.log(this.sidenav.isOpen);
-
     this.sidenav.toggle();
-    // this.isOpen = !this.isOpen;
   }
 
   toggleTheme(): void {
