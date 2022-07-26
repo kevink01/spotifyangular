@@ -1,0 +1,29 @@
+@use "./palette" as palette;
+@use "@angular/material" as mat;
+
+@include mat.core();
+
+$warn: mat.define-palette(mat.$orange-palette);
+$green-palette: mat.define-palette(palette.$green);
+$grey-palette: mat.define-palette(palette.$grey);
+$light-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $green-palette,
+      accent: $grey-palette,
+      warn: $warn,
+    ),
+  )
+);
+
+$dark-theme: mat.define-dark-theme(
+  (
+    color: (
+      primary: $green-palette,
+      accent: $grey-palette,
+      warn: $warn,
+    ),
+  )
+);
+
+@forward "../styles.scss" show $light-theme, $dark-theme;

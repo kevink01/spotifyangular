@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { BreakpointObserver } from '@angular/cdk/layout'
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  constructor(private breakPointObserver: BreakpointObserver) {
+    breakPointObserver.isMatched('(')
+  }
   title = 'SpotifyClone';
 }

@@ -1,0 +1,176 @@
+<div style="width: 100vw">
+  <mat-tab-group
+    color="accent"
+    backgroundColor="primary"
+    mat-align-tabs="center"
+    mat-stretch-tabs
+  >
+    <mat-tab label="Playlists">
+      <div class="search">
+        <h2>Playlists</h2>
+        <span class="spacer"></span>
+        <form>
+          <mat-form-field appearance="fill" style="margin-right: 2rem">
+            <mat-label>Search</mat-label>
+            <input
+              matInput
+              [(ngModel)]="playlist_search"
+              name="playlist_search"
+              placeholder="Ex: My awesome playlist"
+            />
+            <mat-icon matSuffix>search</mat-icon>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Select an option</mat-label>
+            <mat-select
+              [(value)]="playlist_sort"
+              (selectionChange)="changeOrder('playlists')"
+              disableOptionCentering="true"
+            >
+              <mat-option value="most_relevant">Most Relevant</mat-option>
+              <mat-option value="alphabetical">Alphabetical</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </form>
+      </div>
+      <div
+        fxLayout="row wrap"
+        fxLayoutGap="2rem"
+        fxLayoutAlign="start stretch"
+        class="flex-items"
+      >
+        <div *ngFor="let playlist of filteredPlaylists">
+          <mat-card class="card" [routerLink]="['/playlist/', playlist.id]">
+            <div class="image">
+              <img mat-card-lg-image src="{{ playlist.images[0].url }}" />
+            </div>
+            <mat-card-content>
+              <div class="title">
+                <b>{{ playlist.name | uppercase }}</b>
+                <div>
+                  <a
+                    [routerLink]="
+                      playlist.owner.id !== 'spotify'
+                        ? ['/user/', playlist.owner.id]
+                        : ['/library']
+                    "
+                    >{{ playlist.owner.name }}</a
+                  >
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+    </mat-tab>
+    <mat-tab label="Artists">
+      <div class="search">
+        <h2>Artists</h2>
+        <span class="spacer"></span>
+        <form>
+          <mat-form-field appearance="fill" style="margin-right: 2rem">
+            <mat-label>Search</mat-label>
+            <input
+              matInput
+              [(ngModel)]="artist_search"
+              name="artist_search"
+              placeholder="Ex: Rolling Stones"
+            />
+            <mat-icon matSuffix>search</mat-icon>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Select an option</mat-label>
+            <mat-select
+              [(value)]="artist_sort"
+              (selectionChange)="changeOrder('artists')"
+              disableOptionCentering="true"
+            >
+              <mat-option value="most_relevant">Most Relevant</mat-option>
+              <mat-option value="alphabetical">Alphabetical</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </form>
+      </div>
+      <div
+        fxLayout="row wrap"
+        fxLayoutGap="2rem"
+        fxLayoutAlign="start stretch"
+        class="flex-items"
+      >
+        <div *ngFor="let artist of filteredArtists">
+          <mat-card class="card" [routerLink]="['/artist/', artist.id]">
+            <div class="image">
+              <img
+                mat-card-lg-image
+                class="artist-image"
+                src="{{ artist.images[0].url }}"
+              />
+            </div>
+            <mat-card-content>
+              <div class="title">
+                <b>{{ artist.name | uppercase }} </b>
+                <div>
+                  <p>{{ artist.type | titlecase }}</p>
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+    </mat-tab>
+    <mat-tab label="Albums">
+      <div class="search">
+        <h2>Albums</h2>
+        <span class="spacer"></span>
+        <form>
+          <mat-form-field appearance="fill" style="margin-right: 2rem">
+            <mat-label>Search</mat-label>
+            <input
+              matInput
+              [(ngModel)]="album_search"
+              name="artist_search"
+              placeholder="Ex: Rolling Stones"
+            />
+            <mat-icon matSuffix>search</mat-icon>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Select an option</mat-label>
+            <mat-select
+              [(value)]="album_sort"
+              (selectionChange)="changeOrder('albums')"
+              disableOptionCentering="true"
+            >
+              <mat-option value="most_relevant">Most Relevant</mat-option>
+              <mat-option value="alphabetical">Album</mat-option>
+              <mat-option value="creator">Artist</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </form>
+      </div>
+      <div
+        fxLayout="row wrap"
+        fxLayoutGap="2rem"
+        fxLayoutAlign="start stretch"
+        class="flex-items"
+      >
+        <div *ngFor="let album of filteredAlbums">
+          <mat-card class="card" [routerLink]="['/album/', album.id]">
+            <div class="image">
+              <img mat-card-lg-image src="{{ album.images[0].url }}" />
+            </div>
+            <mat-card-content>
+              <div class="title">
+                <b>{{ album.name | uppercase }}</b>
+                <div>
+                  <a [routerLink]="['/artist/', album.artist.id]">{{
+                    album.artist.name
+                  }}</a>
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>

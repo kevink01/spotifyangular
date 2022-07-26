@@ -125,10 +125,10 @@
   dependencies:
     tslib "^2.3.0"
 
-"@angular/cdk@^14.0.5":
-  version "14.0.5"
-  resolved "https://registry.yarnpkg.com/@angular/cdk/-/cdk-14.0.5.tgz#4e4c6b959429044f530cce8fa02516dd5956d1b6"
-  integrity sha512-9mfrCiFI8Lyn+aVpJWgzFhTHDNA0yopjPy4p84JwgeLZ0BlJks1pUNuc7bqPNydhwvGWlRSEohsTh78hlSm1vA==
+"@angular/cdk@14.1.0":
+  version "14.1.0"
+  resolved "https://registry.yarnpkg.com/@angular/cdk/-/cdk-14.1.0.tgz#abf5ad3cdd96e42666bce949833ac1c2405ab031"
+  integrity sha512-EOQZmlTgj5Tc6/s50kEQUYKWH0S748rzbymBYkvyJs864lP9A8khz83IINmm+PD2sMADKtBETD3aEa5yQRhVAA==
   dependencies:
     tslib "^2.3.0"
   optionalDependencies:
@@ -197,6 +197,13 @@
   dependencies:
     tslib "^2.3.0"
 
+"@angular/flex-layout@^14.0.0-beta.40":
+  version "14.0.0-beta.40"
+  resolved "https://registry.yarnpkg.com/@angular/flex-layout/-/flex-layout-14.0.0-beta.40.tgz#ec3c09389f5ae277d09aebcb2a0c8bf7c1329967"
+  integrity sha512-lYi2BKovNk5u2wmj/AMIMqfUzCBEt99Wu/Gfa+1mUIlw3voKCmIsV2XYBhX4adRdD+dRagY3Opger43JR7PXEw==
+  dependencies:
+    tslib "^2.3.0"
+
 "@angular/forms@^14.0.0":
   version "14.0.6"
   resolved "https://registry.yarnpkg.com/@angular/forms/-/forms-14.0.6.tgz#87aa36b1a3f3bd1ca71615fd250f04f8e660971c"
@@ -204,10 +211,10 @@
   dependencies:
     tslib "^2.3.0"
 
-"@angular/material@^14.0.5":
-  version "14.0.5"
-  resolved "https://registry.yarnpkg.com/@angular/material/-/material-14.0.5.tgz#dbfdbf488f2e0a6c022b955b1f40726ec0ec70a0"
-  integrity sha512-IjY85AhvgTBNaNDjxi10d6nuEvSynO4jioaO+6LYkdAba/d3Lr2MktyNBtc9UWKfaitMVQwE8qvqf3dTskmGBg==
+"@angular/material@14.1.0":
+  version "14.1.0"
+  resolved "https://registry.yarnpkg.com/@angular/material/-/material-14.1.0.tgz#35ee1cd77d8944842f8501e3c120146c83d86141"
+  integrity sha512-0UXfMqP5+Nzd6gbLplQpUX3E0rRRwhVEnAo8Z1hllGdJIY0meunMnTZCWsvYQ7SU/W+VbqnmtBmg5EOfYsjpiQ==
   dependencies:
     tslib "^2.3.0"
 
@@ -2777,6 +2784,11 @@ domutils@^2.8.0:
     dom-serializer "^1.0.1"
     domelementtype "^2.2.0"
     domhandler "^4.2.0"
+
+dotenv@^16.0.1:
+  version "16.0.1"
+  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-16.0.1.tgz#8f8f9d94876c35dac989876a5d3a82a267fdce1d"
+  integrity sha512-1K6hR6wtk2FviQ4kEiSjFiH5rpzEVi8WW0x96aztHVMhEspNpc4DVOUTEHtEva5VThQ8IaBX1Pe4gSzpVVUsKQ==
 
 ee-first@1.1.1:
   version "1.1.1"
