@@ -180,7 +180,7 @@ app.get("/recommendations", (req, res) => {
 
 app.get("/test", (req, res) => {
   return util
-    .test()
+    .test(req.query.id)
     .then((data) => {
       res.json(data);
     })

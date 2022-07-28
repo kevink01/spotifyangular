@@ -41,7 +41,7 @@ module.exports = class Utility {
   }
 
   getMySavedAlbums() {
-  return spotify.getMySavedAlbums().then((data) => {
+    return spotify.getMySavedAlbums().then((data) => {
       return convertMySavedAlbums(data);
     });
   }
@@ -123,9 +123,12 @@ module.exports = class Utility {
   /*   Test    */
   /* ********* */
 
-  test() {
-    return spotify.getAlbum("0kBfgEilUFCMIQY5IOjG4t").then((data) => {
-      return data;
+  test(id) {
+    return spotify.getPlaylist(id, { limit: 1 }).then(async (data) => {
+      const songCount = data.body.tracks.total;
+      return {
+        artists: await convertTest(id, songCount),
+      };
     });
   }
 };
@@ -264,13 +267,28 @@ function convertToPlaylist(id, size) {
           return {
             id: item.track.id,
             name: item.track.name,
-            album: {},
-            artist: {},
+            album: {
+              id: item.track.album.id,
+              name: item.track.album.name,
+              artist: null,
+              date: new Date(item.track.album.release_date),
+              images: item.track.album.images,
+              type: item.track.album.type,
+              uri: item.track.album.uri,
+            },
+            artist: {
+              id: item.track.artists[0].id,
+              name: item.track.artists[0].name,
+              images: null,
+              type: item.track.artists[0].type,
+              uri: item.track.artists[0].uri,
+            },
             duration: item.track.duration_ms,
             popularity: item.track.popularity,
             local: item.is_local,
             explicit: item.track.explicit,
             added: new Date(item.added_at),
+            track: item.track.track_number,
             type: item.track.type,
             uri: item.track.uri,
           };
@@ -383,4 +401,29 @@ function convertRelatedArtists(data) {
       uri: artist.uri,
     };
   });
+}
+
+function convertTest(id, size) {
+  const calls = Math.floor(size / 100) + 1;
+  const offset = Array(calls)
+    .fill(null)
+    .map((_, i) => i * 100);
+  const requests = offset.map((value) => {
+    return spotify
+      .getPlaylistTracks(id, { limit: 100, offset: value })
+      .then((data) => {
+        return data;
+      });
+  });
+  return Promise.all(requests).then((responses) =>
+    Promise.all(
+      responses.flatMap((r) => {
+        return r.body.items.map((item) => {
+          return item.track.artists[0].name;
+        });
+      })
+    ).then((data) => {
+      return data;
+    })
+  );
 }
