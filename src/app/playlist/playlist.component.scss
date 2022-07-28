@@ -1,3 +1,59 @@
-mat-card {
-  width: 20%;
+.playlist-info {
+  display: flex;
+  flex-direction: row;
+}
+
+.details {
+  display: flex;
+  flex-direction: row;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  mat-icon {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+  }
+  mat-card-subtitle {
+    margin-top: 1rem;
+  }
+}
+
+table {
+  width: calc(100vw - 64px);
+}
+
+tr.details-row {
+  height: 0;
+}
+
+tr.track-row:not(.expanded-row):hover {
+  background: whitesmoke;
+}
+
+tr.track-row:not(.expanded-row):active {
+  background: #efefef;
+}
+
+.track-row td {
+  border-bottom-width: 0;
+}
+
+.track-details {
+  overflow: hidden;
+  display: flex;
+}
+
+.mat-column-Title {
+  max-width: 20vw;
+}
+
+.mat-column-Date-Added {
+  max-width: 20%;
+}
+
+.mat-column-Duration {
+  max-width: 10%;
 }

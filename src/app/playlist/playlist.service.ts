@@ -11,6 +11,6 @@ export class PlaylistService {
   constructor(private http: HttpClient) {}
 
   getPlaylist(id: string): Observable<Playlist> {
-    return this.http.get<Playlist>(`${Constants.SERVER_URL}/playlist?id=${id}`);
+    return this.http.get<Playlist>(`${Constants.SERVER_URL}/${Constants.PLAYLIST_URL}?id=${id}`);
   }
 }

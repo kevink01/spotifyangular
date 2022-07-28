@@ -1,93 +1,167 @@
-<div style="display: flex; flex-direction: row; position: sticky">
-  <!-- <img mat-card-xl-image src="{{ playlist.images[0].url }}" /> -->
-  <div>
-    <div style="position: sticky; top: 0; position: -webkit-sticky">
-      <h1 style="position: sticky">{{ playlist.name }}</h1>
-      <h4>{{ playlist.owner.name }}</h4>
+<div *ngIf="playlist" style="width: 100vw">
+  <mat-card>
+    <div class="playlist-info">
+      <img
+        mat-card-sm-image
+        src="{{ playlist.images[0].url }}"
+        style="height: 25vh; width: 25vh"
+      />
+      <mat-card-header>
+        <div
+          style="
+            display: flex;
+            flex-direction: column;
+            /* position: absolute; */
+            margin-left: 1rem;
+            /* bottom: 0; */
+          "
+        >
+          <mat-card-title style="font-size: 40px">{{
+            playlist.name
+          }}</mat-card-title>
+          <div class="details">
+            <div class="info-item">
+              <mat-icon>person</mat-icon>
+              <mat-card-subtitle>{{ playlist.owner.name }}</mat-card-subtitle>
+            </div>
+            <div class="info-item">
+              <mat-icon>music_video</mat-icon>
+              <mat-card-subtitle>{{
+                playlist.tracks.length
+              }}</mat-card-subtitle>
+            </div>
+            <div class="info-item">
+              <mat-icon>access_time</mat-icon>
+              <mat-card-subtitle>{{ this.length }}</mat-card-subtitle>
+            </div>
+          </div>
+        </div>
+      </mat-card-header>
     </div>
-    <p>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam praesentium
-      tenetur, et non doloremque facere dolores. Nisi possimus magni dolores,
-      nemo quibusdam laboriosam error eaque similique quidem accusantium
-      molestiae. Repellendus.
-    </p>
-    <p>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam praesentium
-      tenetur, et non doloremque facere dolores. Nisi possimus magni dolores,
-      nemo quibusdam laboriosam error eaque similique quidem accusantium
-      molestiae. Repellendus.
-    </p>
-    <p>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam praesentium
-      tenetur, et non doloremque facere dolores. Nisi possimus magni dolores,
-      nemo quibusdam laboriosam error eaque similique quidem accusantium
-      molestiae. Repellendus.
-    </p>
-    <p>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam praesentium
-      tenetur, et non doloremque facere dolores. Nisi possimus magni dolores,
-      nemo quibusdam laboriosam error eaque similique quidem accusantium
-      molestiae. Repellendus.
-    </p>
-    <p>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam praesentium
-      tenetur, et non doloremque facere dolores. Nisi possimus magni dolores,
-      nemo quibusdam laboriosam error eaque similique quidem accusantium
-      molestiae. Repellendus.
-    </p>
-    <p>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam praesentium
-      tenetur, et non doloremque facere dolores. Nisi possimus magni dolores,
-      nemo quibusdam laboriosam error eaque similique quidem accusantium
-      molestiae. Repellendus.
-    </p>
-    <p>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam praesentium
-      tenetur, et non doloremque facere dolores. Nisi possimus magni dolores,
-      nemo quibusdam laboriosam error eaque similique quidem accusantium
-      molestiae. Repellendus.
-    </p>
-    <p>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam praesentium
-      tenetur, et non doloremque facere dolores. Nisi possimus magni dolores,
-      nemo quibusdam laboriosam error eaque similique quidem accusantium
-      molestiae. Repellendus.
-    </p>
-    <p>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam praesentium
-      tenetur, et non doloremque facere dolores. Nisi possimus magni dolores,
-      nemo quibusdam laboriosam error eaque similique quidem accusantium
-      molestiae. Repellendus.
-    </p>
-    <p>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam praesentium
-      tenetur, et non doloremque facere dolores. Nisi possimus magni dolores,
-      nemo quibusdam laboriosam error eaque similique quidem accusantium
-      molestiae. Repellendus.
-    </p>
-    <p>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam praesentium
-      tenetur, et non doloremque facere dolores. Nisi possimus magni dolores,
-      nemo quibusdam laboriosam error eaque similique quidem accusantium
-      molestiae. Repellendus.
-    </p>
-    <p>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam praesentium
-      tenetur, et non doloremque facere dolores. Nisi possimus magni dolores,
-      nemo quibusdam laboriosam error eaque similique quidem accusantium
-      molestiae. Repellendus.
-    </p>
-    <p>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam praesentium
-      tenetur, et non doloremque facere dolores. Nisi possimus magni dolores,
-      nemo quibusdam laboriosam error eaque similique quidem accusantium
-      molestiae. Repellendus.
-    </p>
-    <p>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam praesentium
-      tenetur, et non doloremque facere dolores. Nisi possimus magni dolores,
-      nemo quibusdam laboriosam error eaque similique quidem accusantium
-      molestiae. Repellendus.
-    </p>
-  </div>
+    <mat-card-content>
+      <table mat-table [dataSource]="playlist.tracks" multiTemplateDataRows>
+        <ng-container matColumnDef="#">
+          <th mat-header-cell *matHeaderCellDef>#</th>
+          <td mat-cell *matCellDef="let element; let i = dataIndex">
+            {{ i + 1 }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="Title">
+          <th mat-header-cell *matHeaderCellDef class="name-width">Title</th>
+          <td mat-cell *matCellDef="let element" class="name-width">
+            {{ element.name }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="Album">
+          <th mat-header-cell *matHeaderCellDef [attr.colSpan]="5">Album</th>
+          <td mat-cell *matCellDef="let element" [attr.colSpan]="5">
+            {{ element.album.name }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="Date Added">
+          <th mat-header-cell *matHeaderCellDef [attr.colSpan]="3">
+            Date Added
+          </th>
+          <td mat-cell *matCellDef="let element" [attr.colSpan]="3">
+            {{ element.added | date: "M/dd/yyyy" }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="Duration">
+          <th mat-header-cell *matHeaderCellDef [attr.colSpan]="2">Duration</th>
+          <td mat-cell *matCellDef="let element" [attr.colSpan]="2">
+            {{ element.duration | date: "mm:ss" }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="expand">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-icon-button (click)="toggleExpand(element)">
+              <mat-icon
+                *ngIf="expandedElement === element"
+                (click)="toggleExpand(element)"
+                >keyboard_arrow_up</mat-icon
+              >
+              <mat-icon
+                *ngIf="expandedElement !== element"
+                (click)="toggleExpand(element)"
+                >keyboard_arrow_down</mat-icon
+              >
+            </button>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="details">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td
+            mat-cell
+            *matCellDef="let element"
+            [attr.colspan]="expandHeaders.length + 9"
+          >
+            <div
+              class="track-details"
+              [@detailsToggle]="
+                element === expandedElement ? 'expanded' : 'collapsed'
+              "
+            >
+              <mat-card>
+                <div style="display: flex; flex-direction: row">
+                  <div *ngIf="element.album.images.length">
+                    <img
+                      src="{{ element.album.images[0].url }}"
+                      width="100vw"
+                      height="100vh"
+                    />
+                  </div>
+                  <div *ngIf="!element.album.images.length">
+                    <img
+                      src="{{ playlist.images[0].url }}"
+                      width="100vw"
+                      height="100vh"
+                    />
+                  </div>
+                  <div
+                    style="
+                      display: flex;
+                      flex-direction: column;
+                      margin-left: 1rem;
+                    "
+                  >
+                    <mat-card-title>{{ element.name }}</mat-card-title>
+                    <div>
+                      <mat-icon>album</mat-icon>
+                      {{ element.album.name }}
+                    </div>
+                    <div>
+                      <mat-icon>calendar_today</mat-icon>
+                      {{
+                        element.local
+                          ? (element.added | date: "M/dd/yyyy")
+                          : (element.album.date | date: "M/dd/yyyy")
+                      }}
+                    </div>
+                    <div>
+                      <mat-icon>shuffle</mat-icon>
+                      {{ element.local ? "1" : element.track }}
+                    </div>
+                  </div>
+                </div>
+              </mat-card>
+            </div>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="expandHeaders"></tr>
+        <tr
+          mat-row
+          *matRowDef="let element; columns: expandHeaders"
+          class="track-row"
+          [class.expanded-row]="expandedElement === element"
+          (click)="toggleExpand(element)"
+        ></tr>
+        <tr
+          mat-row
+          *matRowDef="let row; columns: ['details']"
+          class="details-row"
+        ></tr>
+      </table>
+    </mat-card-content>
+  </mat-card>
 </div>
