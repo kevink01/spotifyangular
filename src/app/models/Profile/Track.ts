@@ -1,5 +1,6 @@
-import { ITrack } from "../core/ITrack";
+import { ITrack } from '../core/ITrack';
 
 export interface Track extends ITrack {
   added: Date;
+  track: number;
 }
