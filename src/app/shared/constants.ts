@@ -27,7 +27,7 @@ export class Constants {
     // Playback scope
     // 'app-remote-control',
     // 'streaming'
-  ].join(' ');
+  ].join('%20');
   public static readonly AUTH_URL: string = `https://accounts.spotify.com/authorize?client_id=${environment.clientID}&response_type=code&redirect_uri=http://localhost:4200/login&scope=${this.SCOPES}`;
 
   public static readonly SERVER_URL: string = 'http://localhost:4201';
@@ -36,7 +36,6 @@ export class Constants {
   /*       LOGIN       */
   /* ***************** */
   public static readonly LOGIN_URL: string = 'login';
-
 
   /* ******************** */
   /*       PROFILE        */

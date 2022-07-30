@@ -17,6 +17,9 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { PlaylistComponent } from './playlist/playlist.component';
 import { LibraryComponent } from './library/library.component';
+import { TestComponent } from './test/test.component';
+import { PrimengModule } from './shared/primeng.module';
+import {StyleClassModule} from "primeng/styleclass";
 
 @NgModule({
   declarations: [
@@ -28,17 +31,20 @@ import { LibraryComponent } from './library/library.component';
     DashboardComponent,
     PlaylistComponent,
     LibraryComponent,
+    TestComponent,
   ],
-  imports: [
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    BrowserModule,
-    FlexLayoutModule,
-    FormsModule,
-    HttpClientModule,
-    SharedModule,
-    ReactiveFormsModule,
-  ],
+    imports: [
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        BrowserModule,
+        FlexLayoutModule,
+        FormsModule,
+        HttpClientModule,
+        SharedModule,
+        PrimengModule,
+        ReactiveFormsModule,
+        StyleClassModule,
+    ],
   providers: [],
   bootstrap: [AppComponent],
 })

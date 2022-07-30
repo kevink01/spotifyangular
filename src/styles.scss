@@ -1,52 +1,6 @@
-@use "@angular/material" as mat;
-// @use "./material-theme/themes" as palette;
-@use "./material-theme/palette" as palette;
-@include mat.core();
-
-$background: hsl(0, 5%, 21%);
-
-$warn: mat.define-palette(mat.$orange-palette);
-$light-green: mat.define-palette(palette.$green, 500);
-$dark-green: mat.define-palette(palette.$green, 900);
-$grey-palette: mat.define-palette(palette.$grey);
-
-$light-theme: mat.define-light-theme(
-  (
-    color: (
-      primary: $dark-green,
-      accent: $grey-palette,
-      warn: $warn,
-    ),
-  )
-);
-
-$dark-theme: mat.define-dark-theme(
-  (
-    color: (
-      primary: $light-green,
-      accent: $grey-palette,
-      warn: $warn,
-    ),
-  )
-);
-$grey-color: mat.get-color-from-palette($grey-palette, "500");
-@include mat.all-component-themes($light-theme);
-@include mat.input-theme($light-theme);
-@include mat.form-field-theme($light-theme);
-
-.dark-theme {
-  @include mat.all-component-themes($dark-theme);
-  @include mat.input-theme($dark-theme);
-  @include mat.form-field-theme($dark-theme);
-  background: $background;
-}
-
 .spacer {
   flex: 1 1 auto;
 }
-
-$light-config: mat.get-color-config($light-theme);
-$dark-config: mat.get-color-config($dark-theme);
 
 body {
   margin: 0;
