@@ -9,15 +9,19 @@ import { SidebarModule } from 'primeng/sidebar';
 import { CardModule } from 'primeng/card';
 import { DividerModule } from 'primeng/divider';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
+import { TabViewModule } from 'primeng/tabview';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 const MODULES = [
   CardModule,
   ToolbarModule,
+  ProgressSpinnerModule,
   ButtonModule,
   DividerModule,
   ScrollPanelModule,
   MenuModule,
   MenubarModule,
   TieredMenuModule,
+  TabViewModule,
   SidebarModule,
 ];
 @NgModule({

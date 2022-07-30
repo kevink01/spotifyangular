@@ -11,23 +11,23 @@ export class Constants {
     'playlist-modify-public',
     'playlist-read-private',
     'playlist-modify-private',
-    // Listen history scope
-    'user-read-recently-played',
-    'user-read-playback-position',
-    'user-top-read',
-    // Follow scope
-    'user-follow-modify',
-    'user-follow-read',
-    // Image scope
-    'ugc-image-upload',
-    // Spotify connect scope
-    // 'user-modify-playback-state',
-    // 'user-read-playback-state',
-    // 'user-read-currently-playing',
-    // Playback scope
-    // 'app-remote-control',
-    // 'streaming'
-  ].join('%20');
+    // // Listen history scope
+    // 'user-read-recently-played',
+    // 'user-read-playback-position',
+    // 'user-top-read',
+    // // Follow scope
+    // 'user-follow-modify',
+    // 'user-follow-read',
+    // // Image scope
+    // 'ugc-image-upload',
+    // // Spotify connect scope
+    // // 'user-modify-playback-state',
+    // // 'user-read-playback-state',
+    // // 'user-read-currently-playing',
+    // // Playback scope
+    // // 'app-remote-control',
+    // // 'streaming'
+  ].join(' ');
   public static readonly AUTH_URL: string = `https://accounts.spotify.com/authorize?client_id=${environment.clientID}&response_type=code&redirect_uri=http://localhost:4200/login&scope=${this.SCOPES}`;
 
   public static readonly SERVER_URL: string = 'http://localhost:4201';

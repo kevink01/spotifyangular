@@ -18,12 +18,18 @@ module.exports = class Utility {
   /*       LOGIN       */
   /* ***************** */
   login(code) {
-    return spotify.authorizationCodeGrant(code).then((data) => {
-      spotify.setAccessToken(data.body.access_token);
-      spotify.setRefreshToken(data.body.refresh_token);
-      data.statusCode = 200;
-      return { expires: data.body.expires_in, status: 200 };
-    });
+    return spotify
+      .authorizationCodeGrant(code)
+      .then((data) => {
+        spotify.setAccessToken(data.body.access_token);
+        spotify.setRefreshToken(data.body.refresh_token);
+        data.statusCode = 200;
+        return { expires: data.body.expires_in, status: 200 };
+      })
+      .catch((err) => {
+        console.log(err);
+        return err;
+      });
   }
 
   /* ******************** */

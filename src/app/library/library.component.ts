@@ -35,6 +35,7 @@ export class LibraryComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.subscriptions.push(
       this.libraryService.getPlaylists().subscribe((playlists) => {
+        console.log(playlists);
         this.playlists = playlists;
         this.filteredPlaylists = this.playlists;
       })

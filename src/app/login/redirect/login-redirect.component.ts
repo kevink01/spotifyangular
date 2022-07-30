@@ -22,12 +22,6 @@ export class LoginRedirectComponent implements OnInit {
     ) as string;
     this.loginService.login(this.code).subscribe((data) => {
       if (data) {
-        // console.log(data);
-        // this.loginService
-        //   .setUser(<Credentials>JSON.parse(data.toString()))
-        //   .then(() => {
-        //     this.router.navigate(['/dashboard']);
-        //   });
         this.router.navigate(['/dashboard']);
       }
     });
