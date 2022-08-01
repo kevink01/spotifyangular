@@ -12,14 +12,14 @@ export class Constants {
     'playlist-read-private',
     'playlist-modify-private',
     // // Listen history scope
-    // 'user-read-recently-played',
-    // 'user-read-playback-position',
+    'user-read-recently-played',
+    'user-read-playback-position',
     // 'user-top-read',
     // // Follow scope
-    // 'user-follow-modify',
-    // 'user-follow-read',
+    'user-follow-modify',
+    'user-follow-read',
     // // Image scope
-    // 'ugc-image-upload',
+    'ugc-image-upload',
     // // Spotify connect scope
     // // 'user-modify-playback-state',
     // // 'user-read-playback-state',
