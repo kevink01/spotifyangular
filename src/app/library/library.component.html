@@ -1,7 +1,59 @@
 <p-tabView class="w-12">
-  <p-tabPanel header="Playlists" headerStyleClass="w-4 mt-1 mb-2">
-    <div *ngFor="let playlist of playlists">
-      <p>{{ playlist.name }}</p>
+  <p-tabPanel id="tabs" header="Playlists" headerStyleClass="w-4 mt-1 mb-2">
+    <div class="card w-12">
+      <p-dataView
+        #dv
+        [value]="this.filteredPlaylists"
+        [sortField]="this.playlistSort"
+        [paginator]="false"
+        filterBy="name"
+        layout="grid"
+      >
+        <ng-template pTemplate="header">
+          <div
+            id="header"
+            class="flex flex-column md:flex-row md:justify-content-between mt-3"
+          >
+            <p-dropdown
+              [options]="this.playlistOptions"
+              (onChange)="changeSort($event)"
+            ></p-dropdown>
+            <span class="p-input-icon-left p-float-label mb-4 md:mb-0">
+              <i class="pi pi-search"></i>
+              <input
+                id="search-label"
+                type="search"
+                pInputText
+                placeholder="Search by Name"
+                (input)="dv.filter(this.playlistSortInput, 'contains')"
+                [(ngModel)]="this.playlistSortInput"
+              />
+              <label for="search-label">Search</label>
+            </span>
+          </div>
+        </ng-template>
+
+        <ng-template let-playlist pTemplate="gridItem">
+          <div
+            class="card w-12 md:w-6 lg:w-4 xl:w-3 hover:bg-white-alpha-50 hover:text-green-500"
+          >
+            <div class="flex card-header justify-content-center">
+              <img
+                src="{{ playlist.images[0].url }}"
+                style="width: 200px; height: 200px; margin-top: 1rem"
+              />
+            </div>
+            <div class="flex flex-column card-content text-center">
+              <p class="m-0 text-white-alpha-90 text-lg">
+                {{ playlist.name }}
+              </p>
+              <p class="m-0 text-white-alpha-60">
+                {{ playlist.owner.name }}
+              </p>
+            </div>
+          </div>
+        </ng-template>
+      </p-dataView>
     </div>
   </p-tabPanel>
   <p-tabPanel header="Artists" headerStyleClass="w-4 mt-1 mb-2">

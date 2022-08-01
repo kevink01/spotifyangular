@@ -23,8 +23,7 @@ export class SidenavComponent implements OnInit {
     return this._AUTH_LINK;
   }
 
-  authorize(): void {
-    console.log(this.AUTH_LINK);
-    // this.router.navigate([this.AUTH_LINK]);
+  navigate(url: string): void {
+    this.router.navigate(['/' + url]);
   }
 }

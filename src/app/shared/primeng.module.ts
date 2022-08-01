@@ -1,28 +1,35 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ToolbarModule } from 'primeng/toolbar';
+
 import { ButtonModule } from 'primeng/button';
+import { CardModule } from 'primeng/card';
+import { DataViewModule } from 'primeng/dataview';
+import { DividerModule } from 'primeng/divider';
+import { DropdownModule } from 'primeng/dropdown';
+import { InputTextModule } from 'primeng/inputtext';
 import { MenubarModule } from 'primeng/menubar';
 import { MenuModule } from 'primeng/menu';
-import { TieredMenuModule } from 'primeng/tieredmenu';
-import { SidebarModule } from 'primeng/sidebar';
-import { CardModule } from 'primeng/card';
-import { DividerModule } from 'primeng/divider';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { TabViewModule } from 'primeng/tabview';
-import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { TieredMenuModule } from 'primeng/tieredmenu';
+import { ToolbarModule } from 'primeng/toolbar';
+
+
 const MODULES = [
-  CardModule,
-  ToolbarModule,
-  ProgressSpinnerModule,
   ButtonModule,
+  CardModule,
+  DataViewModule,
   DividerModule,
-  ScrollPanelModule,
-  MenuModule,
+  DropdownModule,
+  InputTextModule,
   MenubarModule,
-  TieredMenuModule,
+  MenuModule,
+  ProgressSpinnerModule,
+  ScrollPanelModule,
   TabViewModule,
-  SidebarModule,
+  TieredMenuModule,
+  ToolbarModule,
 ];
 @NgModule({
   declarations: [],

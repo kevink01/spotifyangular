@@ -11,6 +11,5 @@ export class DashboardComponent implements OnInit {
   playlists: IPlaylist[] = [];
   constructor(private accountService: AccountService) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 }

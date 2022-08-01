@@ -4,7 +4,7 @@
       <div class="grid">
         <div
           class="menu-item col-12 lg:col-6 flex flex-row justify-content-start hover:text-green-500"
-          routerLink="'/dashboard'"
+          (click)="this.navigate('dashboard')"
         >
           <i
             class="pi pi-home"
@@ -14,7 +14,7 @@
         </div>
         <div
           class="menu-item col-12 lg:col-6 flex flex-row justify-content-start hover:text-green-500"
-          routerLink="'/dashboard'"
+          (click)="this.navigate('dashboard')"
         >
           <i
             class="pi pi-plus"
@@ -26,7 +26,7 @@
         </div>
         <div
           class="menu-item col-12 lg:col-6 flex flex-row justify-content-start hover:text-green-500"
-          routerLink="'/library'"
+          (click)="this.navigate('library')"
         >
           <i
             class="pi pi-book"
@@ -36,7 +36,7 @@
         </div>
         <div
           class="menu-item col-12 lg:col-6 flex flex-row justify-content-start hover:text-green-500"
-          routerLink="'/library'"
+          (click)="this.navigate('library')"
         >
           <i
             class="pi pi-heart-fill"
@@ -57,7 +57,6 @@
           label="Authorize"
           class="p-button-lg"
           [href]="this.AUTH_LINK"
-          (click)="this.authorize()"
         ></a>
       </div>
     </p-card>
