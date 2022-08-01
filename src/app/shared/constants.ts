@@ -30,6 +30,7 @@ export class Constants {
   ].join(' ');
   public static readonly AUTH_URL: string = `https://accounts.spotify.com/authorize?client_id=${environment.clientID}&response_type=code&redirect_uri=http://localhost:4200/login&scope=${this.SCOPES}`;
 
+  // TODO Move URLs to Environment.ts & Environment.prod.ts
   public static readonly SERVER_URL: string = 'http://localhost:4201';
 
   /* ***************** */
