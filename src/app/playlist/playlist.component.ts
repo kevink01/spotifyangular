@@ -32,9 +32,7 @@ export class PlaylistComponent implements OnInit, OnDestroy {
   playlist!: Playlist;
   length: string = '';
   subscription!: Subscription;
-  displayHeaders: string[] = ['#', 'Title', 'Album', 'Date Added', 'Duration'];
-  expandHeaders: string[] = [...this.displayHeaders, 'expand'];
-  expandedElement!: Track | null;
+  loading = true;
   constructor(
     private activatedRoute: ActivatedRoute,
     private playlistService: PlaylistService
@@ -46,6 +44,7 @@ export class PlaylistComponent implements OnInit, OnDestroy {
       .getPlaylist(this.id)
       .subscribe((playlist) => {
         console.log(playlist);
+        this.loading = false;
         this.playlist = playlist;
         this.length = this.calculateDuration(playlist.tracks);
       });
@@ -61,13 +60,6 @@ export class PlaylistComponent implements OnInit, OnDestroy {
     return `${hours}:${minutes}`;
   }
 
-  toggleExpand(element: Track): void {
-    if (this.expandedElement !== element) {
-      this.expandedElement = element;
-    } else {
-      this.expandedElement = null;
-    }
-  }
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }

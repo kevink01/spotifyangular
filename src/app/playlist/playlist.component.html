@@ -1,4 +1,134 @@
-<div *ngIf="playlist" style="width: 100vw">
+<div class="card w-12">
+  <p-table
+    #dt
+    [loading]="loading"
+    [value]="playlist ? playlist.tracks : []"
+    [scrollable]="true"
+    scrollHeight="595px"
+    [globalFilterFields]="['name', 'artist.name', 'album.name']"
+  >
+    <ng-template pTemplate="caption">
+      <!-- TODO Skeleton for loading -->
+      <div class="flex flex-row sticky w-12">
+        <div class="flex w-4 xl:w-3 align-items-center">
+          <img
+            *ngIf="!loading"
+            src="{{ playlist.images[0].url }}"
+            class="w-9rem md:w-11rem lg:w-15rem h-9rem md:h-11rem lg:h-15rem"
+          />
+        </div>
+        <div class="flex flex-column w-4 justify-content-center">
+          <div class="flex-auto">
+            <h1 class="mt-0 mb-2 text-primary">{{ playlist.name }}</h1>
+            <h3 class="mt-0 text-secondary">{{ playlist.owner.name }}</h3>
+          </div>
+          <div class="flex flex-column flex-initial gap-1">
+            <div>
+              <i class="pi pi-star"></i>
+              <span class="ml-2">{{ playlist.tracks.length }}</span>
+            </div>
+            <div>
+              <i class="pi pi-clock"></i>
+              <span class="ml-2">{{ length }}</span>
+            </div>
+            <div>
+              <i *ngIf="playlist.public" class="pi pi-lock-open"></i>
+              <i *ngIf="!playlist.public" class="pi pi-lock"></i>
+              <span class="ml-2"
+                >{{ playlist.public ? "Public" : "Private" }} playlist</span
+              >
+            </div>
+          </div>
+        </div>
+        <div class="flex flex-column w-4 justify-content-center">
+          <div class="absolute bottom-0 right-0">
+            <span class="p-float-label p-input-icon-left p-input-icon-right">
+              <i
+                class="pi pi-search hover:text-green-500"
+                (click)="search.focus()"
+              ></i>
+              <input
+                #search
+                id="float-input"
+                name="filter"
+                type="text"
+                pInputText
+                placeholder="Search for keyword"
+                (input)="dt.filterGlobal(search.value, 'contains')"
+              />
+              <label for="float-input">Search</label>
+              <i
+                class="pi pi-times hover:text-green-500"
+                (click)="search.value = ''"
+              ></i>
+            </span>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="name">
+          Name<p-sortIcon field="name"></p-sortIcon>
+        </th>
+        <th pSortableColumn="album.name">
+          Album<p-sortIcon field="album.name"></p-sortIcon>
+        </th>
+        <th pSortableColumn="added">
+          Date Added<p-sortIcon field="added"></p-sortIcon>
+        </th>
+        <th pSortableColumn="duration">
+          Duration<p-sortIcon field="duration"></p-sortIcon>
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-track>
+      <tr>
+        <td>
+          <div class="flex flex-row m-2">
+            <div *ngIf="track.album.images.length">
+              <img
+                src="{{ track.album.images[0].url }}"
+                style="width: '50px'; height: '50px'"
+              />
+            </div>
+            <div *ngIf="!track.album.images.length">
+              <img
+                src="{{ playlist.images[0].url }}"
+                style="width: '50px'; height: '50px'"
+              />
+            </div>
+            <div class="flex flex-column m-2">
+              <a
+                class="font-semibold text-white-alpha-70 hover:text-white-alpha-90"
+                [href]="'album/' + track.album.id"
+                >{{ track.name }}</a
+              >
+              <a
+                *ngIf="!track.local"
+                class="text-white-alpha-50 hover:text-white-alpha-90"
+                [href]="'album/' + track.album.id"
+                >{{ track.artist.name }}</a
+              >
+              <span
+                *ngIf="track.local"
+                class="text-white-alpha-50 hover:text-white-alpha-90"
+                style="cursor: pointer"
+              >
+                {{ track.artist.name }}</span
+              >
+            </div>
+          </div>
+        </td>
+        <td>{{ track.album.name }}</td>
+        <td>{{ track.added | date: "M/dd/yyy" }}</td>
+        <td>{{ track.duration | date: "mm:ss" }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+<!-- <div *ngIf="playlist" style="width: 100vw">
   <mat-card>
     <div class="playlist-info">
       <img
@@ -164,4 +294,4 @@
       </table>
     </mat-card-content>
   </mat-card>
-</div>
+</div> -->

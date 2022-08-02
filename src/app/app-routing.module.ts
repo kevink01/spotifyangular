@@ -12,7 +12,7 @@ const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'library', component: LibraryComponent },
-  // { path: 'playlist/:id', component: PlaylistComponent },
+  { path: 'playlist/:id', component: PlaylistComponent },
   { path: 'login', component: LoginRedirectComponent },
   { path: 'test', component: ToolbarComponent },
   { path: '**', redirectTo: 'dashboard', pathMatch: 'full' },

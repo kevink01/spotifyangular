@@ -11,10 +11,11 @@ import { MenubarModule } from 'primeng/menubar';
 import { MenuModule } from 'primeng/menu';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
+import { SkeletonModule } from 'primeng/skeleton';
+import { TableModule } from 'primeng/table';
 import { TabViewModule } from 'primeng/tabview';
 import { TieredMenuModule } from 'primeng/tieredmenu';
 import { ToolbarModule } from 'primeng/toolbar';
-
 
 const MODULES = [
   ButtonModule,
@@ -27,6 +28,8 @@ const MODULES = [
   MenuModule,
   ProgressSpinnerModule,
   ScrollPanelModule,
+  SkeletonModule,
+  TableModule,
   TabViewModule,
   TieredMenuModule,
   ToolbarModule,
