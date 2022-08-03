@@ -11,11 +11,14 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { PlaylistEditComponent } from './edit/playlist-edit.component';
 
 @Component({
   selector: 'spotify-playlist',
   templateUrl: './playlist.component.html',
   styleUrls: ['./playlist.component.scss'],
+  providers: [DialogService],
   animations: [
     trigger('detailsToggle', [
       state('collapsed', style({ height: 0, maxHeight: 0 })),
@@ -33,9 +36,12 @@ export class PlaylistComponent implements OnInit, OnDestroy {
   length: string = '';
   subscription!: Subscription;
   loading = true;
+  edit = false;
+  private dialogRef!: DynamicDialogRef;
   constructor(
     private activatedRoute: ActivatedRoute,
-    private playlistService: PlaylistService
+    private playlistService: PlaylistService,
+    private dialogService: DialogService
   ) {}
 
   ngOnInit(): void {
@@ -59,8 +65,27 @@ export class PlaylistComponent implements OnInit, OnDestroy {
     let minutes = Math.floor((time % 3600000) / 60000);
     return `${hours}:${minutes}`;
   }
+  show(): void {
+    this.dialogRef = this.dialogService.open(PlaylistEditComponent, {
+      header: `Edit ${this.playlist.name}`,
+      width: '50vw',
+      height: '75vh',
+      data: this.playlist.tracks,
+    });
+    this.dialogRef.onClose.subscribe(() => console.log('Done'));
+  }
+
+  getDialog(): DynamicDialogRef {
+    return this.dialogRef;
+  }
+  getTracks(): Track[] {
+    return this.playlist.tracks;
+  }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+    if (this.dialogRef) {
+      this.dialogRef.close();
+    }
   }
 }

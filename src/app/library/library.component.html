@@ -40,7 +40,10 @@
         </ng-template>
         <!-- TODO Wrap content in a scrollPanel -->
         <ng-template let-playlist pTemplate="gridItem">
-          <div class="card w-12 md:w-6 lg:w-4 xl:w-3 hover:bg-white-alpha-50">
+          <div
+            class="card w-12 md:w-6 lg:w-4 xl:w-3 hover:bg-white-alpha-50"
+            (click)="navigate('playlist', playlist.id)"
+          >
             <div class="flex card-header justify-content-center mb-2">
               <img
                 src="{{ playlist.images[0].url }}"

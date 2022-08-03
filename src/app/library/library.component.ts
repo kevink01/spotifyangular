@@ -1,9 +1,4 @@
-import {
-  Component,
-  OnDestroy,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { IAlbum } from '../models/core/IAlbum';
@@ -40,7 +35,7 @@ export class LibraryComponent implements OnInit, OnDestroy {
 
   subscriptions: Subscription[] = [];
 
-  constructor(private libraryService: LibraryService) {}
+  constructor(private libraryService: LibraryService, private router: Router) {}
 
   ngOnInit(): void {
     this.subscriptions.push(
@@ -130,6 +125,11 @@ export class LibraryComponent implements OnInit, OnDestroy {
         break;
     }
   }
+
+  navigate(page: string, id: string): void {
+    this.router.navigate([`/${page}/`, id]);
+  }
+
   ngOnDestroy(): void {
     this.subscriptions.forEach((subscription: Subscription) =>
       subscription.unsubscribe()
