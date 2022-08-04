@@ -13,11 +13,10 @@ const util = new Utility();
  * Including environment variables for client ID and client secret
  */
 const cors = require("cors");
-const bodyParser = require("body-parser");
 
 const app = express();
 app.use(cors());
-app.use(bodyParser.json());
+app.use(express.json());
 
 /* ***************** */
 /*       LOGIN       */
@@ -94,6 +93,18 @@ app.get("/top/artists", (req, res) => {
 /* ********************** */
 /*        Playlist        */
 /* ********************** */
+
+app.post("/playlist", (req, res) => {
+  util
+    .createPlaylist(req.body)
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((err) => {
+      res.json(err);
+    });
+});
+
 app.get("/library/playlists", (req, res) => {
   util
     .getPlaylists()
@@ -178,9 +189,9 @@ app.get("/recommendations", (req, res) => {
     });
 });
 
-app.get("/test", (req, res) => {
+app.post("/test", (req, res) => {
   return util
-    .test(req.query.id)
+    .test(req.body)
     .then((data) => {
       res.json(data);
     })

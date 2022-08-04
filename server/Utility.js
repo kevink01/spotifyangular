@@ -27,8 +27,11 @@ module.exports = class Utility {
         return { expires: data.body.expires_in, status: 200 };
       })
       .catch((err) => {
-        console.log(err);
-        return err;
+        return {
+          name: err.body.error,
+          message: err.body.error_description,
+          statusCode: err.statusCode,
+        };
       });
   }
 
@@ -67,6 +70,21 @@ module.exports = class Utility {
   /* ********************** */
   /*        Playlist        */
   /* ********************** */
+
+  createPlaylist(playlist) {
+    return spotify
+      .createPlaylist(playlist.name, {
+        description: playlist.description,
+        public: playlist.public,
+        collaborative: playlist.collaborative,
+      })
+      .then((data) => {
+        return convertCreatePlaylist(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 
   getPlaylists() {
     return spotify.getUserPlaylists().then((data) => {
@@ -129,13 +147,16 @@ module.exports = class Utility {
   /*   Test    */
   /* ********* */
 
-  test(id) {
-    return spotify.getPlaylist(id, { limit: 1 }).then(async (data) => {
-      const songCount = data.body.tracks.total;
-      return {
-        artists: await convertTest(id, songCount),
-      };
-    });
+  test(playlist) {
+    return spotify
+      .createPlaylist(playlist.name, {
+        description: playlist.description,
+        public: playlist.public,
+        collaborative: playlist.collaborative,
+      })
+      .then((data) => {
+        return convertCreatePlaylist(data);
+      });
   }
 };
 
@@ -326,6 +347,10 @@ function convertToFeaturedPlaylist(data) {
       uri: playlist.uri,
     };
   });
+}
+
+function convertCreatePlaylist(data) {
+  return data;
 }
 
 /* ****************** */

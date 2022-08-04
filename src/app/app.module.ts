@@ -22,8 +22,6 @@ import { PlaylistEditComponent } from './playlist/edit/playlist-edit.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { TestComponent } from './test/test.component';
 import { ToolbarComponent } from './toolbar/toolbar.component';
-import { InformationComponent } from './sidenav/playlist/information/information.component';
-import { SongsComponent } from './sidenav/playlist/songs/songs.component';
 
 @NgModule({
   declarations: [
@@ -38,8 +36,6 @@ import { SongsComponent } from './sidenav/playlist/songs/songs.component';
     SidenavComponent,
     ToolbarComponent,
     TestComponent,
-    InformationComponent,
-    SongsComponent,
   ],
   imports: [
     AppRoutingModule,

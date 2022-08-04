@@ -53,7 +53,7 @@ export class Constants {
   public static readonly USER_PLAYLISTS_URL: string = 'library/playlists';
   public static readonly PLAYLIST_URL: string = 'playlist';
   public static readonly FEAUTRED_PLAYLISTS_URL: string = 'featured';
-
+  public static readonly CREATE_PLAYLIST_URL: string = 'playlist/new';
   /* ****************** */
   /*       Artist       */
   /* ****************** */
