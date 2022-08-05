@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
-import { FlexLayoutModule } from '@angular/flex-layout';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 
@@ -41,7 +40,6 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
     AppRoutingModule,
     BrowserAnimationsModule,
     BrowserModule,
-    FlexLayoutModule,
     FormsModule,
     HttpClientModule,
     PrimengModule,
