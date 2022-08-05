@@ -1,31 +1,32 @@
-<mat-toolbar style="height: 64px" [class.toolbar-dark]="isDark">
-  <mat-toolbar-row>
-    <button mat-icon-button color="primary" (click)="toggleSidenavEmit()">
-      <mat-icon>menu</mat-icon>
-    </button>
-    <span>Spotify Clone</span>
-    <span class="spacer"></span>
-    <button mat-icon-button color="primary" (click)="toggleTheme()">
-      <mat-icon>dark_mode</mat-icon>
-    </button>
-    <div>
-      <button mat-icon-button color="primary" [matMenuTriggerFor]="menu">
-        <mat-icon>settings</mat-icon>
-      </button>
-      <mat-menu #menu class="menu" id="menu">
-        <button mat-menu-item class="menu-button">
-          <mat-icon class="menu-icon">account_circle</mat-icon>Profile
-        </button>
-        <button mat-menu-item class="menu-button">
-          <mat-icon class="menu-icon">settings</mat-icon>Settings
-        </button>
-        <mat-divider style="background-color: hsl(132, 6%, 60%)"></mat-divider>
-        <button mat-menu-item class="menu-button">
-          <mat-icon class="menu-icon">logout</mat-icon>Logout
-        </button>
-      </mat-menu>
-    </div>
-  </mat-toolbar-row>
-</mat-toolbar>
-<spotify-sidenav #sidenav></spotify-sidenav>
-<!-- <spotify-sidenav #sidenav></spotify-sidenav> -->
+<p-toolbar>
+  <div class="p-toolbar-group-left">
+    <button
+      pButton
+      type="button"
+      icon="pi pi-bars"
+      class="p-button-rounded p-button-outlined p-button-text mt-1 mr-2"
+    ></button>
+    <button
+      pButton
+      type="button"
+      label="Spotify Clone"
+      class="p-button-lg p-button-text"
+    ></button>
+  </div>
+
+  <!-- TODO menu button display user -->
+  <div class="p-toolbar-group-right">
+    <p-button
+      type="button"
+      icon="pi pi-youtube"
+      label="Show"
+      styleClass="p-button-rounded p-button-lg"
+      (click)="menu.toggle($event)"
+    ></p-button>
+    <p-tieredMenu #menu [model]="items" [popup]="true"></p-tieredMenu>
+  </div>
+</p-toolbar>
+<div class="grid grid-nogutter">
+  <div class="col-3"><spotify-sidenav></spotify-sidenav></div>
+  <div #content class="col-9"><router-outlet></router-outlet></div>
+</div>

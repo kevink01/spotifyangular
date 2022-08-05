@@ -5,7 +5,6 @@ import { LibraryComponent } from './library/library.component';
 import { HomeComponent } from './login/home/home.component';
 import { LoginRedirectComponent } from './login/redirect/login-redirect.component';
 import { PlaylistComponent } from './playlist/playlist.component';
-import { SidenavComponent } from './sidenav/sidenav.component';
 import { TestComponent } from './test/test.component';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 
@@ -15,7 +14,7 @@ const routes: Routes = [
   { path: 'library', component: LibraryComponent },
   { path: 'playlist/:id', component: PlaylistComponent },
   { path: 'login', component: LoginRedirectComponent },
-  { path: 'test', component: TestComponent },
+  { path: 'test', component: ToolbarComponent },
   { path: '**', redirectTo: 'dashboard', pathMatch: 'full' },
 ];
 

@@ -18,12 +18,21 @@ module.exports = class Utility {
   /*       LOGIN       */
   /* ***************** */
   login(code) {
-    return spotify.authorizationCodeGrant(code).then((data) => {
-      spotify.setAccessToken(data.body.access_token);
-      spotify.setRefreshToken(data.body.refresh_token);
-      data.statusCode = 200;
-      return { expires: data.body.expires_in, status: 200 };
-    });
+    return spotify
+      .authorizationCodeGrant(code)
+      .then((data) => {
+        spotify.setAccessToken(data.body.access_token);
+        spotify.setRefreshToken(data.body.refresh_token);
+        data.statusCode = 200;
+        return { expires: data.body.expires_in, status: 200 };
+      })
+      .catch((err) => {
+        return {
+          name: err.body.error,
+          message: err.body.error_description,
+          statusCode: err.statusCode,
+        };
+      });
   }
 
   /* ******************** */
@@ -61,6 +70,22 @@ module.exports = class Utility {
   /* ********************** */
   /*        Playlist        */
   /* ********************** */
+
+  createPlaylist(playlist) {
+    console.log(playlist);
+    return spotify
+      .createPlaylist(playlist.name, {
+        description: playlist.description,
+        public: playlist.scope,
+        collaborative: playlist.collaborative,
+      })
+      .then((data) => {
+        return convertCreatePlaylist(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 
   getPlaylists() {
     return spotify.getUserPlaylists().then((data) => {
@@ -123,13 +148,16 @@ module.exports = class Utility {
   /*   Test    */
   /* ********* */
 
-  test(id) {
-    return spotify.getPlaylist(id, { limit: 1 }).then(async (data) => {
-      const songCount = data.body.tracks.total;
-      return {
-        artists: await convertTest(id, songCount),
-      };
-    });
+  test(playlist) {
+    return spotify
+      .createPlaylist(playlist.name, {
+        description: playlist.description,
+        public: playlist.public,
+        collaborative: playlist.collaborative,
+      })
+      .then((data) => {
+        return convertCreatePlaylist(data);
+      });
   }
 };
 
@@ -320,6 +348,10 @@ function convertToFeaturedPlaylist(data) {
       uri: playlist.uri,
     };
   });
+}
+
+function convertCreatePlaylist(data) {
+  return data;
 }
 
 /* ****************** */

@@ -11,32 +11,32 @@ export class Constants {
     'playlist-modify-public',
     'playlist-read-private',
     'playlist-modify-private',
-    // Listen history scope
+    // // Listen history scope
     'user-read-recently-played',
     'user-read-playback-position',
-    'user-top-read',
-    // Follow scope
+    // 'user-top-read',
+    // // Follow scope
     'user-follow-modify',
     'user-follow-read',
-    // Image scope
+    // // Image scope
     'ugc-image-upload',
-    // Spotify connect scope
-    // 'user-modify-playback-state',
-    // 'user-read-playback-state',
-    // 'user-read-currently-playing',
-    // Playback scope
-    // 'app-remote-control',
-    // 'streaming'
+    // // Spotify connect scope
+    // // 'user-modify-playback-state',
+    // // 'user-read-playback-state',
+    // // 'user-read-currently-playing',
+    // // Playback scope
+    // // 'app-remote-control',
+    // // 'streaming'
   ].join(' ');
   public static readonly AUTH_URL: string = `https://accounts.spotify.com/authorize?client_id=${environment.clientID}&response_type=code&redirect_uri=http://localhost:4200/login&scope=${this.SCOPES}`;
 
+  // TODO Move URLs to Environment.ts & Environment.prod.ts
   public static readonly SERVER_URL: string = 'http://localhost:4201';
 
   /* ***************** */
   /*       LOGIN       */
   /* ***************** */
   public static readonly LOGIN_URL: string = 'login';
-
 
   /* ******************** */
   /*       PROFILE        */
@@ -53,7 +53,7 @@ export class Constants {
   public static readonly USER_PLAYLISTS_URL: string = 'library/playlists';
   public static readonly PLAYLIST_URL: string = 'playlist';
   public static readonly FEAUTRED_PLAYLISTS_URL: string = 'featured';
-
+  public static readonly CREATE_PLAYLIST_URL: string = 'playlist/new';
   /* ****************** */
   /*       Artist       */
   /* ****************** */

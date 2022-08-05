@@ -1,53 +1,48 @@
-import { Component, OnInit } from '@angular/core';
-import { LoginService } from '../login/login.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Constants } from '../shared/constants';
+import { CreatePlaylistComponent } from './playlist/create-playlist.component';
 @Component({
   selector: 'spotify-sidenav',
   templateUrl: './sidenav.component.html',
   styleUrls: ['./sidenav.component.scss'],
 })
-export class SidenavComponent implements OnInit {
-  private _isDark: boolean = false;
-  private _isOpen: boolean = false;
+export class SidenavComponent implements OnInit, OnDestroy {
   private _AUTH_LINK!: string;
-  constructor(private loginService: LoginService) {}
+  private _dialogRef!: DynamicDialogRef;
+  constructor(private router: Router, private dialogService: DialogService) {}
 
   ngOnInit(): void {
     this.AUTH_LINK = Constants.AUTH_URL;
   }
 
-  toggleTheme(): void {
-    this.isDark = !this.isDark;
-  }
-  toggleSidenav(): void {
-    this.isOpen = !this.isOpen;
-  }
-
-  set isDark(value: boolean) {
-    this._isDark = value;
-  }
-
-  get isDark(): boolean {
-    return this._isDark;
-  }
-
-  set isOpen(value: boolean) {
-    this._isOpen = value;
-  }
-
-  get isOpen(): boolean {
-    return this._isOpen;
-  }
-
   set AUTH_LINK(value: string) {
     this._AUTH_LINK = value;
   }
-
   get AUTH_LINK(): string {
     return this._AUTH_LINK;
   }
 
-  toggle() {
-    this.isOpen = !this.isOpen;
+  getDialog(): DynamicDialogRef {
+    return this._dialogRef;
+  }
+
+  navigate(url: string): void {
+    this.router.navigate(['/' + url]);
+  }
+
+  createPlaylist(): void {
+    this._dialogRef = this.dialogService.open(CreatePlaylistComponent, {
+      width: '50vw',
+      height: '75vh',
+    });
+    this._dialogRef.onClose.subscribe(() => console.log('Done with create'));
+  }
+
+  ngOnDestroy(): void {
+    if (this._dialogRef) {
+      this._dialogRef.close();
+    }
   }
 }

@@ -1,167 +1,170 @@
-<div *ngIf="playlist" style="width: 100vw">
-  <mat-card>
-    <div class="playlist-info">
-      <img
-        mat-card-sm-image
-        src="{{ playlist.images[0].url }}"
-        style="height: 25vh; width: 25vh"
-      />
-      <mat-card-header>
-        <div
-          style="
-            display: flex;
-            flex-direction: column;
-            /* position: absolute; */
-            margin-left: 1rem;
-            /* bottom: 0; */
-          "
-        >
-          <mat-card-title style="font-size: 40px">{{
-            playlist.name
-          }}</mat-card-title>
-          <div class="details">
-            <div class="info-item">
-              <mat-icon>person</mat-icon>
-              <mat-card-subtitle>{{ playlist.owner.name }}</mat-card-subtitle>
+<div class="card w-12">
+  <p-table
+    #dt
+    [loading]="loading"
+    [value]="playlist ? playlist.tracks : []"
+    [scrollable]="true"
+    scrollHeight="595px"
+    [globalFilterFields]="['name', 'artist.name', 'album.name']"
+  >
+    <ng-template pTemplate="caption">
+      <!-- TODO Skeleton for loading -->
+      <div class="flex flex-row sticky w-12">
+        <div class="flex w-4 xl:w-3 align-items-center">
+          <img
+            *ngIf="!loading"
+            src="{{ playlist.images[0].url }}"
+            class="w-9rem md:w-11rem lg:w-15rem h-9rem md:h-11rem lg:h-15rem"
+          />
+        </div>
+        <div class="flex flex-column w-4 xl:w-6 justify-content-center">
+          <div class="flex-auto">
+            <h1 class="mt-0 mb-2 text-primary">{{ playlist.name }}</h1>
+            <h3 class="mt-0 text-secondary">{{ playlist.owner.name }}</h3>
+          </div>
+          <div class="flex flex-column ml-2 flex-initial gap-1">
+            <div>
+              <i class="pi pi-star"></i>
+              <span class="ml-2">{{ playlist.tracks.length }}</span>
             </div>
-            <div class="info-item">
-              <mat-icon>music_video</mat-icon>
-              <mat-card-subtitle>{{
-                playlist.tracks.length
-              }}</mat-card-subtitle>
+            <div>
+              <i class="pi pi-clock"></i>
+              <span class="ml-2">{{ length }}</span>
             </div>
-            <div class="info-item">
-              <mat-icon>access_time</mat-icon>
-              <mat-card-subtitle>{{ this.length }}</mat-card-subtitle>
+            <div>
+              <i *ngIf="playlist.public" class="pi pi-lock-open"></i>
+              <i *ngIf="!playlist.public" class="pi pi-lock"></i>
+              <span class="ml-2"
+                >{{ playlist.public ? "Public" : "Private" }} playlist</span
+              >
             </div>
           </div>
+          <div class="flex flex-row my-2">
+            <button
+              pButton
+              pRipple
+              type="button"
+              icon="pi pi-play"
+              label="Play"
+              class="p-button-rounded p-button-lg m-2"
+            ></button>
+            <button
+              pButton
+              pRipple
+              type="button"
+              icon="pi pi-pencil"
+              label="Edit"
+              class="p-button-lg m-2"
+              (click)="show()"
+            ></button>
+          </div>
         </div>
-      </mat-card-header>
-    </div>
-    <mat-card-content>
-      <table mat-table [dataSource]="playlist.tracks" multiTemplateDataRows>
-        <ng-container matColumnDef="#">
-          <th mat-header-cell *matHeaderCellDef>#</th>
-          <td mat-cell *matCellDef="let element; let i = dataIndex">
-            {{ i + 1 }}
-          </td>
-        </ng-container>
-        <ng-container matColumnDef="Title">
-          <th mat-header-cell *matHeaderCellDef class="name-width">Title</th>
-          <td mat-cell *matCellDef="let element" class="name-width">
-            {{ element.name }}
-          </td>
-        </ng-container>
-        <ng-container matColumnDef="Album">
-          <th mat-header-cell *matHeaderCellDef [attr.colSpan]="5">Album</th>
-          <td mat-cell *matCellDef="let element" [attr.colSpan]="5">
-            {{ element.album.name }}
-          </td>
-        </ng-container>
-        <ng-container matColumnDef="Date Added">
-          <th mat-header-cell *matHeaderCellDef [attr.colSpan]="3">
-            Date Added
-          </th>
-          <td mat-cell *matCellDef="let element" [attr.colSpan]="3">
-            {{ element.added | date: "M/dd/yyyy" }}
-          </td>
-        </ng-container>
-        <ng-container matColumnDef="Duration">
-          <th mat-header-cell *matHeaderCellDef [attr.colSpan]="2">Duration</th>
-          <td mat-cell *matCellDef="let element" [attr.colSpan]="2">
-            {{ element.duration | date: "mm:ss" }}
-          </td>
-        </ng-container>
-        <ng-container matColumnDef="expand">
-          <th mat-header-cell *matHeaderCellDef></th>
-          <td mat-cell *matCellDef="let element">
-            <button mat-icon-button (click)="toggleExpand(element)">
-              <mat-icon
-                *ngIf="expandedElement === element"
-                (click)="toggleExpand(element)"
-                >keyboard_arrow_up</mat-icon
-              >
-              <mat-icon
-                *ngIf="expandedElement !== element"
-                (click)="toggleExpand(element)"
-                >keyboard_arrow_down</mat-icon
-              >
-            </button>
-          </td>
-        </ng-container>
-        <ng-container matColumnDef="details">
-          <th mat-header-cell *matHeaderCellDef></th>
-          <td
-            mat-cell
-            *matCellDef="let element"
-            [attr.colspan]="expandHeaders.length + 9"
-          >
-            <div
-              class="track-details"
-              [@detailsToggle]="
-                element === expandedElement ? 'expanded' : 'collapsed'
-              "
-            >
-              <mat-card>
-                <div style="display: flex; flex-direction: row">
-                  <div *ngIf="element.album.images.length">
-                    <img
-                      src="{{ element.album.images[0].url }}"
-                      width="100vw"
-                      height="100vh"
-                    />
-                  </div>
-                  <div *ngIf="!element.album.images.length">
-                    <img
-                      src="{{ playlist.images[0].url }}"
-                      width="100vw"
-                      height="100vh"
-                    />
-                  </div>
-                  <div
-                    style="
-                      display: flex;
-                      flex-direction: column;
-                      margin-left: 1rem;
-                    "
-                  >
-                    <mat-card-title>{{ element.name }}</mat-card-title>
-                    <div>
-                      <mat-icon>album</mat-icon>
-                      {{ element.album.name }}
-                    </div>
-                    <div>
-                      <mat-icon>calendar_today</mat-icon>
-                      {{
-                        element.local
-                          ? (element.added | date: "M/dd/yyyy")
-                          : (element.album.date | date: "M/dd/yyyy")
-                      }}
-                    </div>
-                    <div>
-                      <mat-icon>shuffle</mat-icon>
-                      {{ element.local ? "1" : element.track }}
-                    </div>
-                  </div>
-                </div>
-              </mat-card>
+        <div class="flex flex-column w-4 xl:w-3 justify-content-center">
+          <div class="absolute bottom-0 right-0">
+            <span class="p-float-label p-input-icon-left p-input-icon-right">
+              <i
+                class="pi pi-search hover:text-green-500"
+                (click)="search.focus()"
+              ></i>
+              <input
+                #search
+                id="float-input"
+                name="filter"
+                type="text"
+                pInputText
+                placeholder="Search for keyword"
+                (input)="dt.filterGlobal(search.value, 'contains')"
+              />
+              <label for="float-input">Search</label>
+              <i
+                class="pi pi-times hover:text-green-500"
+                (click)="search.value = ''"
+              ></i>
+            </span>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="flex: 1 1 6%">ID</th>
+        <th style="flex: 1 1 40%" pSortableColumn="name">
+          Name<p-sortIcon field="name"></p-sortIcon>
+        </th>
+        <th style="flex: 1 1 30%" pSortableColumn="album.name">
+          Album<p-sortIcon field="album.name"></p-sortIcon>
+        </th>
+        <th style="flex: 1 1 12%" pSortableColumn="added">
+          Date Added<p-sortIcon field="added"></p-sortIcon>
+        </th>
+        <th style="flex: 1 1 12%" pSortableColumn="duration">
+          Duration<p-sortIcon field="duration"></p-sortIcon>
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-track let-index="rowIndex">
+      <tr>
+        <td style="flex: 1 1 6%">{{ index + 1 }}</td>
+        <td style="flex: 1 1 40%">
+          <div class="flex flex-row m-2">
+            <div *ngIf="track.album.images.length">
+              <img
+                src="{{ track.album.images[0].url }}"
+                style="width: '50px'; height: '50px'"
+              />
             </div>
-          </td>
-        </ng-container>
-        <tr mat-header-row *matHeaderRowDef="expandHeaders"></tr>
-        <tr
-          mat-row
-          *matRowDef="let element; columns: expandHeaders"
-          class="track-row"
-          [class.expanded-row]="expandedElement === element"
-          (click)="toggleExpand(element)"
-        ></tr>
-        <tr
-          mat-row
-          *matRowDef="let row; columns: ['details']"
-          class="details-row"
-        ></tr>
-      </table>
-    </mat-card-content>
-  </mat-card>
+            <div *ngIf="!track.album.images.length">
+              <img
+                src="{{ playlist.images[0].url }}"
+                style="width: '50px'; height: '50px'"
+              />
+            </div>
+            <div class="flex flex-column m-2">
+              <a
+                *ngIf="!track.local"
+                class="font-semibold text-white-alpha-70 hover:text-white-alpha-90"
+                [href]="'album/' + track.album.id"
+                >{{ track.name }}</a
+              >
+              <span
+                *ngIf="track.local"
+                class="font-semibold text-white-alpha-70 hover:text-white-alpha-90"
+                style="cursor: pointer"
+                >{{ track.name }}</span
+              >
+              <a
+                *ngIf="!track.local"
+                class="text-white-alpha-50 hover:text-white-alpha-90"
+                [href]="'artist/' + track.artist.id"
+                >{{ track.artist.name }}</a
+              >
+              <span
+                *ngIf="track.local"
+                class="text-white-alpha-50 hover:text-white-alpha-90"
+                style="cursor: pointer"
+              >
+                {{ track.artist.name }}</span
+              >
+            </div>
+          </div>
+        </td>
+        <td style="flex: 1 1 30%">
+          <a
+            *ngIf="!track.local"
+            class="font-semibold text-white-alpha-70 hover:text-white-alpha-90"
+            [href]="'album/' + track.album.id"
+            >{{ track.album.name }}</a
+          >
+          <span
+            *ngIf="track.local"
+            class="font-semibold text-white-alpha-70 hover:text-white-alpha-90"
+            style="cursor: pointer"
+            >{{ track.album.name }}</span
+          >
+        </td>
+        <td style="flex: 1 1 12%">{{ track.added | date: "M/dd/yyy" }}</td>
+        <td style="flex: 1 1 12%">{{ track.duration | date: "mm:ss" }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
 </div>

@@ -1,0 +1,111 @@
+<p-steps [model]="steps" [activeIndex]="currentStep"></p-steps>
+<div
+  *ngIf="currentStep === 0"
+  class="card grid grid-nogutter col-12 h-5rem md:h-10rem lg:h-11rem xl:h-18rem"
+>
+  <form class="card form formgrid mt-2" [formGroup]="playlist">
+    <div class="flex flex-column">
+      <div class="col-12 mb-2">
+        <div class="flex flex-row">
+          <span class="p-float-label p-input-icon-left mr-2">
+            <i class="pi pi-globe"></i>
+            <input type="text" id="name" pInputText formControlName="name" />
+            <label for="name">Playlist name</label>
+          </span>
+          <p-chip
+            [label]="name.value.length + ' / 100'"
+            [styleClass]="
+              name.value.length === 0 || name.value.length > 100
+                ? 'bg-red-200'
+                : 'bg-green-500'
+            "
+          ></p-chip>
+        </div>
+        <small
+          class="text-red-200"
+          *ngIf="
+            !name.valid &&
+            name.value.length === 0 &&
+            (name.dirty || name.touched)
+          "
+          >Please enter a playlist name.</small
+        ><small class="text-red-200" *ngIf="name.value.length > 100"
+          >Playlist name must be less than 100 characters.</small
+        >
+      </div>
+      <div class="col-12">
+        <div class="flex flex-row">
+          <span class="p-float-label">
+            <textarea
+              pInputTextarea
+              id="description"
+              rows="4"
+              cols="80"
+              formControlName="description"
+            ></textarea>
+            <label for="description">Description</label>
+          </span>
+          <p-chip
+            [label]="description.value.length + ' / 300'"
+            [styleClass]="
+              description.value.length > 300 ? 'bg-red-200' : 'bg-green-500'
+            "
+          ></p-chip>
+        </div>
+        <small class="text-red-200" *ngIf="description.value.length > 300"
+          >Description must be less than 300 characters.</small
+        >
+      </div>
+      <div class="flex flex-row col-6">
+        <div class="col-6">
+          <label class="font-bold">Playlist scope</label>
+          <div class="flex flex-row mt-2">
+            <p-inputSwitch
+              formControlName="scope"
+              styleClass="mr-2"
+            ></p-inputSwitch>
+            <p-chip
+              [styleClass]="
+                scope.value === true ? 'bg-green-500' : 'bg-grey-500'
+              "
+              [label]="scope.value === false ? 'Private' : 'Public'"
+            ></p-chip>
+          </div>
+        </div>
+        <div class="col-6">
+          <label class="font-bold">Collaborative</label>
+          <div class="flex flex-row mt-2">
+            <p-inputSwitch
+              formControlName="collaborative"
+              styleClass="mr-2"
+            ></p-inputSwitch>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+<div
+  *ngIf="currentStep === 1"
+  class="card grid grid-nogutter col-12 h-5rem md:h-10rem lg:h-11rem xl:h-18rem"
+></div>
+<div class="flex flex-row flex-auto justify-content-between">
+  <button
+    pButton
+    pRipple
+    type="button"
+    label="Go back"
+    (click)="goBack()"
+    [disabled]="currentStep === 0"
+  ></button>
+  <button
+    pButton
+    pRipple
+    type="button"
+    label="Advance"
+    [icon]="loading ? 'pi pi-spin pi-spinner' : 'pi pi-angle-double-right'"
+    iconPos="right"
+    (click)="advance()"
+    [disabled]="loading || currentStep === 2"
+  ></button>
+</div>

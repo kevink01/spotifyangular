@@ -1,11 +1,5 @@
-import {
-  Component,
-  EventEmitter,
-  OnInit,
-  Output,
-  ViewChild,
-} from '@angular/core';
-import { SidenavComponent } from '../sidenav/sidenav.component';
+import { Component, OnInit } from '@angular/core';
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'spotify-toolbar',
@@ -13,30 +7,25 @@ import { SidenavComponent } from '../sidenav/sidenav.component';
   styleUrls: ['./toolbar.component.scss'],
 })
 export class ToolbarComponent implements OnInit {
-  private _isDark: boolean = false;
-  isOpen: boolean = false;
-  @ViewChild('sidenav') private _sidenav!: SidenavComponent;
-  constructor() {}
-
-  ngOnInit(): void {}
-
-  toggleSidenavEmit(): void {
-    this.sidenav.toggle();
-  }
-
-  toggleTheme(): void {
-    this.isDark = !this.isDark;
-    this.sidenav.toggleTheme();
-  }
-
-  get sidenav(): SidenavComponent {
-    return this._sidenav;
-  }
-
-  set isDark(value: boolean) {
-    this._isDark = value;
-  }
-  get isDark(): boolean {
-    return this._isDark;
+  items: MenuItem[] = [];
+  display = true;
+  ngOnInit() {
+    this.items = [
+      {
+        label: 'Profile',
+        icon: 'pi pi-user',
+        routerLink: '/profile',
+      },
+      {
+        label: 'Settings',
+        icon: 'pi pi-cog',
+        routerLink: '/settings',
+      },
+      {
+        label: 'Log out',
+        icon: 'pi pi-sign-out',
+        command: () => {},
+      },
+    ];
   }
 }

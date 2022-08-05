@@ -1,43 +1,50 @@
 import { NgModule } from '@angular/core';
+
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { FlexLayoutModule } from '@angular/flex-layout';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { SharedModule } from './shared/shared.module';
-import { FormsModule } from '@angular/forms';
-import { ReactiveFormsModule } from '@angular/forms';
+import { PrimengModule } from './shared/primeng.module';
+import { StyleClassModule } from 'primeng/styleclass';
 
-import { LoginRedirectComponent } from './login/redirect/login-redirect.component';
-import { SidenavComponent } from './sidenav/sidenav.component';
-import { HomeComponent } from './login/home/home.component';
-import { ToolbarComponent } from './toolbar/toolbar.component';
+import { CreatePlaylistComponent } from './sidenav/playlist/create-playlist.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { PlaylistComponent } from './playlist/playlist.component';
+import { HomeComponent } from './login/home/home.component';
 import { LibraryComponent } from './library/library.component';
+import { LoginRedirectComponent } from './login/redirect/login-redirect.component';
+import { PlaylistComponent } from './playlist/playlist.component';
+import { PlaylistEditComponent } from './playlist/edit/playlist-edit.component';
+import { SidenavComponent } from './sidenav/sidenav.component';
+import { TestComponent } from './test/test.component';
+import { ToolbarComponent } from './toolbar/toolbar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginRedirectComponent,
-    SidenavComponent,
-    HomeComponent,
-    ToolbarComponent,
+    CreatePlaylistComponent,
     DashboardComponent,
-    PlaylistComponent,
+    HomeComponent,
     LibraryComponent,
+    LoginRedirectComponent,
+    PlaylistComponent,
+    PlaylistEditComponent,
+    SidenavComponent,
+    ToolbarComponent,
+    TestComponent,
   ],
   imports: [
     AppRoutingModule,
     BrowserAnimationsModule,
     BrowserModule,
-    FlexLayoutModule,
     FormsModule,
     HttpClientModule,
-    SharedModule,
+    PrimengModule,
     ReactiveFormsModule,
+    StyleClassModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -11,11 +11,14 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { PlaylistEditComponent } from './edit/playlist-edit.component';
 
 @Component({
   selector: 'spotify-playlist',
   templateUrl: './playlist.component.html',
   styleUrls: ['./playlist.component.scss'],
+  providers: [DialogService],
   animations: [
     trigger('detailsToggle', [
       state('collapsed', style({ height: 0, maxHeight: 0 })),
@@ -32,12 +35,13 @@ export class PlaylistComponent implements OnInit, OnDestroy {
   playlist!: Playlist;
   length: string = '';
   subscription!: Subscription;
-  displayHeaders: string[] = ['#', 'Title', 'Album', 'Date Added', 'Duration'];
-  expandHeaders: string[] = [...this.displayHeaders, 'expand'];
-  expandedElement!: Track | null;
+  loading = true;
+  edit = false;
+  private dialogRef!: DynamicDialogRef;
   constructor(
     private activatedRoute: ActivatedRoute,
-    private playlistService: PlaylistService
+    private playlistService: PlaylistService,
+    private dialogService: DialogService
   ) {}
 
   ngOnInit(): void {
@@ -46,6 +50,7 @@ export class PlaylistComponent implements OnInit, OnDestroy {
       .getPlaylist(this.id)
       .subscribe((playlist) => {
         console.log(playlist);
+        this.loading = false;
         this.playlist = playlist;
         this.length = this.calculateDuration(playlist.tracks);
       });
@@ -60,15 +65,27 @@ export class PlaylistComponent implements OnInit, OnDestroy {
     let minutes = Math.floor((time % 3600000) / 60000);
     return `${hours}:${minutes}`;
   }
-
-  toggleExpand(element: Track): void {
-    if (this.expandedElement !== element) {
-      this.expandedElement = element;
-    } else {
-      this.expandedElement = null;
-    }
+  show(): void {
+    this.dialogRef = this.dialogService.open(PlaylistEditComponent, {
+      header: `Edit ${this.playlist.name}`,
+      width: '50vw',
+      height: '75vh',
+      data: this.playlist.tracks,
+    });
+    this.dialogRef.onClose.subscribe(() => console.log('Done'));
   }
+
+  getDialog(): DynamicDialogRef {
+    return this.dialogRef;
+  }
+  getTracks(): Track[] {
+    return this.playlist.tracks;
+  }
+
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+    if (this.dialogRef) {
+      this.dialogRef.close();
+    }
   }
 }

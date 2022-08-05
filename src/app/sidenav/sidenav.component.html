@@ -1,42 +1,73 @@
-<mat-sidenav-container class="container" [class.dark-theme]="isDark">
-  <mat-sidenav
-    fixedInViewport
-    fixedTopGap="64"
-    class="sidenav"
-    mode="over"
-    [opened]="isOpen"
-  >
-    <button mat-flat-button class="sidenav-button" [routerLink]="'/'">
-      <mat-icon class="sidenav-icon">home</mat-icon>
-      Home
-    </button>
-    <button mat-flat-button class="sidenav-button">
-      <mat-icon class="sidenav-icon">search</mat-icon>
-      Search
-    </button>
-    <button mat-flat-button class="sidenav-button" [routerLink]="'/library'">
-      <mat-icon class="sidenav-icon">library_music</mat-icon>
-      Your Library
-    </button>
-    <mat-divider class="space"></mat-divider>
-    <button mat-flat-button class="sidenav-button">
-      <mat-icon class="sidenav-icon">playlist_add</mat-icon>
-      Create a playlist
-    </button>
-    <button mat-flat-button class="sidenav-button">
-      <mat-icon class="sidenav-icon">library_add</mat-icon>
-      Liked Songs
-    </button>
-    <mat-divider class="space"></mat-divider>
-    <div style="text-align: center">
-      <a mat-raised-button color="primary" style="width: 50%" [href]="AUTH_LINK"
-        >Authorize
-      </a>
-    </div>
-  </mat-sidenav>
-  <mat-sidenav-content class="sidenav-content" [class.dark-theme]="isDark">
-    <div>
-      <router-outlet class="fill"></router-outlet>
-    </div>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+<div class="flex flex-column" style="height: calc(100vh - 82px)">
+  <div class="flex-initial">
+    <p-card>
+      <div class="grid">
+        <div
+          class="menu-item col-12 lg:col-6 flex flex-row justify-content-start hover:text-green-500"
+          (click)="this.navigate('dashboard')"
+        >
+          <i
+            class="pi pi-home"
+            style="font-size: 1.5rem; margin-right: 1rem"
+          ></i>
+          <p class="mt-0 text-lg lg:text-2xl hidden md:inline-block">Home</p>
+        </div>
+        <div
+          class="menu-item col-12 lg:col-6 flex flex-row justify-content-start hover:text-green-500"
+          (click)="createPlaylist()"
+        >
+          <i
+            class="pi pi-plus"
+            style="font-size: 1.5rem; margin-right: 1rem"
+          ></i>
+          <p class="mt-0 text-lg lg:text-2xl hidden md:inline-block">
+            Create a playlist
+          </p>
+        </div>
+        <div
+          class="menu-item col-12 lg:col-6 flex flex-row justify-content-start hover:text-green-500"
+          (click)="this.navigate('library')"
+        >
+          <i
+            class="pi pi-book"
+            style="font-size: 1.5rem; margin-right: 1rem"
+          ></i>
+          <p class="mt-0 text-lg lg:text-2xl hidden md:inline-block">Library</p>
+        </div>
+        <div
+          class="menu-item col-12 lg:col-6 flex flex-row justify-content-start hover:text-green-500"
+          (click)="this.navigate('library')"
+        >
+          <i
+            class="pi pi-heart-fill"
+            style="font-size: 1.5rem; margin-right: 1rem"
+          ></i>
+          <p class="mt-0 text-lg lg:text-2xl hidden md:inline-block">
+            Liked Songs
+          </p>
+        </div>
+      </div>
+      <p-divider></p-divider>
+      <div class="col-12 flex justify-content-center">
+        <a
+          pButton
+          pRipple
+          type="button"
+          icon="pi pi-sign-out"
+          label="Authorize"
+          class="p-button-lg"
+          [href]="this.AUTH_LINK"
+        ></a>
+      </div>
+    </p-card>
+  </div>
+  <!-- TODO ScrollPanel for playlists -->
+  <div class="flex-auto" style="background-color: #1e1e1e">
+    <p-scrollPanel
+      styleClass="w-12 max-h-20rem hidden md:inline text-lg lg:text-2xl hidden md:inline-block"
+    >
+      <p>Welcome to Spotify Clone</p>
+      <p>Please login to start listening to your music :)</p>
+    </p-scrollPanel>
+  </div>
+</div>

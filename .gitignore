@@ -42,4 +42,4 @@ Thumbs.db
 server/yarn-error.log
 
 # Environment variables
-server/.env
+.env
