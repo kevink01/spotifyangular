@@ -96,7 +96,7 @@ app.get("/top/artists", (req, res) => {
 
 app.post("/playlist", (req, res) => {
   util
-    .createPlaylist(req.body)
+    .createPlaylist(req.body.body)
     .then((data) => {
       res.json(data);
     })

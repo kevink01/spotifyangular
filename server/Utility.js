@@ -72,10 +72,11 @@ module.exports = class Utility {
   /* ********************** */
 
   createPlaylist(playlist) {
+    console.log(playlist);
     return spotify
       .createPlaylist(playlist.name, {
         description: playlist.description,
-        public: playlist.public,
+        public: playlist.scope,
         collaborative: playlist.collaborative,
       })
       .then((data) => {

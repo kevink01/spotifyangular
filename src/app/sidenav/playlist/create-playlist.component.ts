@@ -37,8 +37,8 @@ export class CreatePlaylistComponent implements OnInit {
 
   advance(): void {
     this.loading = true;
-
-    this.playlistService.createPlaylist(this.playlist.values).subscribe({
+    console.log(this.playlist.value);
+    this.playlistService.createPlaylist(this.playlist.value).subscribe({
       next: (data) => {
         console.log(data);
       },
