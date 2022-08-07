@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
-import { Constants } from '../shared/constants';
+import { environment } from 'src/environments/environment';
 import { Playlist } from '../models/Profile/Playlist';
 
 @Injectable({
@@ -12,15 +12,13 @@ export class PlaylistService {
 
   getPlaylist(id: string): Observable<Playlist> {
     return this.http.get<Playlist>(
-      `${Constants.SERVER_URL}/${Constants.PLAYLIST_URL}?id=${id}`
+      `${environment.SERVER_URL}/${environment.PLAYLIST_URL}?id=${id}`
     );
   }
 
   createPlaylist(values: any) {
     return this.http
-      .post(`${Constants.SERVER_URL}/${Constants.PLAYLIST_URL}`, {
-        body: values,
-      })
+      .post(`${environment.SERVER_URL}/${environment.PLAYLIST_URL}`, values)
       .pipe(catchError((err) => throwError(() => new Error(err))));
   }
 }

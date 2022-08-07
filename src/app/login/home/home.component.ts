@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Constants } from 'src/app/shared/constants';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'spotify-home',
@@ -11,6 +11,6 @@ export class HomeComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    this.AUTH_LINK = Constants.AUTH_URL;
+    this.AUTH_LINK = environment.AUTH_URL;
   }
 }

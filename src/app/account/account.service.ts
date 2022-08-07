@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { IAlbum } from '../models/core/IAlbum';
 import { IArtist } from '../models/core/IArtist';
 import { IPlaylist } from '../models/core/IPlaylist';
-import { Constants } from '../shared/constants';
+import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root',
 })

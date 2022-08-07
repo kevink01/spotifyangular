@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { IPlaylist } from '../models/core/IPlaylist';
 import { IArtist } from '../models/core/IArtist';
 import { IAlbum } from '../models/core/IAlbum';
-import { Constants } from '../shared/constants';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -13,14 +13,14 @@ export class LibraryService {
   constructor(private http: HttpClient) {}
 
   getPlaylists(): Observable<IPlaylist[]> {
-    return this.http.get<IPlaylist[]>(`${Constants.SERVER_URL}/${Constants.USER_PLAYLISTS_URL}`);
+    return this.http.get<IPlaylist[]>(`${environment.SERVER_URL}/${environment.USER_PLAYLISTS_URL}`);
   }
 
   getLibraryAlbums(): Observable<IAlbum[]> {
-    return this.http.get<IAlbum[]>(`${Constants.SERVER_URL}/${Constants.SAVED_ALBUMS_URL}`);
+    return this.http.get<IAlbum[]>(`${environment.SERVER_URL}/${environment.SAVED_ALBUMS_URL}`);
   }
 
   getFollowedArtists(): Observable<IArtist[]> {
-    return this.http.get<IArtist[]>(`${Constants.SERVER_URL}/${Constants.FOLLOWED_ARTISTS_URL}`);
+    return this.http.get<IArtist[]>(`${environment.SERVER_URL}/${environment.FOLLOWED_ARTISTS_URL}`);
   }
 }

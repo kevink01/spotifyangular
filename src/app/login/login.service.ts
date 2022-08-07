@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { Constants } from '../shared/constants';
+import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root',
 })
@@ -21,7 +21,7 @@ export class LoginService {
 
   login(code: string): Observable<Object> {
     return this.http.post(
-      `${Constants.SERVER_URL}/login`,
+      `${environment.SERVER_URL}/login`,
       { code: JSON.stringify(code) },
       this.httpHeaders
     );

@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { Constants } from '../shared/constants';
+import { environment } from 'src/environments/environment';
 import { CreatePlaylistComponent } from './playlist/create-playlist.component';
 @Component({
   selector: 'spotify-sidenav',
@@ -14,7 +14,7 @@ export class SidenavComponent implements OnInit, OnDestroy {
   constructor(private router: Router, private dialogService: DialogService) {}
 
   ngOnInit(): void {
-    this.AUTH_LINK = Constants.AUTH_URL;
+    this.AUTH_LINK = environment.AUTH_URL;
   }
 
   set AUTH_LINK(value: string) {
