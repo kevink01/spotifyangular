@@ -1,61 +1,26 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 
-/**
- * @title Table with expandable rows
- */
+interface City {
+  name: string;
+  code: string;
+}
+
 @Component({
   selector: 'test',
   styleUrls: ['./test.component.scss'],
   templateUrl: './test.component.html',
 })
 export class TestComponent implements OnInit {
-  items: MenuItem[] = [];
-  display = true;
+  cities: City[] = [];
+  selectedCities1: City[] = [];
   ngOnInit() {
-    this.items = [
-      {
-        items: [
-          {
-            label: 'Home',
-            icon: 'pi pi-home',
-          },
-          {
-            label: 'Search',
-            icon: 'pi pi-search',
-          },
-          {
-            label: 'Library',
-            icon: 'pi pi-book',
-          },
-        ],
-      },
-      {
-        items: [
-          {
-            label: 'Create a playlist',
-            icon: 'pi pi-plus',
-          },
-          {
-            label: 'Liked Songs',
-            icon: 'pi pi-heart-fill',
-          },
-        ],
-      },
-      {
-        items: [
-          {
-            label: 'Create a playlist',
-            badge: 'test',
-            expanded: true,
-            icon: 'pi pi-plus',
-          },
-          {
-            label: 'Liked Songs',
-            icon: 'pi pi-heart-fill',
-          },
-        ],
-      },
+    this.cities = [
+      { name: 'New York', code: 'NY' },
+      { name: 'Rome', code: 'RM' },
+      { name: 'London', code: 'LDN' },
+      { name: 'Istanbul', code: 'IST' },
+      { name: 'Paris', code: 'PRS' },
     ];
   }
 }

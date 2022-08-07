@@ -16,6 +16,8 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { InputTextModule } from 'primeng/inputtext';
 import { MenubarModule } from 'primeng/menubar';
 import { MenuModule } from 'primeng/menu';
+import { MessageService } from 'primeng/api';
+import { MultiSelectModule } from 'primeng/multiselect';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { SkeletonModule } from 'primeng/skeleton';
@@ -42,6 +44,7 @@ const MODULES = [
   InputTextModule,
   MenubarModule,
   MenuModule,
+  MultiSelectModule,
   ProgressSpinnerModule,
   ScrollPanelModule,
   SkeletonModule,
@@ -55,7 +58,7 @@ const MODULES = [
 @NgModule({
   declarations: [],
   imports: [CommonModule, MODULES],
-  providers: [DialogService],
+  providers: [DialogService, MessageService],
   exports: [MODULES],
 })
 export class PrimengModule {}

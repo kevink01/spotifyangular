@@ -105,12 +105,22 @@ app.get("/top/artists", (req, res) => {
     });
 });
 
+app.get("/profile/top/tracks", (req, res) => {
+  spotify
+    .getMyTopTracks()
+    .then((data) => {
+      res.status(200).send(data.body);
+    })
+    .catch((err) => {
+      res.status(err.statusCode).send(err.body);
+    });
+});
+
 /* ********************** */
 /*        Playlist        */
 /* ********************** */
 
 app.post("/playlist/new", (req, res) => {
-  console.log(req);
   spotify
     .createPlaylist(req.body.name, {
       description: req.body.description,
@@ -121,12 +131,11 @@ app.post("/playlist/new", (req, res) => {
       res.status(200).send(util.createPlaylist(data.body));
     })
     .catch((err) => {
-      res.status(err.statusCode).send(err.body);
+      res.status(err.statusCode).send(err.body.error);
     });
 });
 
 app.get("/playlist", (req, res) => {
-  console.log(req);
   spotify
     .getPlaylist(req.query.id, { limit: 1 })
     .then(async (data) => {
@@ -137,6 +146,33 @@ app.get("/playlist", (req, res) => {
         .catch((err) => {
           res.status(err.statusCode).send(err.body);
         });
+    })
+    .catch((err) => {
+      res.status(err.statusCode).send(err.body);
+    });
+});
+
+app.put("/playlist/update", (req, res) => {
+  spotify
+    .changePlaylistDetails(req.body.id, {
+      name: req.body.details.name,
+      description: req.body.details.description,
+      public: req.body.details.public,
+      collaborative: req.body.details.collaborative,
+    })
+    .then((data) => {
+      res.status(200).send(data.body);
+    })
+    .catch((err) => {
+      res.status(err.statusCode).send(err.body);
+    });
+});
+
+app.post("/playlist/image", (req, res) => {
+  spotify
+    .uploadCustomPlaylistCoverImage(req.body.id, req.body.image)
+    .then((data) => {
+      res.status(200).send(data.body);
     })
     .catch((err) => {
       res.status(err.statusCode).send(err.body);
@@ -159,7 +195,6 @@ app.get("/featured", (req, res) => {
 /* ****************** */
 
 app.get("/artist/albums", (req, res) => {
-  console.log(req);
   return spotify
     .getArtistAlbums(req.query.id)
     .then((data) => {

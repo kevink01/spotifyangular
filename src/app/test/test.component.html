@@ -1,11 +1,7 @@
-<p-tabView class="w-12">
-  <p-tabPanel header="Playlists" headerStyleClass="w-4 mt-1 mb-2">
-    <p>Playlists</p>
-  </p-tabPanel>
-  <p-tabPanel header="Artists" headerStyleClass="w-4 mt-1 mb-2">
-    <p>Artists</p>
-  </p-tabPanel>
-  <p-tabPanel header="Albums" headerStyleClass="w-4 mt-1 mb-2">
-    <p>Albums</p>
-  </p-tabPanel>
-</p-tabView>
+<p-multiSelect
+  [options]="cities"
+  [(ngModel)]="selectedCities1"
+  defaultLabel="Select a City"
+  optionLabel="name"
+  selectedItemsLabel="{0} items selected"
+></p-multiSelect>

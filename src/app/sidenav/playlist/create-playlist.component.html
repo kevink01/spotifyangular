@@ -1,9 +1,10 @@
+<p-toast (onClose)="reload($event)"></p-toast>
 <p-steps [model]="steps" [activeIndex]="currentStep"></p-steps>
 <div
   *ngIf="currentStep === 0"
   class="card grid grid-nogutter col-12 h-5rem md:h-10rem lg:h-11rem xl:h-18rem"
 >
-  <form class="card form formgrid mt-2" [formGroup]="playlist">
+  <form class="card form formgrid mt-2" [formGroup]="playlistForm">
     <div class="flex flex-column">
       <div class="col-12 mb-2">
         <div class="flex flex-row">
@@ -17,7 +18,7 @@
             [styleClass]="
               name.value.length === 0 || name.value.length > 100
                 ? 'bg-red-200'
-                : 'bg-green-500'
+                : 'bg-primary'
             "
           ></p-chip>
         </div>
@@ -48,7 +49,7 @@
           <p-chip
             [label]="description.value.length + ' / 300'"
             [styleClass]="
-              description.value.length > 300 ? 'bg-red-200' : 'bg-green-500'
+              description.value.length > 300 ? 'bg-red-200' : 'bg-primary'
             "
           ></p-chip>
         </div>
@@ -88,7 +89,24 @@
 <div
   *ngIf="currentStep === 1"
   class="card grid grid-nogutter col-12 h-5rem md:h-10rem lg:h-11rem xl:h-18rem"
-></div>
+>
+  <p-fileUpload
+    [multiple]="false"
+    accept="image/*"
+    chooseLabel="Choose image"
+    uploadLabel="Upload image"
+    (onSelect)="uploadedImage = $event.files[0]"
+    [customUpload]="true"
+    (uploadHandler)="uploadImage($event.files[0])"
+  >
+  </p-fileUpload>
+</div>
+<div
+  *ngIf="currentStep === 2"
+  class="card grid grid-nogutter col-12 h-5rem md:h-10rem lg:h-11rem xl:h-18rem"
+>
+
+</div>
 <div class="flex flex-row flex-auto justify-content-between">
   <button
     pButton
@@ -102,10 +120,10 @@
     pButton
     pRipple
     type="button"
-    label="Advance"
+    [label]="hasSubmittedStep[currentStep] ? 'Update' : 'Submit'"
     [icon]="loading ? 'pi pi-spin pi-spinner' : 'pi pi-angle-double-right'"
     iconPos="right"
     (click)="advance()"
-    [disabled]="loading || currentStep === 2"
+    [disabled]="loading"
   ></button>
 </div>
