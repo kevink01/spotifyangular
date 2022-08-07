@@ -14,7 +14,7 @@ export class Constants {
     // // Listen history scope
     'user-read-recently-played',
     'user-read-playback-position',
-    // 'user-top-read',
+    'user-top-read',
     // // Follow scope
     'user-follow-modify',
     'user-follow-read',
@@ -42,15 +42,15 @@ export class Constants {
   /*       PROFILE        */
   /* ******************** */
   public static readonly USER_ME_URL: string = 'profile';
-  public static readonly FOLLOWED_ARTISTS_URL: string = 'library/artists';
-  public static readonly SAVED_ALBUMS_URL: string = 'library/albums';
+  public static readonly USER_PLAYLISTS_URL: string = 'profile/playlists';
+  public static readonly FOLLOWED_ARTISTS_URL: string = 'profile/artists';
+  public static readonly SAVED_ALBUMS_URL: string = 'profile/albums';
   public static readonly TOP_TRACKS_URL: string = 'top/tracks';
   public static readonly TOP_ARTISTS_URL: string = 'top/artists';
 
   /* ********************** */
   /*        Playlist        */
   /* ********************** */
-  public static readonly USER_PLAYLISTS_URL: string = 'library/playlists';
   public static readonly PLAYLIST_URL: string = 'playlist';
   public static readonly FEAUTRED_PLAYLISTS_URL: string = 'featured';
   public static readonly CREATE_PLAYLIST_URL: string = 'playlist/new';
