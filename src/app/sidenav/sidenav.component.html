@@ -1,60 +1,89 @@
-<div class="flex flex-column" style="height: calc(100vh - 82px)">
+<div class="flex flex-column" style="height: calc(100vh - 89px)">
   <div class="flex-initial">
     <p-card>
-      <div class="grid">
-        <div
-          class="menu-item col-12 lg:col-6 flex flex-row justify-content-start hover:text-green-500"
-          (click)="this.navigate('dashboard')"
+      <div
+        class="menu-item col-12 flex flex-row justify-content-start hover:text-green-500"
+        (click)="this.navigate('dashboard')"
+      >
+        <i
+          class="pi pi-home"
+          style="font-size: 1.5rem; margin-right: 1rem"
+          pTooltip="Home"
+          [showDelay]="250"
+          [hideDelay]="100"
+          [tooltipDisabled]="homeSpan === undefined"
+        ></i>
+        <span #homeSpan class="mt-0 text-lg lg:text-2xl hidden md:inline-block"
+          >Home</span
         >
-          <i
-            class="pi pi-home"
-            style="font-size: 1.5rem; margin-right: 1rem"
-          ></i>
-          <p class="mt-0 text-lg lg:text-2xl hidden md:inline-block">Home</p>
-        </div>
-        <div
-          class="menu-item col-12 lg:col-6 flex flex-row justify-content-start hover:text-green-500"
-          (click)="createPlaylist()"
-        >
-          <i
-            class="pi pi-plus"
-            style="font-size: 1.5rem; margin-right: 1rem"
-          ></i>
-          <p class="mt-0 text-lg lg:text-2xl hidden md:inline-block">
-            Create a playlist
-          </p>
-        </div>
-        <div
-          class="menu-item col-12 lg:col-6 flex flex-row justify-content-start hover:text-green-500"
-          (click)="this.navigate('library')"
-        >
-          <i
-            class="pi pi-book"
-            style="font-size: 1.5rem; margin-right: 1rem"
-          ></i>
-          <p class="mt-0 text-lg lg:text-2xl hidden md:inline-block">Library</p>
-        </div>
-        <div
-          class="menu-item col-12 lg:col-6 flex flex-row justify-content-start hover:text-green-500"
-          (click)="this.navigate('library')"
-        >
-          <i
-            class="pi pi-heart-fill"
-            style="font-size: 1.5rem; margin-right: 1rem"
-          ></i>
-          <p class="mt-0 text-lg lg:text-2xl hidden md:inline-block">
-            Liked Songs
-          </p>
-        </div>
       </div>
-      <p-divider></p-divider>
-      <div class="col-12 flex justify-content-center">
+      <div
+        class="menu-item col-12 flex flex-row justify-content-start hover:text-green-500"
+        (click)="createPlaylist()"
+      >
+        <i
+          class="pi pi-plus"
+          style="font-size: 1.5rem; margin-right: 1rem"
+          pTooltip="Create a playlist"
+          [showDelay]="250"
+          [hideDelay]="100"
+          [tooltipDisabled]="playlistSpan === undefined"
+        ></i>
+        <span
+          #playlistSpan
+          class="mt-0 text-lg lg:text-2xl hidden md:inline-block"
+        >
+          Create a playlist
+        </span>
+      </div>
+      <div
+        class="menu-item col-12 flex flex-row justify-content-start hover:text-green-500"
+        (click)="this.navigate('library')"
+      >
+        <i
+          class="pi pi-book"
+          style="font-size: 1.5rem; margin-right: 1rem"
+          pTooltip="Library"
+          [showDelay]="250"
+          [hideDelay]="100"
+          [tooltipDisabled]="librarySpan === undefined"
+        ></i>
+        <span
+          #librarySpan
+          class="mt-0 text-lg lg:text-2xl hidden md:inline-block"
+          >Library</span
+        >
+      </div>
+      <div
+        class="menu-item col-12 flex flex-row justify-content-start hover:text-green-500"
+        (click)="this.navigate('library')"
+      >
+        <i
+          class="pi pi-heart-fill"
+          style="font-size: 1.5rem; margin-right: 1rem"
+          pTooltip="Liked Songs"
+          [showDelay]="250"
+          [hideDelay]="100"
+          [tooltipDisabled]="librarySpan === undefined"
+        ></i>
+        <span
+          #likedSpan
+          class="mt-0 text-lg lg:text-2xl hidden sm:inline-block"
+        >
+          Liked Songs
+        </span>
+      </div>
+      <div
+        *ngIf="profile === 'Not logged in'"
+        class="col-12 flex flex-column justify-content-center"
+      >
+        <p-divider></p-divider><br />
         <a
           pButton
           pRipple
           type="button"
           icon="pi pi-sign-out"
-          label="Authorize"
+          label="Login"
           class="p-button-lg"
           [href]="this.AUTH_LINK"
         ></a>
@@ -63,11 +92,53 @@
   </div>
   <!-- TODO ScrollPanel for playlists -->
   <div class="flex-auto" style="background-color: #1e1e1e">
-    <p-scrollPanel
-      styleClass="w-12 max-h-20rem hidden md:inline text-lg lg:text-2xl hidden md:inline-block"
-    >
-      <p>Welcome to Spotify Clone</p>
-      <p>Please login to start listening to your music :)</p>
-    </p-scrollPanel>
+    <div *ngIf="profile === 'Not logged in'" class="ml-1">
+      <span>Welcome to Spotify Clone</span><br />
+      <span>Please login to start listening to your music :)</span>
+    </div>
+    <div *ngIf="profile !== 'Not logged in'">
+      <!-- TODO Responsive scrollPanel-->
+      <p-scrollPanel
+        styleClass="w-12 text-sm lg:text-lg"
+        [style]="{ width: '100%', 'max-height': '332px' }"
+      >
+        <div class="ml-1 justify-items-center">
+          <p-fieldset
+            *ngIf="recent"
+            [toggleable]="true"
+            [legend]="'Recently Played'"
+          >
+            <div *ngFor="let track of recent" class="grid grid-nogutter col-12">
+              <div class="col-2">
+                <img
+                  [src]="track.track.album.images[0].url"
+                  style="width: 40px; height: 40px"
+                />
+              </div>
+              <div class="flex flex-column col-6">
+                <div class="text-overflow-ellipsis">
+                  <span class="overflow-hidden text-overflow-ellipsis">{{
+                    track.track.name
+                  }}</span>
+                </div>
+                <span class="text-overflow-ellipsis">{{
+                  track.track.album.artists[0].name
+                }}</span>
+              </div>
+              <div class="flex flex-column col-4">
+                <div>
+                  <i class="pi pi-calendar"></i>
+                  <span>{{ track.played_at | date: "E hh:mm" }}</span>
+                </div>
+                <div>
+                  <i class="pi pi-clock"></i>
+                  <span>{{ track.track.duration_ms | date: "mm:ss" }}</span>
+                </div>
+              </div>
+            </div>
+          </p-fieldset>
+        </div>
+      </p-scrollPanel>
+    </div>
   </div>
 </div>

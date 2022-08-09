@@ -22,7 +22,10 @@ export class LoginRedirectComponent implements OnInit {
     ) as string;
     this.loginService.login(this.code).subscribe((data) => {
       if (data) {
-        this.router.navigate(['/dashboard']);
+        this.loginService.getMyProfile().subscribe(async (profile) => {
+          await this.loginService.updateProfile(profile);
+          this.router.navigate(['/dashboard']);
+        });
       }
     });
   }

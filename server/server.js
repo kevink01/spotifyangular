@@ -252,6 +252,22 @@ app.post("/test", (req, res) => {
       res.status(err.statusCode).send(err.body);
     });
 });
+
+/* ****************** */
+/*       Player       */
+/* ****************** */
+app.get("/tracks/recent", (req, res) => {
+  spotify
+    .getMyRecentlyPlayedTracks({
+      limit: 10,
+    })
+    .then((data) => {
+      res.status(200).send(data.body);
+    })
+    .catch((err) => {
+      res.status(err.statusCode).send(err.body);
+    });
+});
 app.listen(4201);
 
 const getAllTracks = (data) => {

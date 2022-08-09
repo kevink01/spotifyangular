@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { AvatarModule } from 'primeng/avatar';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { ChipModule } from 'primeng/chip';
@@ -9,6 +10,7 @@ import { DialogModule } from 'primeng/dialog';
 import { DividerModule } from 'primeng/divider';
 import { DropdownModule } from 'primeng/dropdown';
 import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
+import { FieldsetModule } from 'primeng/fieldset';
 import { FileUploadModule } from 'primeng/fileupload';
 import { ImageModule } from 'primeng/image';
 import { InputSwitchModule } from 'primeng/inputswitch';
@@ -27,8 +29,10 @@ import { TabViewModule } from 'primeng/tabview';
 import { TieredMenuModule } from 'primeng/tieredmenu';
 import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
+import { TooltipModule } from 'primeng/tooltip';
 
 const MODULES = [
+  AvatarModule,
   ButtonModule,
   CardModule,
   ChipModule,
@@ -37,6 +41,7 @@ const MODULES = [
   DividerModule,
   DropdownModule,
   DynamicDialogModule,
+  FieldsetModule,
   FileUploadModule,
   ImageModule,
   InputSwitchModule,
@@ -54,6 +59,7 @@ const MODULES = [
   TieredMenuModule,
   ToastModule,
   ToolbarModule,
+  TooltipModule,
 ];
 @NgModule({
   declarations: [],

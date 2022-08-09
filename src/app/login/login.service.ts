@@ -1,29 +1,29 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable, takeUntil } from 'rxjs';
 import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root',
 })
-export class LoginService {
+export class LoginService implements OnDestroy {
   private _accessToken!: string;
   private _refreshToken!: string;
   private _expiresIn!: number;
-
-  httpHeaders = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-    }),
-  };
+  private _profileSubject = new BehaviorSubject<Object>('Not logged in');
+  private _profile = this._profileSubject.asObservable();
 
   constructor(private http: HttpClient, private router: Router) {}
 
   login(code: string): Observable<Object> {
-    return this.http.post(
-      `${environment.SERVER_URL}/login`,
-      { code: JSON.stringify(code) },
-      this.httpHeaders
+    return this.http.post(`${environment.SERVER_URL}/login`, {
+      code: JSON.stringify(code),
+    });
+  }
+
+  getMyProfile(): Observable<Object> {
+    return this.http.get(
+      `${environment.SERVER_URL}/${environment.USER_ME_URL}`
     );
   }
 
@@ -47,5 +47,17 @@ export class LoginService {
 
   private get refreshToken(): string {
     return this._refreshToken;
+  }
+
+  updateProfile(profile: Object) {
+    this._profileSubject.next(profile);
+  }
+
+  get profile(): Observable<Object> {
+    return this._profile as Observable<Object>;
+  }
+
+  ngOnDestroy(): void {
+    this._profileSubject.unsubscribe();
   }
 }

@@ -67,6 +67,11 @@ export const environment = {
   ARTIST_ALBUMS_URL: 'artist/albums',
   ARTIST_TOP_TRACKS_URL: 'artist/tracks',
   ARTIST_RELATED_URL: 'artist/related',
+
+  /* ****************** */
+  /*       Player       */
+  /* ****************** */
+  RECENTLY_PLAYED_URL: 'tracks/recent',
 };
 
 /*
