@@ -54,7 +54,7 @@ export class LoginService implements OnDestroy {
   }
 
   get profile(): Observable<Object> {
-    return this._profile as Observable<Object>;
+    return this._profile;
   }
 
   ngOnDestroy(): void {

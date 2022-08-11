@@ -161,7 +161,7 @@ app.put("/playlist/update", (req, res) => {
       collaborative: req.body.details.collaborative,
     })
     .then((data) => {
-      res.status(200).send(data.body);
+      res.status(200).send({ success: true });
     })
     .catch((err) => {
       res.status(err.statusCode).send(err.body);
@@ -173,6 +173,18 @@ app.post("/playlist/image", (req, res) => {
     .uploadCustomPlaylistCoverImage(req.body.id, req.body.image)
     .then((data) => {
       res.status(200).send(data.body);
+    })
+    .catch((err) => {
+      res.status(err.statusCode).send(err.body);
+    });
+});
+
+app.put("/playlist/reorder", (req, res) => {
+  console.log(req.body);
+  spotify
+    .replaceTracksInPlaylist(req.body.id, req.body.tracks)
+    .then((data) => {
+      res.status(200).send({ success: true });
     })
     .catch((err) => {
       res.status(err.statusCode).send(err.body);

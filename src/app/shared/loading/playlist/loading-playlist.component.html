@@ -1,0 +1,84 @@
+<div class="card">
+  <div class="grid formgrid grid-nogutter">
+    <div class="field col-12">
+      <div class="flex p-4">
+        <p-skeleton
+          styleClass="w-9rem md:w-11rem lg:w-15rem h-9rem md:h-11rem lg:h-15rem mr-3"
+        ></p-skeleton>
+        <div>
+          <p-skeleton
+            styleClass="w-15rem md:w-20rem lg:w-25rem mb-2 h-3rem"
+          ></p-skeleton>
+          <p-skeleton
+            styleClass="w-15rem md:w-20rem lg:w-25rem mb-2 h-2rem"
+          ></p-skeleton>
+          <div class="flex mb-2">
+            <p-skeleton
+              shape="circle"
+              size="2rem"
+              styleClass="mr-2"
+            ></p-skeleton>
+            <p-skeleton
+              styleClass="w-2rem md:w-3rem lg:w-4rem h-2rem"
+            ></p-skeleton>
+          </div>
+          <div class="flex mb-2">
+            <p-skeleton
+              shape="circle"
+              size="2rem"
+              styleClass="mr-2"
+            ></p-skeleton>
+            <p-skeleton
+              styleClass="w-2rem md:w-3rem lg:w-4rem h-2rem"
+            ></p-skeleton>
+          </div>
+          <div class="flex gap-3 mt-4">
+            <p-skeleton
+              styleClass="w-4rem md:w-5rem lg:w-7rem h-1rem md:h-2rem lg:h-3rem"
+            ></p-skeleton>
+            <p-skeleton
+              styleClass="w-4rem md:w-5rem lg:w-7rem h-1rem md:h-2rem lg:h-3rem"
+            ></p-skeleton>
+            <p-skeleton
+              styleClass="w-4rem md:w-5rem lg:w-7rem h-1rem md:h-2rem lg:h-3rem"
+            ></p-skeleton>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<p-table [value]="loadingTracks" responsiveLayout="scroll">
+  <ng-template pTemplate="header">
+    <tr>
+      <th style="flex: 1 1 6%">ID</th>
+      <th style="flex: 1 1 40%">Name</th>
+      <th style="flex: 1 1 30%">Album</th>
+      <th style="flex: 1 1 12%">Date Added</th>
+      <th style="flex: 1 1 12%">Duration</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-track let-index="rowIndex">
+    <tr class="h-5rem">
+      <th>
+        {{ index + 1 }}
+      </th>
+      <th>
+        <div class="flex m-2">
+          <p-skeleton width="50px" height="50px" styleClass="mr-2"></p-skeleton>
+          <div>
+            <p-skeleton
+              styleClass="w-9rem md:w-10rem mb-2 lg:w-15rem h-1rem"
+            ></p-skeleton>
+            <p-skeleton
+              styleClass="w-9rem md:w-10rem mt-3 lg:w-15rem h-1rem"
+            ></p-skeleton>
+          </div>
+        </div>
+      </th>
+      <th><p-skeleton></p-skeleton></th>
+      <th><p-skeleton></p-skeleton></th>
+      <th><p-skeleton></p-skeleton></th>
+    </tr>
+  </ng-template>
+</p-table>

@@ -106,7 +106,7 @@
           <p-fieldset
             *ngIf="recent"
             [toggleable]="true"
-            [legend]="'Recently Played'"
+            legend="Recently Played"
           >
             <div *ngFor="let track of recent" class="grid grid-nogutter col-12">
               <div class="col-2">
@@ -137,6 +137,8 @@
               </div>
             </div>
           </p-fieldset>
+          <br />
+          <p-fieldset legend="Playlists" [toggleable]="true"> </p-fieldset>
         </div>
       </p-scrollPanel>
     </div>

@@ -1,14 +1,16 @@
-<div class="card w-12">
+<div *ngIf="!playlist">
+  <loading-playlist></loading-playlist>
+</div>
+<div *ngIf="playlist" class="card w-12">
   <p-table
     #dt
     [loading]="loading"
-    [value]="playlist ? playlist.tracks : []"
+    [value]="playlist.tracks"
     [scrollable]="true"
     scrollHeight="595px"
     [globalFilterFields]="['name', 'artist.name', 'album.name']"
   >
     <ng-template pTemplate="caption">
-      <!-- TODO Skeleton for loading -->
       <div class="flex flex-row sticky w-12">
         <div class="flex w-4 xl:w-3 align-items-center">
           <img
@@ -39,14 +41,14 @@
               >
             </div>
           </div>
-          <div class="flex flex-row my-2">
+          <span class="p-button-set mt-2">
             <button
               pButton
               pRipple
               type="button"
               icon="pi pi-play"
               label="Play"
-              class="p-button-rounded p-button-lg m-2"
+              class="p-button-success p-button-lg mt-2"
             ></button>
             <button
               pButton
@@ -54,10 +56,20 @@
               type="button"
               icon="pi pi-pencil"
               label="Edit"
-              class="p-button-lg m-2"
+              class="p-button-info p-button-lg mt-2"
               (click)="show()"
             ></button>
-          </div>
+            <button
+              pButton
+              pRipple
+              type="button"
+              icon="pi pi-trash"
+              label="Delete"
+              class="p-button-danger p-button-lg mt-2"
+            ></button>
+          </span>
+          <!-- <div class="flex flex-row my-2">
+          </div> -->
         </div>
         <div class="flex flex-column w-4 xl:w-3 justify-content-center">
           <div class="absolute bottom-0 right-0">

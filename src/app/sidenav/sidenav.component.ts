@@ -31,7 +31,7 @@ export class SidenavComponent implements OnInit, OnDestroy {
         next: (profile) => {
           console.log(profile);
           this.profile = profile;
-          this.playerService.getRecentlyPlayed().subscribe({
+          this.subscriptions.add(this.playerService.getRecentlyPlayed().subscribe({
             next: (recent: any) => {
               console.log(recent);
               this.recent = recent.items;
@@ -39,7 +39,7 @@ export class SidenavComponent implements OnInit, OnDestroy {
             error: (err) => {
               console.error(err);
             },
-          });
+          }));
         },
         error: (err) => {
           console.error(err);

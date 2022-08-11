@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MenuItem, MessageService } from 'primeng/api';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
+import { Subscription } from 'rxjs';
 import { PlaylistService } from 'src/app/playlist/playlist.service';
 import { environment } from 'src/environments/environment';
 
@@ -10,9 +11,7 @@ import { environment } from 'src/environments/environment';
   templateUrl: './create-playlist.component.html',
   styleUrls: ['./create-playlist.component.scss'],
 })
-export class CreatePlaylistComponent implements OnInit {
-  private _dialogRef!: DynamicDialogRef;
-
+export class CreatePlaylistComponent implements OnInit, OnDestroy {
   steps: MenuItem[] = [];
   currentStep: number = 0;
   hasSubmittedStep: boolean[] = [false, false, false];
@@ -23,6 +22,8 @@ export class CreatePlaylistComponent implements OnInit {
 
   uploadURL: string = '';
   uploadedImage: any = {};
+
+  subscription = new Subscription();
 
   constructor(
     private fb: FormBuilder,
@@ -58,7 +59,7 @@ export class CreatePlaylistComponent implements OnInit {
     switch (this.currentStep) {
       case 0:
         if (this.hasSubmittedStep[0]) {
-          this.playlistService
+          this.subscription.add(this.playlistService
             .updatePlaylist(this.playlist.id, this.playlistForm.value)
             .subscribe({
               next: () => {
@@ -77,10 +78,10 @@ export class CreatePlaylistComponent implements OnInit {
                   life: 2000,
                 });
               },
-            });
+            }));
         } else {
           // Has not created playlist
-          this.playlistService
+          this.subscription.add(this.playlistService
             .createPlaylist(this.playlistForm.value)
             .subscribe({
               next: (data: any) => {
@@ -101,7 +102,7 @@ export class CreatePlaylistComponent implements OnInit {
                   life: 2000,
                 });
               },
-            });
+            }));
         }
         break;
       case 1:
@@ -118,7 +119,7 @@ export class CreatePlaylistComponent implements OnInit {
     const fileReader = new FileReader();
     fileReader.readAsDataURL(file);
     fileReader.onloadend = () => {
-      this.playlistService
+      this.subscription.add(this.playlistService
         .uploadImage(
           this.playlist.id,
           (fileReader.result as string).slice(
@@ -142,7 +143,7 @@ export class CreatePlaylistComponent implements OnInit {
               life: 2000,
             });
           },
-        });
+        }));
     };
   }
 
@@ -162,5 +163,10 @@ export class CreatePlaylistComponent implements OnInit {
 
   get scope() {
     return this.playlistForm.get('scope');
+  }
+
+  ngOnDestroy(): void {
+    this.messageService.clear();
+    this.subscription.unsubscribe();
   }
 }

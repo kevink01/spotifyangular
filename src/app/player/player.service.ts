@@ -7,6 +7,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class PlayerService {
+
   constructor(private http: HttpClient) {}
 
   getRecentlyPlayed(): Observable<Object> {

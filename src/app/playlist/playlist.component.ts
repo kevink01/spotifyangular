@@ -34,7 +34,7 @@ export class PlaylistComponent implements OnInit, OnDestroy {
   id: string = '';
   playlist!: Playlist;
   length: string = '';
-  subscription!: Subscription;
+  subscription = new Subscription();
   loading = true;
   edit = false;
   private dialogRef!: DynamicDialogRef;
@@ -46,14 +46,14 @@ export class PlaylistComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.id = this.activatedRoute.snapshot.params['id'];
-    this.subscription = this.playlistService
+    this.subscription.add(this.playlistService
       .getPlaylist(this.id)
       .subscribe((playlist) => {
         console.log(playlist);
         this.loading = false;
         this.playlist = playlist;
         this.length = this.calculateDuration(playlist.tracks);
-      });
+      }));
   }
 
   private calculateDuration(tracks: Track[]): string {
@@ -70,9 +70,9 @@ export class PlaylistComponent implements OnInit, OnDestroy {
       header: `Edit ${this.playlist.name}`,
       width: '50vw',
       height: '75vh',
-      data: this.playlist.tracks,
+      data: this.playlist,
     });
-    this.dialogRef.onClose.subscribe(() => console.log('Done'));
+    this.subscription.add(this.dialogRef.onClose.subscribe(() => console.log('Done')));
   }
 
   getDialog(): DynamicDialogRef {
