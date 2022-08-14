@@ -1,7 +1,2990 @@
-<p-multiSelect
-  [options]="cities"
-  [(ngModel)]="selectedCities1"
-  defaultLabel="Select a City"
-  optionLabel="name"
-  selectedItemsLabel="{0} items selected"
-></p-multiSelect>
+<p-toast></p-toast>
+<div _ngcontent-ogo-c76="" class="col-12 md:col-6 p-fluid">
+  <div _ngcontent-ogo-c76="" class="card">
+    <h5 _ngcontent-ogo-c76="">InputText</h5>
+    <div _ngcontent-ogo-c76="" class="grid formgrid">
+      <div _ngcontent-ogo-c76="" class="col-12 mb-2 lg:col-4 lg:mb-0">
+        <input
+          _ngcontent-ogo-c76=""
+          pinputtext=""
+          type="text"
+          placeholder="Default"
+          class="p-inputtext p-component p-element"
+        />
+      </div>
+      <div _ngcontent-ogo-c76="" class="col-12 mb-2 lg:col-4 lg:mb-0">
+        <input
+          _ngcontent-ogo-c76=""
+          pinputtext=""
+          type="text"
+          placeholder="Disabled"
+          class="p-inputtext p-component p-element"
+          disabled=""
+        />
+      </div>
+      <div _ngcontent-ogo-c76="" class="col-12 mb-2 lg:col-4 lg:mb-0">
+        <input
+          _ngcontent-ogo-c76=""
+          pinputtext=""
+          type="text"
+          placeholder="Invalid"
+          class="p-inputtext p-component p-element ng-invalid ng-dirty"
+        />
+      </div>
+    </div>
+    <h5 _ngcontent-ogo-c76="">Icons</h5>
+    <div _ngcontent-ogo-c76="" class="grid formgrid">
+      <div _ngcontent-ogo-c76="" class="col-12 mb-2 lg:col-4 lg:mb-0">
+        <span _ngcontent-ogo-c76="" class="p-input-icon-left"
+          ><i _ngcontent-ogo-c76="" class="pi pi-user"></i
+          ><input
+            _ngcontent-ogo-c76=""
+            pinputtext=""
+            type="text"
+            placeholder="Username"
+            class="p-inputtext p-component p-element"
+        /></span>
+      </div>
+      <div _ngcontent-ogo-c76="" class="col-12 mb-2 lg:col-4 lg:mb-0">
+        <span _ngcontent-ogo-c76="" class="p-input-icon-right"
+          ><input
+            _ngcontent-ogo-c76=""
+            pinputtext=""
+            type="text"
+            placeholder="Search"
+            class="p-inputtext p-component p-element" /><i
+            _ngcontent-ogo-c76=""
+            class="pi pi-search"
+          ></i
+        ></span>
+      </div>
+      <div _ngcontent-ogo-c76="" class="col-12 mb-2 lg:col-4 lg:mb-0">
+        <span _ngcontent-ogo-c76="" class="p-input-icon-left p-input-icon-right"
+          ><i _ngcontent-ogo-c76="" class="pi pi-user"></i
+          ><input
+            _ngcontent-ogo-c76=""
+            pinputtext=""
+            type="text"
+            placeholder="Search"
+            class="p-inputtext p-component p-element" /><i
+            _ngcontent-ogo-c76=""
+            class="pi pi-search"
+          ></i
+        ></span>
+      </div>
+    </div>
+    <h5 _ngcontent-ogo-c76="">Float Label</h5>
+    <span _ngcontent-ogo-c76="" class="p-float-label"
+      ><input
+        _ngcontent-ogo-c76=""
+        pinputtext=""
+        id="username"
+        type="text"
+        class="p-inputtext p-component p-element ng-untouched ng-pristine ng-valid"
+      /><label _ngcontent-ogo-c76="" for="username">Username</label></span
+    >
+    <h5 _ngcontent-ogo-c76="">Textarea</h5>
+    <textarea
+      _ngcontent-ogo-c76=""
+      pinputtextarea=""
+      placeholder="Your Message"
+      rows="3"
+      cols="30"
+      class="p-inputtextarea p-inputtext p-component p-element"
+    ></textarea>
+    <h5 _ngcontent-ogo-c76="">AutoComplete</h5>
+    <p-autoComplete
+      [(ngModel)]="autoCompleteInput"
+      [showEmptyMessage]="true"
+      [suggestions]="filteredCountries"
+      (completeMethod)="filterCountry($event)"
+      field="name"
+      [minLength]="1"
+    ></p-autoComplete>
+    <h5 _ngcontent-ogo-c76="">Calendar</h5>
+    <p-calendar
+      _ngcontent-ogo-c76=""
+      class="p-element p-inputwrapper ng-tns-c28-6 ng-untouched ng-pristine ng-valid ng-star-inserted"
+      ><span class="ng-tns-c28-6 p-calendar p-calendar-w-btn"
+        ><input
+          type="text"
+          autocomplete="off"
+          class="ng-tns-c28-6 p-inputtext p-component ng-star-inserted"
+          placeholder=""
+        /><!----><button
+          type="button"
+          pbutton=""
+          pripple=""
+          tabindex="0"
+          class="p-element p-ripple p-datepicker-trigger ng-tns-c28-6 p-button p-component p-button-icon-only ng-star-inserted"
+        >
+          <span class="p-button-icon pi pi-calendar" aria-hidden="true"></span
+          ><span aria-hidden="true" class="p-button-label">&nbsp;</span
+          ><span class="p-ink"></span></button
+        ><!----><!----><!----></span
+      ></p-calendar
+    >
+    <h5 _ngcontent-ogo-c76="">InputNumber</h5>
+    <p-inputNumber
+      _ngcontent-ogo-c76=""
+      mode="decimal"
+      class="p-element p-inputwrapper ng-untouched ng-pristine ng-valid"
+      ><span class="p-inputnumber p-component p-inputnumber-buttons-stacked"
+        ><input
+          pinputtext=""
+          inputmode="decimal"
+          class="p-inputtext p-component p-element p-inputnumber-input"
+        /><!----><span class="p-inputnumber-button-group ng-star-inserted"
+          ><button
+            type="button"
+            pbutton=""
+            class="p-element p-inputnumber-button p-inputnumber-button-up p-button p-component p-button-icon-only"
+          >
+            <span class="p-button-icon pi pi-angle-up" aria-hidden="true"></span
+            ><span aria-hidden="true" class="p-button-label"
+              >&nbsp;</span
+            ></button
+          ><button
+            type="button"
+            pbutton=""
+            class="p-element p-inputnumber-button p-inputnumber-button-down p-button p-component p-button-icon-only"
+          >
+            <span
+              class="p-button-icon pi pi-angle-down"
+              aria-hidden="true"
+            ></span
+            ><span aria-hidden="true" class="p-button-label">&nbsp;</span>
+          </button></span
+        ><!----><!----><!----></span
+      ></p-inputNumber
+    >
+    <h5 _ngcontent-ogo-c76="">Chips</h5>
+    <p-chips
+      _ngcontent-ogo-c76=""
+      class="p-element p-inputwrapper ng-untouched ng-pristine ng-valid"
+      ><div class="p-chips p-component">
+        <ul class="p-inputtext p-chips-multiple-container">
+          <!---->
+          <li class="p-chips-input-token"><input type="text" /></li>
+          <li><!----></li>
+        </ul>
+      </div></p-chips
+    >
+  </div>
+  <div _ngcontent-ogo-c76="" class="card">
+    <h5 _ngcontent-ogo-c76="">Slider</h5>
+    <input type="text" pInputText [(ngModel)]="sliderInput" readonly />
+    <p-slider [(ngModel)]="sliderInput"></p-slider>
+    <h5 _ngcontent-ogo-c76="">Rating</h5>
+    <p-rating
+      _ngcontent-ogo-c76=""
+      class="p-element ng-untouched ng-pristine ng-valid"
+      ><div class="p-rating">
+        <span
+          class="p-rating-icon p-rating-cancel pi pi-ban ng-star-inserted"
+          tabindex="0"
+        ></span
+        ><!----><span
+          class="p-rating-icon pi pi-star ng-star-inserted"
+          tabindex="0"
+        ></span
+        ><span
+          class="p-rating-icon pi pi-star ng-star-inserted"
+          tabindex="0"
+        ></span
+        ><span
+          class="p-rating-icon pi pi-star ng-star-inserted"
+          tabindex="0"
+        ></span
+        ><span
+          class="p-rating-icon pi pi-star ng-star-inserted"
+          tabindex="0"
+        ></span
+        ><span
+          class="p-rating-icon pi pi-star ng-star-inserted"
+          tabindex="0"
+        ></span
+        ><!---->
+      </div></p-rating
+    >
+    <h5 _ngcontent-ogo-c76="">Input Switch</h5>
+    <p-inputSwitch
+      _ngcontent-ogo-c76=""
+      class="p-element ng-untouched ng-pristine ng-valid"
+      ><div class="p-inputswitch p-component">
+        <div class="p-hidden-accessible">
+          <input type="checkbox" role="switch" aria-checked="false" />
+        </div>
+        <span class="p-inputswitch-slider"></span></div
+    ></p-inputSwitch>
+  </div>
+</div>
+<div _ngcontent-ogo-c76="" class="col-12 md:col-6">
+  <div _ngcontent-ogo-c76="" class="card">
+    <h5 _ngcontent-ogo-c76="">RadioButton</h5>
+    <div _ngcontent-ogo-c76="" class="grid">
+      <div _ngcontent-ogo-c76="" class="col-12 md:col-4">
+        <div _ngcontent-ogo-c76="" class="field-radiobutton">
+          <p-radioButton
+            _ngcontent-ogo-c76=""
+            inputid="option1"
+            name="option"
+            [(ngModel)]="radioOption"
+            value="Option 1"
+            class="p-element ng-untouched ng-pristine ng-valid"
+            ><div class="p-radiobutton p-component">
+              <div class="p-hidden-accessible">
+                <input
+                  type="radio"
+                  id="option1"
+                  name="option"
+                  value="Option 1"
+                  aria-checked="false"
+                />
+              </div>
+              <div class="p-radiobutton-box">
+                <span class="p-radiobutton-icon"></span>
+              </div>
+            </div>
+            <!----></p-radioButton
+          ><label _ngcontent-ogo-c76="" for="option1">Option 1</label>
+        </div>
+      </div>
+      <div _ngcontent-ogo-c76="" class="col-12 md:col-4">
+        <div _ngcontent-ogo-c76="" class="field-radiobutton">
+          <p-radioButton
+            _ngcontent-ogo-c76=""
+            inputid="option2"
+            name="option"
+            value="Option 2"
+            class="p-element ng-untouched ng-pristine ng-valid"
+            ><div class="p-radiobutton p-component">
+              <div class="p-hidden-accessible">
+                <input
+                  type="radio"
+                  id="option2"
+                  name="option"
+                  value="Option 2"
+                  aria-checked="false"
+                />
+              </div>
+              <div class="p-radiobutton-box">
+                <span class="p-radiobutton-icon"></span>
+              </div>
+            </div>
+            <!----></p-radioButton
+          ><label _ngcontent-ogo-c76="" for="option2">Option 2</label>
+        </div>
+      </div>
+      <div _ngcontent-ogo-c76="" class="col-12 md:col-4">
+        <div _ngcontent-ogo-c76="" class="field-radiobutton">
+          <p-radioButton
+            _ngcontent-ogo-c76=""
+            inputid="option3"
+            name="option"
+            value="Option 3"
+            class="p-element ng-untouched ng-pristine ng-valid"
+            ><div class="p-radiobutton p-component">
+              <div class="p-hidden-accessible">
+                <input
+                  type="radio"
+                  id="option3"
+                  name="option"
+                  value="Option 3"
+                  aria-checked="false"
+                />
+              </div>
+              <div class="p-radiobutton-box">
+                <span class="p-radiobutton-icon"></span>
+              </div>
+            </div>
+            <!----></p-radioButton
+          ><label _ngcontent-ogo-c76="" for="option3">Option 3</label>
+        </div>
+      </div>
+    </div>
+    <h5 _ngcontent-ogo-c76="">Checkbox</h5>
+    <div _ngcontent-ogo-c76="" class="grid">
+      <div _ngcontent-ogo-c76="" class="col-12 md:col-4">
+        <div _ngcontent-ogo-c76="" class="field-checkbox">
+          <p-checkbox
+            _ngcontent-ogo-c76=""
+            inputid="checkOption1"
+            name="option"
+            value="Option 1"
+            class="p-element ng-untouched ng-pristine ng-valid"
+            ><div class="p-checkbox p-component">
+              <div class="p-hidden-accessible">
+                <input
+                  type="checkbox"
+                  value="Option 1"
+                  id="checkOption1"
+                  name="option"
+                  aria-checked="false"
+                />
+              </div>
+              <div class="p-checkbox-box">
+                <span class="p-checkbox-icon"></span>
+              </div>
+            </div>
+            <!----></p-checkbox
+          ><label _ngcontent-ogo-c76="" for="checkOption1">Option 1</label>
+        </div>
+      </div>
+      <div _ngcontent-ogo-c76="" class="col-12 md:col-4">
+        <div _ngcontent-ogo-c76="" class="field-checkbox">
+          <p-checkbox
+            _ngcontent-ogo-c76=""
+            inputid="checkOption2"
+            name="option"
+            value="Option 2"
+            class="p-element ng-untouched ng-pristine ng-valid"
+            ><div class="p-checkbox p-component">
+              <div class="p-hidden-accessible">
+                <input
+                  type="checkbox"
+                  value="Option 2"
+                  id="checkOption2"
+                  name="option"
+                  aria-checked="false"
+                />
+              </div>
+              <div class="p-checkbox-box">
+                <span class="p-checkbox-icon"></span>
+              </div>
+            </div>
+            <!----></p-checkbox
+          ><label _ngcontent-ogo-c76="" for="checkOption2">Option 2</label>
+        </div>
+      </div>
+      <div _ngcontent-ogo-c76="" class="col-12 md:col-4">
+        <div _ngcontent-ogo-c76="" class="field-checkbox">
+          <p-checkbox
+            _ngcontent-ogo-c76=""
+            inputid="checkOption3"
+            name="option"
+            value="Option 3"
+            class="p-element ng-untouched ng-pristine ng-valid"
+            ><div class="p-checkbox p-component">
+              <div class="p-hidden-accessible">
+                <input
+                  type="checkbox"
+                  value="Option 3"
+                  id="checkOption3"
+                  name="option"
+                  aria-checked="false"
+                />
+              </div>
+              <div class="p-checkbox-box">
+                <span class="p-checkbox-icon"></span>
+              </div>
+            </div>
+            <!----></p-checkbox
+          ><label _ngcontent-ogo-c76="" for="checkOption3">Option 3</label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div _ngcontent-ogo-c76="" class="card p-fluid">
+    <h5 _ngcontent-ogo-c76="">Listbox</h5>
+    <p-listbox
+      [options]="countries"
+      [(ngModel)]="selectedCountries"
+      [metaKeySelection]="false"
+      [checkbox]="true"
+      [filter]="true"
+      [multiple]="true"
+      optionLabel="name"
+      [listStyle]="{ 'max-height': '250px' }"
+      [style]="{ width: '15rem' }"
+    >
+      <ng-template let-country pTemplate="item">
+        <div class="country-item">
+          <i class="pi pi-clock"></i>
+          <div>{{ country.name }}</div>
+        </div>
+      </ng-template>
+    </p-listbox>
+    <h5 _ngcontent-ogo-c76="">Dropdown</h5>
+    <p-dropdown
+      [options]="cities"
+      [(ngModel)]="selectedCity"
+      optionLabel="name"
+    ></p-dropdown>
+    <h5 _ngcontent-ogo-c76="">MultiSelect</h5>
+    <p-multiSelect
+      [options]="cities"
+      [(ngModel)]="selectedCities1"
+      defaultLabel="Select a City"
+      optionLabel="name"
+      selectedItemsLabel="{0} items selected"
+    ></p-multiSelect>
+  </div>
+  <div _ngcontent-ogo-c76="" class="card p-fluid">
+    <h5 _ngcontent-ogo-c76="">ToggleButton</h5>
+    <p-toggleButton
+      [(ngModel)]="toggleButton"
+      onIcon="'pi pi-check'"
+      offIcon="'pi pi-times'"
+      onLabel="'I confirm'"
+      offLabel="'I reject'"
+    ></p-toggleButton>
+    <h5 _ngcontent-ogo-c76="">SelectButton</h5>
+    <p-selectButton
+      [options]="stateOptions"
+      [(ngModel)]="singleSelectButtonValue"
+      optionLabel="label"
+      optionValue="value"
+    ></p-selectButton>
+    <h5 _ngcontent-ogo-c76="">SelectButton - Multiple</h5>
+    <p-selectButton
+      [options]="paymentOptions"
+      [(ngModel)]="multipleSelectButtonValue"
+      [multiple]="true"
+      optionLabel="name"
+      optionValue="value"
+    ></p-selectButton>
+  </div>
+</div>
+<div _ngcontent-ogo-c76="" class="col-12">
+  <div _ngcontent-ogo-c76="" class="card">
+    <h5 _ngcontent-ogo-c76="">Buttons</h5>
+    <button
+      _ngcontent-ogo-c76=""
+      type="button"
+      pbutton=""
+      pripple=""
+      label="Submit"
+      class="p-element p-ripple mr-2 mb-2 p-button p-component"
+    >
+      <span class="p-button-label">Submit</span
+      ><span class="p-ink"></span></button
+    ><button
+      _ngcontent-ogo-c76=""
+      type="button"
+      pbutton=""
+      pripple=""
+      icon="pi pi-check"
+      class="p-element p-ripple mr-2 mb-2 p-button p-component p-button-icon-only"
+    >
+      <span class="p-button-icon pi pi-check" aria-hidden="true"></span
+      ><span aria-hidden="true" class="p-button-label">&nbsp;</span
+      ><span class="p-ink"></span></button
+    ><button
+      _ngcontent-ogo-c76=""
+      type="button"
+      pbutton=""
+      pripple=""
+      label="Submit"
+      icon="pi pi-check"
+      class="p-element p-ripple mr-2 mb-2 p-button p-component"
+    >
+      <span
+        class="p-button-icon p-button-icon-left pi pi-check"
+        aria-hidden="true"
+      ></span
+      ><span class="p-button-label">Submit</span
+      ><span class="p-ink"></span></button
+    ><button
+      _ngcontent-ogo-c76=""
+      type="button"
+      pbutton=""
+      pripple=""
+      label="Submit"
+      icon="pi pi-check"
+      iconpos="right"
+      class="p-element p-ripple mr-2 mb-2 p-button p-component"
+    >
+      <span
+        class="p-button-icon p-button-icon-right pi pi-check"
+        aria-hidden="true"
+      ></span
+      ><span class="p-button-label">Submit</span
+      ><span class="p-ink"></span></button
+    ><button
+      _ngcontent-ogo-c76=""
+      type="button"
+      pbutton=""
+      pripple=""
+      label="Disabled"
+      disabled="disabled"
+      class="p-element p-ripple mr-2 mb-2 p-button p-component"
+    >
+      <span class="p-button-label">Disabled</span><span class="p-ink"></span>
+    </button>
+    <h5 _ngcontent-ogo-c76="">Severities</h5>
+    <button
+      _ngcontent-ogo-c76=""
+      type="button"
+      pbutton=""
+      pripple=""
+      label="Primary"
+      class="p-element p-ripple mr-2 mb-2 p-button p-component"
+    >
+      <span class="p-button-label">Primary</span
+      ><span class="p-ink"></span></button
+    ><button
+      _ngcontent-ogo-c76=""
+      type="button"
+      pbutton=""
+      pripple=""
+      label="Secondary"
+      class="p-element p-ripple p-button-secondary mr-2 mb-2 p-button p-component"
+    >
+      <span class="p-button-label">Secondary</span
+      ><span class="p-ink"></span></button
+    ><button
+      _ngcontent-ogo-c76=""
+      type="button"
+      pbutton=""
+      pripple=""
+      label="Success"
+      class="p-element p-ripple p-button-success mr-2 mb-2 p-button p-component"
+    >
+      <span class="p-button-label">Success</span
+      ><span class="p-ink"></span></button
+    ><button
+      _ngcontent-ogo-c76=""
+      type="button"
+      pbutton=""
+      pripple=""
+      label="Info"
+      class="p-element p-ripple p-button-info mr-2 mb-2 p-button p-component"
+    >
+      <span class="p-button-label">Info</span
+      ><span class="p-ink"></span></button
+    ><button
+      _ngcontent-ogo-c76=""
+      type="button"
+      pbutton=""
+      pripple=""
+      label="Warning"
+      class="p-element p-ripple p-button-warning mr-2 mb-2 p-button p-component"
+    >
+      <span class="p-button-label">Warning</span
+      ><span class="p-ink"></span></button
+    ><button
+      _ngcontent-ogo-c76=""
+      type="button"
+      pbutton=""
+      pripple=""
+      label="Help"
+      class="p-element p-ripple p-button-help mr-2 mb-2 p-button p-component"
+    >
+      <span class="p-button-label">Help</span
+      ><span class="p-ink"></span></button
+    ><button
+      _ngcontent-ogo-c76=""
+      type="button"
+      pbutton=""
+      pripple=""
+      label="Danger"
+      class="p-element p-ripple p-button-danger mb-2 p-button p-component"
+    >
+      <span class="p-button-label">Danger</span><span class="p-ink"></span>
+    </button>
+    <h5 _ngcontent-ogo-c76="">Raised Buttons</h5>
+    <button
+      _ngcontent-ogo-c76=""
+      type="button"
+      pbutton=""
+      pripple=""
+      label="Primary"
+      class="p-element p-ripple p-button-raised mr-2 mb-2 p-button p-component"
+    >
+      <span class="p-button-label">Primary</span
+      ><span class="p-ink"></span></button
+    ><button
+      _ngcontent-ogo-c76=""
+      type="button"
+      pbutton=""
+      pripple=""
+      label="Secondary"
+      class="p-element p-ripple p-button-raised p-button-secondary mr-2 mb-2 p-button p-component"
+    >
+      <span class="p-button-label">Secondary</span
+      ><span class="p-ink"></span></button
+    ><button
+      _ngcontent-ogo-c76=""
+      type="button"
+      pbutton=""
+      pripple=""
+      label="Success"
+      class="p-element p-ripple p-button-raised p-button-success mr-2 mb-2 p-button p-component"
+    >
+      <span class="p-button-label">Success</span
+      ><span class="p-ink"></span></button
+    ><button
+      _ngcontent-ogo-c76=""
+      type="button"
+      pbutton=""
+      pripple=""
+      label="Info"
+      class="p-element p-ripple p-button-raised p-button-info mr-2 mb-2 p-button p-component"
+    >
+      <span class="p-button-label">Info</span
+      ><span class="p-ink"></span></button
+    ><button
+      _ngcontent-ogo-c76=""
+      type="button"
+      pbutton=""
+      pripple=""
+      label="Warning"
+      class="p-element p-ripple p-button-raised p-button-warning mr-2 mb-2 p-button p-component"
+    >
+      <span class="p-button-label">Warning</span
+      ><span class="p-ink"></span></button
+    ><button
+      _ngcontent-ogo-c76=""
+      type="button"
+      pbutton=""
+      pripple=""
+      label="Help"
+      class="p-element p-ripple p-button-raised p-button-help mr-2 mb-2 p-button p-component"
+    >
+      <span class="p-button-label">Help</span
+      ><span class="p-ink"></span></button
+    ><button
+      _ngcontent-ogo-c76=""
+      type="button"
+      pbutton=""
+      pripple=""
+      label="Danger"
+      class="p-element p-ripple p-button-raised p-button-danger mb-2 p-button p-component"
+    >
+      <span class="p-button-label">Danger</span><span class="p-ink"></span>
+    </button>
+    <h5 _ngcontent-ogo-c76="">Rounded Buttons</h5>
+    <button
+      _ngcontent-ogo-c76=""
+      type="button"
+      pbutton=""
+      pripple=""
+      label="Primary"
+      class="p-element p-ripple p-button-rounded mr-2 mb-2 p-button p-component"
+    >
+      <span class="p-button-label">Primary</span
+      ><span class="p-ink"></span></button
+    ><button
+      _ngcontent-ogo-c76=""
+      type="button"
+      pbutton=""
+      pripple=""
+      label="Secondary"
+      class="p-element p-ripple p-button-rounded p-button-secondary mr-2 mb-2 p-button p-component"
+    >
+      <span class="p-button-label">Secondary</span
+      ><span class="p-ink"></span></button
+    ><button
+      _ngcontent-ogo-c76=""
+      type="button"
+      pbutton=""
+      pripple=""
+      label="Success"
+      class="p-element p-ripple p-button-rounded p-button-success mr-2 mb-2 p-button p-component"
+    >
+      <span class="p-button-label">Success</span
+      ><span class="p-ink"></span></button
+    ><button
+      _ngcontent-ogo-c76=""
+      type="button"
+      pbutton=""
+      pripple=""
+      label="Info"
+      class="p-element p-ripple p-button-rounded p-button-info mr-2 mb-2 p-button p-component"
+    >
+      <span class="p-button-label">Info</span
+      ><span class="p-ink"></span></button
+    ><button
+      _ngcontent-ogo-c76=""
+      type="button"
+      pbutton=""
+      pripple=""
+      label="Warning"
+      class="p-element p-ripple p-button-rounded p-button-warning mr-2 mb-2 p-button p-component"
+    >
+      <span class="p-button-label">Warning</span
+      ><span class="p-ink"></span></button
+    ><button
+      _ngcontent-ogo-c76=""
+      type="button"
+      pbutton=""
+      pripple=""
+      label="Help"
+      class="p-element p-ripple p-button-rounded p-button-help mr-2 mb-2 p-button p-component"
+    >
+      <span class="p-button-label">Help</span
+      ><span class="p-ink"></span></button
+    ><button
+      _ngcontent-ogo-c76=""
+      type="button"
+      pbutton=""
+      pripple=""
+      label="Danger"
+      class="p-element p-ripple p-button-rounded p-button-danger mb-2 p-button p-component"
+    >
+      <span class="p-button-label">Danger</span><span class="p-ink"></span>
+    </button>
+    <h5 _ngcontent-ogo-c76="">Text Buttons</h5>
+    <button
+      _ngcontent-ogo-c76=""
+      type="button"
+      pbutton=""
+      pripple=""
+      label="Primary"
+      class="p-element p-ripple p-button-text mr-2 mb-2 p-button p-component"
+    >
+      <span class="p-button-label">Primary</span
+      ><span class="p-ink"></span></button
+    ><button
+      _ngcontent-ogo-c76=""
+      type="button"
+      pbutton=""
+      pripple=""
+      label="Secondary"
+      class="p-element p-ripple p-button-secondary p-button-text mr-2 mb-2 p-button p-component"
+    >
+      <span class="p-button-label">Secondary</span
+      ><span class="p-ink"></span></button
+    ><button
+      _ngcontent-ogo-c76=""
+      type="button"
+      pbutton=""
+      pripple=""
+      label="Success"
+      class="p-element p-ripple p-button-success p-button-text mr-2 mb-2 p-button p-component"
+    >
+      <span class="p-button-label">Success</span
+      ><span class="p-ink"></span></button
+    ><button
+      _ngcontent-ogo-c76=""
+      type="button"
+      pbutton=""
+      pripple=""
+      label="Info"
+      class="p-element p-ripple p-button-info p-button-text mr-2 mb-2 p-button p-component"
+    >
+      <span class="p-button-label">Info</span
+      ><span class="p-ink"></span></button
+    ><button
+      _ngcontent-ogo-c76=""
+      type="button"
+      pbutton=""
+      pripple=""
+      label="Warning"
+      class="p-element p-ripple p-button-warning p-button-text mr-2 mb-2 p-button p-component"
+    >
+      <span class="p-button-label">Warning</span
+      ><span class="p-ink"></span></button
+    ><button
+      _ngcontent-ogo-c76=""
+      type="button"
+      pbutton=""
+      pripple=""
+      label="Help"
+      class="p-element p-ripple p-button-help p-button-text mr-2 mb-2 p-button p-component"
+    >
+      <span class="p-button-label">Help</span
+      ><span class="p-ink"></span></button
+    ><button
+      _ngcontent-ogo-c76=""
+      type="button"
+      pbutton=""
+      pripple=""
+      label="Danger"
+      class="p-element p-ripple p-button-danger p-button-text mr-2 mb-2 p-button p-component"
+    >
+      <span class="p-button-label">Danger</span
+      ><span class="p-ink"></span></button
+    ><button
+      _ngcontent-ogo-c76=""
+      type="button"
+      pbutton=""
+      pripple=""
+      label="Plain"
+      class="p-element p-ripple p-button-text p-button-plain mb-2 p-button p-component"
+    >
+      <span class="p-button-label">Plain</span><span class="p-ink"></span>
+    </button>
+    <h5 _ngcontent-ogo-c76="">Raised Text Buttons</h5>
+    <button
+      _ngcontent-ogo-c76=""
+      type="button"
+      pbutton=""
+      pripple=""
+      label="Primary"
+      class="p-element p-ripple p-button-raised p-button-text mr-2 mb-2 p-button p-component"
+    >
+      <span class="p-button-label">Primary</span
+      ><span class="p-ink"></span></button
+    ><button
+      _ngcontent-ogo-c76=""
+      type="button"
+      pbutton=""
+      pripple=""
+      label="Secondary"
+      class="p-element p-ripple p-button-raised p-button-secondary p-button-text mr-2 mb-2 p-button p-component"
+    >
+      <span class="p-button-label">Secondary</span
+      ><span class="p-ink"></span></button
+    ><button
+      _ngcontent-ogo-c76=""
+      type="button"
+      pbutton=""
+      pripple=""
+      label="Success"
+      class="p-element p-ripple p-button-raised p-button-success p-button-text mr-2 mb-2 p-button p-component"
+    >
+      <span class="p-button-label">Success</span
+      ><span class="p-ink"></span></button
+    ><button
+      _ngcontent-ogo-c76=""
+      type="button"
+      pbutton=""
+      pripple=""
+      label="Info"
+      class="p-element p-ripple p-button-raised p-button-info p-button-text mr-2 mb-2 p-button p-component"
+    >
+      <span class="p-button-label">Info</span
+      ><span class="p-ink"></span></button
+    ><button
+      _ngcontent-ogo-c76=""
+      type="button"
+      pbutton=""
+      pripple=""
+      label="Warning"
+      class="p-element p-ripple p-button-raised p-button-warning p-button-text mr-2 mb-2 p-button p-component"
+    >
+      <span class="p-button-label">Warning</span
+      ><span class="p-ink"></span></button
+    ><button
+      _ngcontent-ogo-c76=""
+      type="button"
+      pbutton=""
+      pripple=""
+      label="Help"
+      class="p-element p-ripple p-button-raised p-button-help p-button-text mr-2 mb-2 p-button p-component"
+    >
+      <span class="p-button-label">Help</span
+      ><span class="p-ink"></span></button
+    ><button
+      _ngcontent-ogo-c76=""
+      type="button"
+      pbutton=""
+      pripple=""
+      label="Danger"
+      class="p-element p-ripple p-button-raised p-button-danger p-button-text mr-2 mb-2 p-button p-component"
+    >
+      <span class="p-button-label">Danger</span
+      ><span class="p-ink"></span></button
+    ><button
+      _ngcontent-ogo-c76=""
+      type="button"
+      pbutton=""
+      pripple=""
+      label="Plain"
+      class="p-element p-ripple p-button-raised p-button-text p-button-plain mb-2 p-button p-component"
+    >
+      <span class="p-button-label">Plain</span><span class="p-ink"></span>
+    </button>
+    <h5 _ngcontent-ogo-c76="">Outlined Buttons</h5>
+    <button
+      _ngcontent-ogo-c76=""
+      type="button"
+      pbutton=""
+      pripple=""
+      label="Primary"
+      class="p-element p-ripple p-button-outlined mr-2 mb-2 p-button p-component"
+    >
+      <span class="p-button-label">Primary</span
+      ><span class="p-ink"></span></button
+    ><button
+      _ngcontent-ogo-c76=""
+      type="button"
+      pbutton=""
+      pripple=""
+      label="Secondary"
+      class="p-element p-ripple p-button-outlined p-button-secondary mr-2 mb-2 p-button p-component"
+    >
+      <span class="p-button-label">Secondary</span
+      ><span class="p-ink"></span></button
+    ><button
+      _ngcontent-ogo-c76=""
+      type="button"
+      pbutton=""
+      pripple=""
+      label="Success"
+      class="p-element p-ripple p-button-outlined p-button-success mr-2 mb-2 p-button p-component"
+    >
+      <span class="p-button-label">Success</span
+      ><span class="p-ink"></span></button
+    ><button
+      _ngcontent-ogo-c76=""
+      type="button"
+      pbutton=""
+      pripple=""
+      label="Info"
+      class="p-element p-ripple p-button-outlined p-button-info mr-2 mb-2 p-button p-component"
+    >
+      <span class="p-button-label">Info</span
+      ><span class="p-ink"></span></button
+    ><button
+      _ngcontent-ogo-c76=""
+      type="button"
+      pbutton=""
+      pripple=""
+      label="Warning"
+      class="p-element p-ripple p-button-outlined p-button-warning mr-2 mb-2 p-button p-component"
+    >
+      <span class="p-button-label">Warning</span
+      ><span class="p-ink"></span></button
+    ><button
+      _ngcontent-ogo-c76=""
+      type="button"
+      pbutton=""
+      pripple=""
+      label="Help"
+      class="p-element p-ripple p-button-outlined p-button-help mr-2 mb-2 p-button p-component"
+    >
+      <span class="p-button-label">Help</span
+      ><span class="p-ink"></span></button
+    ><button
+      _ngcontent-ogo-c76=""
+      type="button"
+      pbutton=""
+      pripple=""
+      label="Danger"
+      class="p-element p-ripple p-button-outlined p-button-danger mr-2 mb-2 p-button p-component"
+    >
+      <span class="p-button-label">Danger</span
+      ><span class="p-ink"></span></button
+    ><button
+      _ngcontent-ogo-c76=""
+      type="button"
+      pbutton=""
+      pripple=""
+      label="Plain"
+      class="p-element p-ripple p-button-outlined p-button-plain mb-2 p-button p-component"
+    >
+      <span class="p-button-label">Plain</span><span class="p-ink"></span>
+    </button>
+    <h5 _ngcontent-ogo-c76="">Rounded Icon Buttons</h5>
+    <button
+      _ngcontent-ogo-c76=""
+      type="button"
+      pbutton=""
+      pripple=""
+      icon="pi pi-check"
+      class="p-element p-ripple p-button-rounded mr-2 mb-2 p-button p-component p-button-icon-only"
+    >
+      <span class="p-button-icon pi pi-check" aria-hidden="true"></span
+      ><span aria-hidden="true" class="p-button-label">&nbsp;</span
+      ><span class="p-ink"></span></button
+    ><button
+      _ngcontent-ogo-c76=""
+      type="button"
+      pbutton=""
+      pripple=""
+      icon="pi pi-bookmark"
+      class="p-element p-ripple p-button-rounded p-button-secondary mr-2 mb-2 p-button p-component p-button-icon-only"
+    >
+      <span class="p-button-icon pi pi-bookmark" aria-hidden="true"></span
+      ><span aria-hidden="true" class="p-button-label">&nbsp;</span
+      ><span class="p-ink"></span></button
+    ><button
+      _ngcontent-ogo-c76=""
+      type="button"
+      pbutton=""
+      pripple=""
+      icon="pi pi-search"
+      class="p-element p-ripple p-button-rounded p-button-success mr-2 mb-2 p-button p-component p-button-icon-only"
+    >
+      <span class="p-button-icon pi pi-search" aria-hidden="true"></span
+      ><span aria-hidden="true" class="p-button-label">&nbsp;</span
+      ><span class="p-ink"></span></button
+    ><button
+      _ngcontent-ogo-c76=""
+      type="button"
+      pbutton=""
+      pripple=""
+      icon="pi pi-user"
+      class="p-element p-ripple p-button-rounded p-button-info mr-2 mb-2 p-button p-component p-button-icon-only"
+    >
+      <span class="p-button-icon pi pi-user" aria-hidden="true"></span
+      ><span aria-hidden="true" class="p-button-label">&nbsp;</span
+      ><span class="p-ink"></span></button
+    ><button
+      _ngcontent-ogo-c76=""
+      type="button"
+      pbutton=""
+      pripple=""
+      icon="pi pi-bell"
+      class="p-element p-ripple p-button-rounded p-button-warning mr-2 mb-2 p-button p-component p-button-icon-only"
+    >
+      <span class="p-button-icon pi pi-bell" aria-hidden="true"></span
+      ><span aria-hidden="true" class="p-button-label">&nbsp;</span
+      ><span class="p-ink"></span></button
+    ><button
+      _ngcontent-ogo-c76=""
+      type="button"
+      pbutton=""
+      pripple=""
+      icon="pi pi-heart"
+      class="p-element p-ripple p-button-rounded p-button-help mr-2 mb-2 p-button p-component p-button-icon-only"
+    >
+      <span class="p-button-icon pi pi-heart" aria-hidden="true"></span
+      ><span aria-hidden="true" class="p-button-label">&nbsp;</span
+      ><span class="p-ink"></span></button
+    ><button
+      _ngcontent-ogo-c76=""
+      type="button"
+      pbutton=""
+      pripple=""
+      icon="pi pi-times"
+      class="p-element p-ripple p-button-rounded p-button-danger mb-2 p-button p-component p-button-icon-only"
+    >
+      <span class="p-button-icon pi pi-times" aria-hidden="true"></span
+      ><span aria-hidden="true" class="p-button-label">&nbsp;</span
+      ><span class="p-ink"></span>
+    </button>
+    <h5 _ngcontent-ogo-c76="">Rounded Text Icon Buttons</h5>
+    <button
+      _ngcontent-ogo-c76=""
+      type="button"
+      pbutton=""
+      pripple=""
+      icon="pi pi-check"
+      class="p-element p-ripple p-button-rounded p-button-text mr-2 mb-2 p-button p-component p-button-icon-only"
+    >
+      <span class="p-button-icon pi pi-check" aria-hidden="true"></span
+      ><span aria-hidden="true" class="p-button-label">&nbsp;</span
+      ><span class="p-ink"></span></button
+    ><button
+      _ngcontent-ogo-c76=""
+      type="button"
+      pbutton=""
+      pripple=""
+      icon="pi pi-bookmark"
+      class="p-element p-ripple p-button-rounded p-button-secondary p-button-text mr-2 mb-2 p-button p-component p-button-icon-only"
+    >
+      <span class="p-button-icon pi pi-bookmark" aria-hidden="true"></span
+      ><span aria-hidden="true" class="p-button-label">&nbsp;</span
+      ><span class="p-ink"></span></button
+    ><button
+      _ngcontent-ogo-c76=""
+      type="button"
+      pbutton=""
+      pripple=""
+      icon="pi pi-search"
+      class="p-element p-ripple p-button-rounded p-button-success p-button-text mr-2 mb-2 p-button p-component p-button-icon-only"
+    >
+      <span class="p-button-icon pi pi-search" aria-hidden="true"></span
+      ><span aria-hidden="true" class="p-button-label">&nbsp;</span
+      ><span class="p-ink"></span></button
+    ><button
+      _ngcontent-ogo-c76=""
+      type="button"
+      pbutton=""
+      pripple=""
+      icon="pi pi-user"
+      class="p-element p-ripple p-button-rounded p-button-info p-button-text mr-2 mb-2 p-button p-component p-button-icon-only"
+    >
+      <span class="p-button-icon pi pi-user" aria-hidden="true"></span
+      ><span aria-hidden="true" class="p-button-label">&nbsp;</span
+      ><span class="p-ink"></span></button
+    ><button
+      _ngcontent-ogo-c76=""
+      type="button"
+      pbutton=""
+      pripple=""
+      icon="pi pi-bell"
+      class="p-element p-ripple p-button-rounded p-button-warning p-button-text mr-2 mb-2 p-button p-component p-button-icon-only"
+    >
+      <span class="p-button-icon pi pi-bell" aria-hidden="true"></span
+      ><span aria-hidden="true" class="p-button-label">&nbsp;</span
+      ><span class="p-ink"></span></button
+    ><button
+      _ngcontent-ogo-c76=""
+      type="button"
+      pbutton=""
+      pripple=""
+      icon="pi pi-heart"
+      class="p-element p-ripple p-button-rounded p-button-help p-button-text mr-2 mb-2 p-button p-component p-button-icon-only"
+    >
+      <span class="p-button-icon pi pi-heart" aria-hidden="true"></span
+      ><span aria-hidden="true" class="p-button-label">&nbsp;</span
+      ><span class="p-ink"></span></button
+    ><button
+      _ngcontent-ogo-c76=""
+      type="button"
+      pbutton=""
+      pripple=""
+      icon="pi pi-times"
+      class="p-element p-ripple p-button-rounded p-button-danger p-button-text mr-2 mb-2 p-button p-component p-button-icon-only"
+    >
+      <span class="p-button-icon pi pi-times" aria-hidden="true"></span
+      ><span aria-hidden="true" class="p-button-label">&nbsp;</span
+      ><span class="p-ink"></span>
+    </button>
+    <h5 _ngcontent-ogo-c76="">Rounded and Outlined Icon Buttons</h5>
+    <button
+      _ngcontent-ogo-c76=""
+      type="button"
+      pbutton=""
+      pripple=""
+      icon="pi pi-check"
+      class="p-element p-ripple p-button-rounded p-button-outlined mr-2 mb-2 p-button p-component p-button-icon-only"
+    >
+      <span class="p-button-icon pi pi-check" aria-hidden="true"></span
+      ><span aria-hidden="true" class="p-button-label">&nbsp;</span
+      ><span class="p-ink"></span></button
+    ><button
+      _ngcontent-ogo-c76=""
+      type="button"
+      pbutton=""
+      pripple=""
+      icon="pi pi-bookmark"
+      class="p-element p-ripple p-button-rounded p-button-secondary p-button-outlined mr-2 mb-2 p-button p-component p-button-icon-only"
+    >
+      <span class="p-button-icon pi pi-bookmark" aria-hidden="true"></span
+      ><span aria-hidden="true" class="p-button-label">&nbsp;</span
+      ><span class="p-ink"></span></button
+    ><button
+      _ngcontent-ogo-c76=""
+      type="button"
+      pbutton=""
+      pripple=""
+      icon="pi pi-search"
+      class="p-element p-ripple p-button-rounded p-button-success p-button-outlined mr-2 mb-2 p-button p-component p-button-icon-only"
+    >
+      <span class="p-button-icon pi pi-search" aria-hidden="true"></span
+      ><span aria-hidden="true" class="p-button-label">&nbsp;</span
+      ><span class="p-ink"></span></button
+    ><button
+      _ngcontent-ogo-c76=""
+      type="button"
+      pbutton=""
+      pripple=""
+      icon="pi pi-user"
+      class="p-element p-ripple p-button-rounded p-button-info p-button-outlined mr-2 mb-2 p-button p-component p-button-icon-only"
+    >
+      <span class="p-button-icon pi pi-user" aria-hidden="true"></span
+      ><span aria-hidden="true" class="p-button-label">&nbsp;</span
+      ><span class="p-ink"></span></button
+    ><button
+      _ngcontent-ogo-c76=""
+      type="button"
+      pbutton=""
+      pripple=""
+      icon="pi pi-bell"
+      class="p-element p-ripple p-button-rounded p-button-warning p-button-outlined mr-2 mb-2 p-button p-component p-button-icon-only"
+    >
+      <span class="p-button-icon pi pi-bell" aria-hidden="true"></span
+      ><span aria-hidden="true" class="p-button-label">&nbsp;</span
+      ><span class="p-ink"></span></button
+    ><button
+      _ngcontent-ogo-c76=""
+      type="button"
+      pbutton=""
+      pripple=""
+      icon="pi pi-heart"
+      class="p-element p-ripple p-button-rounded p-button-help p-button-outlined mr-2 mb-2 p-button p-component p-button-icon-only"
+    >
+      <span class="p-button-icon pi pi-heart" aria-hidden="true"></span
+      ><span aria-hidden="true" class="p-button-label">&nbsp;</span
+      ><span class="p-ink"></span></button
+    ><button
+      _ngcontent-ogo-c76=""
+      type="button"
+      pbutton=""
+      pripple=""
+      icon="pi pi-times"
+      class="p-element p-ripple p-button-rounded p-button-danger p-button-outlined mb-2 p-button p-component p-button-icon-only"
+    >
+      <span class="p-button-icon pi pi-times" aria-hidden="true"></span
+      ><span aria-hidden="true" class="p-button-label">&nbsp;</span
+      ><span class="p-ink"></span>
+    </button>
+    <h5 _ngcontent-ogo-c76="">Badges</h5>
+    <p-button label="Emails" badge="8"></p-button>
+    <p-button
+      label="Messages"
+      icon="pi pi-users"
+      styleClass="p-button-warning"
+      badge="8"
+      badgeClass="p-badge-danger"
+    ></p-button>
+    <h5 _ngcontent-ogo-c76="">Button Set</h5>
+    <span _ngcontent-ogo-c76="" class="p-buttonset"
+      ><button
+        _ngcontent-ogo-c76=""
+        type="button"
+        pbutton=""
+        pripple=""
+        label="Save"
+        icon="pi pi-check"
+        class="p-element p-ripple p-button p-component"
+      >
+        <span
+          class="p-button-icon p-button-icon-left pi pi-check"
+          aria-hidden="true"
+        ></span
+        ><span class="p-button-label">Save</span
+        ><span class="p-ink"></span></button
+      ><button
+        _ngcontent-ogo-c76=""
+        type="button"
+        pbutton=""
+        pripple=""
+        label="Delete"
+        icon="pi pi-trash"
+        class="p-element p-ripple p-button p-component"
+      >
+        <span
+          class="p-button-icon p-button-icon-left pi pi-trash"
+          aria-hidden="true"
+        ></span
+        ><span class="p-button-label">Delete</span
+        ><span class="p-ink"></span></button
+      ><button
+        _ngcontent-ogo-c76=""
+        type="button"
+        pbutton=""
+        pripple=""
+        label="Cancel"
+        icon="pi pi-times"
+        class="p-element p-ripple p-button p-component"
+      >
+        <span
+          class="p-button-icon p-button-icon-left pi pi-times"
+          aria-hidden="true"
+        ></span
+        ><span class="p-button-label">Cancel</span
+        ><span class="p-ink"></span></button
+    ></span>
+    <h5>Severities</h5>
+<p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('info')" [model]="items"></p-splitButton>
+<p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('info')" [model]="items" styleClass="p-button-secondary mb-2"></p-splitButton>
+<p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('success')" [model]="items" styleClass="p-button-success mb-2"></p-splitButton>
+<p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('info')" [model]="items" styleClass="p-button-info mb-2"></p-splitButton>
+<p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('warn')" [model]="items" styleClass="p-button-warning mb-2"></p-splitButton>
+<p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('info')" [model]="items" styleClass="p-button-help mb-2"></p-splitButton>
+<p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('error')" [model]="items" styleClass="p-button-danger mb-2"></p-splitButton>
+
+<h5>Raised Buttons</h5>
+<p-splitButton label="Primary" [model]="items" styleClass="p-button-raised mr-2 mb-2"></p-splitButton>
+<p-splitButton label="Secondary" [model]="items" styleClass="p-button-raised p-button-secondary mr-2 mb-2"></p-splitButton>
+<p-splitButton label="Success" [model]="items" styleClass="p-button-raised p-button-success mr-2 mb-2"></p-splitButton>
+<p-splitButton label="Info" [model]="items" styleClass="p-button-raised p-button-info mr-2 mb-2"></p-splitButton>
+<p-splitButton label="Warning" [model]="items" styleClass="p-button-raised p-button-warning mr-2 mb-2"></p-splitButton>
+<p-splitButton label="Help" [model]="items" styleClass="p-button-raised p-button-help mr-2 mb-2"></p-splitButton>
+<p-splitButton label="Danger" [model]="items" styleClass="p-button-raised p-button-danger mr-2 mb-2"></p-splitButton>
+
+<h5>Rounded Buttons</h5>
+<p-splitButton label="Primary" [model]="this.items" styleClass="p-button-rounded mr-2 mb-2"></p-splitButton>
+<p-splitButton label="Secondary" [model]="this.items" styleClass="p-button-rounded p-button-secondary mr-2 mb-2"></p-splitButton>
+<p-splitButton label="Success" [model]="this.items" styleClass="p-button-rounded p-button-success mr-2 mb-2"></p-splitButton>
+<p-splitButton label="Info" [model]="this.items" styleClass="p-button-rounded p-button-info mr-2 mb-2"></p-splitButton>
+<p-splitButton label="Warning" [model]="this.items" styleClass="p-button-rounded p-button-warning mr-2 mb-2"></p-splitButton>
+<p-splitButton label="Help" [model]="this.items" styleClass="p-button-rounded p-button-help mr-2 mb-2"></p-splitButton>
+<p-splitButton label="Danger" [model]="this.items" styleClass="p-button-rounded p-button-danger mr-2 mb-2"></p-splitButton>
+
+<h5>Text Buttons</h5>
+<p-splitButton label="Primary" [model]="this.items" styleClass="p-button-text mr-2 mb-2"></p-splitButton>
+<p-splitButton label="Secondary" [model]="this.items" styleClass="p-button-text p-button-secondary mr-2 mb-2"></p-splitButton>
+<p-splitButton label="Success" [model]="this.items" styleClass="p-button-text p-button-success mr-2 mb-2"></p-splitButton>
+<p-splitButton label="Info" [model]="this.items" styleClass="p-button-text p-button-info mr-2 mb-2"></p-splitButton>
+<p-splitButton label="Warning" [model]="this.items" styleClass="p-button-text p-button-warning mr-2 mb-2"></p-splitButton>
+<p-splitButton label="Help" [model]="this.items" styleClass="p-button-text p-button-help mr-2 mb-2"></p-splitButton>
+<p-splitButton label="Danger" [model]="this.items" styleClass="p-button-text p-button-danger mr-2 mb-2"></p-splitButton>
+<p-splitButton label="Plain" [model]="this.items" styleClass="p-button-text p-button-plain mr-2 mb-2"></p-splitButton>
+
+<h5>Raised Text Buttons</h5>
+<p-splitButton label="Primary" [model]="this.items" styleClass="p-button-raised p-button-text mr-2 mb-2"></p-splitButton>
+<p-splitButton label="Secondary" [model]="this.items" styleClass="p-button-raised p-button-secondary p-button-text mr-2 mb-2"></p-splitButton>
+<p-splitButton label="Success" [model]="this.items" styleClass="p-button-raised p-button-success p-button-text mr-2 mb-2"></p-splitButton>
+<p-splitButton label="Info" [model]="this.items" styleClass="p-button-raised p-button-info p-button-text mr-2 mb-2"></p-splitButton>
+<p-splitButton label="Warning" [model]="this.items" styleClass="p-button-raised p-button-warning p-button-text mr-2 mb-2"></p-splitButton>
+<p-splitButton label="Help" [model]="this.items" styleClass="p-button-raised p-button-help p-button-text mr-2 mb-2"></p-splitButton>
+<p-splitButton label="Danger" [model]="this.items" styleClass="p-button-raised p-button-danger p-button-text mr-2 mb-2"></p-splitButton>
+<p-splitButton label="Plain" [model]="this.items" styleClass="p-button-raised p-button-plain p-button-text mr-2 mb-2"></p-splitButton>
+
+<h5>Outlined Buttons</h5>
+<p-splitButton label="Primary" [model]="this.items" styleClass="p-button-outlined mr-2 mb-2"></p-splitButton>
+<p-splitButton label="Secondary" [model]="this.items" styleClass="p-button-outlined p-button-secondary mr-2 mb-2"></p-splitButton>
+<p-splitButton label="Success" [model]="this.items" styleClass="p-button-outlined p-button-success mr-2 mb-2"></p-splitButton>
+<p-splitButton label="Info" [model]="this.items" styleClass="p-button-outlined p-button-info mr-2 mb-2"></p-splitButton>
+<p-splitButton label="Warning" [model]="this.items" styleClass="p-button-outlined p-button-warning mr-2 mb-2"></p-splitButton>
+<p-splitButton label="Help" [model]="this.items" styleClass="p-button-outlined p-button-help mr-2 mb-2"></p-splitButton>
+<p-splitButton label="Danger" [model]="this.items" styleClass="p-button-outlined p-button-danger mr-2 mb-2"></p-splitButton>
+  </div>
+</div>
+<div _ngcontent-ogo-c76="" class="col-12">
+  <div _ngcontent-ogo-c76="" class="card">
+    <p-table
+      _ngcontent-ogo-c76=""
+      responsivelayout="scroll"
+      datakey="id"
+      styleclass="p-datatable-customers"
+      currentpagereporttemplate="Showing {first} to {last} of {totalRecords} entries"
+      class="p-element"
+      ><div
+        class="p-datatable-customers p-datatable p-component p-datatable-hoverable-rows p-datatable-responsive-scroll"
+        id="pr_id_6"
+      >
+        <!---->
+        <div class="p-datatable-header ng-star-inserted">
+          <div _ngcontent-ogo-c76="" class="table-header ng-star-inserted">
+            List of Customers
+            <span _ngcontent-ogo-c76="" class="p-input-icon-left"
+              ><i _ngcontent-ogo-c76="" class="pi pi-search"></i
+              ><input
+                _ngcontent-ogo-c76=""
+                pinputtext=""
+                type="text"
+                placeholder="Global Search"
+                class="p-inputtext p-component p-element"
+            /></span>
+          </div>
+          <!---->
+        </div>
+        <!----><!---->
+        <div class="p-datatable-wrapper">
+          <table
+            role="table"
+            class="p-datatable-table ng-star-inserted"
+            id="pr_id_6-table"
+          >
+            <!---->
+            <thead class="p-datatable-thead">
+              <tr _ngcontent-ogo-c76="" class="ng-star-inserted">
+                <th _ngcontent-ogo-c76="" style="width: 3rem">
+                  <p-tableHeaderCheckbox _ngcontent-ogo-c76="" class="p-element"
+                    ><div class="p-checkbox p-component">
+                      <div class="p-hidden-accessible">
+                        <input type="checkbox" />
+                      </div>
+                      <div
+                        role="checkbox"
+                        aria-checked="false"
+                        class="p-checkbox-box"
+                      >
+                        <span class="p-checkbox-icon"></span>
+                      </div></div
+                  ></p-tableHeaderCheckbox>
+                </th>
+                <th
+                  _ngcontent-ogo-c76=""
+                  psortablecolumn="name"
+                  class="p-element p-sortable-column"
+                  tabindex="0"
+                  role="columnheader"
+                  aria-sort="none"
+                >
+                  Name
+                  <p-sortIcon
+                    _ngcontent-ogo-c76=""
+                    field="name"
+                    class="p-element"
+                    ><i class="p-sortable-column-icon pi pi-fw pi-sort-alt"></i
+                    ><!----></p-sortIcon
+                  >
+                </th>
+                <th
+                  _ngcontent-ogo-c76=""
+                  psortablecolumn="country.name"
+                  class="p-element p-sortable-column"
+                  tabindex="0"
+                  role="columnheader"
+                  aria-sort="none"
+                >
+                  Country
+                  <p-sortIcon
+                    _ngcontent-ogo-c76=""
+                    field="country.name"
+                    class="p-element"
+                    ><i class="p-sortable-column-icon pi pi-fw pi-sort-alt"></i
+                    ><!----></p-sortIcon
+                  >
+                </th>
+                <th
+                  _ngcontent-ogo-c76=""
+                  psortablecolumn="representative.name"
+                  class="p-element p-sortable-column"
+                  tabindex="0"
+                  role="columnheader"
+                  aria-sort="none"
+                >
+                  Representative
+                  <p-sortIcon
+                    _ngcontent-ogo-c76=""
+                    field="representative.name"
+                    class="p-element"
+                    ><i class="p-sortable-column-icon pi pi-fw pi-sort-alt"></i
+                    ><!----></p-sortIcon
+                  >
+                </th>
+                <th
+                  _ngcontent-ogo-c76=""
+                  psortablecolumn="date"
+                  class="p-element p-sortable-column"
+                  tabindex="0"
+                  role="columnheader"
+                  aria-sort="none"
+                >
+                  Date
+                  <p-sortIcon
+                    _ngcontent-ogo-c76=""
+                    field="date"
+                    class="p-element"
+                    ><i class="p-sortable-column-icon pi pi-fw pi-sort-alt"></i
+                    ><!----></p-sortIcon
+                  >
+                </th>
+                <th
+                  _ngcontent-ogo-c76=""
+                  psortablecolumn="status"
+                  class="p-element p-sortable-column"
+                  tabindex="0"
+                  role="columnheader"
+                  aria-sort="none"
+                >
+                  Status
+                  <p-sortIcon
+                    _ngcontent-ogo-c76=""
+                    field="status"
+                    class="p-element"
+                    ><i class="p-sortable-column-icon pi pi-fw pi-sort-alt"></i
+                    ><!----></p-sortIcon
+                  >
+                </th>
+                <th
+                  _ngcontent-ogo-c76=""
+                  psortablecolumn="activity"
+                  class="p-element p-sortable-column"
+                  tabindex="0"
+                  role="columnheader"
+                  aria-sort="none"
+                >
+                  Activity
+                  <p-sortIcon
+                    _ngcontent-ogo-c76=""
+                    field="activity"
+                    class="p-element"
+                    ><i class="p-sortable-column-icon pi pi-fw pi-sort-alt"></i
+                    ><!----></p-sortIcon
+                  >
+                </th>
+                <th _ngcontent-ogo-c76="" style="width: 8rem"></th>
+              </tr>
+              <!---->
+            </thead>
+            <!---->
+            <tbody class="p-element p-datatable-tbody">
+              <!---->
+              <tr
+                _ngcontent-ogo-c76=""
+                class="p-selectable-row ng-star-inserted"
+              >
+                <td _ngcontent-ogo-c76="">
+                  <p-tableCheckbox _ngcontent-ogo-c76="" class="p-element"
+                    ><div class="p-checkbox p-component">
+                      <div class="p-hidden-accessible">
+                        <input type="checkbox" />
+                      </div>
+                      <div
+                        role="checkbox"
+                        aria-checked="false"
+                        class="p-checkbox-box p-component"
+                      >
+                        <span class="p-checkbox-icon"></span>
+                      </div></div
+                  ></p-tableCheckbox>
+                </td>
+                <td _ngcontent-ogo-c76="">
+                  <span _ngcontent-ogo-c76="" class="p-column-title">Name</span>
+                  James Butt
+                </td>
+                <td _ngcontent-ogo-c76="">
+                  <span _ngcontent-ogo-c76="" class="p-column-title"
+                    >Country</span
+                  ><img
+                    _ngcontent-ogo-c76=""
+                    src="assets/demo/images/flag/flag_placeholder.png"
+                    class="flag flag-dz"
+                    width="30"
+                  /><span _ngcontent-ogo-c76="" class="image-text"
+                    >Algeria</span
+                  >
+                </td>
+                <td _ngcontent-ogo-c76="">
+                  <span _ngcontent-ogo-c76="" class="p-column-title"
+                    >Representative</span
+                  ><img
+                    _ngcontent-ogo-c76=""
+                    style="vertical-align: middle"
+                    src="assets/demo/images/avatar/ionibowcher.png"
+                    alt="Ioni Bowcher"
+                    width="32"
+                  /><span _ngcontent-ogo-c76="" class="image-text"
+                    >Ioni Bowcher</span
+                  >
+                </td>
+                <td _ngcontent-ogo-c76="">
+                  <span _ngcontent-ogo-c76="" class="p-column-title">Date</span>
+                  2015-09-13
+                </td>
+                <td _ngcontent-ogo-c76="">
+                  <span _ngcontent-ogo-c76="" class="p-column-title"
+                    >Status</span
+                  ><span
+                    _ngcontent-ogo-c76=""
+                    class="customer-badge status-unqualified"
+                    >unqualified</span
+                  >
+                </td>
+                <td _ngcontent-ogo-c76="">
+                  <span _ngcontent-ogo-c76="" class="p-column-title"
+                    >Activity</span
+                  ><p-progressBar _ngcontent-ogo-c76="" class="p-element"
+                    ><div
+                      role="progressbar"
+                      aria-valuemin="0"
+                      aria-valuemax="100"
+                      aria-valuenow="17"
+                      style="height: 4px"
+                      class="p-progressbar p-component p-progressbar-determinate"
+                    >
+                      <div
+                        class="p-progressbar-value p-progressbar-value-animate ng-star-inserted"
+                        style="display: flex; width: 17%"
+                      >
+                        <!---->
+                      </div>
+                      <!----><!---->
+                    </div></p-progressBar
+                  >
+                </td>
+                <td _ngcontent-ogo-c76="" style="text-align: center">
+                  <button
+                    _ngcontent-ogo-c76=""
+                    pbutton=""
+                    type="button"
+                    icon="pi pi-cog"
+                    class="p-element p-button p-component p-button-icon-only"
+                  >
+                    <span
+                      class="p-button-icon pi pi-cog"
+                      aria-hidden="true"
+                    ></span
+                    ><span aria-hidden="true" class="p-button-label"
+                      >&nbsp;</span
+                    >
+                  </button>
+                </td>
+              </tr>
+              <!----><!----><!----><!----><!----><!---->
+              <tr
+                _ngcontent-ogo-c76=""
+                class="p-selectable-row ng-star-inserted"
+              >
+                <td _ngcontent-ogo-c76="">
+                  <p-tableCheckbox _ngcontent-ogo-c76="" class="p-element"
+                    ><div class="p-checkbox p-component">
+                      <div class="p-hidden-accessible">
+                        <input type="checkbox" />
+                      </div>
+                      <div
+                        role="checkbox"
+                        aria-checked="false"
+                        class="p-checkbox-box p-component"
+                      >
+                        <span class="p-checkbox-icon"></span>
+                      </div></div
+                  ></p-tableCheckbox>
+                </td>
+                <td _ngcontent-ogo-c76="">
+                  <span _ngcontent-ogo-c76="" class="p-column-title">Name</span>
+                  Josephine Darakjy
+                </td>
+                <td _ngcontent-ogo-c76="">
+                  <span _ngcontent-ogo-c76="" class="p-column-title"
+                    >Country</span
+                  ><img
+                    _ngcontent-ogo-c76=""
+                    src="assets/demo/images/flag/flag_placeholder.png"
+                    class="flag flag-eg"
+                    width="30"
+                  /><span _ngcontent-ogo-c76="" class="image-text">Egypt</span>
+                </td>
+                <td _ngcontent-ogo-c76="">
+                  <span _ngcontent-ogo-c76="" class="p-column-title"
+                    >Representative</span
+                  ><img
+                    _ngcontent-ogo-c76=""
+                    style="vertical-align: middle"
+                    src="assets/demo/images/avatar/amyelsner.png"
+                    alt="Amy Elsner"
+                    width="32"
+                  /><span _ngcontent-ogo-c76="" class="image-text"
+                    >Amy Elsner</span
+                  >
+                </td>
+                <td _ngcontent-ogo-c76="">
+                  <span _ngcontent-ogo-c76="" class="p-column-title">Date</span>
+                  2019-02-09
+                </td>
+                <td _ngcontent-ogo-c76="">
+                  <span _ngcontent-ogo-c76="" class="p-column-title"
+                    >Status</span
+                  ><span
+                    _ngcontent-ogo-c76=""
+                    class="customer-badge status-proposal"
+                    >proposal</span
+                  >
+                </td>
+                <td _ngcontent-ogo-c76="">
+                  <span _ngcontent-ogo-c76="" class="p-column-title"
+                    >Activity</span
+                  ><p-progressBar _ngcontent-ogo-c76="" class="p-element"
+                    ><div
+                      role="progressbar"
+                      aria-valuemin="0"
+                      aria-valuemax="100"
+                      aria-valuenow="0"
+                      style="height: 4px"
+                      class="p-progressbar p-component p-progressbar-determinate"
+                    >
+                      <div
+                        class="p-progressbar-value p-progressbar-value-animate ng-star-inserted"
+                        style="display: flex; width: 0%"
+                      >
+                        <!---->
+                      </div>
+                      <!----><!---->
+                    </div></p-progressBar
+                  >
+                </td>
+                <td _ngcontent-ogo-c76="" style="text-align: center">
+                  <button
+                    _ngcontent-ogo-c76=""
+                    pbutton=""
+                    type="button"
+                    icon="pi pi-cog"
+                    class="p-element p-button p-component p-button-icon-only"
+                  >
+                    <span
+                      class="p-button-icon pi pi-cog"
+                      aria-hidden="true"
+                    ></span
+                    ><span aria-hidden="true" class="p-button-label"
+                      >&nbsp;</span
+                    >
+                  </button>
+                </td>
+              </tr>
+              <!----><!----><!----><!----><!----><!---->
+              <tr
+                _ngcontent-ogo-c76=""
+                class="p-selectable-row ng-star-inserted"
+              >
+                <td _ngcontent-ogo-c76="">
+                  <p-tableCheckbox _ngcontent-ogo-c76="" class="p-element"
+                    ><div class="p-checkbox p-component">
+                      <div class="p-hidden-accessible">
+                        <input type="checkbox" />
+                      </div>
+                      <div
+                        role="checkbox"
+                        aria-checked="false"
+                        class="p-checkbox-box p-component"
+                      >
+                        <span class="p-checkbox-icon"></span>
+                      </div></div
+                  ></p-tableCheckbox>
+                </td>
+                <td _ngcontent-ogo-c76="">
+                  <span _ngcontent-ogo-c76="" class="p-column-title">Name</span>
+                  Art Venere
+                </td>
+                <td _ngcontent-ogo-c76="">
+                  <span _ngcontent-ogo-c76="" class="p-column-title"
+                    >Country</span
+                  ><img
+                    _ngcontent-ogo-c76=""
+                    src="assets/demo/images/flag/flag_placeholder.png"
+                    class="flag flag-pa"
+                    width="30"
+                  /><span _ngcontent-ogo-c76="" class="image-text">Panama</span>
+                </td>
+                <td _ngcontent-ogo-c76="">
+                  <span _ngcontent-ogo-c76="" class="p-column-title"
+                    >Representative</span
+                  ><img
+                    _ngcontent-ogo-c76=""
+                    style="vertical-align: middle"
+                    src="assets/demo/images/avatar/asiyajavayant.png"
+                    alt="Asiya Javayant"
+                    width="32"
+                  /><span _ngcontent-ogo-c76="" class="image-text"
+                    >Asiya Javayant</span
+                  >
+                </td>
+                <td _ngcontent-ogo-c76="">
+                  <span _ngcontent-ogo-c76="" class="p-column-title">Date</span>
+                  2017-05-13
+                </td>
+                <td _ngcontent-ogo-c76="">
+                  <span _ngcontent-ogo-c76="" class="p-column-title"
+                    >Status</span
+                  ><span
+                    _ngcontent-ogo-c76=""
+                    class="customer-badge status-qualified"
+                    >qualified</span
+                  >
+                </td>
+                <td _ngcontent-ogo-c76="">
+                  <span _ngcontent-ogo-c76="" class="p-column-title"
+                    >Activity</span
+                  ><p-progressBar _ngcontent-ogo-c76="" class="p-element"
+                    ><div
+                      role="progressbar"
+                      aria-valuemin="0"
+                      aria-valuemax="100"
+                      aria-valuenow="63"
+                      style="height: 4px"
+                      class="p-progressbar p-component p-progressbar-determinate"
+                    >
+                      <div
+                        class="p-progressbar-value p-progressbar-value-animate ng-star-inserted"
+                        style="display: flex; width: 63%"
+                      >
+                        <!---->
+                      </div>
+                      <!----><!---->
+                    </div></p-progressBar
+                  >
+                </td>
+                <td _ngcontent-ogo-c76="" style="text-align: center">
+                  <button
+                    _ngcontent-ogo-c76=""
+                    pbutton=""
+                    type="button"
+                    icon="pi pi-cog"
+                    class="p-element p-button p-component p-button-icon-only"
+                  >
+                    <span
+                      class="p-button-icon pi pi-cog"
+                      aria-hidden="true"
+                    ></span
+                    ><span aria-hidden="true" class="p-button-label"
+                      >&nbsp;</span
+                    >
+                  </button>
+                </td>
+              </tr>
+              <!----><!----><!----><!----><!----><!---->
+              <tr
+                _ngcontent-ogo-c76=""
+                class="p-selectable-row ng-star-inserted"
+              >
+                <td _ngcontent-ogo-c76="">
+                  <p-tableCheckbox _ngcontent-ogo-c76="" class="p-element"
+                    ><div class="p-checkbox p-component">
+                      <div class="p-hidden-accessible">
+                        <input type="checkbox" />
+                      </div>
+                      <div
+                        role="checkbox"
+                        aria-checked="false"
+                        class="p-checkbox-box p-component"
+                      >
+                        <span class="p-checkbox-icon"></span>
+                      </div></div
+                  ></p-tableCheckbox>
+                </td>
+                <td _ngcontent-ogo-c76="">
+                  <span _ngcontent-ogo-c76="" class="p-column-title">Name</span>
+                  Lenna Paprocki
+                </td>
+                <td _ngcontent-ogo-c76="">
+                  <span _ngcontent-ogo-c76="" class="p-column-title"
+                    >Country</span
+                  ><img
+                    _ngcontent-ogo-c76=""
+                    src="assets/demo/images/flag/flag_placeholder.png"
+                    class="flag flag-si"
+                    width="30"
+                  /><span _ngcontent-ogo-c76="" class="image-text"
+                    >Slovenia</span
+                  >
+                </td>
+                <td _ngcontent-ogo-c76="">
+                  <span _ngcontent-ogo-c76="" class="p-column-title"
+                    >Representative</span
+                  ><img
+                    _ngcontent-ogo-c76=""
+                    style="vertical-align: middle"
+                    src="assets/demo/images/avatar/xuxuefeng.png"
+                    alt="Xuxue Feng"
+                    width="32"
+                  /><span _ngcontent-ogo-c76="" class="image-text"
+                    >Xuxue Feng</span
+                  >
+                </td>
+                <td _ngcontent-ogo-c76="">
+                  <span _ngcontent-ogo-c76="" class="p-column-title">Date</span>
+                  2020-09-15
+                </td>
+                <td _ngcontent-ogo-c76="">
+                  <span _ngcontent-ogo-c76="" class="p-column-title"
+                    >Status</span
+                  ><span _ngcontent-ogo-c76="" class="customer-badge status-new"
+                    >new</span
+                  >
+                </td>
+                <td _ngcontent-ogo-c76="">
+                  <span _ngcontent-ogo-c76="" class="p-column-title"
+                    >Activity</span
+                  ><p-progressBar _ngcontent-ogo-c76="" class="p-element"
+                    ><div
+                      role="progressbar"
+                      aria-valuemin="0"
+                      aria-valuemax="100"
+                      aria-valuenow="37"
+                      style="height: 4px"
+                      class="p-progressbar p-component p-progressbar-determinate"
+                    >
+                      <div
+                        class="p-progressbar-value p-progressbar-value-animate ng-star-inserted"
+                        style="display: flex; width: 37%"
+                      >
+                        <!---->
+                      </div>
+                      <!----><!---->
+                    </div></p-progressBar
+                  >
+                </td>
+                <td _ngcontent-ogo-c76="" style="text-align: center">
+                  <button
+                    _ngcontent-ogo-c76=""
+                    pbutton=""
+                    type="button"
+                    icon="pi pi-cog"
+                    class="p-element p-button p-component p-button-icon-only"
+                  >
+                    <span
+                      class="p-button-icon pi pi-cog"
+                      aria-hidden="true"
+                    ></span
+                    ><span aria-hidden="true" class="p-button-label"
+                      >&nbsp;</span
+                    >
+                  </button>
+                </td>
+              </tr>
+              <!----><!----><!----><!----><!----><!---->
+              <tr
+                _ngcontent-ogo-c76=""
+                class="p-selectable-row ng-star-inserted"
+              >
+                <td _ngcontent-ogo-c76="">
+                  <p-tableCheckbox _ngcontent-ogo-c76="" class="p-element"
+                    ><div class="p-checkbox p-component">
+                      <div class="p-hidden-accessible">
+                        <input type="checkbox" />
+                      </div>
+                      <div
+                        role="checkbox"
+                        aria-checked="false"
+                        class="p-checkbox-box p-component"
+                      >
+                        <span class="p-checkbox-icon"></span>
+                      </div></div
+                  ></p-tableCheckbox>
+                </td>
+                <td _ngcontent-ogo-c76="">
+                  <span _ngcontent-ogo-c76="" class="p-column-title">Name</span>
+                  Donette Foller
+                </td>
+                <td _ngcontent-ogo-c76="">
+                  <span _ngcontent-ogo-c76="" class="p-column-title"
+                    >Country</span
+                  ><img
+                    _ngcontent-ogo-c76=""
+                    src="assets/demo/images/flag/flag_placeholder.png"
+                    class="flag flag-za"
+                    width="30"
+                  /><span _ngcontent-ogo-c76="" class="image-text"
+                    >South Africa</span
+                  >
+                </td>
+                <td _ngcontent-ogo-c76="">
+                  <span _ngcontent-ogo-c76="" class="p-column-title"
+                    >Representative</span
+                  ><img
+                    _ngcontent-ogo-c76=""
+                    style="vertical-align: middle"
+                    src="assets/demo/images/avatar/asiyajavayant.png"
+                    alt="Asiya Javayant"
+                    width="32"
+                  /><span _ngcontent-ogo-c76="" class="image-text"
+                    >Asiya Javayant</span
+                  >
+                </td>
+                <td _ngcontent-ogo-c76="">
+                  <span _ngcontent-ogo-c76="" class="p-column-title">Date</span>
+                  2016-05-20
+                </td>
+                <td _ngcontent-ogo-c76="">
+                  <span _ngcontent-ogo-c76="" class="p-column-title"
+                    >Status</span
+                  ><span
+                    _ngcontent-ogo-c76=""
+                    class="customer-badge status-proposal"
+                    >proposal</span
+                  >
+                </td>
+                <td _ngcontent-ogo-c76="">
+                  <span _ngcontent-ogo-c76="" class="p-column-title"
+                    >Activity</span
+                  ><p-progressBar _ngcontent-ogo-c76="" class="p-element"
+                    ><div
+                      role="progressbar"
+                      aria-valuemin="0"
+                      aria-valuemax="100"
+                      aria-valuenow="33"
+                      style="height: 4px"
+                      class="p-progressbar p-component p-progressbar-determinate"
+                    >
+                      <div
+                        class="p-progressbar-value p-progressbar-value-animate ng-star-inserted"
+                        style="display: flex; width: 33%"
+                      >
+                        <!---->
+                      </div>
+                      <!----><!---->
+                    </div></p-progressBar
+                  >
+                </td>
+                <td _ngcontent-ogo-c76="" style="text-align: center">
+                  <button
+                    _ngcontent-ogo-c76=""
+                    pbutton=""
+                    type="button"
+                    icon="pi pi-cog"
+                    class="p-element p-button p-component p-button-icon-only"
+                  >
+                    <span
+                      class="p-button-icon pi pi-cog"
+                      aria-hidden="true"
+                    ></span
+                    ><span aria-hidden="true" class="p-button-label"
+                      >&nbsp;</span
+                    >
+                  </button>
+                </td>
+              </tr>
+              <!----><!----><!----><!----><!----><!---->
+              <tr
+                _ngcontent-ogo-c76=""
+                class="p-selectable-row ng-star-inserted"
+              >
+                <td _ngcontent-ogo-c76="">
+                  <p-tableCheckbox _ngcontent-ogo-c76="" class="p-element"
+                    ><div class="p-checkbox p-component">
+                      <div class="p-hidden-accessible">
+                        <input type="checkbox" />
+                      </div>
+                      <div
+                        role="checkbox"
+                        aria-checked="false"
+                        class="p-checkbox-box p-component"
+                      >
+                        <span class="p-checkbox-icon"></span>
+                      </div></div
+                  ></p-tableCheckbox>
+                </td>
+                <td _ngcontent-ogo-c76="">
+                  <span _ngcontent-ogo-c76="" class="p-column-title">Name</span>
+                  Simona Morasca
+                </td>
+                <td _ngcontent-ogo-c76="">
+                  <span _ngcontent-ogo-c76="" class="p-column-title"
+                    >Country</span
+                  ><img
+                    _ngcontent-ogo-c76=""
+                    src="assets/demo/images/flag/flag_placeholder.png"
+                    class="flag flag-eg"
+                    width="30"
+                  /><span _ngcontent-ogo-c76="" class="image-text">Egypt</span>
+                </td>
+                <td _ngcontent-ogo-c76="">
+                  <span _ngcontent-ogo-c76="" class="p-column-title"
+                    >Representative</span
+                  ><img
+                    _ngcontent-ogo-c76=""
+                    style="vertical-align: middle"
+                    src="assets/demo/images/avatar/ivanmagalhaes.png"
+                    alt="Ivan Magalhaes"
+                    width="32"
+                  /><span _ngcontent-ogo-c76="" class="image-text"
+                    >Ivan Magalhaes</span
+                  >
+                </td>
+                <td _ngcontent-ogo-c76="">
+                  <span _ngcontent-ogo-c76="" class="p-column-title">Date</span>
+                  2018-02-16
+                </td>
+                <td _ngcontent-ogo-c76="">
+                  <span _ngcontent-ogo-c76="" class="p-column-title"
+                    >Status</span
+                  ><span
+                    _ngcontent-ogo-c76=""
+                    class="customer-badge status-qualified"
+                    >qualified</span
+                  >
+                </td>
+                <td _ngcontent-ogo-c76="">
+                  <span _ngcontent-ogo-c76="" class="p-column-title"
+                    >Activity</span
+                  ><p-progressBar _ngcontent-ogo-c76="" class="p-element"
+                    ><div
+                      role="progressbar"
+                      aria-valuemin="0"
+                      aria-valuemax="100"
+                      aria-valuenow="68"
+                      style="height: 4px"
+                      class="p-progressbar p-component p-progressbar-determinate"
+                    >
+                      <div
+                        class="p-progressbar-value p-progressbar-value-animate ng-star-inserted"
+                        style="display: flex; width: 68%"
+                      >
+                        <!---->
+                      </div>
+                      <!----><!---->
+                    </div></p-progressBar
+                  >
+                </td>
+                <td _ngcontent-ogo-c76="" style="text-align: center">
+                  <button
+                    _ngcontent-ogo-c76=""
+                    pbutton=""
+                    type="button"
+                    icon="pi pi-cog"
+                    class="p-element p-button p-component p-button-icon-only"
+                  >
+                    <span
+                      class="p-button-icon pi pi-cog"
+                      aria-hidden="true"
+                    ></span
+                    ><span aria-hidden="true" class="p-button-label"
+                      >&nbsp;</span
+                    >
+                  </button>
+                </td>
+              </tr>
+              <!----><!----><!----><!----><!----><!---->
+              <tr
+                _ngcontent-ogo-c76=""
+                class="p-selectable-row ng-star-inserted"
+              >
+                <td _ngcontent-ogo-c76="">
+                  <p-tableCheckbox _ngcontent-ogo-c76="" class="p-element"
+                    ><div class="p-checkbox p-component">
+                      <div class="p-hidden-accessible">
+                        <input type="checkbox" />
+                      </div>
+                      <div
+                        role="checkbox"
+                        aria-checked="false"
+                        class="p-checkbox-box p-component"
+                      >
+                        <span class="p-checkbox-icon"></span>
+                      </div></div
+                  ></p-tableCheckbox>
+                </td>
+                <td _ngcontent-ogo-c76="">
+                  <span _ngcontent-ogo-c76="" class="p-column-title">Name</span>
+                  Mitsue Tollner
+                </td>
+                <td _ngcontent-ogo-c76="">
+                  <span _ngcontent-ogo-c76="" class="p-column-title"
+                    >Country</span
+                  ><img
+                    _ngcontent-ogo-c76=""
+                    src="assets/demo/images/flag/flag_placeholder.png"
+                    class="flag flag-py"
+                    width="30"
+                  /><span _ngcontent-ogo-c76="" class="image-text"
+                    >Paraguay</span
+                  >
+                </td>
+                <td _ngcontent-ogo-c76="">
+                  <span _ngcontent-ogo-c76="" class="p-column-title"
+                    >Representative</span
+                  ><img
+                    _ngcontent-ogo-c76=""
+                    style="vertical-align: middle"
+                    src="assets/demo/images/avatar/ivanmagalhaes.png"
+                    alt="Ivan Magalhaes"
+                    width="32"
+                  /><span _ngcontent-ogo-c76="" class="image-text"
+                    >Ivan Magalhaes</span
+                  >
+                </td>
+                <td _ngcontent-ogo-c76="">
+                  <span _ngcontent-ogo-c76="" class="p-column-title">Date</span>
+                  2018-02-19
+                </td>
+                <td _ngcontent-ogo-c76="">
+                  <span _ngcontent-ogo-c76="" class="p-column-title"
+                    >Status</span
+                  ><span
+                    _ngcontent-ogo-c76=""
+                    class="customer-badge status-renewal"
+                    >renewal</span
+                  >
+                </td>
+                <td _ngcontent-ogo-c76="">
+                  <span _ngcontent-ogo-c76="" class="p-column-title"
+                    >Activity</span
+                  ><p-progressBar _ngcontent-ogo-c76="" class="p-element"
+                    ><div
+                      role="progressbar"
+                      aria-valuemin="0"
+                      aria-valuemax="100"
+                      aria-valuenow="54"
+                      style="height: 4px"
+                      class="p-progressbar p-component p-progressbar-determinate"
+                    >
+                      <div
+                        class="p-progressbar-value p-progressbar-value-animate ng-star-inserted"
+                        style="display: flex; width: 54%"
+                      >
+                        <!---->
+                      </div>
+                      <!----><!---->
+                    </div></p-progressBar
+                  >
+                </td>
+                <td _ngcontent-ogo-c76="" style="text-align: center">
+                  <button
+                    _ngcontent-ogo-c76=""
+                    pbutton=""
+                    type="button"
+                    icon="pi pi-cog"
+                    class="p-element p-button p-component p-button-icon-only"
+                  >
+                    <span
+                      class="p-button-icon pi pi-cog"
+                      aria-hidden="true"
+                    ></span
+                    ><span aria-hidden="true" class="p-button-label"
+                      >&nbsp;</span
+                    >
+                  </button>
+                </td>
+              </tr>
+              <!----><!----><!----><!----><!----><!---->
+              <tr
+                _ngcontent-ogo-c76=""
+                class="p-selectable-row ng-star-inserted"
+              >
+                <td _ngcontent-ogo-c76="">
+                  <p-tableCheckbox _ngcontent-ogo-c76="" class="p-element"
+                    ><div class="p-checkbox p-component">
+                      <div class="p-hidden-accessible">
+                        <input type="checkbox" />
+                      </div>
+                      <div
+                        role="checkbox"
+                        aria-checked="false"
+                        class="p-checkbox-box p-component"
+                      >
+                        <span class="p-checkbox-icon"></span>
+                      </div></div
+                  ></p-tableCheckbox>
+                </td>
+                <td _ngcontent-ogo-c76="">
+                  <span _ngcontent-ogo-c76="" class="p-column-title">Name</span>
+                  Leota Dilliard
+                </td>
+                <td _ngcontent-ogo-c76="">
+                  <span _ngcontent-ogo-c76="" class="p-column-title"
+                    >Country</span
+                  ><img
+                    _ngcontent-ogo-c76=""
+                    src="assets/demo/images/flag/flag_placeholder.png"
+                    class="flag flag-rs"
+                    width="30"
+                  /><span _ngcontent-ogo-c76="" class="image-text">Serbia</span>
+                </td>
+                <td _ngcontent-ogo-c76="">
+                  <span _ngcontent-ogo-c76="" class="p-column-title"
+                    >Representative</span
+                  ><img
+                    _ngcontent-ogo-c76=""
+                    style="vertical-align: middle"
+                    src="assets/demo/images/avatar/onyamalimba.png"
+                    alt="Onyama Limba"
+                    width="32"
+                  /><span _ngcontent-ogo-c76="" class="image-text"
+                    >Onyama Limba</span
+                  >
+                </td>
+                <td _ngcontent-ogo-c76="">
+                  <span _ngcontent-ogo-c76="" class="p-column-title">Date</span>
+                  2019-08-13
+                </td>
+                <td _ngcontent-ogo-c76="">
+                  <span _ngcontent-ogo-c76="" class="p-column-title"
+                    >Status</span
+                  ><span
+                    _ngcontent-ogo-c76=""
+                    class="customer-badge status-renewal"
+                    >renewal</span
+                  >
+                </td>
+                <td _ngcontent-ogo-c76="">
+                  <span _ngcontent-ogo-c76="" class="p-column-title"
+                    >Activity</span
+                  ><p-progressBar _ngcontent-ogo-c76="" class="p-element"
+                    ><div
+                      role="progressbar"
+                      aria-valuemin="0"
+                      aria-valuemax="100"
+                      aria-valuenow="69"
+                      style="height: 4px"
+                      class="p-progressbar p-component p-progressbar-determinate"
+                    >
+                      <div
+                        class="p-progressbar-value p-progressbar-value-animate ng-star-inserted"
+                        style="display: flex; width: 69%"
+                      >
+                        <!---->
+                      </div>
+                      <!----><!---->
+                    </div></p-progressBar
+                  >
+                </td>
+                <td _ngcontent-ogo-c76="" style="text-align: center">
+                  <button
+                    _ngcontent-ogo-c76=""
+                    pbutton=""
+                    type="button"
+                    icon="pi pi-cog"
+                    class="p-element p-button p-component p-button-icon-only"
+                  >
+                    <span
+                      class="p-button-icon pi pi-cog"
+                      aria-hidden="true"
+                    ></span
+                    ><span aria-hidden="true" class="p-button-label"
+                      >&nbsp;</span
+                    >
+                  </button>
+                </td>
+              </tr>
+              <!----><!----><!----><!----><!----><!---->
+              <tr
+                _ngcontent-ogo-c76=""
+                class="p-selectable-row ng-star-inserted"
+              >
+                <td _ngcontent-ogo-c76="">
+                  <p-tableCheckbox _ngcontent-ogo-c76="" class="p-element"
+                    ><div class="p-checkbox p-component">
+                      <div class="p-hidden-accessible">
+                        <input type="checkbox" />
+                      </div>
+                      <div
+                        role="checkbox"
+                        aria-checked="false"
+                        class="p-checkbox-box p-component"
+                      >
+                        <span class="p-checkbox-icon"></span>
+                      </div></div
+                  ></p-tableCheckbox>
+                </td>
+                <td _ngcontent-ogo-c76="">
+                  <span _ngcontent-ogo-c76="" class="p-column-title">Name</span>
+                  Sage Wieser
+                </td>
+                <td _ngcontent-ogo-c76="">
+                  <span _ngcontent-ogo-c76="" class="p-column-title"
+                    >Country</span
+                  ><img
+                    _ngcontent-ogo-c76=""
+                    src="assets/demo/images/flag/flag_placeholder.png"
+                    class="flag flag-eg"
+                    width="30"
+                  /><span _ngcontent-ogo-c76="" class="image-text">Egypt</span>
+                </td>
+                <td _ngcontent-ogo-c76="">
+                  <span _ngcontent-ogo-c76="" class="p-column-title"
+                    >Representative</span
+                  ><img
+                    _ngcontent-ogo-c76=""
+                    style="vertical-align: middle"
+                    src="assets/demo/images/avatar/ivanmagalhaes.png"
+                    alt="Ivan Magalhaes"
+                    width="32"
+                  /><span _ngcontent-ogo-c76="" class="image-text"
+                    >Ivan Magalhaes</span
+                  >
+                </td>
+                <td _ngcontent-ogo-c76="">
+                  <span _ngcontent-ogo-c76="" class="p-column-title">Date</span>
+                  2018-11-21
+                </td>
+                <td _ngcontent-ogo-c76="">
+                  <span _ngcontent-ogo-c76="" class="p-column-title"
+                    >Status</span
+                  ><span
+                    _ngcontent-ogo-c76=""
+                    class="customer-badge status-unqualified"
+                    >unqualified</span
+                  >
+                </td>
+                <td _ngcontent-ogo-c76="">
+                  <span _ngcontent-ogo-c76="" class="p-column-title"
+                    >Activity</span
+                  ><p-progressBar _ngcontent-ogo-c76="" class="p-element"
+                    ><div
+                      role="progressbar"
+                      aria-valuemin="0"
+                      aria-valuemax="100"
+                      aria-valuenow="76"
+                      style="height: 4px"
+                      class="p-progressbar p-component p-progressbar-determinate"
+                    >
+                      <div
+                        class="p-progressbar-value p-progressbar-value-animate ng-star-inserted"
+                        style="display: flex; width: 76%"
+                      >
+                        <!---->
+                      </div>
+                      <!----><!---->
+                    </div></p-progressBar
+                  >
+                </td>
+                <td _ngcontent-ogo-c76="" style="text-align: center">
+                  <button
+                    _ngcontent-ogo-c76=""
+                    pbutton=""
+                    type="button"
+                    icon="pi pi-cog"
+                    class="p-element p-button p-component p-button-icon-only"
+                  >
+                    <span
+                      class="p-button-icon pi pi-cog"
+                      aria-hidden="true"
+                    ></span
+                    ><span aria-hidden="true" class="p-button-label"
+                      >&nbsp;</span
+                    >
+                  </button>
+                </td>
+              </tr>
+              <!----><!----><!----><!----><!----><!---->
+              <tr
+                _ngcontent-ogo-c76=""
+                class="p-selectable-row ng-star-inserted"
+              >
+                <td _ngcontent-ogo-c76="">
+                  <p-tableCheckbox _ngcontent-ogo-c76="" class="p-element"
+                    ><div class="p-checkbox p-component">
+                      <div class="p-hidden-accessible">
+                        <input type="checkbox" />
+                      </div>
+                      <div
+                        role="checkbox"
+                        aria-checked="false"
+                        class="p-checkbox-box p-component"
+                      >
+                        <span class="p-checkbox-icon"></span>
+                      </div></div
+                  ></p-tableCheckbox>
+                </td>
+                <td _ngcontent-ogo-c76="">
+                  <span _ngcontent-ogo-c76="" class="p-column-title">Name</span>
+                  Kris Marrier
+                </td>
+                <td _ngcontent-ogo-c76="">
+                  <span _ngcontent-ogo-c76="" class="p-column-title"
+                    >Country</span
+                  ><img
+                    _ngcontent-ogo-c76=""
+                    src="assets/demo/images/flag/flag_placeholder.png"
+                    class="flag flag-mx"
+                    width="30"
+                  /><span _ngcontent-ogo-c76="" class="image-text">Mexico</span>
+                </td>
+                <td _ngcontent-ogo-c76="">
+                  <span _ngcontent-ogo-c76="" class="p-column-title"
+                    >Representative</span
+                  ><img
+                    _ngcontent-ogo-c76=""
+                    style="vertical-align: middle"
+                    src="assets/demo/images/avatar/onyamalimba.png"
+                    alt="Onyama Limba"
+                    width="32"
+                  /><span _ngcontent-ogo-c76="" class="image-text"
+                    >Onyama Limba</span
+                  >
+                </td>
+                <td _ngcontent-ogo-c76="">
+                  <span _ngcontent-ogo-c76="" class="p-column-title">Date</span>
+                  2015-07-07
+                </td>
+                <td _ngcontent-ogo-c76="">
+                  <span _ngcontent-ogo-c76="" class="p-column-title"
+                    >Status</span
+                  ><span
+                    _ngcontent-ogo-c76=""
+                    class="customer-badge status-proposal"
+                    >proposal</span
+                  >
+                </td>
+                <td _ngcontent-ogo-c76="">
+                  <span _ngcontent-ogo-c76="" class="p-column-title"
+                    >Activity</span
+                  ><p-progressBar _ngcontent-ogo-c76="" class="p-element"
+                    ><div
+                      role="progressbar"
+                      aria-valuemin="0"
+                      aria-valuemax="100"
+                      aria-valuenow="3"
+                      style="height: 4px"
+                      class="p-progressbar p-component p-progressbar-determinate"
+                    >
+                      <div
+                        class="p-progressbar-value p-progressbar-value-animate ng-star-inserted"
+                        style="display: flex; width: 3%"
+                      >
+                        <!---->
+                      </div>
+                      <!----><!---->
+                    </div></p-progressBar
+                  >
+                </td>
+                <td _ngcontent-ogo-c76="" style="text-align: center">
+                  <button
+                    _ngcontent-ogo-c76=""
+                    pbutton=""
+                    type="button"
+                    icon="pi pi-cog"
+                    class="p-element p-button p-component p-button-icon-only"
+                  >
+                    <span
+                      class="p-button-icon pi pi-cog"
+                      aria-hidden="true"
+                    ></span
+                    ><span aria-hidden="true" class="p-button-label"
+                      >&nbsp;</span
+                    >
+                  </button>
+                </td>
+              </tr>
+              <!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!---->
+            </tbody>
+            <!---->
+          </table>
+          <!----><!---->
+        </div>
+        <p-paginator
+          styleclass="p-paginator-bottom"
+          class="p-element ng-star-inserted"
+          ><div
+            class="p-paginator-bottom p-paginator p-component ng-star-inserted"
+          >
+            <!----><span class="p-paginator-current ng-star-inserted"
+              >Showing 1 to 10 of 200 entries</span
+            ><!----><button
+              type="button"
+              pripple=""
+              class="p-ripple p-element p-paginator-first p-paginator-element p-link p-disabled ng-star-inserted"
+              disabled=""
+            >
+              <span class="p-paginator-icon pi pi-angle-double-left"></span
+              ><span class="p-ink"></span></button
+            ><!----><button
+              type="button"
+              pripple=""
+              class="p-ripple p-element p-paginator-prev p-paginator-element p-link p-disabled"
+              disabled=""
+            >
+              <span class="p-paginator-icon pi pi-angle-left"></span
+              ><span class="p-ink"></span></button
+            ><span class="p-paginator-pages ng-star-inserted"
+              ><button
+                type="button"
+                pripple=""
+                class="p-ripple p-element p-paginator-page p-paginator-element p-link p-highlight ng-star-inserted"
+              >
+                1<span class="p-ink"></span></button
+              ><button
+                type="button"
+                pripple=""
+                class="p-ripple p-element p-paginator-page p-paginator-element p-link ng-star-inserted"
+              >
+                2<span class="p-ink"></span></button
+              ><button
+                type="button"
+                pripple=""
+                class="p-ripple p-element p-paginator-page p-paginator-element p-link ng-star-inserted"
+              >
+                3<span class="p-ink"></span></button
+              ><button
+                type="button"
+                pripple=""
+                class="p-ripple p-element p-paginator-page p-paginator-element p-link ng-star-inserted"
+              >
+                4<span class="p-ink"></span></button
+              ><button
+                type="button"
+                pripple=""
+                class="p-ripple p-element p-paginator-page p-paginator-element p-link ng-star-inserted"
+              >
+                5<span class="p-ink"></span></button
+              ><!----></span
+            ><!----><!----><button
+              type="button"
+              pripple=""
+              class="p-ripple p-element p-paginator-next p-paginator-element p-link"
+            >
+              <span class="p-paginator-icon pi pi-angle-right"></span
+              ><span class="p-ink"></span></button
+            ><button
+              type="button"
+              pripple=""
+              class="p-ripple p-element p-paginator-last p-paginator-element p-link ng-star-inserted"
+            >
+              <span class="p-paginator-icon pi pi-angle-double-right"></span
+              ><span class="p-ink"></span></button
+            ><!----><!----><p-dropdown
+              styleclass="p-paginator-rpp-options"
+              class="p-element p-inputwrapper ng-tns-c39-22 p-inputwrapper-filled ng-untouched ng-pristine ng-star-inserted ng-valid"
+              ><div
+                class="ng-tns-c39-22 p-paginator-rpp-options p-dropdown p-component"
+              >
+                <div class="p-hidden-accessible ng-tns-c39-22">
+                  <input
+                    type="text"
+                    readonly=""
+                    aria-haspopup="listbox"
+                    role="combobox"
+                    class="ng-tns-c39-22"
+                    aria-expanded="false"
+                  />
+                </div>
+                <span
+                  class="p-element ng-tns-c39-22 p-dropdown-label p-inputtext ng-star-inserted"
+                  id="pr_id_10_label"
+                  >10<!----><!----><!----></span
+                ><!----><!----><!----><!---->
+                <div
+                  role="button"
+                  aria-label="dropdown trigger"
+                  aria-haspopup="listbox"
+                  class="p-dropdown-trigger ng-tns-c39-22"
+                >
+                  <span
+                    class="p-dropdown-trigger-icon ng-tns-c39-22 pi pi-chevron-down"
+                  ></span>
+                </div>
+                <!---->
+              </div></p-dropdown
+            ><!----><!---->
+          </div>
+          <!----></p-paginator
+        ><!----><!----><!----><!----><!---->
+      </div></p-table
+    >
+  </div>
+</div>
+<div _ngcontent-ogo-c76="" class="col-12 md:col-6">
+  <div _ngcontent-ogo-c76="" class="card">
+    <h5 _ngcontent-ogo-c76="">AccordionPanel</h5>
+
+    <p-accordion>
+      <p-accordionTab header="Header 1"> Content 1 </p-accordionTab>
+      <p-accordionTab header="Header 2"> Content 2 </p-accordionTab>
+      <p-accordionTab header="Header 3"> Content 3 </p-accordionTab>
+    </p-accordion>
+  </div>
+  <div _ngcontent-ogo-c76="" class="card">
+    <h5 _ngcontent-ogo-c76="">TabView</h5>
+    <p-tabView>
+      <p-tabPanel header="Header I">
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+          aliquip ex ea commodo consequat. Duis aute irure dolor in
+          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+          culpa qui officia deserunt mollit anim id est laborum.
+        </p>
+      </p-tabPanel>
+      <p-tabPanel header="Header II">
+        <p>
+          Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+          accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae
+          ab illo inventore veritatis et quasi architecto beatae vitae dicta
+          sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit
+          aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos
+          qui ratione voluptatem sequi nesciunt. Consectetur, adipisci velit,
+          sed quia non numquam eius modi.
+        </p>
+      </p-tabPanel>
+      <p-tabPanel header="Header III">
+        <p>
+          At vero eos et accusamus et iusto odio dignissimos ducimus qui
+          blanditiis praesentium voluptatum deleniti atque corrupti quos dolores
+          et quas molestias excepturi sint occaecati cupiditate non provident,
+          similique sunt in culpa qui officia deserunt mollitia animi, id est
+          laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita
+          distinctio. Nam libero tempore, cum soluta nobis est eligendi optio
+          cumque nihil impedit quo minus.
+        </p>
+      </p-tabPanel>
+    </p-tabView>
+  </div>
+</div>
+<div _ngcontent-ogo-c76="" class="col-12 md:col-6">
+  <div _ngcontent-ogo-c76="" class="card">
+    <h5 _ngcontent-ogo-c76="">Panel</h5>
+    <p-panel header="Header">
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+        occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+        mollit anim id est laborum.
+      </p>
+    </p-panel>
+  </div>
+  <div _ngcontent-ogo-c76="" class="card">
+    <h5 _ngcontent-ogo-c76="">Fieldset</h5>
+    <p-fieldset legend="Header" [toggleable]="true">
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+        occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+        mollit anim id est laborum.
+      </p>
+    </p-fieldset>
+  </div>
+</div>
+<div _ngcontent-ogo-c76="" class="col-12 md:col-3">
+  <div _ngcontent-ogo-c76="" class="card p-fluid">
+    <h5 _ngcontent-ogo-c76="">Overlay Panel</h5>
+    <p-overlayPanel #op>
+      <ng-template pTemplate> Content </ng-template>
+    </p-overlayPanel>
+
+    <button
+      type="text"
+      pButton
+      label="Basic"
+      (click)="op.toggle($event)"
+    ></button>
+  </div>
+</div>
+<div _ngcontent-ogo-c76="" class="col-12 md:col-3">
+  <div _ngcontent-ogo-c76="" class="card p-fluid">
+    <h5 _ngcontent-ogo-c76="">Dialog</h5>
+    <p-button
+      (click)="showBasicDialog()"
+      icon="pi pi-external-link"
+      label="Show"
+    ></p-button>
+    <p-dialog
+      header="Header"
+      [(visible)]="displayBasic"
+      [style]="{ width: '50vw' }"
+    >
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+        occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+        mollit anim id est laborum.
+      </p>
+      <ng-template pTemplate="footer">
+        <p-button
+          icon="pi pi-check"
+          (click)="displayBasic = false"
+          label="Ok"
+          styleClass="p-button-text"
+        ></p-button>
+      </ng-template>
+    </p-dialog>
+  </div>
+</div>
+<div _ngcontent-ogo-c76="" class="col-12 md:col-3">
+  <div _ngcontent-ogo-c76="" class="card p-fluid">
+    <h5 _ngcontent-ogo-c76="">Confirm Popup</h5>
+    <p-confirmPopup key="popup"></p-confirmPopup>
+    <button
+      (click)="confirm($event)"
+      pButton
+      icon="pi pi-check"
+      label="Confirm"
+    ></button>
+  </div>
+</div>
+<div _ngcontent-ogo-c76="" class="col-12 md:col-3">
+  <div _ngcontent-ogo-c76="" class="card p-fluid">
+    <h5 _ngcontent-ogo-c76="">Confirm Dialog</h5>
+    <p-confirmDialog
+      [style]="{ width: '50vw' }"
+      [baseZIndex]="10000"
+      rejectButtonStyleClass="p-button-text"
+    ></p-confirmDialog>
+    <p-button
+      (click)="confirm1()"
+      icon="pi pi-check"
+      label="Confirm"
+      styleClass="mr-2"
+    ></p-button>
+  </div>
+</div>
+<div _ngcontent-ogo-c76="" class="col-12">
+  <div _ngcontent-ogo-c76="" class="card card-w-title">
+    <h5 _ngcontent-ogo-c76="">Menubar</h5>
+    <p-menubar
+      _ngcontent-ogo-c76=""
+      class="p-element"
+      [model]="items"
+    ></p-menubar>
+  </div>
+</div>
+<div _ngcontent-ogo-c76="" class="col-12 md:col-4">
+  <div _ngcontent-ogo-c76="" class="card">
+    <h5 _ngcontent-ogo-c76="">Tiered Menu</h5>
+    <p-tieredMenu
+      _ngcontent-ogo-c76=""
+      class="p-element ng-tns-c68-18 ng-star-inserted"
+      [model]="items2"
+    >
+      <!----></p-tieredMenu
+    >
+  </div>
+</div>
+<div _ngcontent-ogo-c76="" class="col-12 md:col-4">
+  <div _ngcontent-ogo-c76="" class="card">
+    <h5 _ngcontent-ogo-c76="">Plain Menu</h5>
+    <p-menu [model]="menuItems"></p-menu>
+  </div>
+</div>
+<div _ngcontent-ogo-c76="" class="col-12 md:col-4">
+  <div _ngcontent-ogo-c76="" class="card">
+    <h5 _ngcontent-ogo-c76="">Overlay Menu</h5>
+    <button
+      type="button"
+      pButton
+      icon="pi pi-bars"
+      label="Show"
+      (click)="menu.toggle($event)"
+    ></button>
+    <p-menu #menu [popup]="true" [model]="items"></p-menu>
+  </div>
+  <div _ngcontent-ogo-c76="" class="card">
+    <h5 _ngcontent-ogo-c76="">ContextMenu</h5>
+    <p-contextMenu [target]="img" [model]="items2"></p-contextMenu>
+    <img
+      #img
+      src="assets/Kevin.jpg"
+      alt="Logo"
+      style="width: 200px; height: 200px"
+    />
+  </div>
+</div>
+<div _ngcontent-ogo-c76="" class="col-12 lg:col-6">
+  <div _ngcontent-ogo-c76="" class="card">
+    <h5 _ngcontent-ogo-c76="">Messages</h5>
+    <p-messages [(value)]="msgs1" [enableService]="false"></p-messages>
+  </div>
+</div>
+<div _ngcontent-ogo-c76="" class="col-12 lg:col-6">
+  <div _ngcontent-ogo-c76="" class="card">
+    <h5 _ngcontent-ogo-c76="">Toast</h5>
+    <button
+      type="button"
+      pButton
+      pRipple
+      (click)="showToast('success')"
+      label="Success"
+      class="p-button-success mb-2 mr-2"
+    ></button>
+    <button
+      type="button"
+      pButton
+      pRipple
+      (click)="showToast('info')"
+      label="Info"
+      class="p-button-info mb-2 mr-2"
+    ></button>
+    <button
+      type="button"
+      pButton
+      pRipple
+      (click)="showToast('warn')"
+      label="Warn"
+      class="p-button-warning mb-2 mr-2"
+    ></button>
+    <button
+      type="button"
+      pButton
+      pRipple
+      (click)="showToast('error')"
+      label="Error"
+      class="p-button-danger mb-2"
+    ></button>
+  </div>
+  <div _ngcontent-ogo-c76="" class="card">
+    <h5 _ngcontent-ogo-c76="">Timeline</h5>
+    <p-timeline [value]="events">
+      <ng-template pTemplate="content" let-event>
+        {{ event.status }}
+      </ng-template>
+    </p-timeline>
+  </div>
+</div>
+<div _ngcontent-ogo-c76="" class="col-12 lg:col-8">
+  <div _ngcontent-ogo-c76="" class="card">
+    <h5 _ngcontent-ogo-c76="">Inline Message</h5>
+    <p-message
+      _ngcontent-ogo-c76=""
+      severity="info"
+      text="Message Content"
+      class="p-element mr-2"
+      ><div
+        aria-live="polite"
+        class="p-inline-message p-component p-inline-message-info ng-star-inserted"
+      >
+        <span class="p-inline-message-icon pi pi-info-circle"></span
+        ><span class="p-inline-message-text ng-star-inserted"
+          >Message Content</span
+        ><!----><!----><!---->
+      </div>
+      <!----></p-message
+    ><p-message
+      _ngcontent-ogo-c76=""
+      severity="success"
+      text="Message Content"
+      class="p-element mr-2"
+      ><div
+        aria-live="polite"
+        class="p-inline-message p-component p-inline-message-success ng-star-inserted"
+      >
+        <span class="p-inline-message-icon pi pi-check"></span
+        ><span class="p-inline-message-text ng-star-inserted"
+          >Message Content</span
+        ><!----><!----><!---->
+      </div>
+      <!----></p-message
+    ><p-message
+      _ngcontent-ogo-c76=""
+      severity="warn"
+      text="Message Content"
+      class="p-element mr-2"
+      ><div
+        aria-live="polite"
+        class="p-inline-message p-component p-inline-message-warn ng-star-inserted"
+      >
+        <span class="p-inline-message-icon pi pi-exclamation-triangle"></span
+        ><span class="p-inline-message-text ng-star-inserted"
+          >Message Content</span
+        ><!----><!----><!---->
+      </div>
+      <!----></p-message
+    ><p-message
+      _ngcontent-ogo-c76=""
+      severity="error"
+      text="Message Content"
+      class="p-element mr-2"
+      ><div
+        aria-live="polite"
+        class="p-inline-message p-component p-inline-message-error ng-star-inserted"
+      >
+        <span class="p-inline-message-icon pi pi-times-circle"></span
+        ><span class="p-inline-message-text ng-star-inserted"
+          >Message Content</span
+        ><!----><!----><!---->
+      </div>
+      <!----></p-message
+    >
+    <div _ngcontent-ogo-c76="" class="mt-4">
+      <input
+        _ngcontent-ogo-c76=""
+        type="text"
+        pinputtext=""
+        placeholder="Username"
+        class="p-inputtext p-component p-element ng-dirty ng-invalid p-invalid mr-2"
+      /><p-message
+        _ngcontent-ogo-c76=""
+        severity="error"
+        text="Field is required"
+        class="p-element"
+        ><div
+          aria-live="polite"
+          class="p-inline-message p-component p-inline-message-error ng-star-inserted"
+        >
+          <span class="p-inline-message-icon pi pi-times-circle"></span
+          ><span class="p-inline-message-text ng-star-inserted"
+            >Field is required</span
+          ><!----><!----><!---->
+        </div>
+        <!----></p-message
+      >
+    </div>
+    <div _ngcontent-ogo-c76="" class="mt-4">
+      <input
+        _ngcontent-ogo-c76=""
+        type="text"
+        pinputtext=""
+        placeholder="Email"
+        class="p-inputtext p-component p-element ng-dirty ng-invalid p-invalid mr-2"
+      /><p-message _ngcontent-ogo-c76="" severity="error" class="p-element"
+        ><div
+          aria-live="polite"
+          class="p-inline-message p-component p-inline-message-error p-inline-message-icon-only ng-star-inserted"
+        >
+          <span class="p-inline-message-icon pi pi-times-circle"></span
+          ><span class="p-inline-message-text ng-star-inserted"></span
+          ><!----><!----><!---->
+        </div>
+        <!----></p-message
+      >
+    </div>
+  </div>
+</div>
+<div _ngcontent-ogo-c76="" class="col-12 lg:col-4">
+  <div _ngcontent-ogo-c76="" class="card">
+    <h5 _ngcontent-ogo-c76="">Helper Text</h5>
+    <div _ngcontent-ogo-c76="" class="field p-fluid">
+      <label _ngcontent-ogo-c76="" for="username2">Username</label
+      ><input
+        _ngcontent-ogo-c76=""
+        pinputtext=""
+        id="username2"
+        type="text"
+        aria-describedby="username-help"
+        class="p-inputtext p-component p-element ng-invalid ng-dirty"
+      /><small _ngcontent-ogo-c76="" id="username-help" class="p-error"
+        >Enter your username to reset your password.</small
+      >
+    </div>
+  </div>
+</div>

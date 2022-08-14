@@ -52,6 +52,7 @@ import { ContextMenuModule } from 'primeng/contextmenu';
 import { TimelineModule } from 'primeng/timeline';
 import { MessageModule } from 'primeng/message';
 import { ChipsModule } from 'primeng/chips';
+import { SplitButtonModule } from 'primeng/splitbutton'
 import {
   CheckboxControlValueAccessor,
   RadioControlValueAccessor,
@@ -80,6 +81,7 @@ const extras = [
   TimelineModule,
   MessageModule,
   ChipsModule,
+  SplitButtonModule,
 ];
 
 const MODULES = [

@@ -46,3 +46,6 @@ server/yarn-error.log
 
 # Example Responses
 server/Examples/
+
+# Test component
+src/app/test/*
