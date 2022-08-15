@@ -43,3 +43,9 @@ server/yarn-error.log
 
 # Environment variables
 .env
+
+# Example Responses
+server/Examples/
+
+# Test component
+src/app/test/*

@@ -1,4 +1,4 @@
-<p-toolbar>
+<p-toolbar #toolbar>
   <div class="p-toolbar-group-left">
     <button
       pButton
@@ -13,16 +13,32 @@
       class="p-button-lg p-button-text"
     ></button>
   </div>
-
-  <!-- TODO menu button display user -->
   <div class="p-toolbar-group-right">
-    <p-button
+    <a
+      *ngIf="profile === 'Not logged in'"
+      pButton
+      pRipple
       type="button"
-      icon="pi pi-youtube"
-      label="Show"
+      label="Login"
+      class="p-button-rounded p-button-lg"
+      style="height: 55px"
+      [href]="this.AUTH_LINK"
+      ><p-avatar icon="pi pi-user" shape="circle" styleClass="mr-2"></p-avatar
+    ></a>
+    <p-button
+      *ngIf="profile !== 'Not logged in'"
+      type="button"
+      [label]="profile?.display_name"
       styleClass="p-button-rounded p-button-lg"
+      [style]="{ height: '55px' }"
       (click)="menu.toggle($event)"
-    ></p-button>
+    >
+      <p-avatar
+        [image]="profile?.images[0]?.url"
+        shape="circle"
+        styleClass="mr-2"
+      ></p-avatar>
+    </p-button>
     <p-tieredMenu #menu [model]="items" [popup]="true"></p-tieredMenu>
   </div>
 </p-toolbar>

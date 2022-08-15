@@ -1,9 +1,77 @@
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
+const SCOPES: string = [
+  // Users scopes
+  'user-read-email',
+  'user-read-private',
+  // Library scope
+  'user-library-read',
+  // Playlist scope
+  'playlist-read-collaborative',
+  'playlist-modify-public',
+  'playlist-read-private',
+  'playlist-modify-private',
+  // // Listen history scope
+  'user-read-recently-played',
+  'user-read-playback-position',
+  'user-top-read',
+  // // Follow scope
+  'user-follow-modify',
+  'user-follow-read',
+  // // Image scope
+  'ugc-image-upload',
+  // // Spotify connect scope
+  // // 'user-modify-playback-state',
+  // // 'user-read-playback-state',
+  // // 'user-read-currently-playing',
+  // // Playback scope
+  // // 'app-remote-control',
+  // // 'streaming'
+].join(' ');
+const clientID: string = '71d200c4569d4b5bad224df289aeff4c';
+
 export const environment = {
   production: false,
-  clientID: '71d200c4569d4b5bad224df289aeff4c',
+  AUTH_URL: `https://accounts.spotify.com/authorize?client_id=${clientID}&response_type=code&redirect_uri=http://localhost:4200/login&scope=${SCOPES}`,
+
+  SERVER_URL: 'http://localhost:4201',
+
+  /* ***************** */
+  /*       LOGIN       */
+  /* ***************** */
+  LOGIN_URL: 'login',
+
+  /* ******************** */
+  /*       PROFILE        */
+  /* ******************** */
+  USER_ME_URL: 'profile',
+  USER_PLAYLISTS_URL: 'profile/playlists',
+  FOLLOWED_ARTISTS_URL: 'profile/artists',
+  SAVED_ALBUMS_URL: 'profile/albums',
+  TOP_TRACKS_URL: 'top/tracks',
+  TOP_ARTISTS_URL: 'top/artists',
+
+  /* ********************** */
+  /*        Playlist        */
+  /* ********************** */
+  PLAYLIST_URL: 'playlist',
+  FEAUTRED_PLAYLISTS_URL: 'featured',
+  CREATE_PLAYLIST_URL: 'playlist/new',
+  UPDATE_PLAYLIST_URL: 'playlist/update',
+  UPLOAD_IMAGE_URL: 'playlist/image',
+
+  /* ****************** */
+  /*       Artist       */
+  /* ****************** */
+  ARTIST_ALBUMS_URL: 'artist/albums',
+  ARTIST_TOP_TRACKS_URL: 'artist/tracks',
+  ARTIST_RELATED_URL: 'artist/related',
+
+  /* ****************** */
+  /*       Player       */
+  /* ****************** */
+  RECENTLY_PLAYED_URL: 'tracks/recent',
 };
 
 /*

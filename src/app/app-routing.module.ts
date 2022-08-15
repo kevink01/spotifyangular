@@ -14,7 +14,7 @@ const routes: Routes = [
   { path: 'library', component: LibraryComponent },
   { path: 'playlist/:id', component: PlaylistComponent },
   { path: 'login', component: LoginRedirectComponent },
-  { path: 'test', component: ToolbarComponent },
+  { path: 'test', component: TestComponent },
   { path: '**', redirectTo: 'dashboard', pathMatch: 'full' },
 ];
 

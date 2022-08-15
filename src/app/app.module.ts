@@ -15,6 +15,7 @@ import { CreatePlaylistComponent } from './sidenav/playlist/create-playlist.comp
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HomeComponent } from './login/home/home.component';
 import { LibraryComponent } from './library/library.component';
+import { LoadingPlaylistComponent } from './shared/loading/playlist/loading-playlist.component';
 import { LoginRedirectComponent } from './login/redirect/login-redirect.component';
 import { PlaylistComponent } from './playlist/playlist.component';
 import { PlaylistEditComponent } from './playlist/edit/playlist-edit.component';
@@ -29,6 +30,7 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
     DashboardComponent,
     HomeComponent,
     LibraryComponent,
+    LoadingPlaylistComponent,
     LoginRedirectComponent,
     PlaylistComponent,
     PlaylistEditComponent,

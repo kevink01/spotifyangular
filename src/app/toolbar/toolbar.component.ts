@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
+import { environment } from 'src/environments/environment';
+import { LoginService } from '../login/login.service';
 
 @Component({
   selector: 'spotify-toolbar',
@@ -9,7 +12,16 @@ import { MenuItem } from 'primeng/api';
 export class ToolbarComponent implements OnInit {
   items: MenuItem[] = [];
   display = true;
+  AUTH_LINK: string = '';
+
+  profile: any = {};
+  constructor(private loginService: LoginService, private router: Router) {}
   ngOnInit() {
+    this.AUTH_LINK = environment.AUTH_URL;
+    this.loginService.profile.subscribe((data) => {
+      console.log(data);
+      this.profile = data;
+    });
     this.items = [
       {
         label: 'Profile',
