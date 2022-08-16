@@ -4,35 +4,20 @@ import { Subscription } from 'rxjs';
 import { Playlist } from '../models/Profile/Playlist';
 import { PlaylistService } from './playlist.service';
 import { Track } from '../models/Profile/Track';
-import {
-  animate,
-  state,
-  style,
-  transition,
-  trigger,
-} from '@angular/animations';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { PlaylistEditComponent } from './edit/playlist-edit.component';
+import { faCode } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'spotify-playlist',
   templateUrl: './playlist.component.html',
   styleUrls: ['./playlist.component.scss'],
   providers: [DialogService],
-  animations: [
-    trigger('detailsToggle', [
-      state('collapsed', style({ height: 0, maxHeight: 0 })),
-      state('expanded', style({ height: '*' })),
-      transition(
-        'expanded <=> collapsed',
-        animate('250ms cubic-bezier(0,.5,0,1)')
-      ),
-    ]),
-  ],
 })
 export class PlaylistComponent implements OnInit, OnDestroy {
   id: string = '';
   playlist!: Playlist;
+  tracks!: Track[];
   length: string = '';
   subscription = new Subscription();
   loading = true;
@@ -42,18 +27,21 @@ export class PlaylistComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private playlistService: PlaylistService,
     private dialogService: DialogService
-  ) {}
+  ) {
+    faCode.iconName.toString();
+  }
 
   ngOnInit(): void {
     this.id = this.activatedRoute.snapshot.params['id'];
-    this.subscription.add(this.playlistService
-      .getPlaylist(this.id)
-      .subscribe((playlist) => {
+    this.subscription.add(
+      this.playlistService.getPlaylist(this.id).subscribe((playlist) => {
         console.log(playlist);
         this.loading = false;
         this.playlist = playlist;
+        this.tracks = playlist.tracks;
         this.length = this.calculateDuration(playlist.tracks);
-      }));
+      })
+    );
   }
 
   private calculateDuration(tracks: Track[]): string {
@@ -65,6 +53,7 @@ export class PlaylistComponent implements OnInit, OnDestroy {
     let minutes = Math.floor((time % 3600000) / 60000);
     return `${hours}:${minutes}`;
   }
+
   show(): void {
     this.dialogRef = this.dialogService.open(PlaylistEditComponent, {
       header: `Edit ${this.playlist.name}`,
@@ -72,7 +61,9 @@ export class PlaylistComponent implements OnInit, OnDestroy {
       height: '75vh',
       data: this.playlist,
     });
-    this.subscription.add(this.dialogRef.onClose.subscribe(() => console.log('Done')));
+    this.subscription.add(
+      this.dialogRef.onClose.subscribe(() => console.log('Done'))
+    );
   }
 
   getDialog(): DynamicDialogRef {

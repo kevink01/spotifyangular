@@ -7,10 +7,10 @@
   --surface-d: #383838;
   --surface-e: #1e1e1e;
   --surface-f: #1e1e1e;
-  --text-color: v.$primary-text;
-  --text-color-secondary: v.$secondary-text;
-  --primary-color: v.$primary-color;
-  --primary-color-text: v.$primary-color-txt;
+  --text-color: hsl(0, 0%, 90%); // Primary Text
+  --text-color-secondary: hsl(0, 0%, 70%); // Secondary Text
+  --primary-color: hsl(141, 76%, 48%); // Primary Color
+  --primary-color-text: hsl(0, 11%, 9%); // Primary Text Color
   --font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica,
     Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
   --surface-0: #121212;
@@ -27,14 +27,14 @@
   --content-padding: 1rem;
   --inline-spacing: 0.5rem;
   --border-radius: 3px;
-  --surface-ground: #121212;
+  --surface-ground: hsl(0, 0%, 7%); // Ground
   --surface-section: #121212;
   --surface-card: #1e1e1e;
-  --surface-overlay: #1e1e1e;
-  --surface-border: #383838;
+  --surface-overlay: hsl(0, 0%, 12%); // Overlay
+  --surface-border: hsl(0, 0%, 22%); // Border
   --surface-hover: rgba(255, 255, 255, 0.03);
   --maskbg: rgba(0, 0, 0, 0.4);
-  --focus-ring: 0 0 0 1px #93cbf9;
+  --focus-ring: 0 0 0 1px hsl(141, 76%, 40%); // Focus outline
   color-scheme: dark;
   --gray-50: #e7e7e7;
   --gray-100: #d0d0d0;
@@ -161,7 +161,7 @@
   --primary-200: hsl(141, 76%, 80%);
   --primary-300: hsl(141, 76%, 70%);
   --primary-400: hsl(141, 76%, 60%);
-  --primary-500: v.$primary-color;
+  --primary-500: hsl(141, 76%, 48%); // Primary color
   --primary-600: hsl(141, 76%, 40%);
   --primary-700: hsl(141, 76%, 30%);
   --primary-800: hsl(141, 76%, 20%);
@@ -190,7 +190,7 @@
 }
 
 .p-error {
-  color: v.$error-color;
+  color: v.$errorColor;
 }
 
 .p-text-secondary {
@@ -685,7 +685,7 @@ p-calendar.p-calendar-clearable.p-calendar-w-btn .p-calendar-clear-icon {
 }
 
 p-cascadeselect.ng-dirty.ng-invalid > .p-cascadeselect {
-  border-color: v.$error-color;
+  border-color: v.$errorColor;
 }
 
 .p-input-filled .p-cascadeselect {
@@ -745,7 +745,7 @@ p-cascadeselect.p-cascadeselect-clearable .p-cascadeselect-clear-icon {
 }
 
 p-checkbox.ng-dirty.ng-invalid > .p-checkbox > .p-checkbox-box {
-  border-color: v.$error-color;
+  border-color: v.$errorColor;
 }
 
 .p-input-filled .p-checkbox .p-checkbox-box {
@@ -802,7 +802,7 @@ p-checkbox.ng-dirty.ng-invalid > .p-checkbox > .p-checkbox-box {
 }
 
 p-chips.ng-dirty.ng-invalid > .p-chips > .p-inputtext {
-  border-color: v.$error-color;
+  border-color: v.$errorColor;
 }
 
 p-chips.p-chips-clearable .p-inputtext {
@@ -936,7 +936,7 @@ p-chips.p-chips-clearable .p-chips-clear-icon {
 }
 
 p-dropdown.ng-dirty.ng-invalid > .p-dropdown {
-  border-color: v.$error-color;
+  border-color: v.$errorColor;
 }
 
 .p-input-filled .p-dropdown {
@@ -1173,7 +1173,7 @@ p-dropdown.ng-dirty.ng-invalid > .p-dropdown {
 }
 
 p-inputmask.ng-dirty.ng-invalid > .p-inputtext {
-  border-color: v.$error-color;
+  border-color: v.$errorColor;
 }
 
 p-inputmask.p-inputmask-clearable .p-inputtext {
@@ -1185,7 +1185,7 @@ p-inputmask.p-inputmask-clearable .p-inputmask-clear-icon {
 }
 
 p-inputnumber.ng-dirty.ng-invalid > .p-inputnumber > .p-inputtext {
-  border-color: v.$error-color;
+  border-color: v.$errorColor;
 }
 
 p-inputnumber.p-inputnumber-clearable .p-inputnumber-input {
@@ -1275,7 +1275,7 @@ p-inputswitch.ng-dirty.ng-invalid > .p-inputswitch {
   border-color: v.$focus-border;
 }
 .p-inputtext.ng-dirty.ng-invalid {
-  border-color: v.$error-color;
+  border-color: v.$errorColor;
 }
 .p-inputtext.p-inputtext-sm {
   font-size: 0.875rem;
@@ -1293,7 +1293,7 @@ p-inputswitch.ng-dirty.ng-invalid > .p-inputswitch {
 }
 
 .p-float-label > .ng-invalid.ng-dirty + label {
-  color: v.$error-color;
+  color: v.$errorColor;
 }
 
 .p-input-icon-left > i:first-of-type {
@@ -1421,7 +1421,7 @@ p-inputswitch.ng-dirty.ng-invalid > .p-inputswitch {
 }
 
 p-listbox.ng-dirty.ng-invalid > .p-listbox {
-  border-color: v.$error-color;
+  border-color: v.$errorColor;
 }
 
 .p-multiselect {
@@ -1569,7 +1569,7 @@ p-listbox.ng-dirty.ng-invalid > .p-listbox {
 }
 
 p-multiselect.ng-dirty.ng-invalid > .p-multiselect {
-  border-color: v.$error-color;
+  border-color: v.$errorColor;
 }
 
 .p-input-filled .p-multiselect {
@@ -1591,7 +1591,7 @@ p-multiselect.p-multiselect-clearable .p-multiselect-clear-icon {
 }
 
 p-password.ng-invalid.ng-dirty > .p-password > .p-inputtext {
-  border-color: v.$error-color;
+  border-color: v.$errorColor;
 }
 
 .p-password-panel {
@@ -1673,7 +1673,7 @@ p-password.p-password-clearable.p-password-mask .p-password-clear-icon {
 }
 
 p-radiobutton.ng-dirty.ng-invalid > .p-radiobutton > .p-radiobutton-box {
-  border-color: v.$error-color;
+  border-color: v.$errorColor;
 }
 
 .p-input-filled .p-radiobutton .p-radiobutton-box {
@@ -1703,7 +1703,7 @@ p-radiobutton.ng-dirty.ng-invalid > .p-radiobutton > .p-radiobutton-box {
   font-size: 1.143rem;
 }
 .p-rating .p-rating-icon.p-rating-cancel {
-  color: v.$error-color;
+  color: v.$errorColor;
 }
 .p-rating .p-rating-icon:focus {
   outline: 0 none;
@@ -1768,7 +1768,7 @@ p-radiobutton.ng-dirty.ng-invalid > .p-radiobutton > .p-radiobutton-box {
 }
 
 p-selectbutton.ng-dirty.ng-invalid > .p-selectbutton > .p-button {
-  border-color: v.$error-color;
+  border-color: v.$errorColor;
 }
 
 .p-slider {
@@ -1868,7 +1868,7 @@ p-selectbutton.ng-dirty.ng-invalid > .p-selectbutton > .p-button {
 }
 
 p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
-  border-color: v.$error-color;
+  border-color: v.$errorColor;
 }
 
 .p-treeselect {
@@ -1911,7 +1911,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 }
 
 p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
-  border-color: v.$error-color;
+  border-color: v.$errorColor;
 }
 
 .p-inputwrapper-filled .p-treeselect.p-treeselect-chip .p-treeselect-label {
@@ -6507,10 +6507,10 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
   background: v.$error;
   border: solid v.$error-border;
   border-width: 1px;
-  color: v.$error-color;
+  color: v.$errorColor;
 }
 .p-inline-message.p-inline-message-error .p-inline-message-icon {
-  color: v.$error-color;
+  color: v.$errorColor;
 }
 .p-inline-message .p-inline-message-icon {
   font-size: 1rem;
@@ -6585,13 +6585,13 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
   background: v.$error;
   border: solid v.$error-border;
   border-width: 0 0 0 6px;
-  color: v.$error-color;
+  color: v.$errorColor;
 }
 .p-message.p-message-error .p-message-icon {
-  color: v.$error-color;
+  color: v.$errorColor;
 }
 .p-message.p-message-error .p-message-close {
-  color: v.$error-color;
+  color: v.$errorColor;
 }
 .p-message .p-message-text {
   font-size: 1rem;
@@ -6681,11 +6681,11 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
   background: v.$error;
   border: solid v.$error-border;
   border-width: 0 0 0 6px;
-  color: v.$error-color;
+  color: v.$errorColor;
 }
 .p-toast .p-toast-message.p-toast-message-error .p-toast-message-icon,
 .p-toast .p-toast-message.p-toast-message-error .p-toast-icon-close {
-  color: v.$error-color;
+  color: v.$errorColor;
 }
 
 .p-galleria .p-galleria-close {

@@ -48,4 +48,4 @@ server/yarn-error.log
 server/Examples/
 
 # Test component
-src/app/test/*
+src/app/test/

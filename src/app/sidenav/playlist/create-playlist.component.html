@@ -8,29 +8,28 @@
     <div class="flex flex-column">
       <div class="col-12 mb-2">
         <div class="flex flex-row">
-          <span class="p-float-label p-input-icon-left mr-2">
-            <i class="pi pi-globe"></i>
+          <span class="p-float-label mr-2">
             <input type="text" id="name" pInputText formControlName="name" />
-            <label for="name">Playlist name</label>
+            <label for="name" class="p-float-label">Playlist name</label>
           </span>
           <p-chip
             [label]="name.value.length + ' / 100'"
             [styleClass]="
               name.value.length === 0 || name.value.length > 100
-                ? 'bg-red-200'
+                ? 'bg-red-700'
                 : 'bg-primary'
             "
           ></p-chip>
         </div>
         <small
-          class="text-red-200"
+          class="text-red-700"
           *ngIf="
             !name.valid &&
             name.value.length === 0 &&
             (name.dirty || name.touched)
           "
           >Please enter a playlist name.</small
-        ><small class="text-red-200" *ngIf="name.value.length > 100"
+        ><small class="text-red-700" *ngIf="name.value.length > 100"
           >Playlist name must be less than 100 characters.</small
         >
       </div>
@@ -49,11 +48,11 @@
           <p-chip
             [label]="description.value.length + ' / 300'"
             [styleClass]="
-              description.value.length > 300 ? 'bg-red-200' : 'bg-primary'
+              description.value.length > 300 ? 'bg-red-700' : 'bg-primary'
             "
           ></p-chip>
         </div>
-        <small class="text-red-200" *ngIf="description.value.length > 300"
+        <small class="text-red-700" *ngIf="description.value.length > 300"
           >Description must be less than 300 characters.</small
         >
       </div>
@@ -67,7 +66,7 @@
             ></p-inputSwitch>
             <p-chip
               [styleClass]="
-                scope.value === true ? 'bg-green-500' : 'bg-grey-500'
+                scope.value === true ? 'bg-primary-500' : 'bg-grey-500'
               "
               [label]="scope.value === false ? 'Private' : 'Public'"
             ></p-chip>
@@ -104,9 +103,7 @@
 <div
   *ngIf="currentStep === 2"
   class="card grid grid-nogutter col-12 h-5rem md:h-10rem lg:h-11rem xl:h-18rem"
->
-
-</div>
+></div>
 <div class="flex flex-row flex-auto justify-content-between">
   <button
     pButton

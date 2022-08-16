@@ -10,8 +10,7 @@
         <div class="col-7 grid grid-nogutter">
           <div class="col-12 flex flex-row mt-2">
             <div class="col-8">
-              <div class="p-float-label p-input-icon-left mr-2">
-                <i class="pi pi-globe"></i>
+              <div class="p-float-label mr-2">
                 <input
                   type="text"
                   id="name"
@@ -22,7 +21,7 @@
               </div>
               <div>
                 <small
-                  class="text-red-200"
+                  class="text-red-700"
                   *ngIf="
                     !name.valid &&
                     name.value.length === 0 &&
@@ -31,7 +30,7 @@
                 >
                   Please enter a playlist name.
                 </small>
-                <small class="text-red-200" *ngIf="name.value.length > 100">
+                <small class="text-red-700" *ngIf="name.value.length > 100">
                   Playlist name must be less than 100 characters.
                 </small>
               </div>
@@ -41,7 +40,7 @@
                 [label]="name.value.length + ' / 100'"
                 [styleClass]="
                   name.value.length === 0 || name.value.length > 100
-                    ? 'bg-red-200'
+                    ? 'bg-red-700'
                     : 'bg-primary'
                 "
               ></p-chip>
@@ -64,7 +63,7 @@
               <p-chip
                 [label]="description.value.length + ' / 300'"
                 [styleClass]="
-                  description.value.length > 300 ? 'bg-red-200' : 'bg-primary'
+                  description.value.length > 300 ? 'bg-red-700' : 'bg-primary'
                 "
               ></p-chip>
             </div>
@@ -79,7 +78,7 @@
                 ></p-inputSwitch>
                 <p-chip
                   [styleClass]="
-                    scope.value === true ? 'bg-green-500' : 'bg-grey-500'
+                    scope.value === true ? 'bg-primary-500' : 'bg-grey-500'
                   "
                   [label]="scope.value === false ? 'Private' : 'Public'"
                 ></p-chip>
@@ -110,7 +109,7 @@
       <ng-template pTemplate="body" let-track let-index="rowIndex">
         <tr [pReorderableRow]="index">
           <td style="flex: 1 1 20%">
-            <i class="pi pi-bars" [pReorderableRowHandle]="index"></i>
+            <fa-icon icon="bars" [pReorderableRowHandle]="index"></fa-icon>
           </td>
           <td style="flex: 1 1 80%">{{ track.name }}</td>
         </tr>

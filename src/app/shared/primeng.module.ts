@@ -31,59 +31,6 @@ import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
 import { TooltipModule } from 'primeng/tooltip';
 
-import { AutoCompleteModule } from 'primeng/autocomplete';
-import { CalendarModule } from 'primeng/calendar';
-import { InputNumberModule } from 'primeng/inputnumber';
-import { SliderModule } from 'primeng/slider';
-import { RatingModule } from 'primeng/rating';
-import { RadioButtonModule, RadioControlRegistry } from 'primeng/radiobutton';
-import { CheckboxModule } from 'primeng/checkbox';
-import { ListboxModule } from 'primeng/listbox';
-import { ToggleButtonModule } from 'primeng/togglebutton';
-import { SelectButtonModule } from 'primeng/selectbutton';
-import { ProgressBarModule } from 'primeng/progressbar';
-import { PaginatorModule } from 'primeng/paginator';
-import { AccordionModule } from 'primeng/accordion';
-import { PanelModule } from 'primeng/panel';
-import { OverlayPanelModule } from 'primeng/overlaypanel';
-import { ConfirmPopupModule } from 'primeng/confirmpopup';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { ContextMenuModule } from 'primeng/contextmenu';
-import { TimelineModule } from 'primeng/timeline';
-import { MessageModule } from 'primeng/message';
-import { ChipsModule } from 'primeng/chips';
-import { SplitButtonModule } from 'primeng/splitbutton'
-import {
-  CheckboxControlValueAccessor,
-  RadioControlValueAccessor,
-  SelectControlValueAccessor,
-  SelectMultipleControlValueAccessor,
-} from '@angular/forms';
-const extras = [
-  AutoCompleteModule,
-  CalendarModule,
-  InputNumberModule,
-  SliderModule,
-  RatingModule,
-  RadioButtonModule,
-  CheckboxModule,
-  ListboxModule,
-  ToggleButtonModule,
-  SelectButtonModule,
-  ProgressBarModule,
-  PaginatorModule,
-  AccordionModule,
-  PanelModule,
-  OverlayPanelModule,
-  ConfirmPopupModule,
-  ConfirmDialogModule,
-  ContextMenuModule,
-  TimelineModule,
-  MessageModule,
-  ChipsModule,
-  SplitButtonModule,
-];
-
 const MODULES = [
   AvatarModule,
   ButtonModule,
@@ -115,15 +62,12 @@ const MODULES = [
   TooltipModule,
 ];
 @NgModule({
-  imports: [CommonModule, MODULES, extras],
+  imports: [CommonModule, MODULES],
   providers: [
     DialogService,
     MessageService,
     ConfirmationService,
-    SelectMultipleControlValueAccessor,
-    CheckboxControlValueAccessor,
-    SelectControlValueAccessor,
   ],
-  exports: [MODULES, extras],
+  exports: [MODULES],
 })
 export class PrimengModule {}

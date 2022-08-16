@@ -2,33 +2,33 @@
   <div class="flex-initial">
     <p-card>
       <div
-        class="menu-item col-12 flex flex-row justify-content-start hover:text-green-500"
+        class="menu-item col-12 flex flex-row justify-content-start hover:text-primary"
         (click)="this.navigate('dashboard')"
       >
-        <i
-          class="pi pi-home"
+        <fa-icon
+          icon="house-chimney-user"
           style="font-size: 1.5rem; margin-right: 1rem"
           pTooltip="Home"
           [showDelay]="250"
           [hideDelay]="100"
           [tooltipDisabled]="homeSpan === undefined"
-        ></i>
+        ></fa-icon>
         <span #homeSpan class="mt-0 text-lg lg:text-2xl hidden md:inline-block"
           >Home</span
         >
       </div>
       <div
-        class="menu-item col-12 flex flex-row justify-content-start hover:text-green-500"
+        class="menu-item col-12 flex flex-row justify-content-start hover:text-primary"
         (click)="createPlaylist()"
       >
-        <i
-          class="pi pi-plus"
+        <fa-icon
+          icon="folder-plus"
           style="font-size: 1.5rem; margin-right: 1rem"
           pTooltip="Create a playlist"
           [showDelay]="250"
           [hideDelay]="100"
           [tooltipDisabled]="playlistSpan === undefined"
-        ></i>
+        ></fa-icon>
         <span
           #playlistSpan
           class="mt-0 text-lg lg:text-2xl hidden md:inline-block"
@@ -37,17 +37,17 @@
         </span>
       </div>
       <div
-        class="menu-item col-12 flex flex-row justify-content-start hover:text-green-500"
+        class="menu-item col-12 flex flex-row justify-content-start hover:text-primary"
         (click)="this.navigate('library')"
       >
-        <i
-          class="pi pi-book"
+        <fa-icon
+          icon="book-bookmark"
           style="font-size: 1.5rem; margin-right: 1rem"
           pTooltip="Library"
           [showDelay]="250"
           [hideDelay]="100"
-          [tooltipDisabled]="librarySpan === undefined"
-        ></i>
+          [tooltipDisabled]="likedSpan === undefined"
+        ></fa-icon>
         <span
           #librarySpan
           class="mt-0 text-lg lg:text-2xl hidden md:inline-block"
@@ -55,17 +55,17 @@
         >
       </div>
       <div
-        class="menu-item col-12 flex flex-row justify-content-start hover:text-green-500"
+        class="menu-item col-12 flex flex-row justify-content-start hover:text-primary-500"
         (click)="this.navigate('library')"
       >
-        <i
-          class="pi pi-heart-fill"
+        <fa-icon
+          icon="heart-circle-check"
           style="font-size: 1.5rem; margin-right: 1rem"
           pTooltip="Liked Songs"
           [showDelay]="250"
           [hideDelay]="100"
-          [tooltipDisabled]="librarySpan === undefined"
-        ></i>
+          [tooltipDisabled]="likedSpan === undefined"
+        ></fa-icon>
         <span
           #likedSpan
           class="mt-0 text-lg lg:text-2xl hidden sm:inline-block"
@@ -82,10 +82,10 @@
           pButton
           pRipple
           type="button"
-          icon="pi pi-sign-out"
           label="Login"
           class="p-button-lg"
           [href]="this.AUTH_LINK"
+          ><fa-icon icon="arrow-right-to-bracket"></fa-icon
         ></a>
       </div>
     </p-card>
