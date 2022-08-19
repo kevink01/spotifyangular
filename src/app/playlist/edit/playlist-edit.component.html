@@ -19,29 +19,14 @@
                 />
                 <label for="name">Playlist name</label>
               </div>
-              <div>
-                <small
-                  class="text-red-700"
-                  *ngIf="
-                    !name.valid &&
-                    name.value.length === 0 &&
-                    (name.dirty || name.touched)
-                  "
-                >
-                  Please enter a playlist name.
-                </small>
-                <small class="text-red-700" *ngIf="name.value.length > 100">
-                  Playlist name must be less than 100 characters.
-                </small>
-              </div>
             </div>
             <div class="col-4">
               <p-chip
                 [label]="name.value.length + ' / 100'"
                 [styleClass]="
                   name.value.length === 0 || name.value.length > 100
-                    ? 'bg-red-700'
-                    : 'bg-primary'
+                    ? 'bg-red-700 text-white-alpha-80'
+                    : 'bg-primary-500 text-black-alpha-80'
                 "
               ></p-chip>
             </div>
@@ -63,7 +48,9 @@
               <p-chip
                 [label]="description.value.length + ' / 300'"
                 [styleClass]="
-                  description.value.length > 300 ? 'bg-red-700' : 'bg-primary'
+                  description.value.length > 300
+                    ? 'bg-red-700 text-white-alpha-80'
+                    : 'bg-primary-500 text-black-alpha-80'
                 "
               ></p-chip>
             </div>
@@ -78,7 +65,9 @@
                 ></p-inputSwitch>
                 <p-chip
                   [styleClass]="
-                    scope.value === true ? 'bg-primary-500' : 'bg-grey-500'
+                    scope.value === true
+                      ? 'bg-primary-500 text-black-alpha-80'
+                      : 'bg-grey-500'
                   "
                   [label]="scope.value === false ? 'Private' : 'Public'"
                 ></p-chip>

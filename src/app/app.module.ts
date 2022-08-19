@@ -28,10 +28,13 @@ import { TestComponent } from './test/test.component';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 
 import {
+  faAnglesLeft,
+  faAnglesRight,
   faArrowRightToBracket,
   faBan,
   faBars,
   faBookBookmark,
+  faCircleNotch,
   faCirclePlay,
   faCompactDisc,
   faFolderPlus,
@@ -41,7 +44,9 @@ import {
   faLock,
   faLockOpen,
   faMagnifyingGlass,
+  faMinus,
   faPenToSquare,
+  faPlus,
   faStar,
   faStopwatch,
   faTrash,
@@ -81,10 +86,13 @@ import {
 export class AppModule {
   constructor(private library: FaIconLibrary) {
     library.addIcons(
+      faAnglesLeft,
+      faAnglesRight,
       faArrowRightToBracket,
       faBan,
       faBars,
       faBookBookmark,
+      faCircleNotch,
       faCirclePlay,
       faCompactDisc,
       faFolderPlus,
@@ -94,7 +102,9 @@ export class AppModule {
       faLock,
       faLockOpen,
       faMagnifyingGlass,
+      faMinus,
       faPenToSquare,
+      faPlus,
       faStar,
       faStopwatch,
       faTrash,

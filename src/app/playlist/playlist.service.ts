@@ -14,9 +14,11 @@ export class PlaylistService implements OnDestroy {
   constructor(private http: HttpClient) {}
 
   getPlaylist(id: string): Observable<Playlist> {
-    return this.http.get<Playlist>(
-      `${environment.SERVER_URL}/${environment.PLAYLIST_URL}?id=${id}`
-    ).pipe(catchError((err) => throwError(() => err.error)));
+    return this.http
+      .get<Playlist>(
+        `${environment.SERVER_URL}/${environment.PLAYLIST_URL}?id=${id}`
+      )
+      .pipe(catchError((err) => throwError(() => err.error)));
   }
 
   createPlaylist(values: any) {
@@ -29,10 +31,12 @@ export class PlaylistService implements OnDestroy {
   }
 
   updatePlaylist(id: string, values: any) {
-    return this.http.put(
-      `${environment.SERVER_URL}/${environment.UPDATE_PLAYLIST_URL}`,
-      { id: id, details: values }
-    ).pipe(catchError((err) => throwError(() => err.error)));
+    return this.http
+      .put(`${environment.SERVER_URL}/${environment.UPDATE_PLAYLIST_URL}`, {
+        id: id,
+        details: values,
+      })
+      .pipe(catchError((err) => throwError(() => err.error)));
   }
 
   uploadImage(id: string, image: any): Observable<any> {
@@ -40,6 +44,16 @@ export class PlaylistService implements OnDestroy {
       .post(`${environment.SERVER_URL}/${environment.UPLOAD_IMAGE_URL}`, {
         id: id,
         image: image,
+      })
+      .pipe(catchError((err) => throwError(() => err.error)));
+  }
+
+  addToPlaylist(id: string, tracks: string[], position: number) {
+    return this.http
+      .post(`${environment.SERVER_URL}/${environment.ADD_TO_PLAYLIST_URL}`, {
+        id,
+        tracks,
+        position,
       })
       .pipe(catchError((err) => throwError(() => err.error)));
   }

@@ -30,6 +30,8 @@ import { TieredMenuModule } from 'primeng/tieredmenu';
 import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
 import { TooltipModule } from 'primeng/tooltip';
+import { MessageModule } from 'primeng/message';
+import { InputNumberModule } from 'primeng/inputnumber';
 
 const MODULES = [
   AvatarModule,
@@ -44,11 +46,13 @@ const MODULES = [
   FieldsetModule,
   FileUploadModule,
   ImageModule,
+  InputNumberModule,
   InputSwitchModule,
   InputTextareaModule,
   InputTextModule,
   MenubarModule,
   MenuModule,
+  MessageModule,
   MultiSelectModule,
   ProgressSpinnerModule,
   ScrollPanelModule,
@@ -63,11 +67,7 @@ const MODULES = [
 ];
 @NgModule({
   imports: [CommonModule, MODULES],
-  providers: [
-    DialogService,
-    MessageService,
-    ConfirmationService,
-  ],
+  providers: [DialogService, MessageService, ConfirmationService],
   exports: [MODULES],
 })
 export class PrimengModule {}

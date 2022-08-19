@@ -1,5 +1,9 @@
 <p-toast (onClose)="reload($event)"></p-toast>
-<p-steps [model]="steps" [activeIndex]="currentStep"></p-steps>
+<p-steps
+  [model]="steps"
+  [activeIndex]="currentStep"
+  [readonly]="true"
+></p-steps>
 <div
   *ngIf="currentStep === 0"
   class="card grid grid-nogutter col-12 h-5rem md:h-10rem lg:h-11rem xl:h-18rem"
@@ -16,22 +20,11 @@
             [label]="name.value.length + ' / 100'"
             [styleClass]="
               name.value.length === 0 || name.value.length > 100
-                ? 'bg-red-700'
-                : 'bg-primary'
+                ? 'bg-red-700 text-white-alpha-80'
+                : 'bg-primary-500 text-black-alpha-80'
             "
           ></p-chip>
         </div>
-        <small
-          class="text-red-700"
-          *ngIf="
-            !name.valid &&
-            name.value.length === 0 &&
-            (name.dirty || name.touched)
-          "
-          >Please enter a playlist name.</small
-        ><small class="text-red-700" *ngIf="name.value.length > 100"
-          >Playlist name must be less than 100 characters.</small
-        >
       </div>
       <div class="col-12">
         <div class="flex flex-row">
@@ -48,13 +41,12 @@
           <p-chip
             [label]="description.value.length + ' / 300'"
             [styleClass]="
-              description.value.length > 300 ? 'bg-red-700' : 'bg-primary'
+              description.value.length > 300
+                ? 'bg-red-700 text-white-alpha-80'
+                : 'bg-primary-500 text-black-alpha-80'
             "
           ></p-chip>
         </div>
-        <small class="text-red-700" *ngIf="description.value.length > 300"
-          >Description must be less than 300 characters.</small
-        >
       </div>
       <div class="flex flex-row col-6">
         <div class="col-6">
@@ -66,7 +58,9 @@
             ></p-inputSwitch>
             <p-chip
               [styleClass]="
-                scope.value === true ? 'bg-primary-500' : 'bg-grey-500'
+                scope.value === true
+                  ? 'bg-primary-500 text-black-alpha-80'
+                  : 'bg-grey-500'
               "
               [label]="scope.value === false ? 'Private' : 'Public'"
             ></p-chip>
@@ -85,10 +79,7 @@
     </div>
   </form>
 </div>
-<div
-  *ngIf="currentStep === 1"
-  class="card grid grid-nogutter col-12 h-5rem md:h-10rem lg:h-11rem xl:h-18rem"
->
+<div *ngIf="currentStep === 1" class="card col-12 flex test">
   <p-fileUpload
     [multiple]="false"
     accept="image/*"
@@ -97,14 +88,85 @@
     (onSelect)="uploadedImage = $event.files[0]"
     [customUpload]="true"
     (uploadHandler)="uploadImage($event.files[0])"
+    styleClass="test"
   >
   </p-fileUpload>
 </div>
 <div
-  *ngIf="currentStep === 2"
-  class="card grid grid-nogutter col-12 h-5rem md:h-10rem lg:h-11rem xl:h-18rem"
-></div>
-<div class="flex flex-row flex-auto justify-content-between">
+  *ngIf="currentStep === 2 && savedSongs"
+  class="card col-12"
+  style="flex-grow: 3"
+>
+  <form class="card form formgrid mt-2" [formGroup]="songForm">
+    <p-table
+      #dt
+      [value]="savedSongs"
+      [scrollable]="true"
+      scrollHeight="40vh"
+      [classList]="'table'"
+      [globalFilterFields]="['name', 'artist.name', 'album.name']"
+    >
+      <ng-template pTemplate="caption">
+        <div class="flex flex-row w-12">
+          <div class="w-9">
+            <h5>Number of songs: {{ songs.controls.length }}</h5>
+            <span *ngIf="maxSongError" class="text-red-700"
+              >Limited to add 100 songs</span
+            >
+          </div>
+          <div class="w-3">
+            <span class="p-float-label">
+              <input
+                #search
+                id="float-input"
+                name="filter"
+                type="text"
+                pInputText
+                placeholder="Search for keyword"
+                (input)="dt.filterGlobal(search.value, 'contains')"
+              />
+              <label for="float-input">Search</label>
+            </span>
+          </div>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="header">
+        <tr style="position: sticky">
+          <th></th>
+          <th style="flex: 1 1 60%">Name</th>
+          <th>Artist</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-savedSong let-index="rowIndex">
+        <tr [pReorderableRow]="index">
+          <td>
+            <p-button
+              pRipple
+              type="button"
+              class="p-button-rounded"
+              [styleClass]="
+                checkSong(savedSong.uri)
+                  ? 'p-button-danger'
+                  : 'p-button-success'
+              "
+              (click)="addSong(savedSong.uri); checkSong(savedSong.uri)"
+            >
+              <fa-icon
+                [icon]="checkSong(savedSong.uri) ? 'minus' : 'plus'"
+              ></fa-icon>
+            </p-button>
+          </td>
+          <td style="flex: 1 1 60%">{{ savedSong.name }}</td>
+          <td>{{ savedSong.artist.name }}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </form>
+</div>
+<div
+  class="flex flex-row flex-auto justify-content-between controls"
+  style="flex-grow: 1"
+>
   <button
     pButton
     pRipple
@@ -112,15 +174,22 @@
     label="Go back"
     (click)="goBack()"
     [disabled]="currentStep === 0"
-  ></button>
+  >
+    <fa-icon icon="angles-left" [classes]="['mr-2']"></fa-icon>
+  </button>
   <button
     pButton
     pRipple
     type="button"
     [label]="hasSubmittedStep[currentStep] ? 'Update' : 'Submit'"
-    [icon]="loading ? 'pi pi-spin pi-spinner' : 'pi pi-angle-double-right'"
     iconPos="right"
     (click)="advance()"
     [disabled]="loading"
-  ></button>
+  >
+    <fa-icon
+      [icon]="loading ? 'circle-notch' : 'angles-right'"
+      [spin]="loading"
+      [classes]="['mr-2']"
+    ></fa-icon>
+  </button>
 </div>
