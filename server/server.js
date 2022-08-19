@@ -127,11 +127,10 @@ app.get("/top/artists", (req, res) => {
 /* ********************** */
 
 app.post("/playlist/new", (req, res) => {
-  console.log(req.body);
   spotify
     .createPlaylist(req.body.name, {
       description: req.body.description,
-      public: req.body.scope,
+      public: req.body.public,
       collaborative: req.body.collaborative,
     })
     .then((data) => {
@@ -165,7 +164,7 @@ app.put("/playlist/update", (req, res) => {
     .changePlaylistDetails(req.body.id, {
       name: req.body.details.name,
       description: req.body.details.description,
-      public: req.body.details.scope,
+      public: req.body.details.public,
       collaborative: req.body.details.collaborative,
     })
     .then(() => {

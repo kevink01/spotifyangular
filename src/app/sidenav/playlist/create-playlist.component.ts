@@ -48,7 +48,7 @@ export class CreatePlaylistComponent implements OnInit, OnDestroy {
     this.playlistForm = this.fb.group({
       name: ['', [Validators.required, Validators.maxLength(100)]],
       description: ['', Validators.maxLength(300)],
-      scope: [false],
+      public: [false],
       collaborative: [false],
     });
     console.log(this.playlistForm);
@@ -95,7 +95,7 @@ export class CreatePlaylistComponent implements OnInit, OnDestroy {
                   // Update values
                   this.playlist.name = this.name.value;
                   this.playlist.description = this.description.value;
-                  this.playlist.public = this.scope.value;
+                  this.playlist.public = this.public.value;
                   this.playlist.collaborative = this.collaborative.value;
                 },
                 error: (err) => {
@@ -250,8 +250,8 @@ export class CreatePlaylistComponent implements OnInit, OnDestroy {
     return this.playlistForm.get('description');
   }
 
-  get scope() {
-    return this.playlistForm.get('scope');
+  get public() {
+    return this.playlistForm.get('public');
   }
 
   get collaborative() {

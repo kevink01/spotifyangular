@@ -8,10 +8,10 @@ const SCOPES: string = [
   // Library scope
   'user-library-read',
   // Playlist scope
-  'playlist-read-collaborative',
-  'playlist-modify-public',
   'playlist-read-private',
   'playlist-modify-private',
+  'playlist-read-collaborative',
+  'playlist-modify-public',
   // // Listen history scope
   'user-read-recently-played',
   'user-read-playback-position',

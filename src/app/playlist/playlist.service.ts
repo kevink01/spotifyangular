@@ -21,7 +21,7 @@ export class PlaylistService implements OnDestroy {
       .pipe(catchError((err) => throwError(() => err.error)));
   }
 
-  createPlaylist(values: any) {
+  createPlaylist(values: Object) {
     return this.http
       .post(
         `${environment.SERVER_URL}/${environment.CREATE_PLAYLIST_URL}`,
@@ -30,7 +30,7 @@ export class PlaylistService implements OnDestroy {
       .pipe(catchError((err) => throwError(() => err.error)));
   }
 
-  updatePlaylist(id: string, values: any) {
+  updatePlaylist(id: string, values: Object) {
     return this.http
       .put(`${environment.SERVER_URL}/${environment.UPDATE_PLAYLIST_URL}`, {
         id: id,

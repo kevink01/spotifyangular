@@ -53,16 +53,16 @@
           <label class="font-bold">Playlist scope</label>
           <div class="flex flex-row mt-2">
             <p-inputSwitch
-              formControlName="scope"
+              formControlName="public"
               styleClass="mr-2"
             ></p-inputSwitch>
             <p-chip
               [styleClass]="
-                scope.value === true
+                public.value === true
                   ? 'bg-primary-500 text-black-alpha-80'
                   : 'bg-grey-500'
               "
-              [label]="scope.value === false ? 'Private' : 'Public'"
+              [label]="public.value === false ? 'Private' : 'Public'"
             ></p-chip>
           </div>
         </div>
