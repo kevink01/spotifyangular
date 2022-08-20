@@ -58,14 +58,21 @@ export class PlaylistService implements OnDestroy {
       .pipe(catchError((err) => throwError(() => err.error)));
   }
 
-  get playlists(): Observable<Object> {
-    return this._playlists;
-  }
-
   updatePlaylists(value: Object) {
     this._playlistSubject.next(value);
   }
 
+  deletePlaylist(id: string) {
+    return this.http
+      .delete(`${environment.SERVER_URL}/${environment.DELETE_PLAYLIST_URL}`, {
+        body: { id },
+      })
+      .pipe(catchError((err) => throwError(() => err.error)));
+  }
+
+  get playlists(): Observable<Object> {
+    return this._playlists;
+  }
   ngOnDestroy(): void {
     this._playlistSubject.unsubscribe();
   }

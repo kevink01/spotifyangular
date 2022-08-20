@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { AvatarModule } from 'primeng/avatar';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
+import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { ChipModule } from 'primeng/chip';
 import { DataViewModule } from 'primeng/dataview';
 import { DialogModule } from 'primeng/dialog';
@@ -13,11 +14,13 @@ import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
 import { FieldsetModule } from 'primeng/fieldset';
 import { FileUploadModule } from 'primeng/fileupload';
 import { ImageModule } from 'primeng/image';
+import { InputNumberModule } from 'primeng/inputnumber';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { InputTextModule } from 'primeng/inputtext';
 import { MenubarModule } from 'primeng/menubar';
 import { MenuModule } from 'primeng/menu';
+import { MessageModule } from 'primeng/message';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
@@ -30,13 +33,12 @@ import { TieredMenuModule } from 'primeng/tieredmenu';
 import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
 import { TooltipModule } from 'primeng/tooltip';
-import { MessageModule } from 'primeng/message';
-import { InputNumberModule } from 'primeng/inputnumber';
 
 const MODULES = [
   AvatarModule,
   ButtonModule,
   CardModule,
+  ConfirmPopupModule,
   ChipModule,
   DataViewModule,
   DialogModule,

@@ -210,6 +210,15 @@ app.post("/playlist/add", (req, res) => {
     });
 });
 
+app.delete("/playlist/delete", (req, res) => {
+  spotify
+    .unfollowPlaylist(req.body.id)
+    .then(() => res.status(200).send({ success: true }))
+    .catch((err) => {
+      res.status(err.statusCode).send(err.body);
+    });
+});
+
 app.get("/featured", (req, res) => {
   spotify
     .getFeaturedPlaylists()

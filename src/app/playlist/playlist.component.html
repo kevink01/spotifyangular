@@ -2,6 +2,7 @@
   <loading-playlist></loading-playlist>
 </div>
 <div *ngIf="playlist" class="card w-12">
+  <p-toast key="delete" (onClose)="redirect($event)"></p-toast>
   <p-table
     #dt
     [loading]="loading"
@@ -61,12 +62,14 @@
             >
               <fa-icon icon="pen-to-square" class="mr-2"></fa-icon>
             </button>
+            <p-confirmPopup></p-confirmPopup>
             <button
               pButton
               pRipple
               type="button"
               label="Delete"
               class="p-button-danger p-button-lg mt-2"
+              (click)="confirmDelete($event)"
             >
               <fa-icon icon="trash" class="mr-2"></fa-icon>
             </button>

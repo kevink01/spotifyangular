@@ -62,6 +62,7 @@ export const environment = {
   UPDATE_PLAYLIST_URL: 'playlist/update',
   UPLOAD_IMAGE_URL: 'playlist/image',
   ADD_TO_PLAYLIST_URL: 'playlist/add',
+  DELETE_PLAYLIST_URL: 'playlist/delete',
 
   /* ****************** */
   /*       Artist       */

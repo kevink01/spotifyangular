@@ -106,11 +106,6 @@
     </p-table>
   </p-tabPanel>
 </p-tabView>
-<button
-  pButton
-  pRipple
-  label="Save"
-  icon="pi pi-save"
-  class="mt-2"
-  (click)="save()"
-></button>
+<button pButton pRipple label="Save" class="mt-2" (click)="save()">
+  <fa-icon icon="floppy-disk" [classes]="['mr-2']"></fa-icon>
+</button>
