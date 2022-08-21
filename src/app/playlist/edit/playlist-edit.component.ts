@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { MessageService } from 'primeng/api';
+import { MenuItem, MessageService } from 'primeng/api';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Subscription } from 'rxjs';
 import { Playlist } from 'src/app/models/Profile/Playlist';
@@ -31,7 +31,10 @@ export class PlaylistEditComponent implements OnInit, OnDestroy {
     this.playlist = <Playlist>Object.assign({}, this.dialogConfig.data);
     this.tracks = <Track[]>[...this.dialogConfig.data.tracks];
     this.form = this.fb.group({
-      name: [this.dialogConfig.data.name, Validators.required],
+      name: [
+        this.dialogConfig.data.name,
+        [Validators.required, Validators.maxLength(100)],
+      ],
       description: [
         this.dialogConfig.data.description,
         Validators.maxLength(300),
@@ -53,7 +56,7 @@ export class PlaylistEditComponent implements OnInit, OnDestroy {
           severity: 'success',
           summary: 'Playlist details updated!',
           detail: `Name: ${this.playlist.name}`,
-          life: 1000,
+          life: 2000,
         });
         break;
       case 1:
@@ -70,6 +73,8 @@ export class PlaylistEditComponent implements OnInit, OnDestroy {
     console.log(this.tracks);
     console.log(this.tracks.map((track: Track) => track.uri));
   }
+
+  uploadImage(event: any): void {}
 
   set tracks(value: Track[]) {
     this._tracks = value;

@@ -23,7 +23,8 @@
       class="p-button-rounded p-button-lg"
       style="height: 55px"
       [href]="this.AUTH_LINK"
-      ><p-avatar icon="pi pi-user" shape="circle" styleClass="mr-2"></p-avatar
+      ><p-avatar shape="circle" styleClass="mr-2"
+        ><fa-icon icon="user"></fa-icon></p-avatar
     ></a>
     <p-button
       *ngIf="profile !== 'Not logged in'"
@@ -39,7 +40,8 @@
         styleClass="mr-2"
       ></p-avatar>
     </p-button>
-    <p-tieredMenu #menu [model]="items" [popup]="true"></p-tieredMenu>
+    <p-menu #menu [model]="items" [popup]="true">
+    </p-menu>
   </div>
 </p-toolbar>
 <div class="grid grid-nogutter">

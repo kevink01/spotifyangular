@@ -8,6 +8,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import {
+  FaIconLibrary,
+  FontAwesomeModule,
+} from '@fortawesome/angular-fontawesome';
 import { PrimengModule } from './shared/primeng.module';
 import { StyleClassModule } from 'primeng/styleclass';
 
@@ -22,6 +26,34 @@ import { PlaylistEditComponent } from './playlist/edit/playlist-edit.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { TestComponent } from './test/test.component';
 import { ToolbarComponent } from './toolbar/toolbar.component';
+
+import {
+  faAnglesLeft,
+  faAnglesRight,
+  faArrowRightToBracket,
+  faBan,
+  faBars,
+  faBookBookmark,
+  faCircleNotch,
+  faCirclePlay,
+  faCompactDisc,
+  faFloppyDisk,
+  faFolderPlus,
+  faHeadphones,
+  faHeartCircleCheck,
+  faHouseChimneyUser,
+  faLock,
+  faLockOpen,
+  faMagnifyingGlass,
+  faMinus,
+  faPenToSquare,
+  faPlus,
+  faStar,
+  faStopwatch,
+  faTrash,
+  faUser,
+  faUsers,
+} from '@fortawesome/free-solid-svg-icons';
 
 @NgModule({
   declarations: [
@@ -42,6 +74,7 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
     AppRoutingModule,
     BrowserAnimationsModule,
     BrowserModule,
+    FontAwesomeModule,
     FormsModule,
     HttpClientModule,
     PrimengModule,
@@ -51,4 +84,34 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule {
+  constructor(private library: FaIconLibrary) {
+    library.addIcons(
+      faAnglesLeft,
+      faAnglesRight,
+      faArrowRightToBracket,
+      faBan,
+      faBars,
+      faBookBookmark,
+      faCircleNotch,
+      faCirclePlay,
+      faCompactDisc,
+      faFloppyDisk,
+      faFolderPlus,
+      faHeadphones,
+      faHeartCircleCheck,
+      faHouseChimneyUser,
+      faLock,
+      faLockOpen,
+      faMagnifyingGlass,
+      faMinus,
+      faPenToSquare,
+      faPlus,
+      faStar,
+      faStopwatch,
+      faTrash,
+      faUser,
+      faUsers
+    );
+  }
+}

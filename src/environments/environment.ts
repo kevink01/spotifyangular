@@ -8,10 +8,10 @@ const SCOPES: string = [
   // Library scope
   'user-library-read',
   // Playlist scope
-  'playlist-read-collaborative',
-  'playlist-modify-public',
   'playlist-read-private',
   'playlist-modify-private',
+  'playlist-read-collaborative',
+  'playlist-modify-public',
   // // Listen history scope
   'user-read-recently-played',
   'user-read-playback-position',
@@ -51,6 +51,7 @@ export const environment = {
   SAVED_ALBUMS_URL: 'profile/albums',
   TOP_TRACKS_URL: 'top/tracks',
   TOP_ARTISTS_URL: 'top/artists',
+  SAVED_SONGS_URL: 'profile/tracks',
 
   /* ********************** */
   /*        Playlist        */
@@ -60,6 +61,8 @@ export const environment = {
   CREATE_PLAYLIST_URL: 'playlist/new',
   UPDATE_PLAYLIST_URL: 'playlist/update',
   UPLOAD_IMAGE_URL: 'playlist/image',
+  ADD_TO_PLAYLIST_URL: 'playlist/add',
+  DELETE_PLAYLIST_URL: 'playlist/delete',
 
   /* ****************** */
   /*       Artist       */

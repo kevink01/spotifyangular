@@ -31,15 +31,17 @@ export class SidenavComponent implements OnInit, OnDestroy {
         next: (profile) => {
           console.log(profile);
           this.profile = profile;
-          this.subscriptions.add(this.playerService.getRecentlyPlayed().subscribe({
-            next: (recent: any) => {
-              console.log(recent);
-              this.recent = recent.items;
-            },
-            error: (err) => {
-              console.error(err);
-            },
-          }));
+          this.subscriptions.add(
+            this.playerService.getRecentlyPlayed().subscribe({
+              next: (recent: any) => {
+                console.log(recent);
+                this.recent = recent.items;
+              },
+              error: (err) => {
+                console.error(err);
+              },
+            })
+          );
         },
         error: (err) => {
           console.error(err);
@@ -67,7 +69,7 @@ export class SidenavComponent implements OnInit, OnDestroy {
   createPlaylist(): void {
     this._dialogRef = this.dialogService.open(CreatePlaylistComponent, {
       width: '50vw',
-      height: '75vh',
+      height: '90vh',
     });
     this._dialogRef.onClose.subscribe(() => console.log('Done with create'));
   }

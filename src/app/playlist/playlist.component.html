@@ -2,10 +2,11 @@
   <loading-playlist></loading-playlist>
 </div>
 <div *ngIf="playlist" class="card w-12">
+  <p-toast key="delete" (onClose)="redirect($event)"></p-toast>
   <p-table
     #dt
     [loading]="loading"
-    [value]="playlist.tracks"
+    [value]="tracks"
     [scrollable]="true"
     scrollHeight="595px"
     [globalFilterFields]="['name', 'artist.name', 'album.name']"
@@ -26,16 +27,16 @@
           </div>
           <div class="flex flex-column ml-2 flex-initial gap-1">
             <div>
-              <i class="pi pi-star"></i>
+              <fa-icon icon="star"></fa-icon>
               <span class="ml-2">{{ playlist.tracks.length }}</span>
             </div>
             <div>
-              <i class="pi pi-clock"></i>
+              <fa-icon icon="stopwatch"></fa-icon>
               <span class="ml-2">{{ length }}</span>
             </div>
             <div>
-              <i *ngIf="playlist.public" class="pi pi-lock-open"></i>
-              <i *ngIf="!playlist.public" class="pi pi-lock"></i>
+              <fa-icon *ngIf="playlist.public" icon="lock-open"></fa-icon>
+              <fa-icon *ngIf="!playlist.public" icon="lock"></fa-icon>
               <span class="ml-2"
                 >{{ playlist.public ? "Public" : "Private" }} playlist</span
               >
@@ -46,38 +47,39 @@
               pButton
               pRipple
               type="button"
-              icon="pi pi-play"
               label="Play"
               class="p-button-success p-button-lg mt-2"
-            ></button>
+            >
+              <fa-icon icon="circle-play" class="mr-2"></fa-icon>
+            </button>
             <button
               pButton
               pRipple
               type="button"
-              icon="pi pi-pencil"
               label="Edit"
               class="p-button-info p-button-lg mt-2"
               (click)="show()"
-            ></button>
+            >
+              <fa-icon icon="pen-to-square" class="mr-2"></fa-icon>
+            </button>
+            <p-confirmPopup></p-confirmPopup>
             <button
               pButton
               pRipple
               type="button"
-              icon="pi pi-trash"
               label="Delete"
               class="p-button-danger p-button-lg mt-2"
-            ></button>
+              (click)="confirmDelete($event)"
+            >
+              <fa-icon icon="trash" class="mr-2"></fa-icon>
+            </button>
           </span>
           <!-- <div class="flex flex-row my-2">
           </div> -->
         </div>
         <div class="flex flex-column w-4 xl:w-3 justify-content-center">
           <div class="absolute bottom-0 right-0">
-            <span class="p-float-label p-input-icon-left p-input-icon-right">
-              <i
-                class="pi pi-search hover:text-green-500"
-                (click)="search.focus()"
-              ></i>
+            <span class="p-float-label">
               <input
                 #search
                 id="float-input"
@@ -88,10 +90,6 @@
                 (input)="dt.filterGlobal(search.value, 'contains')"
               />
               <label for="float-input">Search</label>
-              <i
-                class="pi pi-times hover:text-green-500"
-                (click)="search.value = ''"
-              ></i>
             </span>
           </div>
         </div>

@@ -3,15 +3,40 @@
   <p-tabPanel header="Info" headerStyleClass="w-6">
     <form [formGroup]="form">
       <div class="grid grid-nogutter">
-        <div class="col-4 ml-2">
-          <p-image [src]="playlist.images[0].url" width="200px" height="200px">
-          </p-image>
+        <div #playlistImage class="col-4 ml-2">
+          <div class="flex w-12 justify-content-center">
+            <p-image
+              #playlistImage1
+              [src]="playlist.images[0].url"
+              alt="Logo"
+              width="200px"
+              height="200px"
+            ></p-image>
+          </div>
+          <div class="flex flex-wrap justify-content-between">
+            <p-fileUpload
+              #playlistUpload
+              mode="basic"
+              [multiple]="false"
+              accept="image/*"
+              chooseLabel="Select"
+              uploadLabel="Upload"
+              [customUpload]="true"
+              (uploadHandler)="uploadImage($event.files[0])"
+              [cancelIcon]="'pi pi-book'"
+            ></p-fileUpload>
+            <p-button
+              type="button"
+              label="Clear"
+              (onClick)="playlistUpload.files = []"
+              ><fa-icon icon="cancel"></fa-icon
+            ></p-button>
+          </div>
         </div>
-        <div class="col-7 grid grid-nogutter">
+        <div class="col-7 ml-5 grid grid-nogutter">
           <div class="col-12 flex flex-row mt-2">
             <div class="col-8">
-              <div class="p-float-label p-input-icon-left mr-2">
-                <i class="pi pi-globe"></i>
+              <div class="p-float-label mr-2">
                 <input
                   type="text"
                   id="name"
@@ -20,29 +45,14 @@
                 />
                 <label for="name">Playlist name</label>
               </div>
-              <div>
-                <small
-                  class="text-red-200"
-                  *ngIf="
-                    !name.valid &&
-                    name.value.length === 0 &&
-                    (name.dirty || name.touched)
-                  "
-                >
-                  Please enter a playlist name.
-                </small>
-                <small class="text-red-200" *ngIf="name.value.length > 100">
-                  Playlist name must be less than 100 characters.
-                </small>
-              </div>
             </div>
             <div class="col-4">
               <p-chip
                 [label]="name.value.length + ' / 100'"
                 [styleClass]="
                   name.value.length === 0 || name.value.length > 100
-                    ? 'bg-red-200'
-                    : 'bg-primary'
+                    ? 'bg-red-700 text-white-alpha-80'
+                    : 'bg-primary-500 text-black-alpha-80'
                 "
               ></p-chip>
             </div>
@@ -64,7 +74,9 @@
               <p-chip
                 [label]="description.value.length + ' / 300'"
                 [styleClass]="
-                  description.value.length > 300 ? 'bg-red-200' : 'bg-primary'
+                  description.value.length > 300
+                    ? 'bg-red-700 text-white-alpha-80'
+                    : 'bg-primary-500 text-black-alpha-80'
                 "
               ></p-chip>
             </div>
@@ -79,7 +91,9 @@
                 ></p-inputSwitch>
                 <p-chip
                   [styleClass]="
-                    scope.value === true ? 'bg-green-500' : 'bg-grey-500'
+                    scope.value === true
+                      ? 'bg-primary-500 text-black-alpha-80'
+                      : 'bg-grey-500'
                   "
                   [label]="scope.value === false ? 'Private' : 'Public'"
                 ></p-chip>
@@ -110,7 +124,7 @@
       <ng-template pTemplate="body" let-track let-index="rowIndex">
         <tr [pReorderableRow]="index">
           <td style="flex: 1 1 20%">
-            <i class="pi pi-bars" [pReorderableRowHandle]="index"></i>
+            <fa-icon icon="bars" [pReorderableRowHandle]="index"></fa-icon>
           </td>
           <td style="flex: 1 1 80%">{{ track.name }}</td>
         </tr>
@@ -118,11 +132,6 @@
     </p-table>
   </p-tabPanel>
 </p-tabView>
-<button
-  pButton
-  pRipple
-  label="Save"
-  icon="pi pi-save"
-  class="mt-2"
-  (click)="save()"
-></button>
+<button pButton pRipple label="Save" class="mt-2 controls" (click)="save()">
+  <fa-icon icon="floppy-disk" [classes]="['mr-2']"></fa-icon>
+</button>

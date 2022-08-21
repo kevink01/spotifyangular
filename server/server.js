@@ -83,6 +83,23 @@ app.get("/profile/albums", (req, res) => {
     });
 });
 
+app.get("/profile/tracks", (req, res) => {
+  return spotify
+    .getMySavedTracks({ limit: 1 })
+    .then(async (data) => {
+      await getAllSavedTracks(data.body)
+        .then((data) => {
+          res.status(200).send(data);
+        })
+        .catch((err) => {
+          res.status(err.statusCode).send(err.body);
+        });
+    })
+    .catch((err) => {
+      res.status(err.statusCode).send(err.body);
+    });
+});
+
 app.get("/top/tracks", (req, res) => {
   spotify
     .getMyTopTracks()
@@ -99,17 +116,6 @@ app.get("/top/artists", (req, res) => {
     .getMyTopArtists()
     .then((data) => {
       res.status(200).send(util.topArtists(data.body));
-    })
-    .catch((err) => {
-      res.status(err.statusCode).send(err.body);
-    });
-});
-
-app.get("/profile/top/tracks", (req, res) => {
-  spotify
-    .getMyTopTracks()
-    .then((data) => {
-      res.status(200).send(data.body);
     })
     .catch((err) => {
       res.status(err.statusCode).send(err.body);
@@ -139,7 +145,7 @@ app.get("/playlist", (req, res) => {
   spotify
     .getPlaylist(req.query.id, { limit: 1 })
     .then(async (data) => {
-      await getAllTracks(data.body)
+      await getAllPlaylistTracks(data.body)
         .then((data) => {
           res.status(200).send(data);
         })
@@ -153,6 +159,7 @@ app.get("/playlist", (req, res) => {
 });
 
 app.put("/playlist/update", (req, res) => {
+  console.log(req.body);
   spotify
     .changePlaylistDetails(req.body.id, {
       name: req.body.details.name,
@@ -160,7 +167,7 @@ app.put("/playlist/update", (req, res) => {
       public: req.body.details.public,
       collaborative: req.body.details.collaborative,
     })
-    .then((data) => {
+    .then(() => {
       res.status(200).send({ success: true });
     })
     .catch((err) => {
@@ -171,6 +178,30 @@ app.put("/playlist/update", (req, res) => {
 app.post("/playlist/image", (req, res) => {
   spotify
     .uploadCustomPlaylistCoverImage(req.body.id, req.body.image)
+    .then(() => {
+      res.status(200).send({ success: true });
+    })
+    .catch((err) => {
+      res.status(err.statusCode).send(err.body);
+    });
+});
+
+app.put("/playlist/reorder", (req, res) => {
+  spotify
+    .replaceTracksInPlaylist(req.body.id, req.body.tracks)
+    .then(() => {
+      res.status(200).send({ success: true });
+    })
+    .catch((err) => {
+      res.status(err.statusCode).send(err.body);
+    });
+});
+
+app.post("/playlist/add", (req, res) => {
+  spotify
+    .addTracksToPlaylist(req.body.id, req.body.tracks, {
+      position: req.body.position,
+    })
     .then((data) => {
       res.status(200).send(data.body);
     })
@@ -179,13 +210,10 @@ app.post("/playlist/image", (req, res) => {
     });
 });
 
-app.put("/playlist/reorder", (req, res) => {
-  console.log(req.body);
+app.delete("/playlist/delete", (req, res) => {
   spotify
-    .replaceTracksInPlaylist(req.body.id, req.body.tracks)
-    .then((data) => {
-      res.status(200).send({ success: true });
-    })
+    .unfollowPlaylist(req.body.id)
+    .then(() => res.status(200).send({ success: true }))
     .catch((err) => {
       res.status(err.statusCode).send(err.body);
     });
@@ -254,14 +282,16 @@ app.get("/recommendations", (req, res) => {
     });
 });
 
-app.post("/test", (req, res) => {
+app.get("/test", (req, res) => {
   return spotify
-    .getMe()
-    .then((data) => {
-      res.status(200).send(data.body);
+    .getMySavedTracks({ limit: 1 })
+    .then(async (data) => {
+      await getAllSavedTracks(data.body).then((data) => {
+        res.status(200).send(data);
+      });
     })
     .catch((err) => {
-      res.status(err.statusCode).send(err.body);
+      res.send(err);
     });
 });
 
@@ -282,7 +312,7 @@ app.get("/tracks/recent", (req, res) => {
 });
 app.listen(4201);
 
-const getAllTracks = (data) => {
+const getAllPlaylistTracks = (data) => {
   const calls = Math.floor(data.tracks.total / 100) + 1;
   const offset = Array(calls)
     .fill(null)
@@ -297,6 +327,7 @@ const getAllTracks = (data) => {
         throw new Error(err);
       });
   });
+
   return Promise.all(requests).then((responses) =>
     Promise.all(
       responses.flatMap((r) => {
@@ -350,5 +381,67 @@ const getAllTracks = (data) => {
         uri: data.uri,
       };
     })
+  );
+};
+
+const getAllSavedTracks = (data) => {
+  const calls = Math.floor(data.total / 50) + 1;
+  const offset = Array(calls)
+    .fill(null)
+    .map((_, i) => i * 50);
+  const requests = offset.map((value) => {
+    return spotify
+      .getMySavedTracks({ limit: 50, offset: value })
+      .then((data) => {
+        return data;
+      })
+      .catch((err) => {
+        throw new Error(err);
+      });
+  });
+
+  return Promise.all(requests).then((responses) =>
+    Promise.all(
+      responses.flatMap((r) => {
+        return r.body.items.map((item) => {
+          return {
+            id: item.track.id,
+            name: item.track.name,
+            album: {
+              id: item.track.album.id,
+              name: item.track.album.name,
+              artist: null,
+              date: new Date(item.track.album.release_date),
+              images: item.track.album.images,
+              type: item.track.album.type,
+              uri: item.track.album.uri,
+            },
+            artist: {
+              id: item.track.artists[0].id,
+              name: item.track.artists[0].name,
+              images: null,
+              type: item.track.artists[0].type,
+              uri: item.track.artists[0].uri,
+            },
+            duration: item.track.duration_ms,
+            popularity: item.track.popularity,
+            local: item.is_local,
+            explicit: item.track.explicit,
+            added: new Date(item.added_at),
+            track: item.track.track_number,
+            type: item.track.type,
+            uri: item.track.uri,
+          };
+        });
+      })
+    )
+      .then((tracks) => {
+        return {
+          tracks: tracks,
+        };
+      })
+      .catch((err) => {
+        throw new Error(err);
+      })
   );
 };
