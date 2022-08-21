@@ -5,6 +5,7 @@ import { AvatarModule } from 'primeng/avatar';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
+import { ContextMenuModule } from 'primeng/contextmenu';
 import { ChipModule } from 'primeng/chip';
 import { DataViewModule } from 'primeng/dataview';
 import { DialogModule } from 'primeng/dialog';
@@ -39,6 +40,7 @@ const MODULES = [
   ButtonModule,
   CardModule,
   ConfirmPopupModule,
+  ContextMenuModule,
   ChipModule,
   DataViewModule,
   DialogModule,

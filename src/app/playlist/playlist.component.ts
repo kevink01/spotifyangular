@@ -100,8 +100,8 @@ export class PlaylistComponent implements OnInit, OnDestroy {
   show(): void {
     this.dialogRef = this.dialogService.open(PlaylistEditComponent, {
       header: `Edit ${this.playlist.name}`,
-      width: '50vw',
-      height: '75vh',
+      width: '70vw',
+      height: '90vh',
       data: this.playlist,
     });
     this.subscription.add(

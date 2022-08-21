@@ -3,11 +3,37 @@
   <p-tabPanel header="Info" headerStyleClass="w-6">
     <form [formGroup]="form">
       <div class="grid grid-nogutter">
-        <div class="col-4 ml-2">
-          <p-image [src]="playlist.images[0].url" width="200px" height="200px">
-          </p-image>
+        <div #playlistImage class="col-4 ml-2">
+          <div class="flex w-12 justify-content-center">
+            <p-image
+              #playlistImage1
+              [src]="playlist.images[0].url"
+              alt="Logo"
+              width="200px"
+              height="200px"
+            ></p-image>
+          </div>
+          <div class="flex flex-wrap justify-content-between">
+            <p-fileUpload
+              #playlistUpload
+              mode="basic"
+              [multiple]="false"
+              accept="image/*"
+              chooseLabel="Select"
+              uploadLabel="Upload"
+              [customUpload]="true"
+              (uploadHandler)="uploadImage($event.files[0])"
+              [cancelIcon]="'pi pi-book'"
+            ></p-fileUpload>
+            <p-button
+              type="button"
+              label="Clear"
+              (onClick)="playlistUpload.files = []"
+              ><fa-icon icon="cancel"></fa-icon
+            ></p-button>
+          </div>
         </div>
-        <div class="col-7 grid grid-nogutter">
+        <div class="col-7 ml-5 grid grid-nogutter">
           <div class="col-12 flex flex-row mt-2">
             <div class="col-8">
               <div class="p-float-label mr-2">
@@ -106,6 +132,6 @@
     </p-table>
   </p-tabPanel>
 </p-tabView>
-<button pButton pRipple label="Save" class="mt-2" (click)="save()">
+<button pButton pRipple label="Save" class="mt-2 controls" (click)="save()">
   <fa-icon icon="floppy-disk" [classes]="['mr-2']"></fa-icon>
 </button>
