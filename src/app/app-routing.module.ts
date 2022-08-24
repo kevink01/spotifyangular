@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AlbumComponent } from './album/album.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LibraryComponent } from './library/library.component';
 import { HomeComponent } from './login/home/home.component';
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: 'library', component: LibraryComponent },
   { path: 'playlist/:id', component: PlaylistComponent },
+  { path: 'album/:id', component: AlbumComponent },
   { path: 'login', component: LoginRedirectComponent },
   { path: 'test', component: TestComponent },
   { path: '**', redirectTo: 'dashboard', pathMatch: 'full' },

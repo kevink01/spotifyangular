@@ -19,6 +19,7 @@ import { CreatePlaylistComponent } from './playlist/create/create-playlist.compo
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HomeComponent } from './login/home/home.component';
 import { LibraryComponent } from './library/library.component';
+import { LoadingAlbumComponent } from './shared/loading/album/loading-album.component';
 import { LoadingPlaylistComponent } from './shared/loading/playlist/loading-playlist.component';
 import { LoginRedirectComponent } from './login/redirect/login-redirect.component';
 import { PlaylistComponent } from './playlist/playlist.component';
@@ -46,6 +47,7 @@ import {
   faLockOpen,
   faMagnifyingGlass,
   faMinus,
+  faMusic,
   faPenToSquare,
   faPlus,
   faStar,
@@ -54,6 +56,7 @@ import {
   faUser,
   faUsers,
 } from '@fortawesome/free-solid-svg-icons';
+import { AlbumComponent } from './album/album.component';
 
 @NgModule({
   declarations: [
@@ -62,6 +65,7 @@ import {
     DashboardComponent,
     HomeComponent,
     LibraryComponent,
+    LoadingAlbumComponent,
     LoadingPlaylistComponent,
     LoginRedirectComponent,
     PlaylistComponent,
@@ -69,6 +73,7 @@ import {
     SidenavComponent,
     ToolbarComponent,
     TestComponent,
+    AlbumComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -105,6 +110,7 @@ export class AppModule {
       faLockOpen,
       faMagnifyingGlass,
       faMinus,
+      faMusic,
       faPenToSquare,
       faPlus,
       faStar,

@@ -1,5 +1,3 @@
-require("dotenv").config();
-
 /**
  * Exports the functions for calling the Spotify API
  * Helper functions are listed below the exports
@@ -164,6 +162,19 @@ module.exports = class Utility {
   /*       Artist       */
   /* ****************** */
 
+  artist(data) {
+    return {
+      id: data.id,
+      name: data.name,
+      genres: data.genres,
+      images: data.images,
+      popularity: data.popularity,
+      followers: data.followers.total,
+      type: data.type,
+      uri: data.uri,
+    };
+  }
+
   artistsAlbums(data) {
     return {
       albums: data.items.map((album) => {
@@ -247,28 +258,41 @@ module.exports = class Utility {
     };
   }
 
-  test(id, size) {
-    const calls = Math.floor(size / 100) + 1;
-    const offset = Array(calls)
-      .fill(null)
-      .map((_, i) => i * 100);
-    const requests = offset.map((value) => {
-      return spotify
-        .getPlaylistTracks(id, { limit: 100, offset: value })
-        .then((data) => {
-          return data;
-        });
-    });
-    return Promise.all(requests).then((responses) =>
-      Promise.all(
-        responses.flatMap((r) => {
-          return r.items.map((item) => {
-            return item.track.artists[0].name;
-          });
-        })
-      ).then((data) => {
-        return data;
-      })
-    );
+  /* ****************** */
+  /*        Album       */
+  /* ****************** */
+
+  album(data) {
+    return {
+      id: data.id,
+      name: data.name,
+      artists: data.artists.map((artist) => {
+        return {
+          id: artist.id,
+          name: artist.name,
+          type: artist.type,
+          uri: artist.uri,
+        };
+      }),
+      tracks: data.tracks.items.map((track) => {
+        return {
+          id: track.id,
+          name: track.name,
+          number: track.track_number,
+          duration: track.duration_ms,
+          local: track.is_local,
+          explicit: track.explicit,
+          type: track.type,
+          uri: track.uri,
+        };
+      }),
+      copyrights: data.copyrights,
+      genres: data.genres,
+      images: data.images,
+      popularity: data.popularity,
+      release: new Date(data.release_date),
+      type: data.type,
+      uri: data.uri,
+    };
   }
 };

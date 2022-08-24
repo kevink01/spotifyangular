@@ -234,6 +234,17 @@ app.get("/featured", (req, res) => {
 /*       Artist       */
 /* ****************** */
 
+app.get("/artist", (req, res) => {
+  return spotify
+    .getArtist(req.query.id)
+    .then((data) => {
+      res.status(200).send(util.artist(data.body));
+    })
+    .catch((err) => {
+      res.status(err.statusCode).send(err.body);
+    });
+});
+
 app.get("/artist/albums", (req, res) => {
   return spotify
     .getArtistAlbums(req.query.id)
@@ -261,6 +272,21 @@ app.get("/artist/related", (req, res) => {
     .getArtistRelatedArtists(req.query.id)
     .then((data) => {
       res.status(200).send(util.relatedArtists(data.body));
+    })
+    .catch((err) => {
+      res.status(err.statusCode).send(err.body);
+    });
+});
+
+/* ****************** */
+/*       Album       */
+/* ****************** */
+
+app.get("/album", (req, res) => {
+  return spotify
+    .getAlbum(req.query.id)
+    .then((data) => {
+      res.status(200).send(util.album(data.body));
     })
     .catch((err) => {
       res.status(err.statusCode).send(err.body);

@@ -55,7 +55,11 @@ export class PlaylistComponent implements OnInit, OnDestroy {
     });
     let hours = Math.floor(time / 3600000);
     let minutes = Math.floor((time % 3600000) / 60000);
-    return `${hours}:${minutes}`;
+    if (hours === 0) {
+      return `${minutes} minutes`;
+    } else {
+      return `${hours}hr ${minutes} min`;
+    }
   }
 
   confirmDelete(event: any): void {
