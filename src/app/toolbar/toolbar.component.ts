@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
+import { Subscription } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { LoginService } from '../login/login.service';
 
@@ -9,19 +10,25 @@ import { LoginService } from '../login/login.service';
   templateUrl: './toolbar.component.html',
   styleUrls: ['./toolbar.component.scss'],
 })
-export class ToolbarComponent implements OnInit {
+export class ToolbarComponent implements OnInit, OnDestroy {
+  profile: any = {};
   items: MenuItem[] = [];
+
   display = true;
   AUTH_LINK: string = '';
 
-  profile: any = {};
+  subscription = new Subscription();
+
   constructor(private loginService: LoginService, private router: Router) {}
+
   ngOnInit() {
     this.AUTH_LINK = environment.AUTH_URL;
-    this.loginService.profile.subscribe((data) => {
-      console.log(data);
-      this.profile = data;
-    });
+    this.subscription.add(
+      this.loginService.profile.subscribe((data) => {
+        console.log(data);
+        this.profile = data;
+      })
+    );
     this.items = [
       {
         label: 'Profile',
@@ -39,5 +46,13 @@ export class ToolbarComponent implements OnInit {
         command: () => {},
       },
     ];
+  }
+
+  home(): void {
+    this.router.navigate(['/dashboard']);
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }

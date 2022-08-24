@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { LoginService } from '../login/login.service';
 import { PlayerService } from '../player/player.service';
-import { CreatePlaylistComponent } from './playlist/create-playlist.component';
+import { CreatePlaylistComponent } from '../playlist/create/create-playlist.component';
 @Component({
   selector: 'spotify-sidenav',
   templateUrl: './sidenav.component.html',

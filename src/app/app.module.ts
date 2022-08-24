@@ -15,7 +15,7 @@ import {
 import { PrimengModule } from './shared/primeng.module';
 import { StyleClassModule } from 'primeng/styleclass';
 
-import { CreatePlaylistComponent } from './sidenav/playlist/create-playlist.component';
+import { CreatePlaylistComponent } from './playlist/create/create-playlist.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HomeComponent } from './login/home/home.component';
 import { LibraryComponent } from './library/library.component';

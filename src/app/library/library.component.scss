@@ -13,7 +13,7 @@ $grey-link: hsl(0, 0%, 50%);
   width: 9.5rem;
   margin-top: 1rem;
   &:hover {
-    filter: brightness(110%);
+    // filter: brightness(110%);
     cursor: pointer;
   }
 }
