@@ -143,6 +143,11 @@
               pRipple
               type="button"
               class="p-button-rounded"
+              [icon]="
+                checkSong(savedSong.uri)
+                  ? 'fa-solid fa-minus'
+                  : 'fa-solid fa-plus'
+              "
               [styleClass]="
                 checkSong(savedSong.uri)
                   ? 'p-button-danger'
@@ -150,9 +155,6 @@
               "
               (click)="addSong(savedSong.uri); checkSong(savedSong.uri)"
             >
-              <fa-icon
-                [icon]="checkSong(savedSong.uri) ? 'minus' : 'plus'"
-              ></fa-icon>
             </p-button>
           </td>
           <td style="flex: 1 1 60%">{{ savedSong.name }}</td>
@@ -171,24 +173,20 @@
     pRipple
     type="button"
     label="Go back"
+    icon="fa-solid fa-angles-left"
     (click)="goBack()"
     [disabled]="currentStep === 0"
-  >
-    <fa-icon icon="angles-left" [classes]="['mr-2']"></fa-icon>
-  </button>
+  ></button>
   <button
     pButton
     pRipple
     type="button"
     [label]="hasSubmittedStep[currentStep] ? 'Update' : 'Submit'"
-    iconPos="right"
+    [icon]="
+      loading ? 'fa-solid fa-circle-notch fa-spin' : 'fa-solid fa-angles-right'
+    "
+    [iconPos]="loading ? 'left' : 'right'"
     (click)="advance()"
     [disabled]="loading"
-  >
-    <fa-icon
-      [icon]="loading ? 'circle-notch' : 'angles-right'"
-      [spin]="loading"
-      [classes]="['mr-2']"
-    ></fa-icon>
-  </button>
+  ></button>
 </div>

@@ -27,16 +27,19 @@
           </div>
           <div class="flex flex-column ml-2 flex-initial gap-1">
             <div>
-              <fa-icon icon="star"></fa-icon>
+              <i class="fa-solid fa-star"></i>
               <span class="ml-2">{{ playlist.tracks.length }}</span>
             </div>
             <div>
-              <fa-icon icon="stopwatch"></fa-icon>
+              <i class="fa-solid fa-stopwatch"></i>
               <span class="ml-2">{{ length }}</span>
             </div>
             <div>
-              <fa-icon *ngIf="playlist.public" icon="lock-open"></fa-icon>
-              <fa-icon *ngIf="!playlist.public" icon="lock"></fa-icon>
+              <i
+                [class]="
+                  playlist.public ? 'fa-solid fa-lock-open' : 'fa-solid fa-lock'
+                "
+              ></i>
               <span class="ml-2"
                 >{{ playlist.public ? "Public" : "Private" }} playlist</span
               >
@@ -48,44 +51,42 @@
               pRipple
               type="button"
               label="Play"
+              icon="fa-solid fa-circle-play"
               class="p-button-success p-button-lg mt-2"
-            >
-              <fa-icon icon="circle-play" class="mr-2"></fa-icon>
-            </button>
+            ></button>
             <button
               pButton
               pRipple
               type="button"
               label="Edit"
+              icon="fa-solid fa-pen-to-square"
               class="p-button-info p-button-lg mt-2"
               (click)="show()"
-            >
-              <fa-icon icon="pen-to-square" class="mr-2"></fa-icon>
-            </button>
+            ></button>
             <p-confirmPopup></p-confirmPopup>
             <button
               pButton
               pRipple
               type="button"
               label="Delete"
+              icon="fa-solid fa-trash"
               class="p-button-danger p-button-lg mt-2"
               (click)="confirmDelete($event)"
-            >
-              <fa-icon icon="trash" class="mr-2"></fa-icon>
-            </button>
+            ></button>
           </span>
           <!-- <div class="flex flex-row my-2">
           </div> -->
         </div>
         <div class="flex flex-column w-4 xl:w-3 justify-content-center">
           <div class="absolute bottom-0 right-0">
-            <span class="p-float-label">
+            <span class="p-float-label p-input-icon-left">
+              <i class="fa-solid fa-search"></i>
               <input
                 #search
+                pInputText
                 id="float-input"
                 name="filter"
                 type="text"
-                pInputText
                 placeholder="Search for keyword"
                 (input)="dt.filterGlobal(search.value, 'contains')"
               />

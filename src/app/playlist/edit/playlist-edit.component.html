@@ -20,16 +20,17 @@
               [multiple]="false"
               accept="image/*"
               chooseLabel="Select"
+              chooseIcon="fa-solid fa-plus"
               uploadLabel="Upload"
+              uploadIcon="fa-solid fa-upload"
               [customUpload]="true"
               (uploadHandler)="uploadImage($event.files[0])"
-              [cancelIcon]="'pi pi-book'"
             ></p-fileUpload>
             <p-button
               type="button"
               label="Clear"
+              icon="fa-solid fa-cancel"
               (onClick)="playlistUpload.files = []"
-              ><fa-icon icon="cancel"></fa-icon
             ></p-button>
           </div>
         </div>
@@ -124,7 +125,7 @@
       <ng-template pTemplate="body" let-track let-index="rowIndex">
         <tr [pReorderableRow]="index">
           <td style="flex: 1 1 20%">
-            <fa-icon icon="bars" [pReorderableRowHandle]="index"></fa-icon>
+            <i class="fa-solid fa-bars" [pReorderableRowHandle]="index"></i>
           </td>
           <td style="flex: 1 1 80%">{{ track.name }}</td>
         </tr>
@@ -132,6 +133,11 @@
     </p-table>
   </p-tabPanel>
 </p-tabView>
-<button pButton pRipple label="Save" class="mt-2 controls" (click)="save()">
-  <fa-icon icon="floppy-disk" [classes]="['mr-2']"></fa-icon>
-</button>
+<button
+  pButton
+  pRipple
+  label="Save"
+  icon="fa-solid fa-floppy-disk"
+  class="mt-2 controls"
+  (click)="save()"
+></button>

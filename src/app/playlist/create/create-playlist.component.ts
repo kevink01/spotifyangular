@@ -151,11 +151,10 @@ export class CreatePlaylistComponent implements OnInit, OnDestroy {
             )
             .subscribe({
               next: (data: any) => {
-                this.playlist = data;
                 this.hasSubmittedStep[0] = true;
                 this.messageService.add({
                   severity: 'success',
-                  summary: `Added ${this.songForm.value.length} songs!`,
+                  summary: `Added ${this.songs.controls.length} songs!`,
                   detail: `Name: ${this.playlist.name}`,
                   life: 2000,
                 });

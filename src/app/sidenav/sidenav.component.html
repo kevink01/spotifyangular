@@ -5,14 +5,14 @@
         class="menu-item col-12 flex flex-row justify-content-start hover:text-primary"
         (click)="this.navigate('dashboard')"
       >
-        <fa-icon
-          icon="house-chimney-user"
+        <i
+          class="fa-solid fa-house-chimney-user"
           style="font-size: 1.5rem; margin-right: 1rem"
           pTooltip="Home"
           [showDelay]="250"
           [hideDelay]="100"
           [tooltipDisabled]="homeSpan === undefined"
-        ></fa-icon>
+        ></i>
         <span #homeSpan class="mt-0 text-lg lg:text-2xl hidden md:inline-block"
           >Home</span
         >
@@ -21,14 +21,14 @@
         class="menu-item col-12 flex flex-row justify-content-start hover:text-primary"
         (click)="createPlaylist()"
       >
-        <fa-icon
-          icon="folder-plus"
+        <i
+          class="fa-solid fa-folder-plus"
           style="font-size: 1.5rem; margin-right: 1rem"
           pTooltip="Create a playlist"
           [showDelay]="250"
           [hideDelay]="100"
           [tooltipDisabled]="playlistSpan === undefined"
-        ></fa-icon>
+        ></i>
         <span
           #playlistSpan
           class="mt-0 text-lg lg:text-2xl hidden md:inline-block"
@@ -40,14 +40,14 @@
         class="menu-item col-12 flex flex-row justify-content-start hover:text-primary"
         (click)="this.navigate('library')"
       >
-        <fa-icon
-          icon="book-bookmark"
+        <i
+          class="fa-solid fa-book-bookmark"
           style="font-size: 1.5rem; margin-right: 1rem"
           pTooltip="Library"
           [showDelay]="250"
           [hideDelay]="100"
           [tooltipDisabled]="likedSpan === undefined"
-        ></fa-icon>
+        ></i>
         <span
           #librarySpan
           class="mt-0 text-lg lg:text-2xl hidden md:inline-block"
@@ -58,14 +58,14 @@
         class="menu-item col-12 flex flex-row justify-content-start hover:text-primary-500"
         (click)="this.navigate('library')"
       >
-        <fa-icon
-          icon="heart-circle-check"
+        <i
+          class="fa-solid fa-heart-circle-check"
           style="font-size: 1.5rem; margin-right: 1rem"
           pTooltip="Liked Songs"
           [showDelay]="250"
           [hideDelay]="100"
           [tooltipDisabled]="likedSpan === undefined"
-        ></fa-icon>
+        ></i>
         <span
           #likedSpan
           class="mt-0 text-lg lg:text-2xl hidden sm:inline-block"
@@ -83,9 +83,9 @@
           pRipple
           type="button"
           label="Login"
+          icon="fa-solid fa-arrow-right-to-bracket"
           class="p-button-lg"
           [href]="this.AUTH_LINK"
-          ><fa-icon icon="arrow-right-to-bracket"></fa-icon
         ></a>
       </div>
     </p-card>
