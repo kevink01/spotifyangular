@@ -163,7 +163,7 @@ export class CreatePlaylistComponent implements OnInit, OnDestroy {
                 this.messageService.add({
                   severity: 'error',
                   summary: 'Unable to add songs',
-                  detail: err.error.message,
+                  detail: err.message,
                   life: 2000,
                 });
               },

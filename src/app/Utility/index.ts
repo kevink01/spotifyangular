@@ -1,1 +1,1 @@
-export * as Library from './Library'
+export * as library from './Library';

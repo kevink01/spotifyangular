@@ -6,7 +6,6 @@ import { PlaylistService } from './playlist.service';
 import { Track } from '../models/Profile/Track';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { PlaylistEditComponent } from './edit/playlist-edit.component';
-import { faCode } from '@fortawesome/free-solid-svg-icons';
 import { ConfirmationService, MessageService } from 'primeng/api';
 
 @Component({
@@ -31,9 +30,7 @@ export class PlaylistComponent implements OnInit, OnDestroy {
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
     private router: Router
-  ) {
-    faCode.iconName.toString();
-  }
+  ) {}
 
   ngOnInit(): void {
     this.id = this.activatedRoute.snapshot.params['id'];

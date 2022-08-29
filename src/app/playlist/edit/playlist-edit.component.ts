@@ -5,7 +5,9 @@ import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Subscription } from 'rxjs';
 import { Playlist } from 'src/app/models/Profile/Playlist';
 import { Track } from 'src/app/models/Profile/Track';
+import { environment } from 'src/environments/environment';
 import { PlaylistComponent } from '../playlist.component';
+import { PlaylistService } from '../playlist.service';
 
 @Component({
   selector: 'spotify-edit',
@@ -15,6 +17,12 @@ import { PlaylistComponent } from '../playlist.component';
 export class PlaylistEditComponent implements OnInit, OnDestroy {
   selected: number = 0;
   form: any;
+  test: any;
+
+  uploadURL: string = '';
+  uploadedImage: any = {};
+  displayImage: any;
+
   private dialogRef!: DynamicDialogRef;
   private _tracks: Track[] = [];
   private _playlist!: Playlist;
@@ -23,8 +31,11 @@ export class PlaylistEditComponent implements OnInit, OnDestroy {
     private playlistComponent: PlaylistComponent,
     private dialogConfig: DynamicDialogConfig,
     private fb: FormBuilder,
-    private messageService: MessageService
-  ) {}
+    private messageService: MessageService,
+    private playlistService: PlaylistService
+  ) {
+    this.uploadURL = `${environment.SERVER_URL}/${environment.UPLOAD_IMAGE_URL}`;
+  }
 
   ngOnInit(): void {
     this.dialogRef = this.playlistComponent.getDialog();
@@ -42,6 +53,7 @@ export class PlaylistEditComponent implements OnInit, OnDestroy {
       public: this.dialogConfig.data.public,
       scope: this.dialogConfig.data.collaborative,
     });
+    this.displayImage = this.dialogConfig.data.images[0].url;
   }
 
   changeSelected(event: any): void {
@@ -50,22 +62,58 @@ export class PlaylistEditComponent implements OnInit, OnDestroy {
   save(): void {
     console.log(this.form.value);
     switch (this.selected) {
-      // TODO Update playlist
       case 0:
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Playlist details updated!',
-          detail: `Name: ${this.playlist.name}`,
-          life: 2000,
-        });
+        this.subscription.add(
+          this.playlistService
+            .updatePlaylist(this.playlist.id, this.form.value)
+            .subscribe({
+              next: () => {
+                this.messageService.add({
+                  severity: 'success',
+                  summary: 'Playlist updated!',
+                  detail: `Name: ${this.form.value.name}`,
+                  life: 1000,
+                });
+                // TODO bind playlist to changes
+                // this.playlist.name = this.form.value.name;
+                // this.playlist.description = this.form.value.description;
+                // this.playlist.public = this.form.value.public;
+                // this.playlist.collaborative = this.scope.collaborative;
+              },
+              error: (err) => {
+                this.messageService.add({
+                  severity: 'error',
+                  summary: 'Unable to update playlist',
+                  detail: err.message,
+                  life: 2000,
+                });
+              },
+            })
+        );
         break;
       case 1:
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Tracks updated!',
-          detail: `Name: ${this.playlist.name}`,
-          life: 1000,
-        });
+        this.subscription.add(
+          this.playlistService
+            .updatePlaylistTracks(this.playlist.id, this.tracks)
+            .subscribe({
+              next: () => {
+                this.messageService.add({
+                  severity: 'success',
+                  summary: 'Tracks updated!',
+                  detail: `Name: ${this.playlist.name}`,
+                  life: 2000,
+                });
+              },
+              error: (err) => {
+                this.messageService.add({
+                  severity: 'error',
+                  summary: 'Failed to update!',
+                  detail: err.message,
+                  life: 2000,
+                });
+              },
+            })
+        );
         break;
       default:
         break;
@@ -74,7 +122,42 @@ export class PlaylistEditComponent implements OnInit, OnDestroy {
     console.log(this.tracks.map((track: Track) => track.uri));
   }
 
-  uploadImage(event: any): void {}
+  uploadImage(file: any): void {
+    console.log(this.playlist);
+    const fileReader = new FileReader();
+    fileReader.readAsDataURL(file);
+    fileReader.onloadend = () => {
+      this.subscription.add(
+        this.playlistService
+          .uploadImage(
+            this.playlist.id,
+            (fileReader.result as string).slice(
+              (fileReader.result as string).indexOf('base64,') + 7
+            )
+          )
+          .subscribe({
+            next: () => {
+              // DO NOT SET ObjectURL to anything else or it'll break web security
+              this.displayImage = file.objectURL;
+              this.messageService.add({
+                severity: 'success',
+                summary: 'Uploaded image!',
+                detail: `Playlist name: ${this.playlist.name}`,
+                life: 1000,
+              });
+            },
+            error: (err) => {
+              this.messageService.add({
+                severity: 'error',
+                summary: 'Unable to create playlist',
+                detail: err.message,
+                life: 2000,
+              });
+            },
+          })
+      );
+    };
+  }
 
   set tracks(value: Track[]) {
     this._tracks = value;

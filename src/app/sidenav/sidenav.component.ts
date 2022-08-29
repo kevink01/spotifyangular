@@ -21,7 +21,7 @@ export class SidenavComponent implements OnInit, OnDestroy {
     private router: Router,
     private dialogService: DialogService,
     private loginService: LoginService,
-    private playerService: PlayerService
+    private playerService: PlayerService,
   ) {}
 
   ngOnInit(): void {
@@ -71,7 +71,7 @@ export class SidenavComponent implements OnInit, OnDestroy {
       width: '50vw',
       height: '90vh',
     });
-    this._dialogRef.onClose.subscribe(() => console.log('Done with create'));
+    // this._dialogRef.onClose.subscribe(() => console.log('Done with create'));
   }
 
   ngOnDestroy(): void {

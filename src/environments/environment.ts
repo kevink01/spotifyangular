@@ -60,6 +60,7 @@ export const environment = {
   FEAUTRED_PLAYLISTS_URL: 'featured',
   CREATE_PLAYLIST_URL: 'playlist/new',
   UPDATE_PLAYLIST_URL: 'playlist/update',
+  REORDER_PLAYLIST_URL: 'playlist/reorder',
   UPLOAD_IMAGE_URL: 'playlist/image',
   ADD_TO_PLAYLIST_URL: 'playlist/add',
   DELETE_PLAYLIST_URL: 'playlist/delete',

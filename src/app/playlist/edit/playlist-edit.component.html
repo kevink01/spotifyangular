@@ -7,7 +7,7 @@
           <div class="flex w-12 justify-content-center">
             <p-image
               #playlistImage1
-              [src]="playlist.images[0].url"
+              [src]="displayImage"
               alt="Logo"
               width="200px"
               height="200px"
@@ -19,18 +19,19 @@
               mode="basic"
               [multiple]="false"
               accept="image/*"
-              chooseLabel="Select"
               chooseIcon="fa-solid fa-plus"
-              uploadLabel="Upload"
+              chooseLabel="Choose an image"
               uploadIcon="fa-solid fa-upload"
+              uploadLabel="Upload"
               [customUpload]="true"
+              (onSelect)="uploadedImage = $event.files[0]"
               (uploadHandler)="uploadImage($event.files[0])"
             ></p-fileUpload>
             <p-button
               type="button"
               label="Clear"
               icon="fa-solid fa-cancel"
-              (onClick)="playlistUpload.files = []"
+              (onClick)="playlistUpload.clear()"
             ></p-button>
           </div>
         </div>

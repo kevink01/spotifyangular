@@ -32,7 +32,7 @@ app.post("/login", (req, res) => {
       res.status(200).send(data.body);
     })
     .catch((err) => {
-      res.status(err.statusCode).send(err.body);
+      res.status(err.statusCode).send(err.body.error);
     });
 });
 
@@ -46,7 +46,7 @@ app.get("/profile", (req, res) => {
       res.status(200).send(data.body);
     })
     .catch((err) => {
-      res.status(err.statusCode).send(err.body);
+      res.status(err.statusCode).send(err.body.error);
     });
 });
 
@@ -57,7 +57,7 @@ app.get("/profile/playlists", (req, res) => {
       res.status(200).send(util.userPlaylist(data.body));
     })
     .catch((err) => {
-      res.status(err.statusCode).send(err.body);
+      res.status(err.statusCode).send(err.body.error);
     });
 });
 
@@ -68,7 +68,7 @@ app.get("/profile/artists", (req, res) => {
       res.status(200).send(util.followedArtists(data.body));
     })
     .catch((err) => {
-      res.status(err.statusCode).send(err.body);
+      res.status(err.statusCode).send(err.body.error);
     });
 });
 
@@ -79,7 +79,7 @@ app.get("/profile/albums", (req, res) => {
       res.status(200).send(util.savedAlbums(data.body));
     })
     .catch((err) => {
-      res.status(err.statusCode).send(err.body);
+      res.status(err.statusCode).send(err.body.error);
     });
 });
 
@@ -92,11 +92,11 @@ app.get("/profile/tracks", (req, res) => {
           res.status(200).send(data);
         })
         .catch((err) => {
-          res.status(err.statusCode).send(err.body);
+          res.status(err.statusCode).send(err.body.error);
         });
     })
     .catch((err) => {
-      res.status(err.statusCode).send(err.body);
+      res.status(err.statusCode).send(err.body.error);
     });
 });
 
@@ -107,7 +107,7 @@ app.get("/top/tracks", (req, res) => {
       res.status(200).send(util.topTracks(data.body));
     })
     .catch((err) => {
-      res.status(err.statusCode).send(err.body);
+      res.status(err.statusCode).send(err.body.error);
     });
 });
 
@@ -118,7 +118,7 @@ app.get("/top/artists", (req, res) => {
       res.status(200).send(util.topArtists(data.body));
     })
     .catch((err) => {
-      res.status(err.statusCode).send(err.body);
+      res.status(err.statusCode).send(err.body.error);
     });
 });
 
@@ -150,16 +150,15 @@ app.get("/playlist", (req, res) => {
           res.status(200).send(data);
         })
         .catch((err) => {
-          res.status(err.statusCode).send(err.body);
+          res.status(err.statusCode).send(err.body.error);
         });
     })
     .catch((err) => {
-      res.status(err.statusCode).send(err.body);
+      res.status(err.statusCode).send(err.body.error);
     });
 });
 
 app.put("/playlist/update", (req, res) => {
-  console.log(req.body);
   spotify
     .changePlaylistDetails(req.body.id, {
       name: req.body.details.name,
@@ -171,7 +170,7 @@ app.put("/playlist/update", (req, res) => {
       res.status(200).send({ success: true });
     })
     .catch((err) => {
-      res.status(err.statusCode).send(err.body);
+      res.status(err.statusCode).send(err.body.error);
     });
 });
 
@@ -182,18 +181,18 @@ app.post("/playlist/image", (req, res) => {
       res.status(200).send({ success: true });
     })
     .catch((err) => {
-      res.status(err.statusCode).send(err.body);
+      res.status(err.statusCode).send(err.body.error);
     });
 });
 
 app.put("/playlist/reorder", (req, res) => {
   spotify
     .replaceTracksInPlaylist(req.body.id, req.body.tracks)
-    .then(() => {
-      res.status(200).send({ success: true });
+    .then((data) => {
+      res.status(200).send(data);
     })
     .catch((err) => {
-      res.status(err.statusCode).send(err.body);
+      res.status(err.statusCode).send(err.body.error);
     });
 });
 
@@ -206,7 +205,7 @@ app.post("/playlist/add", (req, res) => {
       res.status(200).send(data.body);
     })
     .catch((err) => {
-      res.status(err.statusCode).send(err.body);
+      res.status(err.statusCode).send(err.body.error);
     });
 });
 
@@ -215,7 +214,7 @@ app.delete("/playlist/delete", (req, res) => {
     .unfollowPlaylist(req.body.id)
     .then(() => res.status(200).send({ success: true }))
     .catch((err) => {
-      res.status(err.statusCode).send(err.body);
+      res.status(err.statusCode).send(err.body.error);
     });
 });
 
@@ -226,7 +225,7 @@ app.get("/featured", (req, res) => {
       res.status(200).send(util.featuredPlaylist(data.body));
     })
     .catch((err) => {
-      res.status(err.statusCode).send(err.body);
+      res.status(err.statusCode).send(err.body.error);
     });
 });
 
@@ -241,7 +240,7 @@ app.get("/artist", (req, res) => {
       res.status(200).send(util.artist(data.body));
     })
     .catch((err) => {
-      res.status(err.statusCode).send(err.body);
+      res.status(err.statusCode).send(err.body.error);
     });
 });
 
@@ -252,7 +251,7 @@ app.get("/artist/albums", (req, res) => {
       res.status(200).send(util.artistsAlbums(data.body));
     })
     .catch((err) => {
-      res.status(err.statusCode).send(err.body);
+      res.status(err.statusCode).send(err.body.error);
     });
 });
 
@@ -263,7 +262,7 @@ app.get("/artist/tracks", (req, res) => {
       res.status(200).send(util.topArtistTracks(data.body));
     })
     .catch((err) => {
-      res.status(err.statusCode).send(err.body);
+      res.status(err.statusCode).send(err.body.error);
     });
 });
 
@@ -274,7 +273,7 @@ app.get("/artist/related", (req, res) => {
       res.status(200).send(util.relatedArtists(data.body));
     })
     .catch((err) => {
-      res.status(err.statusCode).send(err.body);
+      res.status(err.statusCode).send(err.body.error);
     });
 });
 
@@ -289,7 +288,7 @@ app.get("/album", (req, res) => {
       res.status(200).send(util.album(data.body));
     })
     .catch((err) => {
-      res.status(err.statusCode).send(err.body);
+      res.status(err.statusCode).send(err.body.error);
     });
 });
 
@@ -304,7 +303,7 @@ app.get("/recommendations", (req, res) => {
       res.status(200).send(data.body);
     })
     .catch((err) => {
-      res.status(err.statusCode).send(err.body);
+      res.status(err.statusCode).send(err.body.error);
     });
 });
 
@@ -333,9 +332,10 @@ app.get("/tracks/recent", (req, res) => {
       res.status(200).send(data.body);
     })
     .catch((err) => {
-      res.status(err.statusCode).send(err.body);
+      res.status(err.statusCode).send(err.body.error);
     });
 });
+
 app.listen(4201);
 
 const getAllPlaylistTracks = (data) => {
@@ -403,6 +403,7 @@ const getAllPlaylistTracks = (data) => {
         images: data.images,
         public: data.public,
         collaborative: data.collaborative,
+        snapshot: data.snapshot_id,
         type: data.type,
         uri: data.uri,
       };

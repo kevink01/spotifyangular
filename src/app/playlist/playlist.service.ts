@@ -3,6 +3,7 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, catchError, Observable, of, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Playlist } from '../models/Profile/Playlist';
+import { Track } from '../models/Profile/Track';
 
 @Injectable({
   providedIn: 'root',
@@ -30,13 +31,25 @@ export class PlaylistService implements OnDestroy {
       .pipe(catchError((err) => throwError(() => err.error)));
   }
 
-  updatePlaylist(id: string, values: Object) {
+  updatePlaylistTracks(id: string, values: Track[]) {
     return this.http
-      .put(`${environment.SERVER_URL}/${environment.UPDATE_PLAYLIST_URL}`, {
+      .put(`${environment.SERVER_URL}/${environment.REORDER_PLAYLIST_URL}`, {
         id: id,
-        details: values,
+        tracks: values.map((track) => {
+          return track.uri;
+        }),
       })
       .pipe(catchError((err) => throwError(() => err.error)));
+  }
+
+  updatePlaylist(id: string, details: any) {
+    return this.http.put(
+      `${environment.SERVER_URL}/${environment.UPDATE_PLAYLIST_URL}`,
+      {
+        id: id,
+        details: details,
+      }
+    );
   }
 
   uploadImage(id: string, image: any): Observable<any> {
