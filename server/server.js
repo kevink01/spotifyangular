@@ -185,15 +185,92 @@ app.post("/playlist/image", (req, res) => {
     });
 });
 
-app.put("/playlist/reorder", (req, res) => {
-  spotify
-    .replaceTracksInPlaylist(req.body.id, req.body.tracks)
+// TODO able to reorder LOCAL SONGS
+app.put("/playlist/reorder", async (req, res) => {
+  let sent = false;
+  let snapshot = req.body.snapshot;
+  const calls = Math.ceil(req.body.tracks.length / 100);
+  await spotify
+    .replaceTracksInPlaylist(
+      req.body.id,
+      req.body.tracks.slice(
+        0,
+        req.body.tracks.length < 100 ? req.body.tracks.length : 100
+      )
+    )
     .then((data) => {
-      res.status(200).send(data);
+      snapshot = data.snapshot_id;
     })
     .catch((err) => {
+      sent = true;
       res.status(err.statusCode).send(err.body.error);
     });
+  for (let i = 1; i < calls; i++) {
+    await spotify
+      .addTracksToPlaylist(
+        req.body.id,
+        req.body.tracks.slice(
+          i * 100,
+          i * 100 + 100 > req.body.tracks.length
+            ? i * 100 + (req.body.tracks.length % 100)
+            : i * 100 + 100
+        ),
+        { position: i * 100 }
+      )
+      .then((data) => {
+        snapshot = data.snapshot_id;
+      })
+      .catch((err) => {
+        sent = true;
+        res.status(err.statusCode).send(err.body.error);
+      });
+  }
+  if (!sent) {
+    res.status(200).send({ snapshot: snapshot });
+  }
+
+  // const calls = Math.ceil(req.body.tracks.length / 100);
+  // console.log(calls);
+  // const offset = Array(calls)
+  //   .fill(null)
+  //   .map((_, i) => i * 100);
+  // const requests = offset.map((value) => {
+  //   return spotify
+  //     .replaceTracksInPlaylist(
+  //       req.body.id,
+  //       req.body.tracks.slice(
+  //         value,
+  //         value + 100 > req.body.tracks.length
+  //           ? value + req.body.tracks.length
+  //           : value + 100
+  //       )
+  //     )
+  //     .then((data) => {
+  //       console.log(data);
+  //       return data;
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //       throw new Error(err);
+  //     });
+  // });
+  // console.log(requests);
+  // return Promise.all(requests)
+  //   .then(() => {
+  //     res.status(200).send({ success: true });
+  //   })
+  //   .catch((err) => {
+  //     console.log(err);
+  //     res.status(500).send(err);
+  //   });
+  // spotify
+  //   .replaceTracksInPlaylist(req.body.id, req.body.tracks)
+  //   .then((data) => {
+  //     res.status(200).send(data);
+  //   })
+  //   .catch((err) => {
+  //     res.status(err.statusCode).send(err.body.error);
+  //   });
 });
 
 app.post("/playlist/add", (req, res) => {

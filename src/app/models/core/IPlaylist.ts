@@ -1,5 +1,5 @@
-import { Image } from "./Image";
-import { User } from "./User";
+import { Image } from './Image';
+import { User } from './User';
 
 export interface IPlaylist {
   id: string;
@@ -9,6 +9,7 @@ export interface IPlaylist {
   images: Image[];
   public: boolean;
   collaborative: boolean;
+  snapshot: string;
   type: string;
   uri: string;
 }

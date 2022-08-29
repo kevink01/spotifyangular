@@ -116,7 +116,12 @@
     </form>
   </p-tabPanel>
   <p-tabPanel header="Songs" headerStyleClass="w-6">
-    <p-table [value]="tracks" [scrollable]="true" scrollHeight="35vh">
+    <p-table
+      [value]="tracks"
+      [scrollable]="true"
+      scrollHeight="35vh"
+      (onRowReorder)="trackLocalSongs($event)"
+    >
       <ng-template pTemplate="header">
         <tr style="position: sticky">
           <th style="flex: 1 1 20%"></th>

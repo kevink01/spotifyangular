@@ -31,13 +31,21 @@ export class PlaylistService implements OnDestroy {
       .pipe(catchError((err) => throwError(() => err.error)));
   }
 
-  updatePlaylistTracks(id: string, values: Track[]) {
+  updatePlaylistTracks(id: string, snapshot: string, values: Track[]) {
+    const localSongs = [];
+    for (let i = 0; i < values.length; i++) {
+      if (values[i].local) {
+        localSongs.push(i);
+      }
+    }
     return this.http
       .put(`${environment.SERVER_URL}/${environment.REORDER_PLAYLIST_URL}`, {
         id: id,
+        snapshot: snapshot,
         tracks: values.map((track) => {
           return track.uri;
         }),
+        localSongs: localSongs,
       })
       .pipe(catchError((err) => throwError(() => err.error)));
   }

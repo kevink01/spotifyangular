@@ -19,6 +19,8 @@ export class PlaylistEditComponent implements OnInit, OnDestroy {
   form: any;
   test: any;
 
+  localSongs!: Map<number, number>;
+
   uploadURL: string = '';
   uploadedImage: any = {};
   displayImage: any;
@@ -41,6 +43,7 @@ export class PlaylistEditComponent implements OnInit, OnDestroy {
     this.dialogRef = this.playlistComponent.getDialog();
     this.playlist = <Playlist>Object.assign({}, this.dialogConfig.data);
     this.tracks = <Track[]>[...this.dialogConfig.data.tracks];
+    this.localSongs = new Map();
     this.form = this.fb.group({
       name: [
         this.dialogConfig.data.name,
@@ -94,7 +97,11 @@ export class PlaylistEditComponent implements OnInit, OnDestroy {
       case 1:
         this.subscription.add(
           this.playlistService
-            .updatePlaylistTracks(this.playlist.id, this.tracks)
+            .updatePlaylistTracks(
+              this.playlist.id,
+              this.playlist.snapshot,
+              this.tracks
+            )
             .subscribe({
               next: () => {
                 this.messageService.add({
@@ -183,6 +190,13 @@ export class PlaylistEditComponent implements OnInit, OnDestroy {
   }
   get scope() {
     return this.form.get('scope');
+  }
+
+  trackLocalSongs(event: any) {
+    // TODO Local Songs
+    console.log(this.tracks[event.dragIndex]);
+    console.log(this.tracks[event.dropIndex]);
+    console.log(event);
   }
 
   ngOnDestroy(): void {
