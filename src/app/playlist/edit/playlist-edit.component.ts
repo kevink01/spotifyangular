@@ -1,12 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { MenuItem, MessageService } from 'primeng/api';
-import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Subscription } from 'rxjs';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { Playlist } from 'src/app/models/Profile/Playlist';
 import { Track } from 'src/app/models/Profile/Track';
 import { environment } from 'src/environments/environment';
-import { PlaylistComponent } from '../playlist.component';
 import { PlaylistService } from '../playlist.service';
 
 @Component({
@@ -17,33 +16,28 @@ import { PlaylistService } from '../playlist.service';
 export class PlaylistEditComponent implements OnInit, OnDestroy {
   selected: number = 0;
   form: any;
-  test: any;
-
-  localSongs!: Map<number, number>;
+  private _tracks: Track[] = [];
+  private _playlist!: Playlist;
 
   uploadURL: string = '';
   uploadedImage: any = {};
   displayImage: any;
 
-  private dialogRef!: DynamicDialogRef;
-  private _tracks: Track[] = [];
-  private _playlist!: Playlist;
   private subscription = new Subscription();
+
   constructor(
-    private playlistComponent: PlaylistComponent,
     private dialogConfig: DynamicDialogConfig,
     private fb: FormBuilder,
     private messageService: MessageService,
-    private playlistService: PlaylistService
+    private playlistService: PlaylistService,
+    private confirmationService: ConfirmationService
   ) {
     this.uploadURL = `${environment.SERVER_URL}/${environment.UPLOAD_IMAGE_URL}`;
   }
 
   ngOnInit(): void {
-    this.dialogRef = this.playlistComponent.getDialog();
     this.playlist = <Playlist>Object.assign({}, this.dialogConfig.data);
     this.tracks = <Track[]>[...this.dialogConfig.data.tracks];
-    this.localSongs = new Map();
     this.form = this.fb.group({
       name: [
         this.dialogConfig.data.name,
@@ -62,8 +56,8 @@ export class PlaylistEditComponent implements OnInit, OnDestroy {
   changeSelected(event: any): void {
     this.selected = event.index;
   }
+
   save(): void {
-    console.log(this.form.value);
     switch (this.selected) {
       case 0:
         this.subscription.add(
@@ -100,10 +94,11 @@ export class PlaylistEditComponent implements OnInit, OnDestroy {
             .updatePlaylistTracks(
               this.playlist.id,
               this.playlist.snapshot,
-              this.tracks
+              this.tracks.filter((track) => !track.local) // Cannot modify a playlist with local songs, so we will filter
             )
             .subscribe({
-              next: () => {
+              next: (data: any) => {
+                this.playlist.snapshot = data.snapshot;
                 this.messageService.add({
                   severity: 'success',
                   summary: 'Tracks updated!',
@@ -125,12 +120,9 @@ export class PlaylistEditComponent implements OnInit, OnDestroy {
       default:
         break;
     }
-    console.log(this.tracks);
-    console.log(this.tracks.map((track: Track) => track.uri));
   }
 
   uploadImage(file: any): void {
-    console.log(this.playlist);
     const fileReader = new FileReader();
     fileReader.readAsDataURL(file);
     fileReader.onloadend = () => {
@@ -166,6 +158,22 @@ export class PlaylistEditComponent implements OnInit, OnDestroy {
     };
   }
 
+  confirmPopup(event: any, id: string): void {
+    this.confirmationService.confirm({
+      target: event.target,
+      message: 'Are you sure you want to remove this song?',
+      acceptButtonStyleClass: 'p-button-danger',
+      rejectButtonStyleClass: 'p-button-warning',
+      accept: () => {
+        this.removeSong(id);
+      },
+    });
+  }
+
+  removeSong(id: string): void {
+    this.tracks = this.tracks.filter((track) => track.id !== id);
+  }
+
   set tracks(value: Track[]) {
     this._tracks = value;
   }
@@ -178,7 +186,6 @@ export class PlaylistEditComponent implements OnInit, OnDestroy {
   get playlist(): Playlist {
     return this._playlist;
   }
-
   get name() {
     return this.form.get('name');
   }
@@ -190,13 +197,6 @@ export class PlaylistEditComponent implements OnInit, OnDestroy {
   }
   get scope() {
     return this.form.get('scope');
-  }
-
-  trackLocalSongs(event: any) {
-    // TODO Local Songs
-    console.log(this.tracks[event.dragIndex]);
-    console.log(this.tracks[event.dropIndex]);
-    console.log(event);
   }
 
   ngOnDestroy(): void {
