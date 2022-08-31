@@ -1,22 +1,23 @@
+<p-toast></p-toast>
 <div *ngIf="!album">
   <loading-album></loading-album>
 </div>
 <div *ngIf="album">
   <p-table #dt [value]="album.tracks" [scrollable]="true" scrollHeight="400px">
     <ng-template pTemplate="caption">
-      <div class="flex flex-row sticky w-12">
+      <div class="flex flex-row w-12">
         <div class="flex w-4 xl:w-3 justify-content-center">
           <img
             [src]="album.images[0].url"
             class="w-9rem md:w-11rem lg:w-15rem h-9rem md:h-11rem lg:h-15rem"
           />
         </div>
-        <div class="flex flex-column w-4 xl:w-6 justify-content-center">
+        <div class="flex flex-column ml-2 w-6 xl:w-6 justify-content-center">
           <div class="flex-auto">
             <h1 class="mt-0 mb-2 text-primary">{{ album.name }}</h1>
             <h3 class="mt-0 text-secondary">{{ album.artists[0].name }}</h3>
           </div>
-          <div class="flex flex-column ml-2 flex-initial gap-1">
+          <div class="flex flex-column flex-initial gap-1">
             <div>
               <i class="fa-solid fa-music"></i>
               <span class="ml-2">{{ album.tracks.length }} songs</span>
@@ -25,39 +26,42 @@
               <i class="fa-solid fa-stopwatch"></i>
               <span class="ml-2">{{ length }}</span>
             </div>
+            <div>
+              <i class="fa-solid fa-calendar"></i>
+              <span class="ml-2">{{ album.release | date: "MM/dd/yyyy" }}</span>
+            </div>
           </div>
-          <span class="p-button-set mt-2">
+          <div class="flex mt-2">
             <button
               pButton
               pRipple
               type="button"
               label="Play"
+              icon="fa-solid fa-circle-play"
               class="p-button-success p-button-lg mt-2"
-            >
-              <i class="fa-solid fa-circle-play" class="mr-2"></i>
-            </button>
-            <button
-              pButton
-              pRipple
-              type="button"
-              label="Edit"
-              class="p-button-info p-button-lg mt-2"
-            >
-              <i class="fa-solid fa-pen-to-square" class="mr-2"></i>
-            </button>
-            <p-confirmPopup></p-confirmPopup>
-            <button
-              pButton
-              pRipple
-              type="button"
-              label="Delete"
-              class="p-button-danger p-button-lg mt-2"
-            >
-              <i class="fa-solid fa-trash" class="mr-2"></i>
-            </button>
-          </span>
-          <!-- <div class="flex flex-row my-2">
-          </div> -->
+            ></button>
+            <div class="flex ml-2 mt-2 align-self-center">
+              <button
+                pButton
+                pRipple
+                type="button"
+                [label]="album.following ? 'Unfollow' : 'Follow'"
+                icon="fa-solid fa-heart"
+                class="p-button-icon"
+                (click)="toggleFollow()"
+              ></button>
+            </div>
+          </div>
+        </div>
+        <div
+          class="flex flex-column w-2 xl:w-3 justify-content-center text-center"
+        >
+          <h2>Popularity</h2>
+          <p-knob
+            [ngModel]="album.popularity"
+            [readonly]="true"
+            [valueColor]="getPopularityColor(album.popularity)"
+          ></p-knob>
         </div>
       </div>
     </ng-template>

@@ -185,7 +185,6 @@ app.post("/playlist/image", (req, res) => {
     });
 });
 
-// TODO able to reorder LOCAL SONGS
 app.put("/playlist/reorder", async (req, res) => {
   let sent = false;
   let snapshot = req.body.snapshot;
@@ -199,7 +198,6 @@ app.put("/playlist/reorder", async (req, res) => {
       )
     )
     .then((data) => {
-      console.log(data);
       snapshot = data.body.snapshot_id;
     })
     .catch((err) => {
@@ -329,6 +327,44 @@ app.get("/album", (req, res) => {
     });
 });
 
+app.get("/album/following", (req, res) => {
+  spotify
+    .containsMySavedAlbums([req.query.id])
+    .then((data) => {
+      res.status(200).send({ following: data.body[0] });
+    })
+    .catch((err) => {
+      res.status(err.statusCode).send(err.body.error);
+    });
+});
+
+app.post("/album/follow", (req, res) => {
+  switch (req.body.following) {
+    case true:
+      spotify
+        .removeFromMySavedAlbums([req.body.id])
+        .then((data) => {
+          res.status(200).send({ success: true });
+        })
+        .catch((err) => {
+          res.status(err.statusCode).send(err.body.error);
+        });
+      break;
+    case false:
+      spotify
+        .addToMySavedAlbums([req.body.id])
+        .then((data) => {
+          res.status(200).send({ success: true });
+        })
+        .catch((err) => {
+          res.status(err.statusCode).send(err.body.error);
+        });
+      break;
+    default:
+      break;
+  }
+});
+
 /* *************** */
 /*       MISC      */
 /* *************** */
@@ -358,9 +394,8 @@ app.get("/test", (req, res) => {
 });
 
 /* ****************** */
-/*       Player       */
+/*       Track       */
 /* ****************** */
-
 app.get("/track", (req, res) => {
   spotify
     .getTrack(req.query.id)
@@ -371,6 +406,11 @@ app.get("/track", (req, res) => {
       res.status(err.statusCode).send(err.body.error);
     });
 });
+
+/* ****************** */
+/*       Player       */
+/* ****************** */
+
 app.get("/tracks/recent", (req, res) => {
   spotify
     .getMyRecentlyPlayedTracks({

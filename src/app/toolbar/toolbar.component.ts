@@ -25,7 +25,6 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     this.AUTH_LINK = environment.AUTH_URL;
     this.subscription.add(
       this.loginService.profile.subscribe((data) => {
-        console.log(data);
         this.profile = data;
       })
     );

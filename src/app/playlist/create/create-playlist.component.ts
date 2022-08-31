@@ -51,7 +51,6 @@ export class CreatePlaylistComponent implements OnInit, OnDestroy {
       public: [false],
       collaborative: [false],
     });
-    console.log(this.playlistForm);
     this.songForm = this.fb.group({
       songs: this.fb.array([]),
     });

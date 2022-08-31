@@ -71,7 +71,6 @@ export class SidenavComponent implements OnInit, OnDestroy {
       width: '50vw',
       height: '90vh',
     });
-    // this._dialogRef.onClose.subscribe(() => console.log('Done with create'));
   }
 
   ngOnDestroy(): void {

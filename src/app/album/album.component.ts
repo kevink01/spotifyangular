@@ -1,23 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { Track } from '../models/Profile/Track';
+import { MessageService } from 'primeng/api';
 import { AlbumService } from './album.service';
 import { Color } from '../utility/index';
+import { Track } from '../models/Profile/Track';
+import { Following } from '../models/Album/following';
+
 @Component({
   selector: 'spotify-album',
   templateUrl: './album.component.html',
   styleUrls: ['./album.component.scss'],
 })
-export class AlbumComponent implements OnInit {
+export class AlbumComponent implements OnInit, OnDestroy {
   album: any;
   id: string = '';
-
   length: string = '';
+  
   subscription = new Subscription();
   constructor(
     private activatedRoute: ActivatedRoute,
-    private albumService: AlbumService
+    private albumService: AlbumService,
+    private messageService: MessageService
   ) {}
 
   ngOnInit(): void {
@@ -35,6 +39,13 @@ export class AlbumComponent implements OnInit {
               })
             );
           });
+          this.subscription.add(
+            this.albumService.isFollowingAlbum(data.id).subscribe({
+              next: (data: Following) => {
+                this.album.following = data.following;
+              },
+            })
+          );
           this.length = this.calculateDuration(this.album.tracks);
         },
       })
@@ -57,5 +68,29 @@ export class AlbumComponent implements OnInit {
 
   getPopularityColor(pop: number): string {
     return Color.hexColor(pop);
+  }
+
+  toggleFollow(): void {
+    this.subscription.add(
+      this.albumService
+        .toggleFollow(this.album.id, this.album.following)
+        .subscribe({
+          next: () => {
+            this.messageService.add({
+              severity: 'success',
+              summary: `${
+                this.album.following ? 'Unfollowed' : 'Followed'
+              } album!`,
+              detail: `Name: ${this.album.name}`,
+              life: 2000,
+            });
+            this.album.following = !this.album.following;
+          },
+        })
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }

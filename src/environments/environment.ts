@@ -7,6 +7,7 @@ const SCOPES: string = [
   'user-read-private',
   // Library scope
   'user-library-read',
+  'user-library-modify',
   // Playlist scope
   'playlist-read-private',
   'playlist-modify-private',
@@ -76,6 +77,8 @@ export const environment = {
   /*       Album        */
   /* ****************** */
   ALBUM_URL: 'album',
+  FOLLOWING_ALBUM_URL: 'album/following',
+  FOLLOW_ALBUM_URL: 'album/follow',
 
   /* ****************** */
   /*       Player       */
