@@ -20,6 +20,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { InputTextModule } from 'primeng/inputtext';
+import { KnobModule } from 'primeng/knob';
 import { MenubarModule } from 'primeng/menubar';
 import { MenuModule } from 'primeng/menu';
 import { MessageModule } from 'primeng/message';
@@ -56,6 +57,7 @@ const MODULES = [
   InputSwitchModule,
   InputTextareaModule,
   InputTextModule,
+  KnobModule,
   MenubarModule,
   MenuModule,
   MessageModule,

@@ -14,4 +14,10 @@ export class AlbumService {
       .get(`${environment.SERVER_URL}/${environment.ALBUM_URL}?id=${id}`)
       .pipe(catchError((err) => throwError(() => err.error)));
   }
+
+  trackPopularity(id: string): Observable<Object> {
+    return this.http
+      .get(`${environment.SERVER_URL}/${environment.TRACK_URL}?id=${id}`)
+      .pipe(catchError((err) => throwError(() => err.error)));
+  }
 }

@@ -2,10 +2,10 @@
   <loading-album></loading-album>
 </div>
 <div *ngIf="album">
-  <p-table #dt [scrollable]="true" scrollHeight="400px">
+  <p-table #dt [value]="album.tracks" [scrollable]="true" scrollHeight="400px">
     <ng-template pTemplate="caption">
       <div class="flex flex-row sticky w-12">
-        <div class="flex w-4 xl:w-3 align-items-center">
+        <div class="flex w-4 xl:w-3 justify-content-center">
           <img
             [src]="album.images[0].url"
             class="w-9rem md:w-11rem lg:w-15rem h-9rem md:h-11rem lg:h-15rem"
@@ -18,11 +18,11 @@
           </div>
           <div class="flex flex-column ml-2 flex-initial gap-1">
             <div>
-              <fa-icon icon="music"></fa-icon>
+              <i class="fa-solid fa-music"></i>
               <span class="ml-2">{{ album.tracks.length }} songs</span>
             </div>
             <div>
-              <fa-icon icon="stopwatch"></fa-icon>
+              <i class="fa-solid fa-stopwatch"></i>
               <span class="ml-2">{{ length }}</span>
             </div>
           </div>
@@ -34,7 +34,7 @@
               label="Play"
               class="p-button-success p-button-lg mt-2"
             >
-              <fa-icon icon="circle-play" class="mr-2"></fa-icon>
+              <i class="fa-solid fa-circle-play" class="mr-2"></i>
             </button>
             <button
               pButton
@@ -43,7 +43,7 @@
               label="Edit"
               class="p-button-info p-button-lg mt-2"
             >
-              <fa-icon icon="pen-to-square" class="mr-2"></fa-icon>
+              <i class="fa-solid fa-pen-to-square" class="mr-2"></i>
             </button>
             <p-confirmPopup></p-confirmPopup>
             <button
@@ -53,13 +53,42 @@
               label="Delete"
               class="p-button-danger p-button-lg mt-2"
             >
-              <fa-icon icon="trash" class="mr-2"></fa-icon>
+              <i class="fa-solid fa-trash" class="mr-2"></i>
             </button>
           </span>
           <!-- <div class="flex flex-row my-2">
           </div> -->
         </div>
       </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="flex: 1 1 5%">Order</th>
+        <th style="flex: 1 1 70%" pSortableColumn="name">
+          Name <p-sortIcon field="name"></p-sortIcon>
+        </th>
+        <th style="flex: 1 1 10%" pSortableColumn="duration">
+          Duration <p-sortIcon field="duration"></p-sortIcon>
+        </th>
+        <th style="flex: 1 1 15%" pSortableColumn="popularity">
+          Popularity <p-sortIcon field="popularity"></p-sortIcon>
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-track let-index="rowIndex">
+      <tr>
+        <td style="flex: 1 1 5%">{{ index + 1 }}</td>
+        <td style="flex: 1 1 70%">{{ track.name }}</td>
+        <td style="flex: 1 1 10%">{{ track.duration | date: "m:ss" }}</td>
+        <td style="flex: 1 1 15%">
+          <p-knob
+            [ngModel]="track.popularity"
+            [readonly]="true"
+            [size]="60"
+            [valueColor]="getPopularityColor(track.popularity)"
+          ></p-knob>
+        </td>
+      </tr>
     </ng-template>
   </p-table>
 </div>

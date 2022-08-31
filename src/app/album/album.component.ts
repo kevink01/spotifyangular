@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { Track } from '../models/Profile/Track';
 import { AlbumService } from './album.service';
-
+import { Color } from '../utility/index';
 @Component({
   selector: 'spotify-album',
   templateUrl: './album.component.html',
@@ -23,8 +24,17 @@ export class AlbumComponent implements OnInit {
     this.id = this.activatedRoute.snapshot.params['id'];
     this.subscription.add(
       this.albumService.getAlbum(this.id).subscribe({
-        next: (data) => {
+        next: (data: any) => {
           this.album = data;
+          data.tracks.forEach((track: Track) => {
+            this.subscription.add(
+              this.albumService.trackPopularity(track.id).subscribe({
+                next: (data: any) => {
+                  track.popularity = data.popularity;
+                },
+              })
+            );
+          });
           this.length = this.calculateDuration(this.album.tracks);
         },
       })
@@ -43,5 +53,9 @@ export class AlbumComponent implements OnInit {
     } else {
       return `${hours}hr ${minutes} min`;
     }
+  }
+
+  getPopularityColor(pop: number): string {
+    return Color.hexColor(pop);
   }
 }

@@ -81,6 +81,7 @@ export const environment = {
   /*       Player       */
   /* ****************** */
   RECENTLY_PLAYED_URL: 'tracks/recent',
+  TRACK_URL: 'track',
 };
 
 /*

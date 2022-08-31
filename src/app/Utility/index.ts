@@ -1,1 +1,1 @@
-export * as library from './Library';
+export * as Color from './color';

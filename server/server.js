@@ -360,6 +360,17 @@ app.get("/test", (req, res) => {
 /* ****************** */
 /*       Player       */
 /* ****************** */
+
+app.get("/track", (req, res) => {
+  spotify
+    .getTrack(req.query.id)
+    .then((data) => {
+      res.status(200).send(data.body);
+    })
+    .catch((err) => {
+      res.status(err.statusCode).send(err.body.error);
+    });
+});
 app.get("/tracks/recent", (req, res) => {
   spotify
     .getMyRecentlyPlayedTracks({

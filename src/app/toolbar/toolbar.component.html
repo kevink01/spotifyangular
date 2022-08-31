@@ -25,7 +25,7 @@
       style="height: 55px"
       [href]="this.AUTH_LINK"
       ><p-avatar shape="circle" styleClass="mr-2"
-        ><fa-icon icon="user"></fa-icon></p-avatar
+        ><i class="fa-solid fa-user"></i></p-avatar
     ></a>
     <p-button
       *ngIf="profile !== 'Not logged in'"
@@ -41,8 +41,7 @@
         styleClass="mr-2"
       ></p-avatar>
     </p-button>
-    <p-menu #menu [model]="items" [popup]="true">
-    </p-menu>
+    <p-menu #menu [model]="items" [popup]="true"> </p-menu>
   </div>
 </p-toolbar>
 <div class="grid grid-nogutter">
