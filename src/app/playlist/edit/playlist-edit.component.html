@@ -50,9 +50,9 @@
             </div>
             <div class="col-4">
               <p-chip
-                [label]="name.value.length + ' / 100'"
+                [label]="name?.value.length + ' / 100'"
                 [styleClass]="
-                  name.value.length === 0 || name.value.length > 100
+                  name?.value.length === 0 || name?.value.length > 100
                     ? 'bg-red-700 text-white-alpha-80'
                     : 'bg-primary-500 text-black-alpha-80'
                 "
@@ -74,9 +74,9 @@
             </div>
             <div class="col-3 mt-2">
               <p-chip
-                [label]="description.value.length + ' / 300'"
+                [label]="description?.value.length + ' / 300'"
                 [styleClass]="
-                  description.value.length > 300
+                  description?.value.length > 300
                     ? 'bg-red-700 text-white-alpha-80'
                     : 'bg-primary-500 text-black-alpha-80'
                 "
@@ -93,11 +93,13 @@
                 ></p-inputSwitch>
                 <p-chip
                   [styleClass]="
-                    scope.value === true
+                    collaborative?.value === true
                       ? 'bg-primary-500 text-black-alpha-80'
                       : 'bg-grey-500'
                   "
-                  [label]="scope.value === false ? 'Private' : 'Public'"
+                  [label]="
+                    collaborative?.value === false ? 'Private' : 'Public'
+                  "
                 ></p-chip>
               </div>
             </div>
@@ -152,5 +154,5 @@
   label="Save"
   icon="fa-solid fa-floppy-disk"
   class="mt-2 controls"
-  (click)="save()"
+  (click)="updatePlaylist()"
 ></button>

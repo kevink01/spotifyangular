@@ -17,9 +17,9 @@
             <label for="name" class="p-float-label">Playlist name</label>
           </span>
           <p-chip
-            [label]="name.value.length + ' / 100'"
+            [label]="name?.value.length + ' / 100'"
             [styleClass]="
-              name.value.length === 0 || name.value.length > 100
+              name?.value.length === 0 || name?.value.length > 100
                 ? 'bg-red-700 text-white-alpha-80'
                 : 'bg-primary-500 text-black-alpha-80'
             "
@@ -39,9 +39,9 @@
             <label for="description">Description</label>
           </span>
           <p-chip
-            [label]="description.value.length + ' / 300'"
+            [label]="description?.value.length + ' / 300'"
             [styleClass]="
-              description.value.length > 300
+              description?.value.length > 300
                 ? 'bg-red-700 text-white-alpha-80'
                 : 'bg-primary-500 text-black-alpha-80'
             "
@@ -58,11 +58,11 @@
             ></p-inputSwitch>
             <p-chip
               [styleClass]="
-                public.value === true
+                public?.value === true
                   ? 'bg-primary-500 text-black-alpha-80'
                   : 'bg-grey-500'
               "
-              [label]="public.value === false ? 'Private' : 'Public'"
+              [label]="public?.value === false ? 'Private' : 'Public'"
             ></p-chip>
           </div>
         </div>

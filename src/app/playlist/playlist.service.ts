@@ -4,6 +4,7 @@ import { BehaviorSubject, catchError, Observable, of, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Playlist } from '../models/Profile/Playlist';
 import { Track } from '../models/Profile/Track';
+import { Success } from '../models/success';
 
 @Injectable({
   providedIn: 'root',
@@ -31,6 +32,35 @@ export class PlaylistService implements OnDestroy {
       .pipe(catchError((err) => throwError(() => err.error)));
   }
 
+  uploadImage(id: string, image: any): Observable<any> {
+    return this.http
+      .post(`${environment.SERVER_URL}/${environment.UPLOAD_IMAGE_URL}`, {
+        id: id,
+        image: image,
+      })
+      .pipe(catchError((err) => throwError(() => err.error)));
+  }
+
+  updatePlaylistDetails(id: string, details: any): Observable<Success> {
+    return this.http.put<Success>(
+      `${environment.SERVER_URL}/${environment.UPDATE_PLAYLIST_URL}`,
+      {
+        id: id,
+        details: details,
+      }
+    );
+  }
+
+  addToPlaylist(id: string, tracks: string[], position: number) {
+    return this.http
+      .post(`${environment.SERVER_URL}/${environment.ADD_TO_PLAYLIST_URL}`, {
+        id,
+        tracks,
+        position,
+      })
+      .pipe(catchError((err) => throwError(() => err.error)));
+  }
+
   updatePlaylistTracks(id: string, snapshot: string, values: Track[]) {
     const localSongs = [];
     for (let i = 0; i < values.length; i++) {
@@ -50,45 +80,19 @@ export class PlaylistService implements OnDestroy {
       .pipe(catchError((err) => throwError(() => err.error)));
   }
 
-  updatePlaylist(id: string, details: any) {
-    return this.http.put(
-      `${environment.SERVER_URL}/${environment.UPDATE_PLAYLIST_URL}`,
-      {
-        id: id,
-        details: details,
-      }
-    );
-  }
-
-  uploadImage(id: string, image: any): Observable<any> {
+  deletePlaylist(id: string): Observable<Success> {
     return this.http
-      .post(`${environment.SERVER_URL}/${environment.UPLOAD_IMAGE_URL}`, {
-        id: id,
-        image: image,
-      })
-      .pipe(catchError((err) => throwError(() => err.error)));
-  }
-
-  addToPlaylist(id: string, tracks: string[], position: number) {
-    return this.http
-      .post(`${environment.SERVER_URL}/${environment.ADD_TO_PLAYLIST_URL}`, {
-        id,
-        tracks,
-        position,
-      })
+      .delete<Success>(
+        `${environment.SERVER_URL}/${environment.DELETE_PLAYLIST_URL}`,
+        {
+          body: { id },
+        }
+      )
       .pipe(catchError((err) => throwError(() => err.error)));
   }
 
   updatePlaylists(value: Object) {
     this._playlistSubject.next(value);
-  }
-
-  deletePlaylist(id: string) {
-    return this.http
-      .delete(`${environment.SERVER_URL}/${environment.DELETE_PLAYLIST_URL}`, {
-        body: { id },
-      })
-      .pipe(catchError((err) => throwError(() => err.error)));
   }
 
   get playlists(): Observable<Object> {

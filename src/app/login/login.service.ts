@@ -1,8 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
-import { BehaviorSubject, Observable, takeUntil } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -13,8 +13,9 @@ export class LoginService implements OnDestroy {
   private _profileSubject = new BehaviorSubject<Object>('Not logged in');
   private _profile = this._profileSubject.asObservable();
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient) {}
 
+  // TODO Strong type
   login(code: string): Observable<Object> {
     return this.http.post(`${environment.SERVER_URL}/login`, {
       code: JSON.stringify(code),
@@ -30,21 +31,20 @@ export class LoginService implements OnDestroy {
   private set accessToken(value: string) {
     this._accessToken = value;
   }
-  private set expiresIn(value: number) {
-    this._expiresIn = value;
-  }
-  private set refreshToken(value: string) {
-    this._refreshToken = value;
-  }
-
   private get accessToken(): string {
     return this._accessToken;
   }
 
+  private set expiresIn(value: number) {
+    this._expiresIn = value;
+  }
   private get expiresIn(): number {
     return this._expiresIn;
   }
 
+  private set refreshToken(value: string) {
+    this._refreshToken = value;
+  }
   private get refreshToken(): string {
     return this._refreshToken;
   }

@@ -6,9 +6,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./loading-playlist.component.scss'],
 })
 export class LoadingPlaylistComponent implements OnInit {
-  loadingTracks: any[] = [];
+  private _loadingTracks: any[] = [];
   constructor() {}
   ngOnInit() {
     this.loadingTracks = [{}, {}, {}, {}, {}];
+  }
+
+  set loadingTracks(value: any[]) {
+    this._loadingTracks = value;
+  }
+  get loadingTracks(): any[] {
+    return this._loadingTracks;
   }
 }

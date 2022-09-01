@@ -5,7 +5,6 @@
   <p-toast key="delete" (onClose)="redirect($event)"></p-toast>
   <p-table
     #dt
-    [loading]="loading"
     [value]="tracks"
     [scrollable]="true"
     scrollHeight="400px"
@@ -15,7 +14,6 @@
       <div class="flex flex-row sticky w-12">
         <div class="flex w-4 xl:w-3 align-items-center">
           <img
-            *ngIf="!loading"
             src="{{ playlist.images[0].url }}"
             class="w-9rem md:w-11rem lg:w-15rem h-9rem md:h-11rem lg:h-15rem"
           />
@@ -32,7 +30,7 @@
             </div>
             <div>
               <i class="fa-solid fa-stopwatch"></i>
-              <span class="ml-2">{{ length }}</span>
+              <span class="ml-2">{{ duration }}</span>
             </div>
             <div>
               <i
@@ -61,7 +59,7 @@
               label="Edit"
               icon="fa-solid fa-pen-to-square"
               class="p-button-info p-button-lg mt-2"
-              (click)="show()"
+              (click)="showDialog()"
             ></button>
             <p-confirmPopup></p-confirmPopup>
             <button

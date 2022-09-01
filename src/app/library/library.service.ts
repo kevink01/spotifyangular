@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { IPlaylist } from '../models/core/IPlaylist';
-import { IArtist } from '../models/core/IArtist';
-import { IAlbum } from '../models/core/IAlbum';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { IAlbum } from '../models/core/IAlbum';
+import { IArtist } from '../models/core/IArtist';
+import { IPlaylist } from '../models/core/IPlaylist';
 
 @Injectable({
   providedIn: 'root',
@@ -30,6 +30,7 @@ export class LibraryService {
     );
   }
 
+  // TODO Strong type
   getSavedSongs(): Observable<Object> {
     return this.http.get<Object>(
       `${environment.SERVER_URL}/${environment.SAVED_SONGS_URL}`

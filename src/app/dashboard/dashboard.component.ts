@@ -8,8 +8,15 @@ import { IPlaylist } from '../models/core/IPlaylist';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
-  playlists: IPlaylist[] = [];
+  private _playlists: IPlaylist[] = [];
   constructor(private accountService: AccountService) {}
 
   ngOnInit(): void {}
+
+  set playlist(value: IPlaylist[]) {
+    this._playlists = value;
+  }
+  get playlist(): IPlaylist[] {
+    return this._playlists;
+  }
 }

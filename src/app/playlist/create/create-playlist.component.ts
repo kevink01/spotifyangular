@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MenuItem, MessageService } from 'primeng/api';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Subscription } from 'rxjs';
@@ -13,32 +13,32 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./create-playlist.component.scss'],
 })
 export class CreatePlaylistComponent implements OnInit, OnDestroy {
-  steps: MenuItem[] = [];
-  currentStep: number = 0;
-  hasSubmittedStep: boolean[] = [false, false, false];
+  private _steps: MenuItem[] = [];
+  private _currentStep: number = 0;
+  private _hasSubmittedStep: boolean[] = [false, false, false];
 
-  playlist: any = {};
-  playlistForm: any;
-  songForm: any;
-  maxSongError = false;
-  loading = false;
+  // TODO: Strong type
+  private _playlist: any = {};
+  private _savedSongs: any;
 
-  uploadURL: string = '';
-  uploadedImage: any = {};
+  private _playlistForm: any;
+  private _songForm: any;
+  private _loading = false;
+  private _maxSongError = false;
 
-  savedSongs: any;
+  private _uploadURL: string = '';
+  private _uploadedImage: any = {};
 
-  subscription = new Subscription();
+  private subscription = new Subscription();
 
   constructor(
     private fb: FormBuilder,
-    private playlistService: PlaylistService,
     private libraryService: LibraryService,
     private messageService: MessageService,
+    private playlistService: PlaylistService,
     private ref: DynamicDialogRef
-  ) {
-    this.uploadURL = `${environment.SERVER_URL}/${environment.UPLOAD_IMAGE_URL}`;
-  }
+  ) {}
+
   ngOnInit(): void {
     this.steps = [
       { label: 'Information' },
@@ -59,20 +59,7 @@ export class CreatePlaylistComponent implements OnInit, OnDestroy {
         this.savedSongs = data.tracks;
       })
     );
-  }
-
-  reload(event: any): void {
-    if (event.message.severity === 'success') {
-      this.hasSubmittedStep[this.currentStep] = true;
-      if (this.currentStep < 2) {
-        this.currentStep++;
-      }
-    }
-    this.loading = false;
-    // Currently done, we will close the dialog
-    if (this.currentStep === 2 && this.hasSubmittedStep[2]) {
-      this.ref.close();
-    }
+    this.uploadURL = `${environment.SERVER_URL}/${environment.UPLOAD_IMAGE_URL}`;
   }
 
   advance(): void {
@@ -82,7 +69,7 @@ export class CreatePlaylistComponent implements OnInit, OnDestroy {
         if (this.hasSubmittedStep[0]) {
           this.subscription.add(
             this.playlistService
-              .updatePlaylist(this.playlist.id, this.playlistForm.value)
+              .updatePlaylistDetails(this.playlist.id, this.playlistForm.value)
               .subscribe({
                 next: () => {
                   this.messageService.add({
@@ -92,10 +79,10 @@ export class CreatePlaylistComponent implements OnInit, OnDestroy {
                     life: 1000,
                   });
                   // Update values
-                  this.playlist.name = this.name.value;
-                  this.playlist.description = this.description.value;
-                  this.playlist.public = this.public.value;
-                  this.playlist.collaborative = this.collaborative.value;
+                  this.playlist.name = this.name?.value;
+                  this.playlist.description = this.description?.value;
+                  this.playlist.public = this.public?.value;
+                  this.playlist.collaborative = this.collaborative?.value;
                 },
                 error: (err) => {
                   this.messageService.add({
@@ -208,19 +195,6 @@ export class CreatePlaylistComponent implements OnInit, OnDestroy {
     };
   }
 
-  goBack(): void {
-    if (this.currentStep > 0) {
-      this.currentStep--;
-    }
-  }
-
-  checkSong(uri: string) {
-    if (this.songs.controls.find((control) => control.value === uri)) {
-      return true;
-    }
-    return false;
-  }
-
   addSong(uri: string) {
     let index = this.songs.controls.findIndex(
       (control) => control.value === uri
@@ -238,6 +212,110 @@ export class CreatePlaylistComponent implements OnInit, OnDestroy {
     } else {
       this.songs.controls.push(this.fb.control(uri));
     }
+  }
+
+  reload(event: any): void {
+    if (event.message.severity === 'success') {
+      this.hasSubmittedStep[this.currentStep] = true;
+      if (this.currentStep < 2) {
+        this.currentStep++;
+      }
+    }
+    this.loading = false;
+    // Currently done, we will close the dialog
+    if (this.currentStep === 2 && this.hasSubmittedStep[2]) {
+      this.ref.close();
+    }
+  }
+
+  goBack(): void {
+    if (this.currentStep > 0) {
+      this.currentStep--;
+    }
+  }
+
+  checkSong(uri: string) {
+    if (this.songs.controls.find((control) => control.value === uri)) {
+      return true;
+    }
+    return false;
+  }
+
+  set steps(value: MenuItem[]) {
+    this._steps = value;
+  }
+  get steps(): MenuItem[] {
+    return this._steps;
+  }
+
+  set currentStep(value: number) {
+    this._currentStep = value;
+  }
+  get currentStep(): number {
+    return this._currentStep;
+  }
+
+  set hasSubmittedStep(value: boolean[]) {
+    this._hasSubmittedStep = value;
+  }
+  get hasSubmittedStep(): boolean[] {
+    return this._hasSubmittedStep;
+  }
+
+  set playlist(value: any) {
+    this._playlist = value;
+  }
+  get playlist(): any {
+    return this._playlist;
+  }
+
+  set savedSongs(value: any) {
+    this._savedSongs = value;
+  }
+  get savedSongs(): any {
+    return this._savedSongs;
+  }
+
+  set playlistForm(value: FormGroup) {
+    this._playlistForm = value;
+  }
+  get playlistForm(): FormGroup {
+    return this._playlistForm;
+  }
+
+  set songForm(value: FormGroup) {
+    this._songForm = value;
+  }
+  get songForm(): FormGroup {
+    return this._songForm;
+  }
+
+  set loading(value: boolean) {
+    this._loading = value;
+  }
+  get loading(): boolean {
+    return this._loading;
+  }
+
+  set maxSongError(value: boolean) {
+    this._maxSongError = value;
+  }
+  get maxSongError(): boolean {
+    return this._maxSongError;
+  }
+
+  set uploadURL(value: string) {
+    this._uploadURL = value;
+  }
+  get uploadURL(): string {
+    return this._uploadURL;
+  }
+
+  set uploadedImage(value: any) {
+    this._uploadedImage = value;
+  }
+  get uploadedImage(): any {
+    return this._uploadedImage;
   }
 
   get name() {

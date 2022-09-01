@@ -126,6 +126,23 @@ app.get("/top/artists", (req, res) => {
 /*        Playlist        */
 /* ********************** */
 
+app.get("/playlist", (req, res) => {
+  spotify
+    .getPlaylist(req.query.id, { limit: 1 })
+    .then(async (data) => {
+      await getAllPlaylistTracks(data.body)
+        .then((data) => {
+          res.status(200).send(data);
+        })
+        .catch((err) => {
+          res.status(err.statusCode).send(err.body.error);
+        });
+    })
+    .catch((err) => {
+      res.status(err.statusCode).send(err.body.error);
+    });
+});
+
 app.post("/playlist/new", (req, res) => {
   spotify
     .createPlaylist(req.body.name, {
@@ -141,17 +158,11 @@ app.post("/playlist/new", (req, res) => {
     });
 });
 
-app.get("/playlist", (req, res) => {
+app.post("/playlist/image", (req, res) => {
   spotify
-    .getPlaylist(req.query.id, { limit: 1 })
-    .then(async (data) => {
-      await getAllPlaylistTracks(data.body)
-        .then((data) => {
-          res.status(200).send(data);
-        })
-        .catch((err) => {
-          res.status(err.statusCode).send(err.body.error);
-        });
+    .uploadCustomPlaylistCoverImage(req.body.id, req.body.image)
+    .then(() => {
+      res.status(200).send({ success: true });
     })
     .catch((err) => {
       res.status(err.statusCode).send(err.body.error);
@@ -174,11 +185,13 @@ app.put("/playlist/update", (req, res) => {
     });
 });
 
-app.post("/playlist/image", (req, res) => {
+app.post("/playlist/add", (req, res) => {
   spotify
-    .uploadCustomPlaylistCoverImage(req.body.id, req.body.image)
-    .then(() => {
-      res.status(200).send({ success: true });
+    .addTracksToPlaylist(req.body.id, req.body.tracks, {
+      position: req.body.position,
+    })
+    .then((data) => {
+      res.status(200).send(data.body);
     })
     .catch((err) => {
       res.status(err.statusCode).send(err.body.error);
@@ -229,19 +242,6 @@ app.put("/playlist/reorder", async (req, res) => {
   if (!sent) {
     res.status(200).send({ snapshot: snapshot });
   }
-});
-
-app.post("/playlist/add", (req, res) => {
-  spotify
-    .addTracksToPlaylist(req.body.id, req.body.tracks, {
-      position: req.body.position,
-    })
-    .then((data) => {
-      res.status(200).send(data.body);
-    })
-    .catch((err) => {
-      res.status(err.statusCode).send(err.body.error);
-    });
 });
 
 app.delete("/playlist/delete", (req, res) => {
@@ -365,34 +365,6 @@ app.post("/album/follow", (req, res) => {
   }
 });
 
-/* *************** */
-/*       MISC      */
-/* *************** */
-// TODO Provide seed
-app.get("/recommendations", (req, res) => {
-  spotify
-    .getRecommendations()
-    .then((data) => {
-      res.status(200).send(data.body);
-    })
-    .catch((err) => {
-      res.status(err.statusCode).send(err.body.error);
-    });
-});
-
-app.get("/test", (req, res) => {
-  return spotify
-    .getMySavedTracks({ limit: 1 })
-    .then(async (data) => {
-      await getAllSavedTracks(data.body).then((data) => {
-        res.status(200).send(data);
-      });
-    })
-    .catch((err) => {
-      res.send(err);
-    });
-});
-
 /* ****************** */
 /*       Track       */
 /* ****************** */
@@ -418,6 +390,40 @@ app.get("/tracks/recent", (req, res) => {
     })
     .then((data) => {
       res.status(200).send(data.body);
+    })
+    .catch((err) => {
+      res.status(err.statusCode).send(err.body.error);
+    });
+});
+
+/* *************** */
+/*       MISC      */
+/* *************** */
+// TODO Provide seed
+app.get("/recommendations", (req, res) => {
+  spotify
+    .getRecommendations()
+    .then((data) => {
+      res.status(200).send(data.body);
+    })
+    .catch((err) => {
+      res.status(err.statusCode).send(err.body.error);
+    });
+});
+
+app.get("/test", (req, res) => {
+  // return spotify
+  //   .play()
+  //   .then((data) => {
+  //     res.status(200).send(data);
+  //   })
+  //   .catch((err) => {
+  //     res.status(err.statusCode).send(err.body.error);
+  //   });
+  return spotify
+    .play()
+    .then((data) => {
+      res.status(200).send(data);
     })
     .catch((err) => {
       res.status(err.statusCode).send(err.body.error);

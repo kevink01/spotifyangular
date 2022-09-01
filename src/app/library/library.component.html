@@ -5,7 +5,7 @@
       <i class="fa-solid fa-headphones" class="mr-4"></i>
       <span>Playlists</span>
     </ng-template>
-    <div class="card w-12">
+    <div class="w-12">
       <p-dataView
         #dv
         [value]="filteredPlaylists"
@@ -41,7 +41,7 @@
         <!-- TODO Wrap content in a scrollPanel -->
         <ng-template let-playlist pTemplate="gridItem">
           <div
-            class="card w-12 md:w-6 lg:w-4 xl:w-3 hover:bg-white-alpha-50"
+            class="card w-12 md:w-6 lg:w-4 xl:w-3"
             (click)="navigate('playlist', playlist.id)"
           >
             <div class="flex card-header justify-content-center mb-2">

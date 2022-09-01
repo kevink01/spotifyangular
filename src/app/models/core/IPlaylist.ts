@@ -1,4 +1,4 @@
-import { Image } from './Image';
+import { Image } from './image';
 import { User } from './User';
 
 export interface IPlaylist {

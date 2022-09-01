@@ -1,12 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { DynamicDialogConfig } from 'primeng/dynamicdialog';
-import { Playlist } from 'src/app/models/Profile/Playlist';
-import { Track } from 'src/app/models/Profile/Track';
-import { environment } from 'src/environments/environment';
 import { PlaylistService } from '../playlist.service';
+import { environment } from 'src/environments/environment';
+import { Playlist } from '../../models/Profile/Playlist';
+import { Track } from '../../models/Profile/Track';
 
 @Component({
   selector: 'spotify-edit',
@@ -14,30 +14,28 @@ import { PlaylistService } from '../playlist.service';
   styleUrls: ['./playlist-edit.component.scss'],
 })
 export class PlaylistEditComponent implements OnInit, OnDestroy {
-  selected: number = 0;
-  form: any;
-  private _tracks: Track[] = [];
+  // TODO Strong type
+  private _selected: number = 0;
+  private _form: any;
   private _playlist!: Playlist;
+  private _tracks: Track[] = [];
 
-  uploadURL: string = '';
-  uploadedImage: any = {};
-  displayImage: any;
+  private _uploadURL: string = '';
+  private _uploadedImage: any = {};
+  private _displayImage: any;
 
   private subscription = new Subscription();
 
   constructor(
+    private confirmationService: ConfirmationService,
     private dialogConfig: DynamicDialogConfig,
     private fb: FormBuilder,
     private messageService: MessageService,
-    private playlistService: PlaylistService,
-    private confirmationService: ConfirmationService
-  ) {
-    this.uploadURL = `${environment.SERVER_URL}/${environment.UPLOAD_IMAGE_URL}`;
-  }
+    private playlistService: PlaylistService
+  ) {}
 
   ngOnInit(): void {
-    this.playlist = <Playlist>Object.assign({}, this.dialogConfig.data);
-    this.tracks = <Track[]>[...this.dialogConfig.data.tracks];
+    this.uploadURL = `${environment.SERVER_URL}/${environment.UPLOAD_IMAGE_URL}`;
     this.form = this.fb.group({
       name: [
         this.dialogConfig.data.name,
@@ -48,21 +46,19 @@ export class PlaylistEditComponent implements OnInit, OnDestroy {
         Validators.maxLength(300),
       ],
       public: this.dialogConfig.data.public,
-      scope: this.dialogConfig.data.collaborative,
+      collaborative: this.dialogConfig.data.collaborative,
     });
+    this.playlist = Object.assign({}, this.dialogConfig.data as Playlist);
+    this.tracks = [...(this.dialogConfig.data.tracks as Track[])];
     this.displayImage = this.dialogConfig.data.images[0].url;
   }
 
-  changeSelected(event: any): void {
-    this.selected = event.index;
-  }
-
-  save(): void {
+  updatePlaylist(): void {
     switch (this.selected) {
       case 0:
         this.subscription.add(
           this.playlistService
-            .updatePlaylist(this.playlist.id, this.form.value)
+            .updatePlaylistDetails(this.playlist.id, this.form.value)
             .subscribe({
               next: () => {
                 this.messageService.add({
@@ -170,8 +166,33 @@ export class PlaylistEditComponent implements OnInit, OnDestroy {
     });
   }
 
+  changeSelected(event: any): void {
+    this.selected = event.index;
+  }
+
   removeSong(id: string): void {
     this.tracks = this.tracks.filter((track) => track.id !== id);
+  }
+
+  set selected(value: number) {
+    this._selected = value;
+  }
+  get selected(): number {
+    return this._selected;
+  }
+
+  set form(value: FormGroup) {
+    this._form = value;
+  }
+  get form(): FormGroup {
+    return this._form;
+  }
+
+  set playlist(value: Playlist) {
+    this._playlist = value;
+  }
+  get playlist(): Playlist {
+    return this._playlist;
   }
 
   set tracks(value: Track[]) {
@@ -180,12 +201,28 @@ export class PlaylistEditComponent implements OnInit, OnDestroy {
   get tracks(): Track[] {
     return this._tracks;
   }
-  set playlist(value: Playlist) {
-    this._playlist = value;
+
+  set uploadURL(value: string) {
+    this._uploadURL = value;
   }
-  get playlist(): Playlist {
-    return this._playlist;
+  get uploadURL(): string {
+    return this._uploadURL;
   }
+
+  set uploadedImage(value: any) {
+    this._uploadedImage = value;
+  }
+  get uploadedImage(): any {
+    return this._uploadedImage;
+  }
+
+  set displayImage(value: any) {
+    this._displayImage = value;
+  }
+  get displayImage(): any {
+    return this._displayImage;
+  }
+
   get name() {
     return this.form.get('name');
   }
@@ -195,8 +232,8 @@ export class PlaylistEditComponent implements OnInit, OnDestroy {
   get public() {
     return this.form.get('public');
   }
-  get scope() {
-    return this.form.get('scope');
+  get collaborative() {
+    return this.form.get('collaborative');
   }
 
   ngOnDestroy(): void {

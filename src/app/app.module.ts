@@ -21,7 +21,6 @@ import { LoginRedirectComponent } from './login/redirect/login-redirect.componen
 import { PlaylistComponent } from './playlist/playlist.component';
 import { PlaylistEditComponent } from './playlist/edit/playlist-edit.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
-import { TestComponent } from './test/test.component';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 
 import { AlbumComponent } from './album/album.component';
@@ -40,7 +39,6 @@ import { AlbumComponent } from './album/album.component';
     PlaylistEditComponent,
     SidenavComponent,
     ToolbarComponent,
-    TestComponent,
     AlbumComponent,
   ],
   imports: [

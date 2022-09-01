@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { MenuItem } from 'primeng/api';
 import { Subscription } from 'rxjs';
+import { MenuItem } from 'primeng/api';
 import { environment } from 'src/environments/environment';
 import { LoginService } from '../login/login.service';
 
@@ -11,13 +11,11 @@ import { LoginService } from '../login/login.service';
   styleUrls: ['./toolbar.component.scss'],
 })
 export class ToolbarComponent implements OnInit, OnDestroy {
-  profile: any = {};
-  items: MenuItem[] = [];
+  private _AUTH_LINK: string = '';
+  private _profile: any = {};
+  private _items: MenuItem[] = [];
 
-  display = true;
-  AUTH_LINK: string = '';
-
-  subscription = new Subscription();
+  private subscription = new Subscription();
 
   constructor(private loginService: LoginService, private router: Router) {}
 
@@ -31,24 +29,45 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     this.items = [
       {
         label: 'Profile',
-        icon: 'pi pi-user',
+        icon: 'fa-solid fa-user',
         routerLink: '/profile',
       },
       {
         label: 'Settings',
-        icon: 'pi pi-cog',
+        icon: 'fa-solid fa-gear',
         routerLink: '/settings',
       },
       {
         label: 'Log out',
-        icon: 'pi pi-sign-out',
+        icon: 'fa-solid fa-right-from-bracket',
         command: () => {},
       },
     ];
   }
 
-  home(): void {
+  returnHome(): void {
     this.router.navigate(['/dashboard']);
+  }
+
+  set AUTH_LINK(value: string) {
+    this._AUTH_LINK = value;
+  }
+  get AUTH_LINK(): string {
+    return this._AUTH_LINK;
+  }
+
+  set profile(value: any) {
+    this._profile = value;
+  }
+  get profile(): any {
+    return this._profile;
+  }
+
+  set items(value: MenuItem[]) {
+    this._items = value;
+  }
+  get items(): MenuItem[] {
+    return this._items;
   }
 
   ngOnDestroy(): void {

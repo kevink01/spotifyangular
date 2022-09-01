@@ -1,4 +1,4 @@
-import { Image } from './Image';
+import { Image } from './image';
 import { IArtist } from './IArtist';
 /**
  * Critical information about each Album.

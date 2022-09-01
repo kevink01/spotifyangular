@@ -4,8 +4,8 @@ import { Subscription } from 'rxjs';
 import { MessageService } from 'primeng/api';
 import { AlbumService } from './album.service';
 import { Color } from '../utility/index';
-import { Track } from '../models/Profile/Track';
 import { Following } from '../models/Album/following';
+import { Track } from '../models/Profile/Track';
 
 @Component({
   selector: 'spotify-album',
@@ -13,10 +13,11 @@ import { Following } from '../models/Album/following';
   styleUrls: ['./album.component.scss'],
 })
 export class AlbumComponent implements OnInit, OnDestroy {
-  album: any;
-  id: string = '';
-  length: string = '';
-  
+  // TODO Strong type
+  private _album: any;
+  private _id: string = '';
+  private _duration: string = '';
+
   subscription = new Subscription();
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -46,28 +47,10 @@ export class AlbumComponent implements OnInit, OnDestroy {
               },
             })
           );
-          this.length = this.calculateDuration(this.album.tracks);
+          this.duration = this.calculateDuration(this.album.tracks);
         },
       })
     );
-  }
-
-  private calculateDuration(tracks: Object[]): string {
-    let time = 0;
-    tracks.forEach((track: any) => {
-      time += track.duration;
-    });
-    let hours = Math.floor(time / 3600000);
-    let minutes = Math.floor((time % 3600000) / 60000);
-    if (hours === 0) {
-      return `${minutes} minutes`;
-    } else {
-      return `${hours}hr ${minutes} min`;
-    }
-  }
-
-  getPopularityColor(pop: number): string {
-    return Color.hexColor(pop);
   }
 
   toggleFollow(): void {
@@ -88,6 +71,45 @@ export class AlbumComponent implements OnInit, OnDestroy {
           },
         })
     );
+  }
+
+  getPopularityColor(pop: number): string {
+    return Color.hexColor(pop);
+  }
+
+  private calculateDuration(tracks: Object[]): string {
+    let time = 0;
+    tracks.forEach((track: any) => {
+      time += track.duration;
+    });
+    let hours = Math.floor(time / 3600000);
+    let minutes = Math.floor((time % 3600000) / 60000);
+    if (hours === 0) {
+      return `${minutes} minutes`;
+    } else {
+      return `${hours}hr ${minutes} min`;
+    }
+  }
+
+  set album(value: any) {
+    this._album = value;
+  }
+  get album(): any {
+    return this._album;
+  }
+
+  set id(value: string) {
+    this._id = value;
+  }
+  get id(): string {
+    return this._id;
+  }
+
+  set duration(value: string) {
+    this._duration = value;
+  }
+  get duration(): string {
+    return this._duration;
   }
 
   ngOnDestroy(): void {

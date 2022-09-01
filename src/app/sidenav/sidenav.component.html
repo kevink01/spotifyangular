@@ -3,7 +3,7 @@
     <p-card>
       <div
         class="menu-item col-12 flex flex-row justify-content-start hover:text-primary"
-        (click)="this.navigate('dashboard')"
+        (click)="navigate('dashboard')"
       >
         <i
           class="fa-solid fa-house-chimney-user"
@@ -19,7 +19,7 @@
       </div>
       <div
         class="menu-item col-12 flex flex-row justify-content-start hover:text-primary"
-        (click)="createPlaylist()"
+        (click)="createPlaylistDialog()"
       >
         <i
           class="fa-solid fa-folder-plus"
@@ -38,7 +38,7 @@
       </div>
       <div
         class="menu-item col-12 flex flex-row justify-content-start hover:text-primary"
-        (click)="this.navigate('library')"
+        (click)="navigate('library')"
       >
         <i
           class="fa-solid fa-book-bookmark"
@@ -56,7 +56,7 @@
       </div>
       <div
         class="menu-item col-12 flex flex-row justify-content-start hover:text-primary-500"
-        (click)="this.navigate('library')"
+        (click)="navigate('library')"
       >
         <i
           class="fa-solid fa-heart-circle-check"
@@ -85,7 +85,7 @@
           label="Login"
           icon="fa-solid fa-arrow-right-to-bracket"
           class="p-button-lg"
-          [href]="this.AUTH_LINK"
+          [href]="AUTH_LINK"
         ></a>
       </div>
     </p-card>
@@ -100,7 +100,7 @@
       <!-- TODO Responsive scrollPanel-->
       <p-scrollPanel
         styleClass="w-12 text-sm lg:text-lg"
-        [style]="{ width: '100%', 'max-height': '332px' }"
+        [style]="{ width: '100%', 'max-height': '62vh' }"
       >
         <div class="ml-1 justify-items-center">
           <p-fieldset
@@ -138,7 +138,31 @@
             </div>
           </p-fieldset>
           <br />
-          <p-fieldset legend="Playlists" [toggleable]="true"> </p-fieldset>
+          <p-fieldset *ngIf="playlists" [toggleable]="true" legend="Playlists">
+            <div
+              *ngFor="let playlist of playlists"
+              class="grid grid--nogutter col-12"
+            >
+              <div class="col-2">
+                <img
+                  [src]="playlist.images[0].url"
+                  style="width: 40px; height: 40px"
+                />
+              </div>
+              <div class="flex flex-column col-6">
+                <div class="text-overflow-ellipsis">
+                  <span
+                    class="overflow-hidden text-overflow-ellipsis"
+                    (click)="navigate('playlist/' + playlist.id)"
+                    >{{ playlist.name }}</span
+                  >
+                </div>
+                <span class="text-overflow-ellipsis">{{
+                  playlist.owner.name
+                }}</span>
+              </div>
+            </div>
+          </p-fieldset>
         </div>
       </p-scrollPanel>
     </div>

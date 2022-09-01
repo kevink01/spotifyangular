@@ -23,12 +23,12 @@ const SCOPES: string = [
   // // Image scope
   'ugc-image-upload',
   // // Spotify connect scope
-  // // 'user-modify-playback-state',
-  // // 'user-read-playback-state',
-  // // 'user-read-currently-playing',
+  'user-modify-playback-state',
+  'user-read-playback-state',
+  'user-read-currently-playing',
   // // Playback scope
-  // // 'app-remote-control',
-  // // 'streaming'
+  'app-remote-control',
+  'streaming',
 ].join(' ');
 const clientID: string = '71d200c4569d4b5bad224df289aeff4c';
 
