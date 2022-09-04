@@ -2,9 +2,12 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { LibraryService } from './library.service';
-import { IAlbum } from '../models/core/IAlbum';
-import { IArtist } from '../models/core/IArtist';
-import { IPlaylist } from '../models/core/IPlaylist';
+import { Album } from '../models/components/album';
+import { Artist } from '../models/components/artist';
+import { Playlist } from '../models/components/playlist';
+import { PlaylistReturn } from '../models/core/http/playlist';
+import { ArtistReturn } from '../models/core/http/artist';
+import { AlbumReturn } from '../models/core/http/album';
 
 interface Option {
   label: string;
@@ -17,22 +20,22 @@ interface Option {
   styleUrls: ['./library.component.scss'],
 })
 export class LibraryComponent implements OnInit, OnDestroy {
-  private _playlists: IPlaylist[] = [];
-  private _filteredPlaylists: IPlaylist[] = [];
+  private _playlists: Playlist[] = [];
+  private _filteredPlaylists: Playlist[] = [];
 
   private _playlistFilter: string = '';
   private _playlistSort: string = '';
   private _playlistOptions: Option[] = [];
 
-  private _artists: IArtist[] = [];
-  private _filteredArtists: IArtist[] = [];
+  private _artists: Artist[] = [];
+  private _filteredArtists: Artist[] = [];
 
   private _artistFilter: string = '';
   private _artistSort: string = '';
   private _artistOptions: Option[] = [];
 
-  private _albums: IAlbum[] = [];
-  private _filteredAlbums: IAlbum[] = [];
+  private _albums: Album[] = [];
+  private _filteredAlbums: Album[] = [];
 
   private _albumFilter: string = '';
   private _albumSort: string = '';
@@ -44,7 +47,7 @@ export class LibraryComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subscription.add(
-      this.libraryService.getPlaylists().subscribe((data: any) => {
+      this.libraryService.getPlaylists().subscribe((data: PlaylistReturn) => {
         console.log(data.playlists);
         this.playlists = data.playlists;
         this.filteredPlaylists = data.playlists;
@@ -55,19 +58,21 @@ export class LibraryComponent implements OnInit, OnDestroy {
       { label: 'Alphabetical', value: 'name' },
     ];
     this.subscription.add(
-      this.libraryService.getFollowedArtists().subscribe((data: any) => {
-        console.log(data);
-        this.artists = data.artists;
-        this.filteredArtists = data.artists;
-      })
+      this.libraryService
+        .getFollowedArtists()
+        .subscribe((data: ArtistReturn) => {
+          console.log(data.artists);
+          this.artists = data.artists;
+          this.filteredArtists = data.artists;
+        })
     );
     this.artistOptions = [
       { label: 'Relevant', value: '!name' },
       { label: 'Alphabetical', value: 'name' },
     ];
     this.subscription.add(
-      this.libraryService.getLibraryAlbums().subscribe((data: any) => {
-        console.log(data);
+      this.libraryService.getLibraryAlbums().subscribe((data: AlbumReturn) => {
+        console.log(data.albums);
         this.albums = data.albums;
         this.filteredAlbums = data.albums;
       })
@@ -111,20 +116,22 @@ export class LibraryComponent implements OnInit, OnDestroy {
         break;
       case 'albums':
         value = event.value;
+        console.log(this.albums);
         if (value.indexOf('!') === 0) {
           this.filteredAlbums = this.albums;
         } else if (value === 'name') {
+          // TODO this.albums is undefined
           this.filteredAlbums = [...this.albums].sort((album1, album2) =>
             album1.name.toLocaleLowerCase().localeCompare(album2.name)
           );
         } else {
           this.filteredAlbums = [...this.albums].sort((album1, album2) =>
-            album1.artist.name
+            album1.artists[0].name
               .toLocaleLowerCase()
-              .localeCompare(album2.artist.name)
+              .localeCompare(album2.artists[0].name)
           );
         }
-        this.artistSort = value;
+        this.albumSort = value;
         break;
       default:
         break;
@@ -135,17 +142,17 @@ export class LibraryComponent implements OnInit, OnDestroy {
     this.router.navigate([`/${page}/`, id]);
   }
 
-  set playlists(value: IPlaylist[]) {
+  set playlists(value: Playlist[]) {
     this._playlists = value;
   }
-  get playlists(): IPlaylist[] {
+  get playlists(): Playlist[] {
     return this._playlists;
   }
 
-  set filteredPlaylists(value: IPlaylist[]) {
+  set filteredPlaylists(value: Playlist[]) {
     this._filteredPlaylists = value;
   }
-  get filteredPlaylists(): IPlaylist[] {
+  get filteredPlaylists(): Playlist[] {
     return this._filteredPlaylists;
   }
 
@@ -170,17 +177,17 @@ export class LibraryComponent implements OnInit, OnDestroy {
     return this._playlistOptions;
   }
 
-  set artists(value: IArtist[]) {
+  set artists(value: Artist[]) {
     this._artists = value;
   }
-  get artists(): IArtist[] {
+  get artists(): Artist[] {
     return this._artists;
   }
 
-  set filteredArtists(value: IArtist[]) {
+  set filteredArtists(value: Artist[]) {
     this._filteredArtists = value;
   }
-  get filteredArtists(): IArtist[] {
+  get filteredArtists(): Artist[] {
     return this._filteredArtists;
   }
 
@@ -205,17 +212,17 @@ export class LibraryComponent implements OnInit, OnDestroy {
     return this._artistOptions;
   }
 
-  set albums(value: IAlbum[]) {
+  set albums(value: Album[]) {
     this._albums = value;
   }
-  get ablums(): IAlbum[] {
+  get ablums(): Album[] {
     return this._albums;
   }
 
-  set filteredAlbums(value: IAlbum[]) {
+  set filteredAlbums(value: Album[]) {
     this._filteredAlbums = value;
   }
-  get filteredAlbums(): IAlbum[] {
+  get filteredAlbums(): Album[] {
     return this._filteredAlbums;
   }
 

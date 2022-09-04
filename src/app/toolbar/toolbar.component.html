@@ -3,7 +3,7 @@
     <button
       pButton
       type="button"
-      icon="pi pi-bars"
+      icon="fa-solid fa-bars"
       class="p-button-rounded p-button-outlined p-button-text mt-1 mr-2"
     ></button>
     <button
@@ -16,7 +16,7 @@
   </div>
   <div class="p-toolbar-group-right">
     <a
-      *ngIf="profile === 'Not logged in'"
+      *ngIf="profile.name === ''"
       pButton
       pRipple
       type="button"
@@ -28,15 +28,15 @@
         ><i class="fa-solid fa-user"></i></p-avatar
     ></a>
     <p-button
-      *ngIf="profile !== 'Not logged in'"
+      *ngIf="profile.name !== ''"
       type="button"
-      [label]="profile?.display_name"
+      [label]="profile.name"
       styleClass="p-button-rounded p-button-lg"
       [style]="{ height: '55px' }"
       (click)="menu.toggle($event)"
     >
       <p-avatar
-        [image]="profile?.images[0]?.url"
+        [image]="profile.images[0].url"
         shape="circle"
         styleClass="mr-2"
       ></p-avatar>

@@ -4,8 +4,9 @@ import { Subscription } from 'rxjs';
 import { MessageService } from 'primeng/api';
 import { AlbumService } from './album.service';
 import { Color } from '../utility/index';
-import { Following } from '../models/Album/following';
-import { Track } from '../models/Profile/Track';
+import { Following } from '../models/playlist/following';
+import { Track } from '../models/components/track';
+import { Album } from '../models/components/album';
 
 @Component({
   selector: 'spotify-album',
@@ -13,12 +14,13 @@ import { Track } from '../models/Profile/Track';
   styleUrls: ['./album.component.scss'],
 })
 export class AlbumComponent implements OnInit, OnDestroy {
-  // TODO Strong type
-  private _album: any;
+  private _album!: Album;
   private _id: string = '';
   private _duration: string = '';
+  private _following: boolean = false;
 
-  subscription = new Subscription();
+  private subscription = new Subscription();
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private albumService: AlbumService,
@@ -29,25 +31,18 @@ export class AlbumComponent implements OnInit, OnDestroy {
     this.id = this.activatedRoute.snapshot.params['id'];
     this.subscription.add(
       this.albumService.getAlbum(this.id).subscribe({
-        next: (data: any) => {
+        next: (data: Album) => {
           this.album = data;
-          data.tracks.forEach((track: Track) => {
-            this.subscription.add(
-              this.albumService.trackPopularity(track.id).subscribe({
-                next: (data: any) => {
-                  track.popularity = data.popularity;
-                },
-              })
-            );
-          });
           this.subscription.add(
             this.albumService.isFollowingAlbum(data.id).subscribe({
               next: (data: Following) => {
-                this.album.following = data.following;
+                this.following = data.following;
               },
             })
           );
-          this.duration = this.calculateDuration(this.album.tracks);
+          this.duration = this.album.tracks
+            ? this.calculateDuration(this.album.tracks)
+            : '0 minutes';
         },
       })
     );
@@ -55,21 +50,17 @@ export class AlbumComponent implements OnInit, OnDestroy {
 
   toggleFollow(): void {
     this.subscription.add(
-      this.albumService
-        .toggleFollow(this.album.id, this.album.following)
-        .subscribe({
-          next: () => {
-            this.messageService.add({
-              severity: 'success',
-              summary: `${
-                this.album.following ? 'Unfollowed' : 'Followed'
-              } album!`,
-              detail: `Name: ${this.album.name}`,
-              life: 2000,
-            });
-            this.album.following = !this.album.following;
-          },
-        })
+      this.albumService.toggleFollow(this.album.id, this.following).subscribe({
+        next: () => {
+          this.messageService.add({
+            severity: 'success',
+            summary: `${this.following ? 'Unfollowed' : 'Followed'} album!`,
+            detail: `Name: ${this.album.name}`,
+            life: 2000,
+          });
+          this.following = !this.following;
+        },
+      })
     );
   }
 
@@ -77,9 +68,9 @@ export class AlbumComponent implements OnInit, OnDestroy {
     return Color.hexColor(pop);
   }
 
-  private calculateDuration(tracks: Object[]): string {
+  private calculateDuration(tracks: Track[]): string {
     let time = 0;
-    tracks.forEach((track: any) => {
+    tracks.forEach((track: Track) => {
       time += track.duration;
     });
     let hours = Math.floor(time / 3600000);
@@ -91,10 +82,10 @@ export class AlbumComponent implements OnInit, OnDestroy {
     }
   }
 
-  set album(value: any) {
+  set album(value: Album) {
     this._album = value;
   }
-  get album(): any {
+  get album(): Album {
     return this._album;
   }
 
@@ -110,6 +101,13 @@ export class AlbumComponent implements OnInit, OnDestroy {
   }
   get duration(): string {
     return this._duration;
+  }
+
+  set following(value: boolean) {
+    this._following = value;
+  }
+  get following(): boolean {
+    return this._following;
   }
 
   ngOnDestroy(): void {

@@ -2,9 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { IAlbum } from '../models/core/IAlbum';
-import { IArtist } from '../models/core/IArtist';
-import { IPlaylist } from '../models/core/IPlaylist';
+import { AlbumReturn } from '../models/core/http/album';
+import { ArtistReturn } from '../models/core/http/artist';
+import { PlaylistReturn } from '../models/core/http/playlist';
+import { RecentTracksReturn } from '../models/core/http/recent';
+import { TracksReturn } from '../models/core/http/tracks';
 
 @Injectable({
   providedIn: 'root',
@@ -12,27 +14,26 @@ import { IPlaylist } from '../models/core/IPlaylist';
 export class LibraryService {
   constructor(private http: HttpClient) {}
 
-  getPlaylists(): Observable<IPlaylist[]> {
-    return this.http.get<IPlaylist[]>(
+  getPlaylists(): Observable<PlaylistReturn> {
+    return this.http.get<PlaylistReturn>(
       `${environment.SERVER_URL}/${environment.USER_PLAYLISTS_URL}`
     );
   }
 
-  getLibraryAlbums(): Observable<IAlbum[]> {
-    return this.http.get<IAlbum[]>(
+  getLibraryAlbums(): Observable<AlbumReturn> {
+    return this.http.get<AlbumReturn>(
       `${environment.SERVER_URL}/${environment.SAVED_ALBUMS_URL}`
     );
   }
 
-  getFollowedArtists(): Observable<IArtist[]> {
-    return this.http.get<IArtist[]>(
+  getFollowedArtists(): Observable<ArtistReturn> {
+    return this.http.get<ArtistReturn>(
       `${environment.SERVER_URL}/${environment.FOLLOWED_ARTISTS_URL}`
     );
   }
 
-  // TODO Strong type
-  getSavedSongs(): Observable<Object> {
-    return this.http.get<Object>(
+  getSavedSongs(): Observable<TracksReturn> {
+    return this.http.get<TracksReturn>(
       `${environment.SERVER_URL}/${environment.SAVED_SONGS_URL}`
     );
   }

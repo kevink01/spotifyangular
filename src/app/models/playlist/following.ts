@@ -1,3 +1,3 @@
 export interface Following {
-  following: string;
+  following: boolean;
 }

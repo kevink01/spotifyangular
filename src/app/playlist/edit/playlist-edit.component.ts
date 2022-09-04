@@ -5,8 +5,9 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { PlaylistService } from '../playlist.service';
 import { environment } from 'src/environments/environment';
-import { Playlist } from '../../models/Profile/Playlist';
-import { Track } from '../../models/Profile/Track';
+import { Playlist } from '../../models/components/playlist';
+import { Track } from '../../models/shared/track';
+import { Snapshot } from '../../models/core/snapshot';
 
 @Component({
   selector: 'spotify-edit',
@@ -14,15 +15,15 @@ import { Track } from '../../models/Profile/Track';
   styleUrls: ['./playlist-edit.component.scss'],
 })
 export class PlaylistEditComponent implements OnInit, OnDestroy {
-  // TODO Strong type
   private _selected: number = 0;
-  private _form: any;
+  private _form!: FormGroup;
   private _playlist!: Playlist;
   private _tracks: Track[] = [];
 
   private _uploadURL: string = '';
-  private _uploadedImage: any = {};
-  private _displayImage: any;
+  // TODO: Strong type image
+  private _uploadedImage: Object = {};
+  private _displayImage: Object = {};
 
   private subscription = new Subscription();
 
@@ -68,10 +69,10 @@ export class PlaylistEditComponent implements OnInit, OnDestroy {
                   life: 1000,
                 });
                 // TODO bind playlist to changes
-                // this.playlist.name = this.form.value.name;
-                // this.playlist.description = this.form.value.description;
-                // this.playlist.public = this.form.value.public;
-                // this.playlist.collaborative = this.scope.collaborative;
+                this.playlist.name = this.form.value.name;
+                this.playlist.description = this.form.value.description;
+                this.playlist.public = this.form.value.public;
+                this.playlist.collaborative = this.form.value.collaborative;
               },
               error: (err) => {
                 this.messageService.add({
@@ -93,7 +94,7 @@ export class PlaylistEditComponent implements OnInit, OnDestroy {
               this.tracks.filter((track) => !track.local) // Cannot modify a playlist with local songs, so we will filter
             )
             .subscribe({
-              next: (data: any) => {
+              next: (data: Snapshot) => {
                 this.playlist.snapshot = data.snapshot;
                 this.messageService.add({
                   severity: 'success',
@@ -209,17 +210,17 @@ export class PlaylistEditComponent implements OnInit, OnDestroy {
     return this._uploadURL;
   }
 
-  set uploadedImage(value: any) {
+  set uploadedImage(value: Object) {
     this._uploadedImage = value;
   }
-  get uploadedImage(): any {
+  get uploadedImage(): Object {
     return this._uploadedImage;
   }
 
-  set displayImage(value: any) {
+  set displayImage(value: Object) {
     this._displayImage = value;
   }
-  get displayImage(): any {
+  get displayImage(): Object {
     return this._displayImage;
   }
 

@@ -74,7 +74,7 @@
         </span>
       </div>
       <div
-        *ngIf="profile === 'Not logged in'"
+        *ngIf="profile.name === ''"
         class="col-12 flex flex-column justify-content-center"
       >
         <p-divider></p-divider><br />
@@ -92,15 +92,15 @@
   </div>
   <!-- TODO ScrollPanel for playlists -->
   <div class="flex-auto" style="background-color: #1e1e1e">
-    <div *ngIf="profile === 'Not logged in'" class="ml-1">
+    <div *ngIf="profile.name === ''" class="ml-1">
       <span>Welcome to Spotify Clone</span><br />
       <span>Please login to start listening to your music :)</span>
     </div>
-    <div *ngIf="profile !== 'Not logged in'">
+    <div *ngIf="profile.name !== ''">
       <!-- TODO Responsive scrollPanel-->
       <p-scrollPanel
         styleClass="w-12 text-sm lg:text-lg"
-        [style]="{ width: '100%', 'max-height': '62vh' }"
+        [style]="{ width: '100%', height: '62vh' }"
       >
         <div class="ml-1 justify-items-center">
           <p-fieldset
@@ -111,28 +111,28 @@
             <div *ngFor="let track of recent" class="grid grid-nogutter col-12">
               <div class="col-2">
                 <img
-                  [src]="track.track.album.images[0].url"
+                  [src]="track.album.images[0].url"
                   style="width: 40px; height: 40px"
                 />
               </div>
               <div class="flex flex-column col-6">
                 <div class="text-overflow-ellipsis">
                   <span class="overflow-hidden text-overflow-ellipsis">{{
-                    track.track.name
+                    track.name
                   }}</span>
                 </div>
                 <span class="text-overflow-ellipsis">{{
-                  track.track.album.artists[0].name
+                  track.artists[0].name
                 }}</span>
               </div>
               <div class="flex flex-column col-4">
                 <div>
-                  <i class="pi pi-calendar"></i>
-                  <span>{{ track.played_at | date: "E hh:mm" }}</span>
+                  <i class="fa-solid fa-calendar"></i>
+                  <span>{{ track.date | date: "E hh:mm" }}</span>
                 </div>
                 <div>
-                  <i class="pi pi-clock"></i>
-                  <span>{{ track.track.duration_ms | date: "mm:ss" }}</span>
+                  <i class="fa-solid fa-clock"></i>
+                  <span>{{ track.duration | date: "mm:ss" }}</span>
                 </div>
               </div>
             </div>

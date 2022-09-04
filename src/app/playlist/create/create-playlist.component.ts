@@ -4,8 +4,11 @@ import { MenuItem, MessageService } from 'primeng/api';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Subscription } from 'rxjs';
 import { LibraryService } from 'src/app/library/library.service';
+import { Playlist } from '../../models/components/playlist';
 import { PlaylistService } from 'src/app/playlist/playlist.service';
 import { environment } from 'src/environments/environment';
+import { Track } from '../../models/components/track';
+import { TracksReturn } from '../../models/core/http/tracks';
 
 @Component({
   selector: 'spotify-playlist',
@@ -14,20 +17,20 @@ import { environment } from 'src/environments/environment';
 })
 export class CreatePlaylistComponent implements OnInit, OnDestroy {
   private _steps: MenuItem[] = [];
-  private _currentStep: number = 0;
+  private _currentStep: number = 1;
   private _hasSubmittedStep: boolean[] = [false, false, false];
 
-  // TODO: Strong type
-  private _playlist: any = {};
-  private _savedSongs: any;
+  private _playlist!: Playlist;
+  private _savedSongs: Track[] = [];
 
-  private _playlistForm: any;
-  private _songForm: any;
+  private _playlistForm!: FormGroup;
+  private _songForm!: FormGroup;
   private _loading = false;
   private _maxSongError = false;
 
   private _uploadURL: string = '';
-  private _uploadedImage: any = {};
+  // TODO: Strong type image
+  private _uploadedImage: Object = {};
 
   private subscription = new Subscription();
 
@@ -55,8 +58,10 @@ export class CreatePlaylistComponent implements OnInit, OnDestroy {
       songs: this.fb.array([]),
     });
     this.subscription.add(
-      this.libraryService.getSavedSongs().subscribe((data: any) => {
-        this.savedSongs = data.tracks;
+      this.libraryService.getSavedSongs().subscribe({
+        next: (data: TracksReturn) => {
+          this.savedSongs = data.tracks;
+        },
       })
     );
     this.uploadURL = `${environment.SERVER_URL}/${environment.UPLOAD_IMAGE_URL}`;
@@ -100,7 +105,7 @@ export class CreatePlaylistComponent implements OnInit, OnDestroy {
             this.playlistService
               .createPlaylist(this.playlistForm.value)
               .subscribe({
-                next: (data: any) => {
+                next: (data: Playlist) => {
                   this.playlist = data;
                   this.hasSubmittedStep[0] = true;
                   this.messageService.add({
@@ -136,7 +141,7 @@ export class CreatePlaylistComponent implements OnInit, OnDestroy {
               0
             )
             .subscribe({
-              next: (data: any) => {
+              next: () => {
                 this.hasSubmittedStep[0] = true;
                 this.messageService.add({
                   severity: 'success',
@@ -199,8 +204,8 @@ export class CreatePlaylistComponent implements OnInit, OnDestroy {
     let index = this.songs.controls.findIndex(
       (control) => control.value === uri
     );
-    // Song was not found (adding), prevent adding
-    if (this.songs.controls.length >= 3 && index === -1) {
+    // Limit to 100 songs
+    if (this.songs.controls.length >= 100 && index === -1) {
       this.maxSongError = true;
       return;
     }
@@ -262,17 +267,17 @@ export class CreatePlaylistComponent implements OnInit, OnDestroy {
     return this._hasSubmittedStep;
   }
 
-  set playlist(value: any) {
+  set playlist(value: Playlist) {
     this._playlist = value;
   }
-  get playlist(): any {
+  get playlist(): Playlist {
     return this._playlist;
   }
 
-  set savedSongs(value: any) {
+  set savedSongs(value: Track[]) {
     this._savedSongs = value;
   }
-  get savedSongs(): any {
+  get savedSongs(): Track[] {
     return this._savedSongs;
   }
 

@@ -5,8 +5,8 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { PlaylistService } from './playlist.service';
 import { PlaylistEditComponent } from './edit/playlist-edit.component';
-import { Playlist } from '../models/Profile/Playlist';
-import { Track } from '../models/Profile/Track';
+import { Playlist } from '../models/components/playlist';
+import { Track } from '../models/shared/track';
 
 @Component({
   selector: 'spotify-playlist',
@@ -85,7 +85,9 @@ export class PlaylistComponent implements OnInit, OnDestroy {
       data: this.playlist,
     });
     this.subscription.add(
-      this.dialogRef.onClose.subscribe(() => console.log('Done'))
+      this.subscription.add(
+        this.dialogRef.onClose.subscribe(() => console.log('Done'))
+      )
     );
   }
 

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Profile } from '../../models/core/profile';
+import { Login } from '../../models/core/login';
 import { LoginService } from '../login.service';
 
 @Component({
@@ -19,9 +21,9 @@ export class LoginRedirectComponent implements OnInit {
     this.code = this.activatedRoute.snapshot.queryParamMap.get(
       'code'
     ) as string;
-    this.loginService.login(this.code).subscribe((data) => {
+    this.loginService.login(this.code).subscribe((data: Login) => {
       if (data) {
-        this.loginService.getMyProfile().subscribe(async (profile) => {
+        this.loginService.getMyProfile().subscribe(async (profile: Profile) => {
           await this.loginService.updateProfile(profile);
           this.router.navigate(['/dashboard']);
         });

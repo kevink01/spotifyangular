@@ -3,8 +3,9 @@ import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
-import { Following } from '../models/Album/following';
-import { Success } from '../models/success';
+import { Following } from '../models/playlist/following';
+import { Success } from '../models/core/success';
+import { Album } from '../models/components/album';
 
 @Injectable({
   providedIn: 'root',
@@ -12,15 +13,9 @@ import { Success } from '../models/success';
 export class AlbumService {
   constructor(private http: HttpClient) {}
 
-  getAlbum(id: string): Observable<Object> {
+  getAlbum(id: string): Observable<Album> {
     return this.http
-      .get(`${environment.SERVER_URL}/${environment.ALBUM_URL}?id=${id}`)
-      .pipe(catchError((err) => throwError(() => err.error)));
-  }
-
-  trackPopularity(id: string): Observable<Object> {
-    return this.http
-      .get(`${environment.SERVER_URL}/${environment.TRACK_URL}?id=${id}`)
+      .get<Album>(`${environment.SERVER_URL}/${environment.ALBUM_URL}?id=${id}`)
       .pipe(catchError((err) => throwError(() => err.error)));
   }
 

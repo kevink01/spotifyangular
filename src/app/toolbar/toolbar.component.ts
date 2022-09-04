@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { MenuItem } from 'primeng/api';
 import { environment } from 'src/environments/environment';
 import { LoginService } from '../login/login.service';
+import { Profile } from '../models/core/profile';
 
 @Component({
   selector: 'spotify-toolbar',
@@ -12,7 +13,7 @@ import { LoginService } from '../login/login.service';
 })
 export class ToolbarComponent implements OnInit, OnDestroy {
   private _AUTH_LINK: string = '';
-  private _profile: any = {};
+  private _profile!: Profile;
   private _items: MenuItem[] = [];
 
   private subscription = new Subscription();
@@ -22,7 +23,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.AUTH_LINK = environment.AUTH_URL;
     this.subscription.add(
-      this.loginService.profile.subscribe((data) => {
+      this.loginService.profile().subscribe((data: Profile) => {
         this.profile = data;
       })
     );
@@ -56,10 +57,10 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     return this._AUTH_LINK;
   }
 
-  set profile(value: any) {
+  set profile(value: Profile) {
     this._profile = value;
   }
-  get profile(): any {
+  get profile(): Profile {
     return this._profile;
   }
 

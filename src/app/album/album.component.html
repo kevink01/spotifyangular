@@ -3,7 +3,7 @@
   <loading-album></loading-album>
 </div>
 <div *ngIf="album">
-  <p-table #dt [value]="album.tracks" [scrollable]="true" scrollHeight="400px">
+  <p-table #dt [value]="album.tracks ?? []" [scrollable]="true" scrollHeight="400px">
     <ng-template pTemplate="caption">
       <div class="flex flex-row w-12">
         <div class="flex w-4 xl:w-3 justify-content-center">
@@ -20,7 +20,7 @@
           <div class="flex flex-column flex-initial gap-1">
             <div>
               <i class="fa-solid fa-music"></i>
-              <span class="ml-2">{{ album.tracks.length }} songs</span>
+              <span class="ml-2">{{ album.tracks?.length }} songs</span>
             </div>
             <div>
               <i class="fa-solid fa-stopwatch"></i>
@@ -28,7 +28,7 @@
             </div>
             <div>
               <i class="fa-solid fa-calendar"></i>
-              <span class="ml-2">{{ album.release | date: "MM/dd/yyyy" }}</span>
+              <span class="ml-2">{{ album.date | date: "MM/dd/yyyy" }}</span>
             </div>
           </div>
           <div class="flex mt-2">
@@ -45,7 +45,7 @@
                 pButton
                 pRipple
                 type="button"
-                [label]="album.following ? 'Unfollow' : 'Follow'"
+                [label]="following ? 'Unfollow' : 'Follow'"
                 icon="fa-solid fa-heart"
                 class="p-button-icon"
                 (click)="toggleFollow()"

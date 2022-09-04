@@ -2,15 +2,17 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, catchError, Observable, of, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Playlist } from '../models/Profile/Playlist';
-import { Track } from '../models/Profile/Track';
-import { Success } from '../models/success';
+import { Playlist } from '../models/components/playlist';
+import { Track } from '../models/shared/track';
+import { Success } from '../models/core/success';
+import { Details } from '../models/playlist/details';
+import { Snapshot } from '../models/core/snapshot';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PlaylistService implements OnDestroy {
-  private _playlistSubject = new BehaviorSubject<Object>('');
+  private _playlistSubject = new BehaviorSubject<Playlist | null>(null);
   private _playlists = this._playlistSubject.asObservable();
 
   constructor(private http: HttpClient) {}
@@ -23,25 +25,28 @@ export class PlaylistService implements OnDestroy {
       .pipe(catchError((err) => throwError(() => err.error)));
   }
 
-  createPlaylist(values: Object) {
+  createPlaylist(values: Details): Observable<Playlist> {
     return this.http
-      .post(
+      .post<Playlist>(
         `${environment.SERVER_URL}/${environment.CREATE_PLAYLIST_URL}`,
         values
       )
       .pipe(catchError((err) => throwError(() => err.error)));
   }
 
-  uploadImage(id: string, image: any): Observable<any> {
+  uploadImage(id: string, image: any): Observable<Success> {
     return this.http
-      .post(`${environment.SERVER_URL}/${environment.UPLOAD_IMAGE_URL}`, {
-        id: id,
-        image: image,
-      })
+      .post<Success>(
+        `${environment.SERVER_URL}/${environment.UPLOAD_IMAGE_URL}`,
+        {
+          id: id,
+          image: image,
+        }
+      )
       .pipe(catchError((err) => throwError(() => err.error)));
   }
 
-  updatePlaylistDetails(id: string, details: any): Observable<Success> {
+  updatePlaylistDetails(id: string, details: Details): Observable<Success> {
     return this.http.put<Success>(
       `${environment.SERVER_URL}/${environment.UPDATE_PLAYLIST_URL}`,
       {
@@ -51,17 +56,28 @@ export class PlaylistService implements OnDestroy {
     );
   }
 
-  addToPlaylist(id: string, tracks: string[], position: number) {
+  addToPlaylist(
+    id: string,
+    tracks: string[],
+    position: number
+  ): Observable<Snapshot> {
     return this.http
-      .post(`${environment.SERVER_URL}/${environment.ADD_TO_PLAYLIST_URL}`, {
-        id,
-        tracks,
-        position,
-      })
+      .post<Snapshot>(
+        `${environment.SERVER_URL}/${environment.ADD_TO_PLAYLIST_URL}`,
+        {
+          id,
+          tracks,
+          position,
+        }
+      )
       .pipe(catchError((err) => throwError(() => err.error)));
   }
 
-  updatePlaylistTracks(id: string, snapshot: string, values: Track[]) {
+  updatePlaylistTracks(
+    id: string,
+    snapshot: string,
+    values: Track[]
+  ): Observable<Snapshot> {
     const localSongs = [];
     for (let i = 0; i < values.length; i++) {
       if (values[i].local) {
@@ -69,14 +85,17 @@ export class PlaylistService implements OnDestroy {
       }
     }
     return this.http
-      .put(`${environment.SERVER_URL}/${environment.REORDER_PLAYLIST_URL}`, {
-        id: id,
-        snapshot: snapshot,
-        tracks: values.map((track) => {
-          return track.uri;
-        }),
-        localSongs: localSongs,
-      })
+      .put<Snapshot>(
+        `${environment.SERVER_URL}/${environment.REORDER_PLAYLIST_URL}`,
+        {
+          id: id,
+          snapshot: snapshot,
+          tracks: values.map((track) => {
+            return track.uri;
+          }),
+          localSongs: localSongs,
+        }
+      )
       .pipe(catchError((err) => throwError(() => err.error)));
   }
 
@@ -91,11 +110,11 @@ export class PlaylistService implements OnDestroy {
       .pipe(catchError((err) => throwError(() => err.error)));
   }
 
-  updatePlaylists(value: Object) {
+  updatePlaylists(value: Playlist) {
     this._playlistSubject.next(value);
   }
 
-  get playlists(): Observable<Object> {
+  get playlists(): Observable<Playlist | null> {
     return this._playlists;
   }
   ngOnDestroy(): void {

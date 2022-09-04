@@ -7,7 +7,7 @@ const SpotifyAPIBuilder = require("spotify-web-api-node");
 /**
  * Utility class for parsing data
  */
-const Utility = require("./Utility");
+const Utility = require("./utility");
 const util = new Utility();
 
 const app = express();
@@ -29,7 +29,7 @@ app.post("/login", (req, res) => {
     .then((data) => {
       spotify.setAccessToken(data.body.access_token);
       spotify.setRefreshToken(data.body.refresh_token);
-      res.status(200).send(data.body);
+      res.status(200).send(util.login(data.body));
     })
     .catch((err) => {
       res.status(err.statusCode).send(err.body.error);
@@ -39,11 +39,12 @@ app.post("/login", (req, res) => {
 /* ******************** */
 /*       PROFILE        */
 /* ******************** */
+
 app.get("/profile", (req, res) => {
   spotify
     .getMe()
     .then((data) => {
-      res.status(200).send(data.body);
+      res.status(200).send(util.profile(data.body));
     })
     .catch((err) => {
       res.status(err.statusCode).send(err.body.error);
@@ -122,6 +123,19 @@ app.get("/top/artists", (req, res) => {
     });
 });
 
+app.get("/tracks/recent", (req, res) => {
+  spotify
+    .getMyRecentlyPlayedTracks({
+      limit: 10,
+    })
+    .then((data) => {
+      res.status(200).send(util.recentlyPlayed(data.body));
+    })
+    .catch((err) => {
+      res.status(err.statusCode).send(err.body.error);
+    });
+});
+
 /* ********************** */
 /*        Playlist        */
 /* ********************** */
@@ -191,7 +205,7 @@ app.post("/playlist/add", (req, res) => {
       position: req.body.position,
     })
     .then((data) => {
-      res.status(200).send(data.body);
+      res.status(200).send({ snapshot: data.body.snapshot_id });
     })
     .catch((err) => {
       res.status(err.statusCode).send(err.body.error);
@@ -366,35 +380,23 @@ app.post("/album/follow", (req, res) => {
 });
 
 /* ****************** */
-/*       Track       */
+/*        Track       */
 /* ****************** */
+
 app.get("/track", (req, res) => {
   spotify
     .getTrack(req.query.id)
     .then((data) => {
-      res.status(200).send(data.body);
+      res.status(200).send(util.track(data.body));
     })
     .catch((err) => {
       res.status(err.statusCode).send(err.body.error);
     });
 });
 
-/* ****************** */
-/*       Player       */
-/* ****************** */
-
-app.get("/tracks/recent", (req, res) => {
-  spotify
-    .getMyRecentlyPlayedTracks({
-      limit: 10,
-    })
-    .then((data) => {
-      res.status(200).send(data.body);
-    })
-    .catch((err) => {
-      res.status(err.statusCode).send(err.body.error);
-    });
-});
+/* ***************** */
+/*       Player      */
+/* ***************** */
 
 /* *************** */
 /*       MISC      */
@@ -412,14 +414,6 @@ app.get("/recommendations", (req, res) => {
 });
 
 app.get("/test", (req, res) => {
-  // return spotify
-  //   .play()
-  //   .then((data) => {
-  //     res.status(200).send(data);
-  //   })
-  //   .catch((err) => {
-  //     res.status(err.statusCode).send(err.body.error);
-  //   });
   return spotify
     .play()
     .then((data) => {
@@ -432,6 +426,9 @@ app.get("/test", (req, res) => {
 
 app.listen(4201);
 
+/* *************************** */
+/*       Helper Functions      */
+/* *************************** */
 const getAllPlaylistTracks = (data) => {
   const calls = Math.floor(data.tracks.total / 100) + 1;
   const offset = Array(calls)
@@ -453,30 +450,30 @@ const getAllPlaylistTracks = (data) => {
       responses.flatMap((r) => {
         return r.body.items.map((item) => {
           return {
-            id: item.track.id,
-            name: item.track.name,
             album: {
-              id: item.track.album.id,
-              name: item.track.album.name,
-              artist: null,
               date: new Date(item.track.album.release_date),
+              id: item.track.album.id,
               images: item.track.album.images,
+              name: item.track.album.name,
               type: item.track.album.type,
               uri: item.track.album.uri,
             },
-            artist: {
-              id: item.track.artists[0].id,
-              name: item.track.artists[0].name,
-              images: null,
-              type: item.track.artists[0].type,
-              uri: item.track.artists[0].uri,
-            },
+            artists: item.track.artists.map((artist) => {
+              return {
+                id: artist.id,
+                name: artist.name,
+                type: artist.type,
+                uri: artist.uri,
+              };
+            }),
+            date: new Date(item.added_at),
             duration: item.track.duration_ms,
-            popularity: item.track.popularity,
-            local: item.is_local,
             explicit: item.track.explicit,
-            added: new Date(item.added_at),
-            track: item.track.track_number,
+            id: item.track.id,
+            local: item.is_local,
+            name: item.track.name,
+            number: item.track.track_number,
+            popularity: item.track.popularity,
             type: item.track.type,
             uri: item.track.uri,
           };
@@ -484,20 +481,20 @@ const getAllPlaylistTracks = (data) => {
       })
     ).then((tracks) => {
       return {
-        id: data.id,
-        name: data.name,
+        collaborative: data.collaborative,
         description: data.description,
+        id: data.id,
+        images: data.images,
+        name: data.name,
         owner: {
           id: data.owner.id,
           name: data.owner.display_name,
           type: data.owner.type,
           uri: data.owner.uri,
         },
-        tracks: tracks,
-        images: data.images,
         public: data.public,
-        collaborative: data.collaborative,
         snapshot: data.snapshot_id,
+        tracks: tracks,
         type: data.type,
         uri: data.uri,
       };
@@ -526,30 +523,28 @@ const getAllSavedTracks = (data) => {
       responses.flatMap((r) => {
         return r.body.items.map((item) => {
           return {
-            id: item.track.id,
-            name: item.track.name,
             album: {
               id: item.track.album.id,
               name: item.track.album.name,
-              artist: null,
-              date: new Date(item.track.album.release_date),
-              images: item.track.album.images,
               type: item.track.album.type,
               uri: item.track.album.uri,
             },
-            artist: {
-              id: item.track.artists[0].id,
-              name: item.track.artists[0].name,
-              images: null,
-              type: item.track.artists[0].type,
-              uri: item.track.artists[0].uri,
-            },
+            artists: item.track.artists.map((artist) => {
+              return {
+                id: artist.id,
+                name: artist.name,
+                type: artist.type,
+                uri: artist.uri,
+              };
+            }),
+            date: new Date(item.added_at),
             duration: item.track.duration_ms,
-            popularity: item.track.popularity,
-            local: item.is_local,
             explicit: item.track.explicit,
-            added: new Date(item.added_at),
-            track: item.track.track_number,
+            id: item.track.id,
+            local: item.track.is_local,
+            name: item.track.name,
+            number: item.track.track_number,
+            popularity: item.track.popularity,
             type: item.track.type,
             uri: item.track.uri,
           };
