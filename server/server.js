@@ -150,7 +150,7 @@ app.get("/profile", (req, res) => {
     });
 });
 
-app.get("/profile/playlist", (req, res) => {
+app.get("/profile/playlists", (req, res) => {
   spotify
     .getUserPlaylists(req.query.id)
     .then((data) => {

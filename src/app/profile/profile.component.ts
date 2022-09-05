@@ -1,11 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { LibraryService } from '../library/library.service';
 import { ProfileService } from './profile.service';
+import { CurrentUser } from '../models/core/user';
 import { Playlist } from '../models/components/playlist';
 import { PlaylistReturn } from '../models/core/http/playlist';
-import { Profile } from '../models/core/profile';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'spotify-profile',
@@ -14,7 +14,7 @@ import { Profile } from '../models/core/profile';
 })
 export class ProfileComponent implements OnInit, OnDestroy {
   private _id: string = '';
-  private _profile!: Profile;
+  private _profile!: CurrentUser;
   private _publicPlaylists: number = 0;
 
   private _playlists!: Playlist[];
@@ -23,19 +23,14 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   constructor(
     private profileService: ProfileService,
-    private activatedRoute: ActivatedRoute,
-    private libraryService: LibraryService
+    private libraryService: LibraryService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
     this.subscriptions.add(
-      this.activatedRoute.params.subscribe((params: Params) => {
-        this.id = params['id'];
-      })
-    );
-    this.subscriptions.add(
-      this.profileService.getProfile(this.id).subscribe({
-        next: (data: Profile) => {
+      this.profileService.getMe().subscribe({
+        next: (data: CurrentUser) => {
           this.profile = data;
         },
       })
@@ -44,9 +39,16 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.libraryService.getPlaylists().subscribe({
         next: (data: PlaylistReturn) => {
           this.playlists = data.playlists;
+          data.playlists.forEach((playlist: Playlist) => {
+            if (playlist.public) this.publicPlaylists++;
+          });
         },
       })
     );
+  }
+
+  navigate(component: string, params: string) {
+    this.router.navigate([`/${component}/${params}`]);
   }
 
   set id(value: string) {
@@ -56,10 +58,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
     return this._id;
   }
 
-  set profile(value: Profile) {
+  set profile(value: CurrentUser) {
     this._profile = value;
   }
-  get profile(): Profile {
+  get profile(): CurrentUser {
     return this._profile;
   }
 

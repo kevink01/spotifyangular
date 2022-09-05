@@ -92,8 +92,10 @@
   </div>
   <div class="flex-auto">
     <div *ngIf="!loggedIn" class="ml-1">
-      <span>Welcome to Spotify Clone</span><br />
-      <span>Please login to start listening to your music :)</span>
+      <p-card>
+        <span>Welcome to Spotify Clone</span><br />
+        <span>Please login to start listening to your music :)</span>
+      </p-card>
     </div>
     <div *ngIf="loggedIn">
       <p-scrollPanel

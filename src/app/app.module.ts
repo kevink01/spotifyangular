@@ -18,12 +18,14 @@ import { HomeComponent } from './login/home/home.component';
 import { LibraryComponent } from './library/library.component';
 import { LoadingAlbumComponent } from './utility/loading/album/loading-album.component';
 import { LoadingPlaylistComponent } from './utility/loading/playlist/loading-playlist.component';
+import { LoadingProfileComponent } from './utility/loading/profile/loading-profile.component';
 import { LoginRedirectComponent } from './login/redirect/login-redirect.component';
 import { PlaylistComponent } from './playlist/playlist.component';
 import { PlaylistEditComponent } from './playlist/edit/playlist-edit.component';
 import { ProfileComponent } from './profile/profile.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { ToolbarComponent } from './toolbar/toolbar.component';
+import { UserComponent } from './profile/user/user.component';
 
 @NgModule({
   declarations: [
@@ -35,12 +37,14 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
     LibraryComponent,
     LoadingAlbumComponent,
     LoadingPlaylistComponent,
+    LoadingProfileComponent,
     LoginRedirectComponent,
     PlaylistComponent,
     PlaylistEditComponent,
     ProfileComponent,
     SidenavComponent,
     ToolbarComponent,
+    UserComponent,
   ],
   imports: [
     AppRoutingModule,

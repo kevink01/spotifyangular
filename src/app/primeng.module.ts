@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { AccordionModule } from 'primeng/accordion';
 import { AvatarModule } from 'primeng/avatar';
 import { ButtonModule } from 'primeng/button';
+import { CarouselModule } from 'primeng/carousel';
 import { CardModule } from 'primeng/card';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { ContextMenuModule } from 'primeng/contextmenu';
@@ -42,6 +43,7 @@ const MODULES = [
   AccordionModule,
   AvatarModule,
   ButtonModule,
+  CarouselModule,
   CardModule,
   ConfirmPopupModule,
   ContextMenuModule,
