@@ -52,6 +52,10 @@ export class LoginService implements OnDestroy {
       .pipe(catchError((err) => throwError(() => err.error)));
   }
 
+  isLoggedIn(): boolean {
+    return this.profileSubjectValue !== mockProfile;
+  }
+
   private set access(value: string) {
     this._access = value;
   }
@@ -71,6 +75,10 @@ export class LoginService implements OnDestroy {
   }
   private get refresh(): string {
     return this._refresh;
+  }
+
+  private get profileSubjectValue(): CurrentUser {
+    return this._profileSubject.getValue();
   }
 
   updateProfile(profile: CurrentUser) {

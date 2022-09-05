@@ -23,10 +23,14 @@ export class LoginRedirectComponent implements OnInit {
     ) as string;
     this.loginService.login(this.code).subscribe((data: Login) => {
       if (data) {
-        this.loginService.getMyProfile().subscribe(async (profile: CurrentUser) => {
-          await this.loginService.updateProfile(profile);
-          this.router.navigate(['/dashboard']);
-        });
+        this.loginService
+          .getMyProfile()
+          .subscribe(async (profile: CurrentUser) => {
+            await this.loginService.updateProfile(profile);
+            if (this.loginService.isLoggedIn()) {
+              this.router.navigate(['/dashboard']);
+            }
+          });
       }
     });
   }

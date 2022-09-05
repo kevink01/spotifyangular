@@ -44,7 +44,7 @@ app.delete("/logout", (req, res) => {
       .then(() => {
         res.status(200).send({ success: true });
       })
-      .catch((err) => {
+      .catch(() => {
         res.status(400).send({ message: "Unable to logout", status: 400 });
       });
   }

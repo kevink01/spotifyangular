@@ -8,17 +8,33 @@ import { LoginRedirectComponent } from './login/redirect/login-redirect.componen
 import { PlaylistComponent } from './playlist/playlist.component';
 import { ProfileComponent } from './profile/profile.component';
 import { UserComponent } from './profile/user/user.component';
+import { AuthGuard } from './utility/auth.guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'album/:id', component: AlbumComponent },
-  { path: 'library', component: LibraryComponent },
-  { path: 'playlist/:id', component: PlaylistComponent },
-  { path: 'profile', component: ProfileComponent },
-  { path: 'profile/:id', component: UserComponent },
-  { path: 'dashboard', component: DashboardComponent },
-  { path: 'login', component: LoginRedirectComponent },
-  { path: '**', redirectTo: 'dashboard', pathMatch: 'full' },
+  { path: 'album/:id', component: AlbumComponent, canActivate: [AuthGuard] },
+  { path: 'library', component: LibraryComponent, canActivate: [AuthGuard] },
+  {
+    path: 'playlist/:id',
+    component: PlaylistComponent,
+    canActivate: [AuthGuard],
+  },
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
+  { path: 'profile/:id', component: UserComponent, canActivate: [AuthGuard] },
+  // Guard does not exist on dashboard. The Redirect component will do the authentication
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
+  },
+  {
+    path: 'login',
+    component: LoginRedirectComponent,
+  },
+  {
+    path: '**',
+    redirectTo: 'dashboard',
+    pathMatch: 'full',
+  },
 ];
 
 @NgModule({

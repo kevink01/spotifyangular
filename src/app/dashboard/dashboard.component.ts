@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { LoginService } from '../login/login.service';
 import { Playlist } from '../models/components/playlist';
 
 @Component({
@@ -8,9 +10,14 @@ import { Playlist } from '../models/components/playlist';
 })
 export class DashboardComponent implements OnInit {
   private _playlists: Playlist[] = [];
-  constructor() {}
+  constructor(private loginService: LoginService, private router: Router) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (this.loginService.isLoggedIn()) {
+    } else {
+      this.router.navigate(['/']);
+    }
+  }
 
   set playlist(value: Playlist[]) {
     this._playlists = value;
