@@ -6,14 +6,15 @@ import { LibraryComponent } from './library/library.component';
 import { HomeComponent } from './login/home/home.component';
 import { LoginRedirectComponent } from './login/redirect/login-redirect.component';
 import { PlaylistComponent } from './playlist/playlist.component';
-import { ToolbarComponent } from './toolbar/toolbar.component';
+import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'dashboard', component: DashboardComponent },
+  { path: 'profile/:id', component: ProfileComponent },
   { path: 'library', component: LibraryComponent },
   { path: 'playlist/:id', component: PlaylistComponent },
   { path: 'album/:id', component: AlbumComponent },
+  { path: 'dashboard', component: DashboardComponent },
   { path: 'login', component: LoginRedirectComponent },
   { path: '**', redirectTo: 'dashboard', pathMatch: 'full' },
 ];

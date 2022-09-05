@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { LibraryService } from '../library/library.service';
 import { LoginService } from '../login/login.service';
@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 import { CreatePlaylistComponent } from '../playlist/create/create-playlist.component';
 import { RecentTracksReturn } from '../models/core/http/recent';
 import { Track } from '../models/shared/track';
-import { Profile } from '../models/core/profile';
+import { CurrentUser } from '../models/core/user';
 import { Playlist } from '../models/components/playlist';
 import { PlaylistReturn } from '../models/core/http/playlist';
 
@@ -22,7 +22,8 @@ export class SidenavComponent implements OnInit, OnDestroy {
   private _AUTH_LINK!: string;
   private _dialogRef!: DynamicDialogRef;
 
-  private _profile!: Profile;
+  private _profile!: CurrentUser;
+  private _loggedIn: boolean = false;
   private _recent: Track[] = [];
   private _playlists: Playlist[] = [];
 
@@ -38,39 +39,40 @@ export class SidenavComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.AUTH_LINK = environment.AUTH_URL;
-    this.subscriptions.add;
-    // TODO Only get information when successful login
-    this.loginService.profile().subscribe({
-      next: (data: Profile) => {
-        console.log(data);
-        this.profile = data;
-        this.subscriptions.add(
-          this.playerService.getRecentlyPlayed().subscribe({
-            next: (data: RecentTracksReturn) => {
-              this.recent = data.tracks;
-            },
-          })
-        );
-        this.subscriptions.add(
-          this.libraryService.getPlaylists().subscribe({
-            next: (data: PlaylistReturn) => {
-              this.playlists = data.playlists;
-            },
-            error: (err) => {
-              console.error(err);
-            },
-          })
-        );
-      },
-      error: (err) => {
-        console.error(err);
-      },
-    });
-    this.loginService.profile().subscribe({
-      next: (data: Profile) => {
-        console.log(data);
-      },
-    });
+    this.subscriptions.add(
+      this.loginService.profile().subscribe({
+        next: (data: CurrentUser) => {
+          console.log(data);
+          this.profile = data;
+          if (this.profile.name !== '') {
+            this.loggedIn = true;
+          }
+          if (this.loggedIn) {
+            this.subscriptions.add(
+              this.playerService.getRecentlyPlayed().subscribe({
+                next: (data: RecentTracksReturn) => {
+                  console.log(data);
+                  this.recent = data.tracks;
+                },
+              })
+            );
+            this.subscriptions.add(
+              this.libraryService.getPlaylists().subscribe({
+                next: (data: PlaylistReturn) => {
+                  this.playlists = data.playlists;
+                },
+                error: (err) => {
+                  console.error(err);
+                },
+              })
+            );
+          }
+        },
+        error: (err) => {
+          console.error(err);
+        },
+      })
+    );
   }
 
   set AUTH_LINK(value: string) {
@@ -87,11 +89,18 @@ export class SidenavComponent implements OnInit, OnDestroy {
     return this._dialogRef;
   }
 
-  set profile(value: Profile) {
+  set profile(value: CurrentUser) {
     this._profile = value;
   }
-  get profile(): Profile {
+  get profile(): CurrentUser {
     return this._profile;
+  }
+
+  set loggedIn(value: boolean) {
+    this._loggedIn = value;
+  }
+  get loggedIn(): boolean {
+    return this._loggedIn;
   }
 
   set recent(value: Track[]) {

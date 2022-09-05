@@ -78,12 +78,6 @@ export class PlaylistService implements OnDestroy {
     snapshot: string,
     values: Track[]
   ): Observable<Snapshot> {
-    const localSongs = [];
-    for (let i = 0; i < values.length; i++) {
-      if (values[i].local) {
-        localSongs.push(i);
-      }
-    }
     return this.http
       .put<Snapshot>(
         `${environment.SERVER_URL}/${environment.REORDER_PLAYLIST_URL}`,
@@ -93,7 +87,6 @@ export class PlaylistService implements OnDestroy {
           tracks: values.map((track) => {
             return track.uri;
           }),
-          localSongs: localSongs,
         }
       )
       .pipe(catchError((err) => throwError(() => err.error)));

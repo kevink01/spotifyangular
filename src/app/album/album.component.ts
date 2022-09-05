@@ -40,6 +40,15 @@ export class AlbumComponent implements OnInit, OnDestroy {
               },
             })
           );
+          data.tracks?.forEach((track: Track) => {
+            this.subscription.add(
+              this.albumService.trackPopularity(track.id).subscribe({
+                next: (data: Track) => {
+                  track.popularity = data.popularity;
+                },
+              })
+            );
+          });
           this.duration = this.album.tracks
             ? this.calculateDuration(this.album.tracks)
             : '0 minutes';

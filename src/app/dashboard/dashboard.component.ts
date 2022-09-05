@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AccountService } from '../account/account.service';
 import { Playlist } from '../models/components/playlist';
 
 @Component({
@@ -9,7 +8,7 @@ import { Playlist } from '../models/components/playlist';
 })
 export class DashboardComponent implements OnInit {
   private _playlists: Playlist[] = [];
-  constructor(private accountService: AccountService) {}
+  constructor() {}
 
   ngOnInit(): void {}
 

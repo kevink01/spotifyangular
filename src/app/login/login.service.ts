@@ -3,9 +3,9 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Login } from '../models/core/login';
-import { Profile } from '../models/core/profile';
+import { CurrentUser } from '../models/core/user';
 
-const mockProfile: Profile = {
+const mockProfile: CurrentUser = {
   country: '',
   email: '',
   followers: 0,
@@ -24,8 +24,10 @@ export class LoginService implements OnDestroy {
   private _access: string = '';
   private _refresh: string = '';
   private _expires: number = 0;
-  private _profileSubject = new BehaviorSubject<Profile>(mockProfile);
-  private _profile: Observable<Profile> = this._profileSubject.asObservable();
+
+  private _profileSubject = new BehaviorSubject<CurrentUser>(mockProfile);
+  private _profile: Observable<CurrentUser> =
+    this._profileSubject.asObservable();
 
   constructor(private http: HttpClient) {}
 
@@ -35,8 +37,8 @@ export class LoginService implements OnDestroy {
     });
   }
 
-  getMyProfile(): Observable<Profile> {
-    return this.http.get<Profile>(
+  getMyProfile(): Observable<CurrentUser> {
+    return this.http.get<CurrentUser>(
       `${environment.SERVER_URL}/${environment.USER_ME_URL}`
     );
   }
@@ -62,15 +64,16 @@ export class LoginService implements OnDestroy {
     return this._refresh;
   }
 
-  updateProfile(profile: Profile) {
+  updateProfile(profile: CurrentUser) {
     this._profileSubject.next(profile);
   }
 
-  profile(): Observable<Profile> {
+  profile(): Observable<CurrentUser> {
     return this._profile;
   }
 
   ngOnDestroy(): void {
     this._profileSubject.unsubscribe();
+    this._profileSubject.complete();
   }
 }

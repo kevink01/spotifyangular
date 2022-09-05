@@ -29,6 +29,7 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { SkeletonModule } from 'primeng/skeleton';
+import { SplitButtonModule } from 'primeng/splitbutton';
 import { StepsModule } from 'primeng/steps';
 import { TableModule } from 'primeng/table';
 import { TabViewModule } from 'primeng/tabview';
@@ -65,6 +66,7 @@ const MODULES = [
   ProgressSpinnerModule,
   ScrollPanelModule,
   SkeletonModule,
+  SplitButtonModule,
   StepsModule,
   TableModule,
   TabViewModule,

@@ -1,0 +1,31 @@
+<p-card>
+  <div class="w-12 mt-1">
+    <div class="grid grid-nogutter">
+      <div class="flex col-3 justify-content-center">
+        <img [src]="profile.images[0].url" width="200px" height="200px" />
+      </div>
+      <div class="flex flex-column col-9">
+        <h1 class="mt-0 mb-2 text-primary">{{ profile.name }}</h1>
+        <div class="flex gap-3">
+          <div class="flex flex-column gap-2 justify-content-center">
+            <i class="fa-solid fa-users"></i>
+            <i class="fa-solid fa-headphones"></i>
+          </div>
+          <div class="flex flex-column gap-2">
+            <span>{{ profile.followers }} followers </span>
+            <span>{{ publicPlaylists }} public playlists</span>
+          </div>
+        </div>
+        <div class="flex flex-auto align-items-end">
+          <button
+            pButton
+            pRipple
+            type="button"
+            label="Edit Profile"
+            icon="fa-solid fa-gear"
+          ></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</p-card>

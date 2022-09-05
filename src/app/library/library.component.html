@@ -5,61 +5,60 @@
     headerStyleClass="w-4 mt-1 mb-2"
   >
     <div class="w-12">
-      <p-dataView
-        #dv
-        [value]="filteredPlaylists"
-        [sortField]="playlistSort"
-        [paginator]="false"
-        filterBy="name"
-        layout="grid"
+      <div
+        id="header"
+        class="flex flex-column md:flex-row md:justify-content-between mt-3"
       >
-        <ng-template pTemplate="header">
-          <div
-            id="header"
-            class="flex flex-column md:flex-row md:justify-content-between mt-3"
-          >
-            <p class="my-0 text-white-alpha-50">Playlists</p>
-            <p-dropdown
-              [options]="playlistOptions"
-              (onChange)="changeSort('playlists', $event)"
-            ></p-dropdown>
-            <span class="p-input-icon-left p-float-label mb-4 md:mb-0">
-              <i class="fa-solid fa-magnifying-glass"></i>
-              <input
-                id="search-label"
-                type="search"
-                pInputText
-                placeholder="Search by Name"
-                (input)="dv.filter(playlistFilter, 'contains')"
-                [(ngModel)]="playlistFilter"
-              />
-              <label for="search-label">Search</label>
-            </span>
-          </div>
-        </ng-template>
-        <!-- TODO Wrap content in a scrollPanel -->
-        <ng-template let-playlist pTemplate="gridItem">
-          <div
-            class="card w-12 md:w-6 lg:w-4 xl:w-3"
-            (click)="navigate('playlist', playlist.id)"
-          >
-            <div class="flex card-header justify-content-center mb-2">
-              <img
-                src="{{ playlist.images[0].url }}"
-                style="width: 200px; height: 200px; margin-top: 1rem"
-              />
+        <p class="my-0 text-white-alpha-50">Playlists</p>
+        <p-dropdown
+          [options]="playlistOptions"
+          (onChange)="changeSort('playlists', $event)"
+        ></p-dropdown>
+        <span class="p-input-icon-left p-float-label mb-4 md:mb-0">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input
+            id="search-label"
+            type="search"
+            pInputText
+            placeholder="Search by Name"
+            (input)="dv.filter(playlistFilter, 'contains')"
+            [(ngModel)]="playlistFilter"
+          />
+          <label for="search-label">Search</label>
+        </span>
+      </div>
+      <p-scrollPanel [style]="{ width: '100%', height: '61vh' }">
+        <p-dataView
+          #dv
+          [value]="filteredPlaylists"
+          [sortField]="playlistSort"
+          [paginator]="false"
+          filterBy="name"
+          layout="grid"
+        >
+          <ng-template let-playlist pTemplate="gridItem">
+            <div
+              class="card w-12 md:w-6 lg:w-4 xl:w-3"
+              (click)="navigate('playlist', playlist.id)"
+            >
+              <div class="flex card-header justify-content-center mb-2">
+                <img
+                  src="{{ playlist.images[0].url }}"
+                  style="width: 200px; height: 200px; margin-top: 1rem"
+                />
+              </div>
+              <div class="flex flex-column card-content text-center mb-1">
+                <p class="m-0 text-white-alpha-90 text-lg">
+                  {{ playlist.name }}
+                </p>
+                <p class="m-0 text-white-alpha-60">
+                  {{ playlist.owner.name }}
+                </p>
+              </div>
             </div>
-            <div class="flex flex-column card-content text-center mb-1">
-              <p class="m-0 text-white-alpha-90 text-lg">
-                {{ playlist.name }}
-              </p>
-              <p class="m-0 text-white-alpha-60">
-                {{ playlist.owner.name }}
-              </p>
-            </div>
-          </div>
-        </ng-template>
-      </p-dataView>
+          </ng-template>
+        </p-dataView>
+      </p-scrollPanel>
     </div>
   </p-tabPanel>
   <p-tabPanel
@@ -68,60 +67,59 @@
     headerStyleClass="w-4 mt-1 mb-2"
   >
     <div class="w-12">
-      <p-dataView
-        #dv1
-        [value]="filteredArtists"
-        [sortField]="artistSort"
-        [paginator]="false"
-        filterBy="name"
-        layout="grid"
+      <div
+        id="header"
+        class="flex flex-column md:flex-row md:justify-content-between mt-3"
       >
-        <ng-template pTemplate="header">
-          <div
-            id="header"
-            class="flex flex-column md:flex-row md:justify-content-between mt-3"
-          >
-            <p class="my-0 text-white-alpha-50">Artists</p>
-            <p-dropdown
-              [options]="artistOptions"
-              (onChange)="changeSort('artists', $event)"
-            ></p-dropdown>
-            <span class="p-input-icon-left p-float-label mb-4 md:mb-0">
-              <i class="fa-solid fa-magnifying-glass"></i>
-              <input
-                id="search-label"
-                type="search"
-                pInputText
-                placeholder="Search by Name"
-                (input)="dv1.filter(artistFilter, 'contains')"
-                [(ngModel)]="artistFilter"
-              />
-              <label for="search-label">Search</label>
-            </span>
-          </div>
-        </ng-template>
-        <!-- TODO Wrap content in a scrollPanel -->
-        <ng-template let-artist pTemplate="gridItem">
-          <div class="card w-12 md:w-6 lg:w-4 xl:w-3">
-            <div class="flex card-header justify-content-center mb-2">
-              <img
-                src="{{ artist.images[0].url }}"
-                style="
-                  width: 200px;
-                  height: 200px;
-                  margin-top: 1rem;
-                  border-radius: 50%;
-                "
-              />
+        <p class="my-0 text-white-alpha-50">Artists</p>
+        <p-dropdown
+          [options]="artistOptions"
+          (onChange)="changeSort('artists', $event)"
+        ></p-dropdown>
+        <span class="p-input-icon-left p-float-label mb-4 md:mb-0">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input
+            id="search-label"
+            type="search"
+            pInputText
+            placeholder="Search by Name"
+            (input)="dv1.filter(artistFilter, 'contains')"
+            [(ngModel)]="artistFilter"
+          />
+          <label for="search-label">Search</label>
+        </span>
+      </div>
+      <p-scrollPanel [style]="{ width: '100%', height: '61vh' }">
+        <p-dataView
+          #dv1
+          [value]="filteredArtists"
+          [sortField]="artistSort"
+          [paginator]="false"
+          filterBy="name"
+          layout="grid"
+        >
+          <ng-template let-artist pTemplate="gridItem">
+            <div class="card w-12 md:w-6 lg:w-4 xl:w-3">
+              <div class="flex card-header justify-content-center mb-2">
+                <img
+                  src="{{ artist.images[0].url }}"
+                  style="
+                    width: 200px;
+                    height: 200px;
+                    margin-top: 1rem;
+                    border-radius: 50%;
+                  "
+                />
+              </div>
+              <div class="flex flex-column card-content text-center mb-1">
+                <p class="m-0 text-white-alpha-90 text-lg">
+                  {{ artist.name }}
+                </p>
+              </div>
             </div>
-            <div class="flex flex-column card-content text-center mb-1">
-              <p class="m-0 text-white-alpha-90 text-lg">
-                {{ artist.name }}
-              </p>
-            </div>
-          </div>
-        </ng-template>
-      </p-dataView>
+          </ng-template>
+        </p-dataView>
+      </p-scrollPanel>
     </div>
   </p-tabPanel>
   <p-tabPanel
@@ -130,61 +128,60 @@
     headerStyleClass="w-4 mt-1 mb-2"
   >
     <div class="w-12">
-      <p-dataView
-        #dv2
-        [value]="filteredAlbums"
-        [sortField]="albumSort"
-        [paginator]="false"
-        filterBy="name"
-        layout="grid"
+      <div
+        id="header"
+        class="flex flex-column md:flex-row md:justify-content-between mt-3"
       >
-        <ng-template pTemplate="header">
-          <div
-            id="header"
-            class="flex flex-column md:flex-row md:justify-content-between mt-3"
-          >
-            <p class="my-0 text-white-alpha-50">Albums</p>
-            <p-dropdown
-              [options]="albumOptions"
-              (onChange)="changeSort('albums', $event)"
-            ></p-dropdown>
-            <span class="p-input-icon-left p-float-label mb-4 md:mb-0">
-              <i class="fa-solid fa-magnifying-glass"></i>
-              <input
-                id="search-label"
-                type="search"
-                pInputText
-                placeholder="Search by Name"
-                (input)="dv2.filter(albumFilter, 'contains')"
-                [(ngModel)]="albumFilter"
-              />
-              <label for="search-label">Search</label>
-            </span>
-          </div>
-        </ng-template>
-        <!-- TODO Wrap content in a scrollPanel -->
-        <ng-template let-album pTemplate="gridItem">
-          <div
-            class="card w-12 md:w-6 lg:w-4 xl:w-3"
-            (click)="navigate('album', album.id)"
-          >
-            <div class="flex card-header justify-content-center mb-2">
-              <img
-                src="{{ album.images[0].url }}"
-                style="width: 200px; height: 200px; margin-top: 1rem"
-              />
+        <p class="my-0 text-white-alpha-50">Albums</p>
+        <p-dropdown
+          [options]="albumOptions"
+          (onChange)="changeSort('albums', $event)"
+        ></p-dropdown>
+        <span class="p-input-icon-left p-float-label mb-4 md:mb-0">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input
+            id="search-label"
+            type="search"
+            pInputText
+            placeholder="Search by Name"
+            (input)="dv2.filter(albumFilter, 'contains')"
+            [(ngModel)]="albumFilter"
+          />
+          <label for="search-label">Search</label>
+        </span>
+      </div>
+      <p-scrollPanel [style]="{ width: '100%', height: '61vh' }">
+        <p-dataView
+          #dv2
+          [value]="filteredAlbums"
+          [sortField]="albumSort"
+          [paginator]="false"
+          filterBy="name"
+          layout="grid"
+        >
+          <ng-template let-album pTemplate="gridItem">
+            <div
+              class="card w-12 md:w-6 lg:w-4 xl:w-3"
+              (click)="navigate('album', album.id)"
+            >
+              <div class="flex card-header justify-content-center mb-2">
+                <img
+                  src="{{ album.images[0].url }}"
+                  style="width: 200px; height: 200px; margin-top: 1rem"
+                />
+              </div>
+              <div class="flex flex-column card-content text-center mb-1">
+                <p class="m-0 text-white-alpha-90 text-lg">
+                  {{ album.name }}
+                </p>
+                <p class="m-0 text-white-alpha-60">
+                  {{ album.artists[0].name }}
+                </p>
+              </div>
             </div>
-            <div class="flex flex-column card-content text-center mb-1">
-              <p class="m-0 text-white-alpha-90 text-lg">
-                {{ album.name }}
-              </p>
-              <p class="m-0 text-white-alpha-60">
-                {{ album.artists[0].name }}
-              </p>
-            </div>
-          </div>
-        </ng-template>
-      </p-dataView>
+          </ng-template>
+        </p-dataView>
+      </p-scrollPanel>
     </div>
   </p-tabPanel>
 </p-tabView>

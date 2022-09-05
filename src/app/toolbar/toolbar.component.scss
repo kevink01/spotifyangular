@@ -1,34 +1,4 @@
-.menu {
-  background-color: hsl(0, 0%, 14%) !important;
-}
-
-.toolbar-dark {
-  background-color: hsl(0, 0%, 14%);
-  color: white;
-}
-
-.menu-button {
-  background-color: hsl(0, 0%, 14%);
-  color: hsl(132, 6%, 60%);
-  text-align: left;
-  &:hover {
-    color: white;
-  }
-}
-
-.menu-icon {
-  color: hsl(141, 75.5%, 48%);
-}
-
-.menu-button:hover .menu-icon {
-  color: white;
-}
-
-.menu-item {
-  background-color: hsl(0, 0%, 14%);
-  color: hsl(132, 6%, 60%);
-  text-align: left;
-  &:hover {
-    color: white;
-  }
+.link {
+  cursor: pointer;
+  text-decoration: none;
 }

@@ -120,7 +120,6 @@ export class LibraryComponent implements OnInit, OnDestroy {
         if (value.indexOf('!') === 0) {
           this.filteredAlbums = this.albums;
         } else if (value === 'name') {
-          // TODO this.albums is undefined
           this.filteredAlbums = [...this.albums].sort((album1, album2) =>
             album1.name.toLocaleLowerCase().localeCompare(album2.name)
           );
@@ -215,7 +214,7 @@ export class LibraryComponent implements OnInit, OnDestroy {
   set albums(value: Album[]) {
     this._albums = value;
   }
-  get ablums(): Album[] {
+  get albums(): Album[] {
     return this._albums;
   }
 

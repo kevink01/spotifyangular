@@ -11,6 +11,7 @@ import { AppComponent } from './app.component';
 import { PrimengModule } from './primeng.module';
 import { StyleClassModule } from 'primeng/styleclass';
 
+import { AlbumComponent } from './album/album.component';
 import { CreatePlaylistComponent } from './playlist/create/create-playlist.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HomeComponent } from './login/home/home.component';
@@ -20,14 +21,14 @@ import { LoadingPlaylistComponent } from './utility/loading/playlist/loading-pla
 import { LoginRedirectComponent } from './login/redirect/login-redirect.component';
 import { PlaylistComponent } from './playlist/playlist.component';
 import { PlaylistEditComponent } from './playlist/edit/playlist-edit.component';
+import { ProfileComponent } from './profile/profile.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { ToolbarComponent } from './toolbar/toolbar.component';
-
-import { AlbumComponent } from './album/album.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    AlbumComponent,
     CreatePlaylistComponent,
     DashboardComponent,
     HomeComponent,
@@ -37,9 +38,9 @@ import { AlbumComponent } from './album/album.component';
     LoginRedirectComponent,
     PlaylistComponent,
     PlaylistEditComponent,
+    ProfileComponent,
     SidenavComponent,
     ToolbarComponent,
-    AlbumComponent,
   ],
   imports: [
     AppRoutingModule,

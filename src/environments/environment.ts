@@ -38,53 +38,69 @@ export const environment = {
 
   SERVER_URL: 'http://localhost:4201',
 
-  /* ***************** */
-  /*       LOGIN       */
-  /* ***************** */
+  /* ************* */
+  /*     LOGIN     */
+  /* ************* */
   LOGIN_URL: 'login',
 
-  /* ******************** */
-  /*       PROFILE        */
-  /* ******************** */
-  USER_ME_URL: 'profile',
-  USER_PLAYLISTS_URL: 'profile/playlists',
-  FOLLOWED_ARTISTS_URL: 'profile/artists',
-  SAVED_ALBUMS_URL: 'profile/albums',
-  TOP_TRACKS_URL: 'top/tracks',
-  TOP_ARTISTS_URL: 'top/artists',
-  SAVED_SONGS_URL: 'profile/tracks',
+  /* ************ */
+  /*     USER     */
+  /* ************ */
+  USER_ME_URL: 'me',
+  USER_PLAYLISTS_URL: 'user/playlists',
+  FOLLOWED_ARTISTS_URL: 'user/artists',
+  SAVED_SONGS_URL: 'user/tracks',
+  SAVED_ALBUMS_URL: 'user/albums',
+  TOP_TRACKS_URL: 'user/top/tracks',
+  TOP_ARTISTS_URL: 'user/top/artists',
+  RECENTLY_PLAYED_URL: 'user/recent/tracks',
 
-  /* ********************** */
-  /*        Playlist        */
-  /* ********************** */
+  /* *************** */
+  /*     PROFILE     */
+  /* *************** */
+  PROFILE_URL: 'profile',
+  PROFILE_PLAYLISTS_URI: 'profile/playlists',
+
+  /* **************** */
+  /*     Playlist     */
+  /* **************** */
   PLAYLIST_URL: 'playlist',
-  FEAUTRED_PLAYLISTS_URL: 'featured',
   CREATE_PLAYLIST_URL: 'playlist/new',
-  UPDATE_PLAYLIST_URL: 'playlist/update',
-  REORDER_PLAYLIST_URL: 'playlist/reorder',
+  UPDATE_PLAYLIST_URL: 'playlist/details',
   UPLOAD_IMAGE_URL: 'playlist/image',
-  ADD_TO_PLAYLIST_URL: 'playlist/add',
-  DELETE_PLAYLIST_URL: 'playlist/delete',
+  ADD_TO_PLAYLIST_URL: 'playlist/tracks/new',
+  REORDER_PLAYLIST_URL: 'playlist/tracks/reorder',
+  DELETE_PLAYLIST_URL: 'playlist',
+  FEAUTRED_PLAYLISTS_URL: 'playlist/featured',
 
-  /* ****************** */
-  /*       Artist       */
-  /* ****************** */
+  /* ************** */
+  /*     Artist     */
+  /* ************** */
+  ARTIST_URL: 'artist',
   ARTIST_ALBUMS_URL: 'artist/albums',
   ARTIST_TOP_TRACKS_URL: 'artist/tracks',
   ARTIST_RELATED_URL: 'artist/related',
 
-  /* ****************** */
-  /*       Album        */
-  /* ****************** */
+  /* ************* */
+  /*     Album     */
+  /* ************* */
   ALBUM_URL: 'album',
   FOLLOWING_ALBUM_URL: 'album/following',
-  FOLLOW_ALBUM_URL: 'album/follow',
+  FOLLOW_ALBUM_URL: 'album/add',
 
-  /* ****************** */
-  /*       Player       */
-  /* ****************** */
-  RECENTLY_PLAYED_URL: 'tracks/recent',
+  /* ************* */
+  /*     Track     */
+  /* ************* */
   TRACK_URL: 'track',
+
+  /* ************** */
+  /*     Player     */
+  /* ************** */
+
+  /* ************ */
+  /*     MISC     */
+  /* ************ */
+  RECOMMENDATIONS_URL: 'recommendations',
 };
 
 /*

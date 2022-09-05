@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs';
 import { MenuItem } from 'primeng/api';
 import { environment } from 'src/environments/environment';
 import { LoginService } from '../login/login.service';
-import { Profile } from '../models/core/profile';
+import { CurrentUser } from '../models/core/user';
 
 @Component({
   selector: 'spotify-toolbar',
@@ -13,18 +13,29 @@ import { Profile } from '../models/core/profile';
 })
 export class ToolbarComponent implements OnInit, OnDestroy {
   private _AUTH_LINK: string = '';
-  private _profile!: Profile;
+  private _profile!: CurrentUser;
+  private _loggedIn: boolean = false;
   private _items: MenuItem[] = [];
+  private _loginItems: MenuItem[] = [];
 
-  private subscription = new Subscription();
+  private timer!: any;
+
+  private subscriptions = new Subscription();
 
   constructor(private loginService: LoginService, private router: Router) {}
 
   ngOnInit() {
+    // TODO Keep client refreshed
+    // this.timer = setInterval(() => {
+    //   console.log('Hello');
+    // }, 2000);
     this.AUTH_LINK = environment.AUTH_URL;
-    this.subscription.add(
-      this.loginService.profile().subscribe((data: Profile) => {
+    this.subscriptions.add(
+      this.loginService.profile().subscribe((data: CurrentUser) => {
         this.profile = data;
+        if (this.profile.name !== '') {
+          this.loggedIn = true;
+        }
       })
     );
     this.items = [
@@ -44,10 +55,23 @@ export class ToolbarComponent implements OnInit, OnDestroy {
         command: () => {},
       },
     ];
+    this.loginItems = [
+      {
+        label: 'Login',
+        icon: 'fa-solid fa-right-to-bracket',
+        command: () => {
+          window.location.href = this.AUTH_LINK;
+        },
+      },
+    ];
   }
 
-  returnHome(): void {
-    this.router.navigate(['/dashboard']);
+  navigate(path: string, params: string): void {
+    this.router.navigate([`/${path}`, params]);
+  }
+
+  logout(): void {
+    clearInterval(this.timer);
   }
 
   set AUTH_LINK(value: string) {
@@ -57,11 +81,18 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     return this._AUTH_LINK;
   }
 
-  set profile(value: Profile) {
+  set profile(value: CurrentUser) {
     this._profile = value;
   }
-  get profile(): Profile {
+  get profile(): CurrentUser {
     return this._profile;
+  }
+
+  set loggedIn(value: boolean) {
+    this._loggedIn = value;
+  }
+  get loggedIn(): boolean {
+    return this._loggedIn;
   }
 
   set items(value: MenuItem[]) {
@@ -71,7 +102,14 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     return this._items;
   }
 
+  set loginItems(value: MenuItem[]) {
+    this._loginItems = value;
+  }
+  get loginItems(): MenuItem[] {
+    return this._loginItems;
+  }
+
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.subscriptions.unsubscribe();
   }
 }
