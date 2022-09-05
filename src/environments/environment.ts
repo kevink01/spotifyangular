@@ -61,6 +61,9 @@ export const environment = {
   /* *************** */
   PROFILE_URL: 'profile',
   PROFILE_PLAYLISTS_URL: 'profile/playlists',
+  FOLLOWING_USER_URL: 'profile/following',
+  FOLLOW_USER_URL: 'profile/new',
+  UNFOLLOW_USER_URL: 'profile',
 
   /* **************** */
   /*     Playlist     */

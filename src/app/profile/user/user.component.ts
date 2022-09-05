@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { LibraryService } from '../../library/library.service';
+import { MessageService } from 'primeng/api';
 import { ProfileService } from '../profile.service';
 import { Playlist } from '../../models/components/playlist';
 import { PlaylistReturn } from 'src/app/models/core/http/playlist';
-import { Profile } from 'src/app/models/core/profile';
+import { Profile } from '../../models/core/profile';
+import { Following } from '../../models/core/following';
+import { Success } from 'src/app/models/core/success';
 
 @Component({
   selector: 'spotify-user',
@@ -16,6 +18,7 @@ export class UserComponent implements OnInit {
   private _id: string = '';
   private _profile!: Profile;
   private _publicPlaylists: number = 0;
+  private _isFollowing: boolean = false;
 
   private _playlists!: Playlist[];
 
@@ -24,7 +27,7 @@ export class UserComponent implements OnInit {
   constructor(
     private profileService: ProfileService,
     private activatedRoute: ActivatedRoute,
-    private libraryService: LibraryService,
+    private messageService: MessageService,
     private router: Router
   ) {}
 
@@ -48,9 +51,87 @@ export class UserComponent implements OnInit {
                 });
               })
           );
+          this.subscriptions.add(
+            this.profileService
+              .isFollowingUser(data.id)
+              .subscribe((data: Following) => {
+                this.isFollowing = data.following;
+              })
+          );
         },
       })
     );
+  }
+
+  toggleFollow(): void {
+    switch (this.isFollowing) {
+      case true:
+        this.subscriptions.add(
+          this.profileService.unfollowUser(this.profile.id).subscribe({
+            next: (data: Success) => {
+              if (data.success) {
+                this.isFollowing = !this.isFollowing;
+                this.messageService.add({
+                  severity: 'success',
+                  summary: 'Unfollowed user! 😪',
+                  detail: this.profile.name,
+                  life: 2000,
+                });
+              } else {
+                this.messageService.add({
+                  severity: 'warning',
+                  summary: 'Something went wrong...',
+                  detail: this.profile.name,
+                  life: 2000,
+                });
+              }
+            },
+            error: (err) => {
+              this.messageService.add({
+                severity: 'error',
+                summary: 'Unable to follow user',
+                detail: err.message,
+                life: 2000,
+              });
+            },
+          })
+        );
+        break;
+      case false:
+        this.subscriptions.add(
+          this.profileService.followUser(this.profile.id).subscribe({
+            next: (data: Success) => {
+              if (data.success) {
+                this.isFollowing = !this.isFollowing;
+                this.messageService.add({
+                  severity: 'success',
+                  summary: 'Followed user! 😊',
+                  detail: this.profile.name,
+                  life: 2000,
+                });
+              } else {
+                this.messageService.add({
+                  severity: 'warning',
+                  summary: 'Something went wrong...',
+                  detail: this.profile.name,
+                  life: 2000,
+                });
+              }
+            },
+            error: (err) => {
+              this.messageService.add({
+                severity: 'error',
+                summary: 'Unable to unfollow user',
+                detail: err.message,
+                life: 2000,
+              });
+            },
+          })
+        );
+        break;
+      default:
+        break;
+    }
   }
 
   navigate(component: string, params: string) {
@@ -76,6 +157,13 @@ export class UserComponent implements OnInit {
   }
   get publicPlaylists(): number {
     return this._publicPlaylists;
+  }
+
+  set isFollowing(value: boolean) {
+    this._isFollowing = value;
+  }
+  get isFollowing(): boolean {
+    return this._isFollowing;
   }
 
   set playlists(value: Playlist[]) {

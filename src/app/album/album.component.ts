@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs';
 import { MessageService } from 'primeng/api';
 import { AlbumService } from './album.service';
 import { Color } from '../utility/index';
-import { Following } from '../models/playlist/following';
+import { Following } from '../models/core/following';
 import { Track } from '../models/components/track';
 import { Album } from '../models/components/album';
 

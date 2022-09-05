@@ -11,16 +11,20 @@ import { UserComponent } from './profile/user/user.component';
 import { AuthGuard } from './utility/auth.guard';
 
 const routes: Routes = [
+  // TODO Comment out the canActivate: [AuthGuard] when ready
   { path: '', component: HomeComponent },
-  { path: 'album/:id', component: AlbumComponent, canActivate: [AuthGuard] },
-  { path: 'library', component: LibraryComponent, canActivate: [AuthGuard] },
+  { path: 'album/:id', component: AlbumComponent /*canActivate: [AuthGuard]*/ },
+  { path: 'library', component: LibraryComponent /*canActivate: [AuthGuard]*/ },
   {
     path: 'playlist/:id',
     component: PlaylistComponent,
-    canActivate: [AuthGuard],
+    /*canActivate: [AuthGuard],*/
   },
-  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
-  { path: 'profile/:id', component: UserComponent, canActivate: [AuthGuard] },
+  { path: 'profile', component: ProfileComponent /*canActivate: [AuthGuard]*/ },
+  {
+    path: 'profile/:id',
+    component: UserComponent /*canActivate: [AuthGuard]*/,
+  },
   // Guard does not exist on dashboard. The Redirect component will do the authentication
   {
     path: 'dashboard',

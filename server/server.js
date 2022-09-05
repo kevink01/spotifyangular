@@ -156,7 +156,6 @@ app.get("/profile", (req, res) => {
   spotify
     .getUser(req.query.id)
     .then((data) => {
-      console.log(data.body);
       res.status(200).send(util.profile(data.body));
     })
     .catch((err) => {
@@ -169,6 +168,40 @@ app.get("/profile/playlists", (req, res) => {
     .getUserPlaylists(req.query.id)
     .then((data) => {
       res.status(200).send(util.userPlaylists(data.body));
+    })
+    .catch((err) => {
+      res.status(err.statusCode).send(err.body.error);
+    });
+});
+
+app.get("/profile/following", (req, res) => {
+  spotify
+    .isFollowingUsers([req.query.id])
+    .then((data) => {
+      res.status(200).send({ following: data.body[0] });
+    })
+    .catch((err) => {
+      res.status(err.statusCode).send(err.body.error);
+    });
+});
+
+app.post("/profile/new", (req, res) => {
+  spotify
+    .followUsers([req.body.id])
+    .then(() => {
+      res.status(200).send({ success: true });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(err.statusCode).send(err.body.error);
+    });
+});
+
+app.delete("/profile", (req, res) => {
+  spotify
+    .unfollowUsers([req.body.id])
+    .then((data) => {
+      res.status(200).send({ success: true });
     })
     .catch((err) => {
       res.status(err.statusCode).send(err.body.error);

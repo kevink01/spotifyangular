@@ -1,7 +1,8 @@
 <div *ngIf="!profile || !playlists">
-  <loading-playlist></loading-playlist>
+  <loading-profile></loading-profile>
 </div>
 <div *ngIf="profile && playlists">
+  <p-toast></p-toast>
   <p-card>
     <div class="grid grid-nogutter w-12 mt-1">
       <div class="flex col-3 justify-content-center">
@@ -22,6 +23,19 @@
           <div class="col-11">
             <span>{{ publicPlaylists }} public playlists</span>
           </div>
+        </div>
+        <div class="flex flex-auto align-items-end">
+          <button
+            pButton
+            pRipple
+            type="button"
+            [label]="isFollowing ? 'Unfollow User' : 'Follow User'"
+            [icon]="
+              isFollowing ? 'fa-solid fa-user-minus' : 'fa-solid fa-user-plus'
+            "
+            [ngClass]="isFollowing ? 'p-button-danger' : 'p-button-success'"
+            (click)="toggleFollow()"
+          ></button>
         </div>
       </div>
     </div>

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'spotify-profile',
+  selector: 'loading-profile',
   templateUrl: './loading-profile.component.html',
   styleUrls: ['./loading-profile.component.scss']
 })

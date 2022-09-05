@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
-import { Following } from '../models/playlist/following';
+import { Following } from '../models/core/following';
 import { Success } from '../models/core/success';
 import { Album } from '../models/components/album';
 import { Track } from '../models/components/track';
