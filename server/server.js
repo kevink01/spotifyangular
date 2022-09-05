@@ -36,6 +36,20 @@ app.post("/login", (req, res) => {
     });
 });
 
+app.delete("/logout", (req, res) => {
+  if (spotify.getAccessToken() === undefined) {
+    res.status(400).send({ message: "Not logged in", status: 400 });
+  } else {
+    Promise.all([spotify.resetAccessToken(), spotify.resetRefreshToken()])
+      .then(() => {
+        res.status(200).send({ success: true });
+      })
+      .catch((err) => {
+        res.status(400).send({ message: "Unable to logout", status: 400 });
+      });
+  }
+});
+
 /* ************ */
 /*     USER     */
 /* ************ */

@@ -52,7 +52,15 @@ export class ToolbarComponent implements OnInit, OnDestroy {
       {
         label: 'Log out',
         icon: 'fa-solid fa-right-from-bracket',
-        command: () => {},
+        command: () => {
+          this.subscriptions.add(
+            this.loginService.logout().subscribe({
+              next: () => {
+                window.location.href = '/';
+              },
+            })
+          );
+        },
       },
     ];
     this.loginItems = [

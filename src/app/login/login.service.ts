@@ -1,8 +1,9 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable, OnDestroy } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, catchError, Observable, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Login } from '../models/core/login';
+import { Success } from '../models/core/success';
 import { CurrentUser } from '../models/core/user';
 
 const mockProfile: CurrentUser = {
@@ -32,15 +33,23 @@ export class LoginService implements OnDestroy {
   constructor(private http: HttpClient) {}
 
   login(code: string): Observable<Login> {
-    return this.http.post<Login>(`${environment.SERVER_URL}/login`, {
-      code: JSON.stringify(code),
-    });
+    return this.http
+      .post<Login>(`${environment.SERVER_URL}/${environment.LOGIN_URL}`, {
+        code: JSON.stringify(code),
+      })
+      .pipe(catchError((err) => throwError(() => err.error)));
   }
 
   getMyProfile(): Observable<CurrentUser> {
-    return this.http.get<CurrentUser>(
-      `${environment.SERVER_URL}/${environment.USER_ME_URL}`
-    );
+    return this.http
+      .get<CurrentUser>(`${environment.SERVER_URL}/${environment.USER_ME_URL}`)
+      .pipe(catchError((err) => throwError(() => err.error)));
+  }
+
+  logout(): Observable<Success> {
+    return this.http
+      .delete<Success>(`${environment.SERVER_URL}/${environment.LOGOUT_URL}`)
+      .pipe(catchError((err) => throwError(() => err.error)));
   }
 
   private set access(value: string) {
