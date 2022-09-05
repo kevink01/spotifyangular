@@ -1,56 +1,17 @@
 $spacing: 2rem;
 $grey-link: hsl(0, 0%, 50%);
 
-.search {
-  display: flex;
-  flex-direction: row;
-  width: calc(100vw - 2 * $spacing);
-  margin-left: $spacing;
-  margin-top: 1rem;
-}
-
 .card {
-  width: 9.5rem;
+  width: 25%;
   margin-top: 1rem;
   &:hover {
-    filter: brightness(110%);
+    filter: brightness(120%);
     cursor: pointer;
   }
-}
-
-.flex-items {
-  margin-left: $spacing;
-  margin-bottom: $spacing;
-}
-
-.image {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 0.625rem;
-}
-
-.artist-image {
-  border-radius: 50%;
-}
-
-.title {
-  white-space: nowrap;
-  width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-p {
-  color: $grey-link;
 }
 
 a:link,
 a:visited {
   color: $grey-link;
   text-decoration: none;
-}
-
-a:hover {
-  color: lighten($color: $grey-link, $amount: 10%);
-  text-decoration: underline;
 }

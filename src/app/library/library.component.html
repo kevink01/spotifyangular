@@ -1,11 +1,10 @@
-<!-- TODO Handle routing for cards -->
 <p-tabView class="w-12">
-  <p-tabPanel headerStyleClass="w-4 mt-1 mb-2">
-    <ng-template pTemplate="header">
-      <fa-icon icon="headphones" class="mr-4"></fa-icon>
-      <span>Playlists</span>
-    </ng-template>
-    <div class="card w-12">
+  <p-tabPanel
+    header="Playlists"
+    leftIcon="fa-solid fa-headphones"
+    headerStyleClass="w-4 mt-1 mb-2"
+  >
+    <div class="w-12">
       <p-dataView
         #dv
         [value]="filteredPlaylists"
@@ -25,7 +24,7 @@
               (onChange)="changeSort('playlists', $event)"
             ></p-dropdown>
             <span class="p-input-icon-left p-float-label mb-4 md:mb-0">
-              <i class="pi pi-search"></i>
+              <i class="fa-solid fa-magnifying-glass"></i>
               <input
                 id="search-label"
                 type="search"
@@ -41,7 +40,7 @@
         <!-- TODO Wrap content in a scrollPanel -->
         <ng-template let-playlist pTemplate="gridItem">
           <div
-            class="card w-12 md:w-6 lg:w-4 xl:w-3 hover:bg-white-alpha-50"
+            class="card w-12 md:w-6 lg:w-4 xl:w-3"
             (click)="navigate('playlist', playlist.id)"
           >
             <div class="flex card-header justify-content-center mb-2">
@@ -63,12 +62,12 @@
       </p-dataView>
     </div>
   </p-tabPanel>
-  <p-tabPanel headerStyleClass="w-4 mt-1 mb-2">
-    <ng-template pTemplate="header">
-      <fa-icon icon="users" class="mr-4"></fa-icon>
-      <span>Artists</span>
-    </ng-template>
-    <div class="card w-12">
+  <p-tabPanel
+    header="Artists"
+    leftIcon="fa-solid fa-users"
+    headerStyleClass="w-4 mt-1 mb-2"
+  >
+    <div class="w-12">
       <p-dataView
         #dv1
         [value]="filteredArtists"
@@ -88,7 +87,7 @@
               (onChange)="changeSort('artists', $event)"
             ></p-dropdown>
             <span class="p-input-icon-left p-float-label mb-4 md:mb-0">
-              <i class="pi pi-search"></i>
+              <i class="fa-solid fa-magnifying-glass"></i>
               <input
                 id="search-label"
                 type="search"
@@ -103,7 +102,7 @@
         </ng-template>
         <!-- TODO Wrap content in a scrollPanel -->
         <ng-template let-artist pTemplate="gridItem">
-          <div class="card w-12 md:w-6 lg:w-4 xl:w-3 hover:bg-white-alpha-50">
+          <div class="card w-12 md:w-6 lg:w-4 xl:w-3">
             <div class="flex card-header justify-content-center mb-2">
               <img
                 src="{{ artist.images[0].url }}"
@@ -125,12 +124,12 @@
       </p-dataView>
     </div>
   </p-tabPanel>
-  <p-tabPanel headerStyleClass="w-4 mt-1 mb-2">
-    <ng-template pTemplate="header">
-      <fa-icon icon="compact-disc" class="mr-4"></fa-icon>
-      <span>Albums</span>
-    </ng-template>
-    <div class="card w-12">
+  <p-tabPanel
+    header="Albums"
+    leftIcon="fa-solid fa-compact-disc"
+    headerStyleClass="w-4 mt-1 mb-2"
+  >
+    <div class="w-12">
       <p-dataView
         #dv2
         [value]="filteredAlbums"
@@ -144,13 +143,13 @@
             id="header"
             class="flex flex-column md:flex-row md:justify-content-between mt-3"
           >
-            <p class="my-0 text-white-alpha-50">Artists</p>
+            <p class="my-0 text-white-alpha-50">Albums</p>
             <p-dropdown
               [options]="albumOptions"
               (onChange)="changeSort('albums', $event)"
             ></p-dropdown>
             <span class="p-input-icon-left p-float-label mb-4 md:mb-0">
-              <i class="pi pi-search"></i>
+              <i class="fa-solid fa-magnifying-glass"></i>
               <input
                 id="search-label"
                 type="search"
@@ -165,7 +164,10 @@
         </ng-template>
         <!-- TODO Wrap content in a scrollPanel -->
         <ng-template let-album pTemplate="gridItem">
-          <div class="card w-12 md:w-6 lg:w-4 xl:w-3 hover:bg-white-alpha-50">
+          <div
+            class="card w-12 md:w-6 lg:w-4 xl:w-3"
+            (click)="navigate('album', album.id)"
+          >
             <div class="flex card-header justify-content-center mb-2">
               <img
                 src="{{ album.images[0].url }}"
@@ -177,7 +179,7 @@
                 {{ album.name }}
               </p>
               <p class="m-0 text-white-alpha-60">
-                {{ album.artist.name }}
+                {{ album.artists[0].name }}
               </p>
             </div>
           </div>

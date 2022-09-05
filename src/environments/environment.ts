@@ -7,6 +7,7 @@ const SCOPES: string = [
   'user-read-private',
   // Library scope
   'user-library-read',
+  'user-library-modify',
   // Playlist scope
   'playlist-read-private',
   'playlist-modify-private',
@@ -22,12 +23,12 @@ const SCOPES: string = [
   // // Image scope
   'ugc-image-upload',
   // // Spotify connect scope
-  // // 'user-modify-playback-state',
-  // // 'user-read-playback-state',
-  // // 'user-read-currently-playing',
+  'user-modify-playback-state',
+  'user-read-playback-state',
+  'user-read-currently-playing',
   // // Playback scope
-  // // 'app-remote-control',
-  // // 'streaming'
+  'app-remote-control',
+  'streaming',
 ].join(' ');
 const clientID: string = '71d200c4569d4b5bad224df289aeff4c';
 
@@ -60,6 +61,7 @@ export const environment = {
   FEAUTRED_PLAYLISTS_URL: 'featured',
   CREATE_PLAYLIST_URL: 'playlist/new',
   UPDATE_PLAYLIST_URL: 'playlist/update',
+  REORDER_PLAYLIST_URL: 'playlist/reorder',
   UPLOAD_IMAGE_URL: 'playlist/image',
   ADD_TO_PLAYLIST_URL: 'playlist/add',
   DELETE_PLAYLIST_URL: 'playlist/delete',
@@ -72,9 +74,17 @@ export const environment = {
   ARTIST_RELATED_URL: 'artist/related',
 
   /* ****************** */
+  /*       Album        */
+  /* ****************** */
+  ALBUM_URL: 'album',
+  FOLLOWING_ALBUM_URL: 'album/following',
+  FOLLOW_ALBUM_URL: 'album/follow',
+
+  /* ****************** */
   /*       Player       */
   /* ****************** */
   RECENTLY_PLAYED_URL: 'tracks/recent',
+  TRACK_URL: 'track',
 };
 
 /*

@@ -5,17 +5,15 @@
   <p-toast key="delete" (onClose)="redirect($event)"></p-toast>
   <p-table
     #dt
-    [loading]="loading"
     [value]="tracks"
     [scrollable]="true"
-    scrollHeight="595px"
-    [globalFilterFields]="['name', 'artist.name', 'album.name']"
+    scrollHeight="400px"
+    [globalFilterFields]="['name', 'album.name']"
   >
     <ng-template pTemplate="caption">
       <div class="flex flex-row sticky w-12">
-        <div class="flex w-4 xl:w-3 align-items-center">
+        <div class="flex w-4 xl:w-3 justify-content-center">
           <img
-            *ngIf="!loading"
             src="{{ playlist.images[0].url }}"
             class="w-9rem md:w-11rem lg:w-15rem h-9rem md:h-11rem lg:h-15rem"
           />
@@ -27,16 +25,19 @@
           </div>
           <div class="flex flex-column ml-2 flex-initial gap-1">
             <div>
-              <fa-icon icon="star"></fa-icon>
+              <i class="fa-solid fa-star"></i>
               <span class="ml-2">{{ playlist.tracks.length }}</span>
             </div>
             <div>
-              <fa-icon icon="stopwatch"></fa-icon>
-              <span class="ml-2">{{ length }}</span>
+              <i class="fa-solid fa-stopwatch"></i>
+              <span class="ml-2">{{ duration }}</span>
             </div>
             <div>
-              <fa-icon *ngIf="playlist.public" icon="lock-open"></fa-icon>
-              <fa-icon *ngIf="!playlist.public" icon="lock"></fa-icon>
+              <i
+                [class]="
+                  playlist.public ? 'fa-solid fa-lock-open' : 'fa-solid fa-lock'
+                "
+              ></i>
               <span class="ml-2"
                 >{{ playlist.public ? "Public" : "Private" }} playlist</span
               >
@@ -48,44 +49,42 @@
               pRipple
               type="button"
               label="Play"
+              icon="fa-solid fa-circle-play"
               class="p-button-success p-button-lg mt-2"
-            >
-              <fa-icon icon="circle-play" class="mr-2"></fa-icon>
-            </button>
+            ></button>
             <button
               pButton
               pRipple
               type="button"
               label="Edit"
+              icon="fa-solid fa-pen-to-square"
               class="p-button-info p-button-lg mt-2"
-              (click)="show()"
-            >
-              <fa-icon icon="pen-to-square" class="mr-2"></fa-icon>
-            </button>
+              (click)="showDialog()"
+            ></button>
             <p-confirmPopup></p-confirmPopup>
             <button
               pButton
               pRipple
               type="button"
               label="Delete"
+              icon="fa-solid fa-trash"
               class="p-button-danger p-button-lg mt-2"
               (click)="confirmDelete($event)"
-            >
-              <fa-icon icon="trash" class="mr-2"></fa-icon>
-            </button>
+            ></button>
           </span>
           <!-- <div class="flex flex-row my-2">
           </div> -->
         </div>
         <div class="flex flex-column w-4 xl:w-3 justify-content-center">
           <div class="absolute bottom-0 right-0">
-            <span class="p-float-label">
+            <span class="p-float-label p-input-icon-left">
+              <i class="fa-solid fa-search"></i>
               <input
                 #search
+                pInputText
                 id="float-input"
                 name="filter"
                 type="text"
-                pInputText
                 placeholder="Search for keyword"
                 (input)="dt.filterGlobal(search.value, 'contains')"
               />
@@ -104,8 +103,8 @@
         <th style="flex: 1 1 30%" pSortableColumn="album.name">
           Album<p-sortIcon field="album.name"></p-sortIcon>
         </th>
-        <th style="flex: 1 1 12%" pSortableColumn="added">
-          Date Added<p-sortIcon field="added"></p-sortIcon>
+        <th style="flex: 1 1 12%" pSortableColumn="date">
+          Date Added<p-sortIcon field="date"></p-sortIcon>
         </th>
         <th style="flex: 1 1 12%" pSortableColumn="duration">
           Duration<p-sortIcon field="duration"></p-sortIcon>
@@ -142,19 +141,25 @@
                 style="cursor: pointer"
                 >{{ track.name }}</span
               >
-              <a
-                *ngIf="!track.local"
-                class="text-white-alpha-50 hover:text-white-alpha-90"
-                [href]="'artist/' + track.artist.id"
-                >{{ track.artist.name }}</a
-              >
-              <span
-                *ngIf="track.local"
-                class="text-white-alpha-50 hover:text-white-alpha-90"
-                style="cursor: pointer"
-              >
-                {{ track.artist.name }}</span
-              >
+              <div *ngIf="!track.local">
+                <div *ngFor="let artist of track.artists">
+                  <a
+                    class="text-white-alpha-50 hover:text-white-alpha-90"
+                    [href]="'artist/' + artist.id"
+                    >{{ artist.name }}</a
+                  >
+                </div>
+              </div>
+              <div *ngIf="track.local">
+                <div *ngFor="let artist of track.artists">
+                  <span
+                    class="text-white-alpha-50 hover:text-white-alpha-90"
+                    style="cursor: pointer"
+                  >
+                    {{ artist.name }}</span
+                  >
+                </div>
+              </div>
             </div>
           </div>
         </td>
@@ -172,8 +177,8 @@
             >{{ track.album.name }}</span
           >
         </td>
-        <td style="flex: 1 1 12%">{{ track.added | date: "M/dd/yyy" }}</td>
-        <td style="flex: 1 1 12%">{{ track.duration | date: "mm:ss" }}</td>
+        <td style="flex: 1 1 12%">{{ track.date | date: "M/dd/yyy" }}</td>
+        <td style="flex: 1 1 12%">{{ track.duration | date: "m:ss" }}</td>
       </tr>
     </ng-template>
   </p-table>

@@ -1,34 +1,34 @@
 <div class="flex flex-column" style="height: calc(100vh - 89px)">
-  <div class="flex-initial">
+  <div class="">
     <p-card>
       <div
         class="menu-item col-12 flex flex-row justify-content-start hover:text-primary"
-        (click)="this.navigate('dashboard')"
+        (click)="navigate('dashboard')"
       >
-        <fa-icon
-          icon="house-chimney-user"
+        <i
+          class="fa-solid fa-house-chimney-user"
           style="font-size: 1.5rem; margin-right: 1rem"
           pTooltip="Home"
           [showDelay]="250"
           [hideDelay]="100"
           [tooltipDisabled]="homeSpan === undefined"
-        ></fa-icon>
+        ></i>
         <span #homeSpan class="mt-0 text-lg lg:text-2xl hidden md:inline-block"
           >Home</span
         >
       </div>
       <div
         class="menu-item col-12 flex flex-row justify-content-start hover:text-primary"
-        (click)="createPlaylist()"
+        (click)="createPlaylistDialog()"
       >
-        <fa-icon
-          icon="folder-plus"
+        <i
+          class="fa-solid fa-folder-plus"
           style="font-size: 1.5rem; margin-right: 1rem"
           pTooltip="Create a playlist"
           [showDelay]="250"
           [hideDelay]="100"
           [tooltipDisabled]="playlistSpan === undefined"
-        ></fa-icon>
+        ></i>
         <span
           #playlistSpan
           class="mt-0 text-lg lg:text-2xl hidden md:inline-block"
@@ -38,16 +38,16 @@
       </div>
       <div
         class="menu-item col-12 flex flex-row justify-content-start hover:text-primary"
-        (click)="this.navigate('library')"
+        (click)="navigate('library')"
       >
-        <fa-icon
-          icon="book-bookmark"
+        <i
+          class="fa-solid fa-book-bookmark"
           style="font-size: 1.5rem; margin-right: 1rem"
           pTooltip="Library"
           [showDelay]="250"
           [hideDelay]="100"
           [tooltipDisabled]="likedSpan === undefined"
-        ></fa-icon>
+        ></i>
         <span
           #librarySpan
           class="mt-0 text-lg lg:text-2xl hidden md:inline-block"
@@ -56,16 +56,16 @@
       </div>
       <div
         class="menu-item col-12 flex flex-row justify-content-start hover:text-primary-500"
-        (click)="this.navigate('library')"
+        (click)="navigate('library')"
       >
-        <fa-icon
-          icon="heart-circle-check"
+        <i
+          class="fa-solid fa-heart-circle-check"
           style="font-size: 1.5rem; margin-right: 1rem"
           pTooltip="Liked Songs"
           [showDelay]="250"
           [hideDelay]="100"
           [tooltipDisabled]="likedSpan === undefined"
-        ></fa-icon>
+        ></i>
         <span
           #likedSpan
           class="mt-0 text-lg lg:text-2xl hidden sm:inline-block"
@@ -74,7 +74,7 @@
         </span>
       </div>
       <div
-        *ngIf="profile === 'Not logged in'"
+        *ngIf="profile.name === ''"
         class="col-12 flex flex-column justify-content-center"
       >
         <p-divider></p-divider><br />
@@ -83,24 +83,24 @@
           pRipple
           type="button"
           label="Login"
+          icon="fa-solid fa-arrow-right-to-bracket"
           class="p-button-lg"
-          [href]="this.AUTH_LINK"
-          ><fa-icon icon="arrow-right-to-bracket"></fa-icon
+          [href]="AUTH_LINK"
         ></a>
       </div>
     </p-card>
   </div>
   <!-- TODO ScrollPanel for playlists -->
   <div class="flex-auto" style="background-color: #1e1e1e">
-    <div *ngIf="profile === 'Not logged in'" class="ml-1">
+    <div *ngIf="profile.name === ''" class="ml-1">
       <span>Welcome to Spotify Clone</span><br />
       <span>Please login to start listening to your music :)</span>
     </div>
-    <div *ngIf="profile !== 'Not logged in'">
+    <div *ngIf="profile.name !== ''">
       <!-- TODO Responsive scrollPanel-->
       <p-scrollPanel
         styleClass="w-12 text-sm lg:text-lg"
-        [style]="{ width: '100%', 'max-height': '332px' }"
+        [style]="{ width: '100%', height: '62vh' }"
       >
         <div class="ml-1 justify-items-center">
           <p-fieldset
@@ -111,34 +111,58 @@
             <div *ngFor="let track of recent" class="grid grid-nogutter col-12">
               <div class="col-2">
                 <img
-                  [src]="track.track.album.images[0].url"
+                  [src]="track.album.images[0].url"
                   style="width: 40px; height: 40px"
                 />
               </div>
               <div class="flex flex-column col-6">
                 <div class="text-overflow-ellipsis">
                   <span class="overflow-hidden text-overflow-ellipsis">{{
-                    track.track.name
+                    track.name
                   }}</span>
                 </div>
                 <span class="text-overflow-ellipsis">{{
-                  track.track.album.artists[0].name
+                  track.artists[0].name
                 }}</span>
               </div>
               <div class="flex flex-column col-4">
                 <div>
-                  <i class="pi pi-calendar"></i>
-                  <span>{{ track.played_at | date: "E hh:mm" }}</span>
+                  <i class="fa-solid fa-calendar"></i>
+                  <span>{{ track.date | date: "E hh:mm" }}</span>
                 </div>
                 <div>
-                  <i class="pi pi-clock"></i>
-                  <span>{{ track.track.duration_ms | date: "mm:ss" }}</span>
+                  <i class="fa-solid fa-clock"></i>
+                  <span>{{ track.duration | date: "mm:ss" }}</span>
                 </div>
               </div>
             </div>
           </p-fieldset>
           <br />
-          <p-fieldset legend="Playlists" [toggleable]="true"> </p-fieldset>
+          <p-fieldset *ngIf="playlists" [toggleable]="true" legend="Playlists">
+            <div
+              *ngFor="let playlist of playlists"
+              class="grid grid--nogutter col-12"
+            >
+              <div class="col-2">
+                <img
+                  [src]="playlist.images[0].url"
+                  style="width: 40px; height: 40px"
+                />
+              </div>
+              <div class="flex flex-column col-6">
+                <div class="text-overflow-ellipsis">
+                  <span
+                    class="overflow-hidden text-overflow-ellipsis"
+                    (click)="navigate('playlist/' + playlist.id)"
+                    >{{ playlist.name }}</span
+                  >
+                </div>
+                <span class="text-overflow-ellipsis">{{
+                  playlist.owner.name
+                }}</span>
+              </div>
+            </div>
+          </p-fieldset>
         </div>
       </p-scrollPanel>
     </div>

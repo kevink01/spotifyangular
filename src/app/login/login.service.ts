@@ -1,59 +1,72 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
-import { BehaviorSubject, Observable, takeUntil } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { Login } from '../models/core/login';
+import { Profile } from '../models/core/profile';
+
+const mockProfile: Profile = {
+  country: '',
+  email: '',
+  followers: 0,
+  id: '',
+  images: [],
+  name: '',
+  product: '',
+  type: '',
+  uri: '',
+};
+
 @Injectable({
   providedIn: 'root',
 })
 export class LoginService implements OnDestroy {
-  private _accessToken!: string;
-  private _refreshToken!: string;
-  private _expiresIn!: number;
-  private _profileSubject = new BehaviorSubject<Object>('Not logged in');
-  private _profile = this._profileSubject.asObservable();
+  private _access: string = '';
+  private _refresh: string = '';
+  private _expires: number = 0;
+  private _profileSubject = new BehaviorSubject<Profile>(mockProfile);
+  private _profile: Observable<Profile> = this._profileSubject.asObservable();
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient) {}
 
-  login(code: string): Observable<Object> {
-    return this.http.post(`${environment.SERVER_URL}/login`, {
+  login(code: string): Observable<Login> {
+    return this.http.post<Login>(`${environment.SERVER_URL}/login`, {
       code: JSON.stringify(code),
     });
   }
 
-  getMyProfile(): Observable<Object> {
-    return this.http.get(
+  getMyProfile(): Observable<Profile> {
+    return this.http.get<Profile>(
       `${environment.SERVER_URL}/${environment.USER_ME_URL}`
     );
   }
 
-  private set accessToken(value: string) {
-    this._accessToken = value;
+  private set access(value: string) {
+    this._access = value;
   }
-  private set expiresIn(value: number) {
-    this._expiresIn = value;
-  }
-  private set refreshToken(value: string) {
-    this._refreshToken = value;
+  private get access(): string {
+    return this._access;
   }
 
-  private get accessToken(): string {
-    return this._accessToken;
+  private set expires(value: number) {
+    this._expires = value;
+  }
+  private get expires(): number {
+    return this._expires;
   }
 
-  private get expiresIn(): number {
-    return this._expiresIn;
+  private set refresh(value: string) {
+    this._refresh = value;
+  }
+  private get refresh(): string {
+    return this._refresh;
   }
 
-  private get refreshToken(): string {
-    return this._refreshToken;
-  }
-
-  updateProfile(profile: Object) {
+  updateProfile(profile: Profile) {
     this._profileSubject.next(profile);
   }
 
-  get profile(): Observable<Object> {
+  profile(): Observable<Profile> {
     return this._profile;
   }
 

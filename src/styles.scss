@@ -4,12 +4,9 @@
 
 body {
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-family: Roboto, "Helvetica Neue", sans-serif, "Font Awesome 6 Free";
 }
 
 a {
   text-decoration: none;
 }
-
-// TODO Add custom styling for PrimeNG
-$my-color: hsl(141, 76%, 48%);

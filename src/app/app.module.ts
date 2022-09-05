@@ -8,52 +8,22 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import {
-  FaIconLibrary,
-  FontAwesomeModule,
-} from '@fortawesome/angular-fontawesome';
-import { PrimengModule } from './shared/primeng.module';
+import { PrimengModule } from './primeng.module';
 import { StyleClassModule } from 'primeng/styleclass';
 
-import { CreatePlaylistComponent } from './sidenav/playlist/create-playlist.component';
+import { CreatePlaylistComponent } from './playlist/create/create-playlist.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HomeComponent } from './login/home/home.component';
 import { LibraryComponent } from './library/library.component';
-import { LoadingPlaylistComponent } from './shared/loading/playlist/loading-playlist.component';
+import { LoadingAlbumComponent } from './utility/loading/album/loading-album.component';
+import { LoadingPlaylistComponent } from './utility/loading/playlist/loading-playlist.component';
 import { LoginRedirectComponent } from './login/redirect/login-redirect.component';
 import { PlaylistComponent } from './playlist/playlist.component';
 import { PlaylistEditComponent } from './playlist/edit/playlist-edit.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
-import { TestComponent } from './test/test.component';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 
-import {
-  faAnglesLeft,
-  faAnglesRight,
-  faArrowRightToBracket,
-  faBan,
-  faBars,
-  faBookBookmark,
-  faCircleNotch,
-  faCirclePlay,
-  faCompactDisc,
-  faFloppyDisk,
-  faFolderPlus,
-  faHeadphones,
-  faHeartCircleCheck,
-  faHouseChimneyUser,
-  faLock,
-  faLockOpen,
-  faMagnifyingGlass,
-  faMinus,
-  faPenToSquare,
-  faPlus,
-  faStar,
-  faStopwatch,
-  faTrash,
-  faUser,
-  faUsers,
-} from '@fortawesome/free-solid-svg-icons';
+import { AlbumComponent } from './album/album.component';
 
 @NgModule({
   declarations: [
@@ -62,19 +32,19 @@ import {
     DashboardComponent,
     HomeComponent,
     LibraryComponent,
+    LoadingAlbumComponent,
     LoadingPlaylistComponent,
     LoginRedirectComponent,
     PlaylistComponent,
     PlaylistEditComponent,
     SidenavComponent,
     ToolbarComponent,
-    TestComponent,
+    AlbumComponent,
   ],
   imports: [
     AppRoutingModule,
     BrowserAnimationsModule,
     BrowserModule,
-    FontAwesomeModule,
     FormsModule,
     HttpClientModule,
     PrimengModule,
@@ -84,34 +54,4 @@ import {
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule {
-  constructor(private library: FaIconLibrary) {
-    library.addIcons(
-      faAnglesLeft,
-      faAnglesRight,
-      faArrowRightToBracket,
-      faBan,
-      faBars,
-      faBookBookmark,
-      faCircleNotch,
-      faCirclePlay,
-      faCompactDisc,
-      faFloppyDisk,
-      faFolderPlus,
-      faHeadphones,
-      faHeartCircleCheck,
-      faHouseChimneyUser,
-      faLock,
-      faLockOpen,
-      faMagnifyingGlass,
-      faMinus,
-      faPenToSquare,
-      faPlus,
-      faStar,
-      faStopwatch,
-      faTrash,
-      faUser,
-      faUsers
-    );
-  }
-}
+export class AppModule {}

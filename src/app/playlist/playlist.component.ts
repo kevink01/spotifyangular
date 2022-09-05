@@ -1,13 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { Playlist } from '../models/Profile/Playlist';
-import { PlaylistService } from './playlist.service';
-import { Track } from '../models/Profile/Track';
-import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { PlaylistEditComponent } from './edit/playlist-edit.component';
-import { faCode } from '@fortawesome/free-solid-svg-icons';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { PlaylistService } from './playlist.service';
+import { PlaylistEditComponent } from './edit/playlist-edit.component';
+import { Playlist } from '../models/components/playlist';
+import { Track } from '../models/shared/track';
 
 @Component({
   selector: 'spotify-playlist',
@@ -16,46 +15,33 @@ import { ConfirmationService, MessageService } from 'primeng/api';
   providers: [DialogService],
 })
 export class PlaylistComponent implements OnInit, OnDestroy {
-  id: string = '';
-  playlist!: Playlist;
-  tracks!: Track[];
-  length: string = '';
-  subscription = new Subscription();
-  loading = true;
-  edit = false;
+  private _id: string = '';
+  private _playlist!: Playlist;
+  private _tracks!: Track[];
+  private _duration: string = '';
+
   private dialogRef!: DynamicDialogRef;
+  private subscription = new Subscription();
+
   constructor(
     private activatedRoute: ActivatedRoute,
-    private playlistService: PlaylistService,
-    private dialogService: DialogService,
     private confirmationService: ConfirmationService,
+    private dialogService: DialogService,
     private messageService: MessageService,
+    private playlistService: PlaylistService,
     private router: Router
-  ) {
-    faCode.iconName.toString();
-  }
+  ) {}
 
   ngOnInit(): void {
     this.id = this.activatedRoute.snapshot.params['id'];
     this.subscription.add(
       this.playlistService.getPlaylist(this.id).subscribe((playlist) => {
         console.log(playlist);
-        this.loading = false;
         this.playlist = playlist;
         this.tracks = playlist.tracks;
-        this.length = this.calculateDuration(playlist.tracks);
+        this.duration = this.calculateDuration(playlist.tracks);
       })
     );
-  }
-
-  private calculateDuration(tracks: Track[]): string {
-    let time = 0;
-    tracks.forEach((track) => {
-      time += track.duration;
-    });
-    let hours = Math.floor(time / 3600000);
-    let minutes = Math.floor((time % 3600000) / 60000);
-    return `${hours}:${minutes}`;
   }
 
   confirmDelete(event: any): void {
@@ -91,13 +77,7 @@ export class PlaylistComponent implements OnInit, OnDestroy {
     });
   }
 
-  redirect(event: any) {
-    if (event.message.severity === 'success') {
-      this.router.navigate(['/dashboard']);
-    }
-  }
-
-  show(): void {
+  showDialog(): void {
     this.dialogRef = this.dialogService.open(PlaylistEditComponent, {
       header: `Edit ${this.playlist.name}`,
       width: '70vw',
@@ -105,15 +85,58 @@ export class PlaylistComponent implements OnInit, OnDestroy {
       data: this.playlist,
     });
     this.subscription.add(
-      this.dialogRef.onClose.subscribe(() => console.log('Done'))
+      this.subscription.add(
+        this.dialogRef.onClose.subscribe(() => console.log('Done'))
+      )
     );
   }
 
-  getDialog(): DynamicDialogRef {
-    return this.dialogRef;
+  redirect(event: any) {
+    if (event.message.severity === 'success') {
+      this.router.navigate(['/dashboard']);
+    }
   }
-  getTracks(): Track[] {
-    return this.playlist.tracks;
+
+  private calculateDuration(tracks: Track[]): string {
+    let time = 0;
+    tracks.forEach((track) => {
+      time += track.duration;
+    });
+    let hours = Math.floor(time / 3600000);
+    let minutes = Math.floor((time % 3600000) / 60000);
+    if (hours === 0) {
+      return `${minutes} minutes`;
+    } else {
+      return `${hours}hr ${minutes} min`;
+    }
+  }
+
+  set id(value: string) {
+    this._id = value;
+  }
+  get id(): string {
+    return this._id;
+  }
+
+  set playlist(value: Playlist) {
+    this._playlist = value;
+  }
+  get playlist(): Playlist {
+    return this._playlist;
+  }
+
+  set tracks(value: Track[]) {
+    this._tracks = value;
+  }
+  get tracks(): Track[] {
+    return this._tracks;
+  }
+
+  set duration(value: string) {
+    this._duration = value;
+  }
+  get duration(): string {
+    return this._duration;
   }
 
   ngOnDestroy(): void {
