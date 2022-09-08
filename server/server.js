@@ -3,6 +3,7 @@ const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
 const SpotifyAPIBuilder = require("spotify-web-api-node");
+const https = require("https");
 
 /**
  * Utility class for parsing data
@@ -462,9 +463,131 @@ app.get("/track", (req, res) => {
     });
 });
 
-/* ************** */
-/*     Player     */
-/* ************** */
+app.get("/devices", (req, res) => {
+  spotify
+    .getMyDevices()
+    .then((data) => {
+      res.status(200).send(util.devices(data.body));
+    })
+    .catch((err) => {
+      res.status(err.statusCode).send(err.body.error);
+    });
+});
+
+app.get("/playback", (req, res) => {
+  spotify
+    .getMyCurrentPlaybackState()
+    .then((data) => {
+      res.status(200).send(util.playback(data.body));
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(err.statusCode).send(err.body.error);
+    });
+});
+
+app.post("/transfer", (req, res) => {
+  spotify
+    .transferMyPlayback([req.body.id])
+    .then((data) => {
+      res.status(200).send({ success: true });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(err.statusCode).send(err.body.error);
+    });
+});
+
+app.post("/play", (req, res) => {
+  spotify
+    .play()
+    .then(() => {
+      res.status(200).send({ playing: true });
+    })
+    .catch((err) => {
+      res.status(err.statusCode).send(err.body.error);
+    });
+});
+
+app.post("/pause", (req, res) => {
+  spotify
+    .pause()
+    .then(() => {
+      res.status(200).send({ playing: false });
+    })
+    .catch((err) => {
+      res.status(err.statusCode).send(err.body.error);
+    });
+});
+
+app.post("/seek", (req, res) => {
+  spotify
+    .seek(req.body.position)
+    .then(() => {
+      res.status(200).send({ position: req.body.position });
+    })
+    .catch((err) => {
+      res.status(err.statusCode).send(err.body.error);
+    });
+});
+
+app.post("/next", (req, res) => {
+  spotify
+    .skipToNext()
+    .then(() => {
+      res.status(200).send({ success: true });
+    })
+    .catch((err) => {
+      res.status(err.statusCode).send(err.body.error);
+    });
+});
+
+app.post("/previous", (req, res) => {
+  spotify
+    .skipToPrevious()
+    .then(() => {
+      res.status(200).send({ success: true });
+    })
+    .catch((err) => {
+      res.status(err.statusCode).send(err.body.error);
+    });
+});
+
+app.post("/shuffle", (req, res) => {
+  spotify
+    .setShuffle(req.body.shuffle)
+    .then(() => {
+      res.status(200).send({ shuffle: req.body.shuffle });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(err.statusCode).send(err.body.error);
+    });
+});
+
+app.post("/repeat", (req, res) => {
+  spotify
+    .setRepeat(req.body.repeat)
+    .then(() => {
+      res.status(200).send({ repeat: req.body.repeat });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(err.statusCode).send(err.body.error);
+    });
+});
+
+app.post("/queue", (req, res) => {
+  spotify
+    .addToQueue(req.body.uri)
+    .then((data) => {
+      res.status(200).send(data.body);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(err.statusCode).send(err.body.error);
+    });
+});
 
 /* ************ */
 /*     MISC     */

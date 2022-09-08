@@ -1,0 +1,194 @@
+<div *ngIf="playback && queue" class="flex flex-row">
+  <div class="flex col-1 justify-content-center">
+    <img
+      [src]="playback.track.album.images[0].url"
+      width="80px"
+      height="80px"
+      class="mr-2"
+    />
+  </div>
+  <div class="flex flex-column align-content-between col-2">
+    <div class="flex col-12">
+      <div
+        class="white-space-nowrap overflow-hidden text-overflow-ellipsis text-primary font-bold link"
+        style="width: 200px"
+        (click)="navigate('album', playback.track.album.id)"
+      >
+        {{ playback.track.name }}
+      </div>
+    </div>
+
+    <div class="flex flex-wrap col-12">
+      <span
+        class="text-color-secondary link"
+        onclick="navigate('artist', artist.id)"
+        >{{ playback.track.artists[0].name }}</span
+      >
+    </div>
+  </div>
+  <div class="flex flex-column col-7">
+    <div class="grid grid-nogutter">
+      <div class="col-2">
+        <button
+          pButton
+          pRipple
+          type="button"
+          icon="fa-solid fa-rotate-left"
+          class="p-button-rounded p-button-text"
+          (click)="beginning()"
+        ></button>
+      </div>
+      <div class="flex col-8 justify-content-center">
+        <button
+          pButton
+          pRipple
+          type="button"
+          icon="fa-solid fa-backward"
+          class="p-button-rounded p-button-text"
+          (click)="previous()"
+        ></button>
+
+        <button
+          pButton
+          pRipple
+          type="button"
+          [icon]="playback.playing ? 'fa-solid fa-pause' : 'fa-solid fa-play'"
+          class="p-button-rounded p-button-text"
+          (click)="togglePlay()"
+        ></button>
+        <button
+          pButton
+          pRipple
+          type="button"
+          icon="fa-solid fa-forward"
+          class="p-button-rounded p-button-text"
+          (click)="playback.repeat === 'track' ? beginning() : next()"
+        ></button>
+      </div>
+      <div class="flex col-2 justify-content-end">
+        <button
+          pButton
+          pRipple
+          type="button"
+          class="p-button-rounded p-button-text"
+          (click)="shuffle()"
+        >
+          <i
+            [class]="
+              playback.shuffle
+                ? 'fa-solid fa-shuffle'
+                : 'fa-solid fa-arrow-right'
+            "
+          ></i>
+        </button>
+        <button
+          pButton
+          pRipple
+          type="button"
+          class="p-button-rounded p-button-text"
+          (click)="repeat()"
+        >
+          <i
+            [class]="
+              playback.repeat === 'off'
+                ? 'fa-solid fa-ban'
+                : playback.repeat === 'context'
+                ? 'fa-solid fa-repeat'
+                : 'fa-solid fa-arrows-spin'
+            "
+          ></i>
+        </button>
+      </div>
+    </div>
+    <div class="flex col-12 align-items-center">
+      <div class="col-1">
+        <span>{{ progress | date: "mm:ss" }}</span>
+      </div>
+      <div class="col-10">
+        <p-slider
+          [(ngModel)]="songProgress"
+          (onSlideEnd)="seek($event)"
+        ></p-slider>
+      </div>
+
+      <div class="col-1">
+        <span>{{ playback.track.duration | date: "mm:ss" }}</span>
+      </div>
+    </div>
+  </div>
+  <div class="flex col-1 justify-content-end">
+    <p-overlayPanel #op [showCloseIcon]="true">
+      <ng-template pTemplate="content">
+        <div class="w-30rem">
+          <div>
+            <span class="text-primary font-bold">Currently playing:</span>
+            <div class="flex flex-row w-12 text-sm lg:text-lg">
+              <div class="flex col-2 justify-content-center">
+                <img
+                  [src]="queue.current.album.images[0].url"
+                  width="50px"
+                  height="50px"
+                />
+              </div>
+              <div class="flex flex-column col-10 ml-2">
+                <span
+                  class="white-space-nowrap overflow-hidden text-overflow-ellipsis link"
+                  >{{ queue.current.name }}</span
+                >
+                <span
+                  class="white-space-nowrap overflow-hidden text-overflow-ellipsis link"
+                  >{{ queue.current.artists[0].name }}</span
+                >
+              </div>
+            </div>
+          </div>
+          <p-divider></p-divider>
+          <span class="text-primary font-bold">Up next:</span>
+          <p-scrollPanel
+            styleClass="w-12 text-sm lg:text-lg"
+            [style]="{ width: '100%', height: '50vh' }"
+            ><div *ngFor="let track of queue.queue">
+              <div class="flex flex-row w-12">
+                <div class="flex col-2 justify-content-center">
+                  <img
+                    [src]="track.album.images[0].url"
+                    width="50px"
+                    height="50px"
+                  />
+                </div>
+                <div class="flex flex-column col-10 ml-2">
+                  <span>{{ track.name }}</span>
+                  <span>{{ track.artists[0].name }}</span>
+                </div>
+              </div>
+            </div></p-scrollPanel
+          >
+        </div>
+      </ng-template>
+    </p-overlayPanel>
+    <button
+      pButton
+      pRipple
+      type="button"
+      icon="fa-solid fa-music"
+      class="p-button-rounded p-button-text"
+      (click)="op.toggle($event)"
+    ></button>
+  </div>
+  <div #toggle class="col-1 justify-content-end">
+    <button
+      pButton
+      pRipple
+      type="button"
+      label="Devices"
+      icon="fa-solid fa-mobile"
+      (click)="menu.toggle($event)"
+    ></button>
+    <p-menu
+      #menu
+      [popup]="true"
+      [appendTo]="toggle"
+      [model]="devicesMenu"
+    ></p-menu>
+  </div>
+</div>

@@ -1,5 +1,5 @@
-<p-toolbar #toolbar>
-  <div class="p-toolbar-group-left">
+<div #toolbar id="toolbar" class="flex col-12" style="height: 15vh">
+  <div class="flex flex-none align-items-start col-2">
     <button
       pButton
       type="button"
@@ -14,7 +14,10 @@
       (click)="navigate('dashboard')"
     ></button>
   </div>
-  <div class="p-toolbar-group-right">
+  <div class="flex flex-grow-1 flex-column col-8">
+    <spotify-player *ngIf="loggedIn"></spotify-player>
+  </div>
+  <div class="flex flex-none col-2 justify-content-end">
     <p-splitButton
       [label]="!loggedIn ? 'Login' : profile.name"
       [model]="!loggedIn ? loginItems : items"
@@ -34,16 +37,14 @@
             shape="circle"
             styleClass="mr-2"
           ></p-avatar>
-          <span
-            class="ml-2 align-items-start"
-            (click)="navigate('profile')"
-            >{{ profile.name }}</span
-          >
+          <span class="ml-2 align-items-start" (click)="navigate('profile')">{{
+            profile.name
+          }}</span>
         </div>
       </ng-template>
     </p-splitButton>
   </div>
-</p-toolbar>
+</div>
 <div class="grid grid-nogutter">
   <div class="col-3"><spotify-sidenav></spotify-sidenav></div>
   <div #content class="col-9"><router-outlet></router-outlet></div>

@@ -56,24 +56,30 @@ export class LoginService implements OnDestroy {
     return this.profileSubjectValue !== mockProfile;
   }
 
-  private set access(value: string) {
+  setLogin(data: Login) {
+    this.access = data.access;
+    this.refresh = data.refresh;
+    this.expires = data.expires;
+  }
+
+  set access(value: string) {
     this._access = value;
   }
-  private get access(): string {
+  get access(): string {
     return this._access;
   }
 
-  private set expires(value: number) {
+  set expires(value: number) {
     this._expires = value;
   }
-  private get expires(): number {
+  get expires(): number {
     return this._expires;
   }
 
-  private set refresh(value: string) {
+  set refresh(value: string) {
     this._refresh = value;
   }
-  private get refresh(): string {
+  get refresh(): string {
     return this._refresh;
   }
 

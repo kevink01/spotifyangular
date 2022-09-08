@@ -26,6 +26,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { UserComponent } from './profile/user/user.component';
+import { PlayerComponent } from './player/player.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { UserComponent } from './profile/user/user.component';
     SidenavComponent,
     ToolbarComponent,
     UserComponent,
+    PlayerComponent,
   ],
   imports: [
     AppRoutingModule,

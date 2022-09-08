@@ -100,6 +100,16 @@ export const environment = {
   /* ************** */
   /*     Player     */
   /* ************** */
+  DEVICES_URL: 'devices',
+  PLAYBACK_URL: 'playback',
+  PLAY_URL: 'play',
+  PAUSE_URL: 'pause',
+  SEEK_URL: 'seek',
+  NEXT_URL: 'next',
+  PREVIOUS_URL: 'previous',
+  SHUFFLE_URL: 'shuffle',
+  REPEAT_URL: 'repeat',
+  TRANSFER_URL: 'transfer',
 
   /* ************ */
   /*     MISC     */

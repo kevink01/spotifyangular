@@ -23,6 +23,8 @@ export class LoginRedirectComponent implements OnInit {
     ) as string;
     this.loginService.login(this.code).subscribe((data: Login) => {
       if (data) {
+        console.log(data);
+        this.loginService.setLogin(data);
         this.loginService
           .getMyProfile()
           .subscribe(async (profile: CurrentUser) => {

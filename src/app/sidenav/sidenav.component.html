@@ -1,4 +1,4 @@
-<div class="flex flex-column" style="height: calc(100vh - 89px)">
+<div class="flex flex-column" style="height: calc(100vh - 15vh)">
   <div>
     <p-card>
       <div
@@ -100,7 +100,7 @@
     <div *ngIf="loggedIn">
       <p-scrollPanel
         styleClass="w-12 text-sm lg:text-lg"
-        [style]="{ width: '100%', height: '62vh' }"
+        [style]="{ width: '100%', height: '56vh' }"
       >
         <div class="ml-1 justify-items-center">
           <p-fieldset
@@ -116,10 +116,11 @@
                 />
               </div>
               <div class="flex flex-column col-6">
-                <div class="text-overflow-ellipsis">
-                  <span class="overflow-hidden text-overflow-ellipsis">{{
-                    track.name
-                  }}</span>
+                <div class="flex w-12">
+                  <span
+                    class="white-space-nowrap overflow-hidden text-overflow-ellipsis"
+                    >{{ track.name }}</span
+                  >
                 </div>
                 <span class="text-overflow-ellipsis">{{
                   track.artists[0].name

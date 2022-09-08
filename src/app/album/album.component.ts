@@ -87,7 +87,7 @@ export class AlbumComponent implements OnInit, OnDestroy {
     if (hours === 0) {
       return `${minutes} minutes`;
     } else {
-      return `${hours}hr ${minutes} min`;
+      return `${hours} hr ${minutes} min`;
     }
   }
 

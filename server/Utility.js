@@ -430,4 +430,68 @@ module.exports = class Utility {
       uri: data.uri,
     };
   }
+  /* ************** */
+  /*     Player     */
+  /* ************** */
+  devices(data) {
+    return {
+      devices: data.devices.map((device) => {
+        return {
+          active: device.active,
+          id: device.id,
+          name: device.name,
+          private: device.private,
+          restricted: device.restricted,
+          type: device.type,
+          volume: device.volume,
+        };
+      }),
+    };
+  }
+
+  playback(data) {
+    return {
+      device: {
+        active: data.device.is_active,
+        id: data.device.id,
+        name: data.device.name,
+        private: data.device.is_private_session,
+        restricted: data.device.is_restricted,
+        type: data.device.type,
+        volume: data.device.volume_percent,
+      },
+      playing: data.is_playing,
+      progress: data.progress_ms,
+      repeat: data.repeat_state,
+      shuffle: data.shuffle_state,
+      track: {
+        album: {
+          date: new Date(data.item.album.release_date),
+          id: data.item.album.id,
+          images: data.item.album.images,
+          name: data.item.album.name,
+          type: data.item.album.type,
+          uri: data.item.album.uri,
+        },
+        artists: data.item.artists.map((artist) => {
+          return {
+            id: artist.id,
+            name: artist.name,
+            type: artist.type,
+            uri: artist.uri,
+          };
+        }),
+        date: new Date(data.timestamp),
+        duration: data.item.duration_ms,
+        explicit: data.item.explicit,
+        id: data.item.id,
+        local: data.item.is_local,
+        name: data.item.name,
+        number: data.item.track_number,
+        popularity: data.item.popularity,
+        type: data.item.type,
+        uri: data.item.uri,
+      },
+    };
+  }
 };
