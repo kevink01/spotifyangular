@@ -1,10 +1,15 @@
-<div #toolbar id="toolbar" class="flex col-12" style="height: 15vh">
-  <div class="flex flex-none align-items-start col-2">
+<div
+  #toolbar
+  id="toolbar"
+  class="grid grid-nogutter col-12"
+  style="height: 15vh"
+>
+  <div class="col-2">
     <button
       pButton
       type="button"
       icon="fa-solid fa-bars"
-      class="p-button-rounded p-button-outlined p-button-text mt-1 mr-2"
+      class="p-button-rounded p-button-outlined p-button-text mr-2"
     ></button>
     <button
       pButton
@@ -14,10 +19,10 @@
       (click)="navigate('dashboard')"
     ></button>
   </div>
-  <div class="flex flex-grow-1 flex-column col-8">
+  <div class="col-8">
     <spotify-player *ngIf="loggedIn"></spotify-player>
   </div>
-  <div class="flex flex-none col-2 justify-content-end">
+  <div class="flex justify-content-end col-2 mt-1">
     <p-splitButton
       [label]="!loggedIn ? 'Login' : profile.name"
       [model]="!loggedIn ? loginItems : items"

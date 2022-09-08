@@ -1,5 +1,5 @@
-<div *ngIf="playback && queue" class="flex flex-row">
-  <div class="flex col-1 justify-content-center">
+<div *ngIf="playback && queue" class="grid grid-nogutter col-12">
+  <div class="col-1">
     <img
       [src]="playback.track.album.images[0].url"
       width="80px"
@@ -7,26 +7,26 @@
       class="mr-2"
     />
   </div>
-  <div class="flex flex-column align-content-between col-2">
+  <div class="flex flex-column align-items-between ml-4 col-2">
     <div class="flex col-12">
       <div
         class="white-space-nowrap overflow-hidden text-overflow-ellipsis text-primary font-bold link"
-        style="width: 200px"
         (click)="navigate('album', playback.track.album.id)"
       >
         {{ playback.track.name }}
       </div>
     </div>
 
-    <div class="flex flex-wrap col-12">
-      <span
+    <div class="flex col-12">
+      <div
         class="text-color-secondary link"
-        onclick="navigate('artist', artist.id)"
-        >{{ playback.track.artists[0].name }}</span
+        onclick="navigate('/artist/', playback.track.artists[0].id)"
       >
+        {{ playback.track.artists[0].name }}
+      </div>
     </div>
   </div>
-  <div class="flex flex-column col-7">
+  <div class="flex flex-column col-6">
     <div class="grid grid-nogutter">
       <div class="col-2">
         <button
@@ -100,18 +100,20 @@
         </button>
       </div>
     </div>
-    <div class="flex col-12 align-items-center">
-      <div class="col-1">
+    <div
+      class="flex flex-row col-12 align-items-center justify-content-between"
+    >
+      <div class="flex col-2 justify-content-start">
         <span>{{ progress | date: "mm:ss" }}</span>
       </div>
-      <div class="col-10">
+      <div class="col-8">
         <p-slider
           [(ngModel)]="songProgress"
           (onSlideEnd)="seek($event)"
         ></p-slider>
       </div>
 
-      <div class="col-1">
+      <div class="flex col-2 justify-content-end">
         <span>{{ playback.track.duration | date: "mm:ss" }}</span>
       </div>
     </div>
@@ -180,8 +182,8 @@
       pButton
       pRipple
       type="button"
-      label="Devices"
       icon="fa-solid fa-mobile"
+      class="p-button-rounded p-button-text"
       (click)="menu.toggle($event)"
     ></button>
     <p-menu

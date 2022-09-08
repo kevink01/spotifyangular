@@ -1,106 +1,97 @@
-<div class="flex flex-column" style="height: calc(100vh - 15vh)">
+<div class="flex flex-column" style="height: calc(100vh - 16vh)">
   <div>
-    <p-card>
-      <div
-        class="menu-item col-12 flex flex-row justify-content-start hover:text-primary"
-        (click)="navigate('dashboard')"
+    <div
+      class="menu-item col-12 flex flex-row justify-content-start hover:text-primary"
+      (click)="navigate('dashboard')"
+    >
+      <i
+        class="fa-solid fa-house-chimney-user"
+        style="font-size: 1.5rem; margin-right: 1rem"
+        pTooltip="Home"
+        [showDelay]="250"
+        [hideDelay]="100"
+        [tooltipDisabled]="homeSpan === undefined"
+      ></i>
+      <span #homeSpan class="mt-0 text-lg lg:text-2xl hidden md:inline-block"
+        >Home</span
       >
-        <i
-          class="fa-solid fa-house-chimney-user"
-          style="font-size: 1.5rem; margin-right: 1rem"
-          pTooltip="Home"
-          [showDelay]="250"
-          [hideDelay]="100"
-          [tooltipDisabled]="homeSpan === undefined"
-        ></i>
-        <span #homeSpan class="mt-0 text-lg lg:text-2xl hidden md:inline-block"
-          >Home</span
-        >
-      </div>
-      <div
-        class="menu-item col-12 flex flex-row justify-content-start hover:text-primary"
-        (click)="createPlaylistDialog()"
+    </div>
+    <div
+      class="menu-item col-12 flex flex-row justify-content-start hover:text-primary"
+      (click)="createPlaylistDialog()"
+    >
+      <i
+        class="fa-solid fa-folder-plus"
+        style="font-size: 1.5rem; margin-right: 1rem"
+        pTooltip="Create a playlist"
+        [showDelay]="250"
+        [hideDelay]="100"
+        [tooltipDisabled]="playlistSpan === undefined"
+      ></i>
+      <span
+        #playlistSpan
+        class="mt-0 text-lg lg:text-2xl hidden md:inline-block"
       >
-        <i
-          class="fa-solid fa-folder-plus"
-          style="font-size: 1.5rem; margin-right: 1rem"
-          pTooltip="Create a playlist"
-          [showDelay]="250"
-          [hideDelay]="100"
-          [tooltipDisabled]="playlistSpan === undefined"
-        ></i>
-        <span
-          #playlistSpan
-          class="mt-0 text-lg lg:text-2xl hidden md:inline-block"
-        >
-          Create a playlist
-        </span>
-      </div>
-      <div
-        class="menu-item col-12 flex flex-row justify-content-start hover:text-primary"
-        (click)="navigate('library')"
+        Create a playlist
+      </span>
+    </div>
+    <div
+      class="menu-item col-12 flex flex-row justify-content-start hover:text-primary"
+      (click)="navigate('library')"
+    >
+      <i
+        class="fa-solid fa-book-bookmark"
+        style="font-size: 1.5rem; margin-right: 1rem"
+        pTooltip="Library"
+        [showDelay]="250"
+        [hideDelay]="100"
+        [tooltipDisabled]="likedSpan === undefined"
+      ></i>
+      <span #librarySpan class="mt-0 text-lg lg:text-2xl hidden md:inline-block"
+        >Library</span
       >
-        <i
-          class="fa-solid fa-book-bookmark"
-          style="font-size: 1.5rem; margin-right: 1rem"
-          pTooltip="Library"
-          [showDelay]="250"
-          [hideDelay]="100"
-          [tooltipDisabled]="likedSpan === undefined"
-        ></i>
-        <span
-          #librarySpan
-          class="mt-0 text-lg lg:text-2xl hidden md:inline-block"
-          >Library</span
-        >
-      </div>
-      <div
-        class="menu-item col-12 flex flex-row justify-content-start hover:text-primary-500"
-        (click)="navigate('library')"
-      >
-        <i
-          class="fa-solid fa-heart-circle-check"
-          style="font-size: 1.5rem; margin-right: 1rem"
-          pTooltip="Liked Songs"
-          [showDelay]="250"
-          [hideDelay]="100"
-          [tooltipDisabled]="likedSpan === undefined"
-        ></i>
-        <span
-          #likedSpan
-          class="mt-0 text-lg lg:text-2xl hidden sm:inline-block"
-        >
-          Liked Songs
-        </span>
-      </div>
-      <div
-        *ngIf="!loggedIn"
-        class="col-12 flex flex-column justify-content-center"
-      >
-        <p-divider></p-divider><br />
-        <a
-          pButton
-          pRipple
-          type="button"
-          label="Login"
-          icon="fa-solid fa-arrow-right-to-bracket"
-          class="p-button-lg"
-          [href]="AUTH_LINK"
-        ></a>
-      </div>
-    </p-card>
+    </div>
+    <div
+      class="menu-item col-12 flex flex-row justify-content-start hover:text-primary-500"
+      (click)="navigate('library')"
+    >
+      <i
+        class="fa-solid fa-heart-circle-check"
+        style="font-size: 1.5rem; margin-right: 1rem"
+        pTooltip="Liked Songs"
+        [showDelay]="250"
+        [hideDelay]="100"
+        [tooltipDisabled]="likedSpan === undefined"
+      ></i>
+      <span #likedSpan class="mt-0 text-lg lg:text-2xl hidden sm:inline-block">
+        Liked Songs
+      </span>
+    </div>
+    <div
+      *ngIf="!loggedIn"
+      class="col-12 flex flex-column justify-content-center"
+    >
+      <p-divider></p-divider><br />
+      <a
+        pButton
+        pRipple
+        type="button"
+        label="Login"
+        icon="fa-solid fa-arrow-right-to-bracket"
+        class="p-button-lg"
+        [href]="AUTH_LINK"
+      ></a>
+    </div>
   </div>
   <div class="flex-auto mt-2">
     <div *ngIf="!loggedIn" class="ml-1">
-      <p-card>
-        <span>Welcome to Spotify Clone</span><br />
-        <span>Please login to start listening to your music :)</span>
-      </p-card>
+      <span>Welcome to Spotify Clone</span><br />
+      <span>Please login to start listening to your music :)</span>
     </div>
     <div *ngIf="loggedIn">
       <p-scrollPanel
         styleClass="w-12 text-sm lg:text-lg"
-        [style]="{ width: '100%', height: '56vh' }"
+        [style]="{ width: '100%', height: '64vh' }"
       >
         <div class="ml-1 justify-items-center">
           <p-fieldset
@@ -115,12 +106,9 @@
                   style="width: 40px; height: 40px"
                 />
               </div>
-              <div class="flex flex-column col-6">
-                <div class="flex w-12">
-                  <span
-                    class="white-space-nowrap overflow-hidden text-overflow-ellipsis"
-                    >{{ track.name }}</span
-                  >
+              <div class="flex flex-column col-6 text-overflow-ellipsis">
+                <div class="">
+                  <span class="font-semibold">{{ track.name }}</span>
                 </div>
                 <span class="text-overflow-ellipsis">{{
                   track.artists[0].name
