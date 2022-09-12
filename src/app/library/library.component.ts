@@ -2,12 +2,14 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { LibraryService } from './library.service';
+import { LoginService } from '../login/login.service';
 import { Album } from '../models/components/album';
 import { Artist } from '../models/components/artist';
+import { CurrentUser } from '../models/core/user';
 import { Playlist } from '../models/components/playlist';
-import { PlaylistReturn } from '../models/core/http/playlist';
-import { ArtistReturn } from '../models/core/http/artist';
 import { AlbumReturn } from '../models/core/http/album';
+import { ArtistReturn } from '../models/core/http/artist';
+import { PlaylistReturn } from '../models/core/http/playlist';
 
 interface Option {
   label: string;
@@ -41,11 +43,24 @@ export class LibraryComponent implements OnInit, OnDestroy {
   private _albumSort: string = '';
   private _albumOptions: Option[] = [];
 
+  private _currentProfile!: CurrentUser;
+
   private subscription = new Subscription();
 
-  constructor(private libraryService: LibraryService, private router: Router) {}
+  constructor(
+    private libraryService: LibraryService,
+    private loginService: LoginService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
+    this.subscription.add(
+      this.loginService.profile().subscribe({
+        next: (data: CurrentUser) => {
+          this.currentProfile = data;
+        },
+      })
+    );
     this.subscription.add(
       this.libraryService.getPlaylists().subscribe((data: PlaylistReturn) => {
         console.log(data.playlists);
@@ -120,7 +135,6 @@ export class LibraryComponent implements OnInit, OnDestroy {
         if (value.indexOf('!') === 0) {
           this.filteredAlbums = this.albums;
         } else if (value === 'name') {
-          // TODO this.albums is undefined
           this.filteredAlbums = [...this.albums].sort((album1, album2) =>
             album1.name.toLocaleLowerCase().localeCompare(album2.name)
           );
@@ -135,6 +149,17 @@ export class LibraryComponent implements OnInit, OnDestroy {
         break;
       default:
         break;
+    }
+  }
+
+  profileLink(user: string) {
+    if (user === 'Spotify') return;
+    if (user === this.currentProfile.id) {
+      console.log('herer');
+      this.router.navigate(['/profile']);
+      return;
+    } else {
+      this.navigate('profile', user);
     }
   }
 
@@ -215,7 +240,7 @@ export class LibraryComponent implements OnInit, OnDestroy {
   set albums(value: Album[]) {
     this._albums = value;
   }
-  get ablums(): Album[] {
+  get albums(): Album[] {
     return this._albums;
   }
 
@@ -245,6 +270,13 @@ export class LibraryComponent implements OnInit, OnDestroy {
   }
   get albumOptions(): Option[] {
     return this._albumOptions;
+  }
+
+  set currentProfile(value: CurrentUser) {
+    this._currentProfile = value;
+  }
+  get currentProfile(): CurrentUser {
+    return this._currentProfile;
   }
 
   ngOnDestroy(): void {

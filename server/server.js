@@ -3,6 +3,7 @@ const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
 const SpotifyAPIBuilder = require("spotify-web-api-node");
+const https = require("https");
 
 /**
  * Utility class for parsing data
@@ -20,9 +21,9 @@ const spotify = new SpotifyAPIBuilder({
   redirectUri: "http://localhost:4200/login",
 });
 
-/* ***************** */
-/*       LOGIN       */
-/* ***************** */
+/* ************* */
+/*     LOGIN     */
+/* ************* */
 app.post("/login", (req, res) => {
   spotify
     .authorizationCodeGrant(JSON.parse(req.body.code))
@@ -36,56 +37,69 @@ app.post("/login", (req, res) => {
     });
 });
 
-/* ******************** */
-/*       PROFILE        */
-/* ******************** */
+app.delete("/logout", (req, res) => {
+  if (spotify.getAccessToken() === undefined) {
+    res.status(400).send({ message: "Not logged in", status: 400 });
+  } else {
+    Promise.all([spotify.resetAccessToken(), spotify.resetRefreshToken()])
+      .then(() => {
+        res.status(200).send({ success: true });
+      })
+      .catch(() => {
+        res.status(400).send({ message: "Unable to logout", status: 400 });
+      });
+  }
+});
 
-app.get("/profile", (req, res) => {
+/* ************ */
+/*     USER     */
+/* ************ */
+app.get("/me", (req, res) => {
   spotify
     .getMe()
     .then((data) => {
-      res.status(200).send(util.profile(data.body));
+      res.status(200).send(util.myProfile(data.body));
     })
     .catch((err) => {
       res.status(err.statusCode).send(err.body.error);
     });
 });
 
-app.get("/profile/playlists", (req, res) => {
+app.get("/user/playlists", (req, res) => {
   spotify
     .getUserPlaylists()
     .then((data) => {
-      res.status(200).send(util.userPlaylist(data.body));
+      res.status(200).send(util.userPlaylists(data.body));
     })
     .catch((err) => {
       res.status(err.statusCode).send(err.body.error);
     });
 });
 
-app.get("/profile/artists", (req, res) => {
+app.get("/user/artists", (req, res) => {
   spotify
     .getFollowedArtists()
     .then((data) => {
-      res.status(200).send(util.followedArtists(data.body));
+      res.status(200).send(util.myFollowedArtists(data.body));
     })
     .catch((err) => {
       res.status(err.statusCode).send(err.body.error);
     });
 });
 
-app.get("/profile/albums", (req, res) => {
+app.get("/user/albums", (req, res) => {
   spotify
     .getMySavedAlbums()
     .then((data) => {
-      res.status(200).send(util.savedAlbums(data.body));
+      res.status(200).send(util.mySavedAlbums(data.body));
     })
     .catch((err) => {
       res.status(err.statusCode).send(err.body.error);
     });
 });
 
-app.get("/profile/tracks", (req, res) => {
-  return spotify
+app.get("/user/tracks", (req, res) => {
+  spotify
     .getMySavedTracks({ limit: 1 })
     .then(async (data) => {
       await getAllSavedTracks(data.body)
@@ -101,45 +115,103 @@ app.get("/profile/tracks", (req, res) => {
     });
 });
 
-app.get("/top/tracks", (req, res) => {
+app.get("/user/top/tracks", (req, res) => {
   spotify
     .getMyTopTracks()
     .then((data) => {
-      res.status(200).send(util.topTracks(data.body));
+      res.status(200).send(util.myTopTracks(data.body));
     })
     .catch((err) => {
       res.status(err.statusCode).send(err.body.error);
     });
 });
 
-app.get("/top/artists", (req, res) => {
+app.get("user/top/artists", (req, res) => {
   spotify
     .getMyTopArtists()
     .then((data) => {
-      res.status(200).send(util.topArtists(data.body));
+      res.status(200).send(util.myTopArtists(data.body));
     })
     .catch((err) => {
       res.status(err.statusCode).send(err.body.error);
     });
 });
 
-app.get("/tracks/recent", (req, res) => {
+app.get("/user/recent/tracks", (req, res) => {
   spotify
     .getMyRecentlyPlayedTracks({
       limit: 10,
     })
     .then((data) => {
-      res.status(200).send(util.recentlyPlayed(data.body));
+      res.status(200).send(util.myRecentlyPlayed(data.body));
     })
     .catch((err) => {
       res.status(err.statusCode).send(err.body.error);
     });
 });
 
-/* ********************** */
-/*        Playlist        */
-/* ********************** */
+/* *************** */
+/*     PROFILE     */
+/* *************** */
+app.get("/profile", (req, res) => {
+  spotify
+    .getUser(req.query.id)
+    .then((data) => {
+      res.status(200).send(util.profile(data.body));
+    })
+    .catch((err) => {
+      res.status(err.statusCode).send(err.body.error);
+    });
+});
 
+app.get("/profile/playlists", (req, res) => {
+  spotify
+    .getUserPlaylists(req.query.id)
+    .then((data) => {
+      res.status(200).send(util.userPlaylists(data.body));
+    })
+    .catch((err) => {
+      res.status(err.statusCode).send(err.body.error);
+    });
+});
+
+app.get("/profile/following", (req, res) => {
+  spotify
+    .isFollowingUsers([req.query.id])
+    .then((data) => {
+      res.status(200).send({ following: data.body[0] });
+    })
+    .catch((err) => {
+      res.status(err.statusCode).send(err.body.error);
+    });
+});
+
+app.post("/profile/new", (req, res) => {
+  spotify
+    .followUsers([req.body.id])
+    .then(() => {
+      res.status(200).send({ success: true });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(err.statusCode).send(err.body.error);
+    });
+});
+
+app.delete("/profile", (req, res) => {
+  spotify
+    .unfollowUsers([req.body.id])
+    .then((data) => {
+      res.status(200).send({ success: true });
+    })
+    .catch((err) => {
+      res.status(err.statusCode).send(err.body.error);
+    });
+});
+
+/* **************** */
+/*     Playlist     */
+/* **************** */
 app.get("/playlist", (req, res) => {
   spotify
     .getPlaylist(req.query.id, { limit: 1 })
@@ -165,7 +237,23 @@ app.post("/playlist/new", (req, res) => {
       collaborative: req.body.collaborative,
     })
     .then((data) => {
-      res.status(200).send(util.createPlaylist(data.body));
+      res.status(200).send(util.createdPlaylist(data.body));
+    })
+    .catch((err) => {
+      res.status(err.statusCode).send(err.body.error);
+    });
+});
+
+app.put("/playlist/details", (req, res) => {
+  spotify
+    .changePlaylistDetails(req.body.id, {
+      name: req.body.details.name,
+      description: req.body.details.description,
+      public: req.body.details.public,
+      collaborative: req.body.details.collaborative,
+    })
+    .then(() => {
+      res.status(200).send({ success: true });
     })
     .catch((err) => {
       res.status(err.statusCode).send(err.body.error);
@@ -183,23 +271,7 @@ app.post("/playlist/image", (req, res) => {
     });
 });
 
-app.put("/playlist/update", (req, res) => {
-  spotify
-    .changePlaylistDetails(req.body.id, {
-      name: req.body.details.name,
-      description: req.body.details.description,
-      public: req.body.details.public,
-      collaborative: req.body.details.collaborative,
-    })
-    .then(() => {
-      res.status(200).send({ success: true });
-    })
-    .catch((err) => {
-      res.status(err.statusCode).send(err.body.error);
-    });
-});
-
-app.post("/playlist/add", (req, res) => {
+app.post("/playlist/tracks/new", (req, res) => {
   spotify
     .addTracksToPlaylist(req.body.id, req.body.tracks, {
       position: req.body.position,
@@ -212,7 +284,7 @@ app.post("/playlist/add", (req, res) => {
     });
 });
 
-app.put("/playlist/reorder", async (req, res) => {
+app.put("/playlist/tracks/reorder", async (req, res) => {
   let sent = false;
   let snapshot = req.body.snapshot;
   const calls = Math.ceil(req.body.tracks.length / 100);
@@ -258,7 +330,7 @@ app.put("/playlist/reorder", async (req, res) => {
   }
 });
 
-app.delete("/playlist/delete", (req, res) => {
+app.delete("/playlist", (req, res) => {
   spotify
     .unfollowPlaylist(req.body.id)
     .then(() => res.status(200).send({ success: true }))
@@ -267,23 +339,22 @@ app.delete("/playlist/delete", (req, res) => {
     });
 });
 
-app.get("/featured", (req, res) => {
+app.get("/playlist/featured", (req, res) => {
   spotify
     .getFeaturedPlaylists()
     .then((data) => {
-      res.status(200).send(util.featuredPlaylist(data.body));
+      res.status(200).send(util.featuredPlaylists(data.body));
     })
     .catch((err) => {
       res.status(err.statusCode).send(err.body.error);
     });
 });
 
-/* ****************** */
-/*       Artist       */
-/* ****************** */
-
+/* ************** */
+/*     Artist     */
+/* ************** */
 app.get("/artist", (req, res) => {
-  return spotify
+  spotify
     .getArtist(req.query.id)
     .then((data) => {
       res.status(200).send(util.artist(data.body));
@@ -294,10 +365,10 @@ app.get("/artist", (req, res) => {
 });
 
 app.get("/artist/albums", (req, res) => {
-  return spotify
+  spotify
     .getArtistAlbums(req.query.id)
     .then((data) => {
-      res.status(200).send(util.artistsAlbums(data.body));
+      res.status(200).send(util.artistAlbums(data.body));
     })
     .catch((err) => {
       res.status(err.statusCode).send(err.body.error);
@@ -305,7 +376,7 @@ app.get("/artist/albums", (req, res) => {
 });
 
 app.get("/artist/tracks", (req, res) => {
-  return spotify
+  spotify
     .getArtistTopTracks(req.query.id, req.query.country)
     .then((data) => {
       res.status(200).send(util.topArtistTracks(data.body));
@@ -316,7 +387,7 @@ app.get("/artist/tracks", (req, res) => {
 });
 
 app.get("/artist/related", (req, res) => {
-  return spotify
+  spotify
     .getArtistRelatedArtists(req.query.id)
     .then((data) => {
       res.status(200).send(util.relatedArtists(data.body));
@@ -326,12 +397,11 @@ app.get("/artist/related", (req, res) => {
     });
 });
 
-/* ****************** */
-/*       Album       */
-/* ****************** */
-
+/* ************* */
+/*     Album     */
+/* ************* */
 app.get("/album", (req, res) => {
-  return spotify
+  spotify
     .getAlbum(req.query.id)
     .then((data) => {
       res.status(200).send(util.album(data.body));
@@ -352,12 +422,12 @@ app.get("/album/following", (req, res) => {
     });
 });
 
-app.post("/album/follow", (req, res) => {
+app.post("/album/add", (req, res) => {
   switch (req.body.following) {
     case true:
       spotify
         .removeFromMySavedAlbums([req.body.id])
-        .then((data) => {
+        .then(() => {
           res.status(200).send({ success: true });
         })
         .catch((err) => {
@@ -367,7 +437,7 @@ app.post("/album/follow", (req, res) => {
     case false:
       spotify
         .addToMySavedAlbums([req.body.id])
-        .then((data) => {
+        .then(() => {
           res.status(200).send({ success: true });
         })
         .catch((err) => {
@@ -379,10 +449,9 @@ app.post("/album/follow", (req, res) => {
   }
 });
 
-/* ****************** */
-/*        Track       */
-/* ****************** */
-
+/* ************* */
+/*     Track     */
+/* ************* */
 app.get("/track", (req, res) => {
   spotify
     .getTrack(req.query.id)
@@ -394,13 +463,135 @@ app.get("/track", (req, res) => {
     });
 });
 
-/* ***************** */
-/*       Player      */
-/* ***************** */
+app.get("/devices", (req, res) => {
+  spotify
+    .getMyDevices()
+    .then((data) => {
+      res.status(200).send(util.devices(data.body));
+    })
+    .catch((err) => {
+      res.status(err.statusCode).send(err.body.error);
+    });
+});
 
-/* *************** */
-/*       MISC      */
-/* *************** */
+app.get("/playback", (req, res) => {
+  spotify
+    .getMyCurrentPlaybackState()
+    .then((data) => {
+      res.status(200).send(util.playback(data.body));
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(err.statusCode).send(err.body.error);
+    });
+});
+
+app.post("/transfer", (req, res) => {
+  spotify
+    .transferMyPlayback([req.body.id])
+    .then((data) => {
+      res.status(200).send({ success: true });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(err.statusCode).send(err.body.error);
+    });
+});
+
+app.post("/play", (req, res) => {
+  spotify
+    .play()
+    .then(() => {
+      res.status(200).send({ playing: true });
+    })
+    .catch((err) => {
+      res.status(err.statusCode).send(err.body.error);
+    });
+});
+
+app.post("/pause", (req, res) => {
+  spotify
+    .pause()
+    .then(() => {
+      res.status(200).send({ playing: false });
+    })
+    .catch((err) => {
+      res.status(err.statusCode).send(err.body.error);
+    });
+});
+
+app.post("/seek", (req, res) => {
+  spotify
+    .seek(req.body.position)
+    .then(() => {
+      res.status(200).send({ position: req.body.position });
+    })
+    .catch((err) => {
+      res.status(err.statusCode).send(err.body.error);
+    });
+});
+
+app.post("/next", (req, res) => {
+  spotify
+    .skipToNext()
+    .then(() => {
+      res.status(200).send({ success: true });
+    })
+    .catch((err) => {
+      res.status(err.statusCode).send(err.body.error);
+    });
+});
+
+app.post("/previous", (req, res) => {
+  spotify
+    .skipToPrevious()
+    .then(() => {
+      res.status(200).send({ success: true });
+    })
+    .catch((err) => {
+      res.status(err.statusCode).send(err.body.error);
+    });
+});
+
+app.post("/shuffle", (req, res) => {
+  spotify
+    .setShuffle(req.body.shuffle)
+    .then(() => {
+      res.status(200).send({ shuffle: req.body.shuffle });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(err.statusCode).send(err.body.error);
+    });
+});
+
+app.post("/repeat", (req, res) => {
+  spotify
+    .setRepeat(req.body.repeat)
+    .then(() => {
+      res.status(200).send({ repeat: req.body.repeat });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(err.statusCode).send(err.body.error);
+    });
+});
+
+app.post("/queue", (req, res) => {
+  spotify
+    .addToQueue(req.body.uri)
+    .then((data) => {
+      res.status(200).send(data.body);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(err.statusCode).send(err.body.error);
+    });
+});
+
+/* ************ */
+/*     MISC     */
+/* ************ */
 // TODO Provide seed
 app.get("/recommendations", (req, res) => {
   spotify
@@ -413,22 +604,11 @@ app.get("/recommendations", (req, res) => {
     });
 });
 
-app.get("/test", (req, res) => {
-  return spotify
-    .play()
-    .then((data) => {
-      res.status(200).send(data);
-    })
-    .catch((err) => {
-      res.status(err.statusCode).send(err.body.error);
-    });
-});
-
 app.listen(4201);
 
-/* *************************** */
-/*       Helper Functions      */
-/* *************************** */
+/* ************************ */
+/*     Helper Functions     */
+/* ************************ */
 const getAllPlaylistTracks = (data) => {
   const calls = Math.floor(data.tracks.total / 100) + 1;
   const offset = Array(calls)

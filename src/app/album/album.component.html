@@ -3,7 +3,12 @@
   <loading-album></loading-album>
 </div>
 <div *ngIf="album">
-  <p-table #dt [value]="album.tracks ?? []" [scrollable]="true" scrollHeight="400px">
+  <p-table
+    #dt
+    [value]="album.tracks ?? []"
+    [scrollable]="true"
+    scrollHeight="400px"
+  >
     <ng-template pTemplate="caption">
       <div class="flex flex-row w-12">
         <div class="flex w-4 xl:w-3 justify-content-center">
@@ -31,7 +36,7 @@
               <span class="ml-2">{{ album.date | date: "MM/dd/yyyy" }}</span>
             </div>
           </div>
-          <div class="flex mt-2">
+          <div class="flex mt-2 gap-3">
             <button
               pButton
               pRipple
@@ -40,17 +45,15 @@
               icon="fa-solid fa-circle-play"
               class="p-button-success p-button-lg mt-2"
             ></button>
-            <div class="flex ml-2 mt-2 align-self-center">
-              <button
-                pButton
-                pRipple
-                type="button"
-                [label]="following ? 'Unfollow' : 'Follow'"
-                icon="fa-solid fa-heart"
-                class="p-button-icon"
-                (click)="toggleFollow()"
-              ></button>
-            </div>
+            <button
+              pButton
+              pRipple
+              type="button"
+              [label]="following ? 'Unfollow' : 'Follow'"
+              icon="fa-solid fa-heart"
+              class="p-button-lg mt-2"
+              (click)="toggleFollow()"
+            ></button>
           </div>
         </div>
         <div
@@ -79,9 +82,9 @@
         </th>
       </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-track let-index="rowIndex">
+    <ng-template pTemplate="body" let-track>
       <tr>
-        <td style="flex: 1 1 5%">{{ index + 1 }}</td>
+        <td style="flex: 1 1 5%">{{ track.number }}</td>
         <td style="flex: 1 1 70%">{{ track.name }}</td>
         <td style="flex: 1 1 10%">{{ track.duration | date: "m:ss" }}</td>
         <td style="flex: 1 1 15%">

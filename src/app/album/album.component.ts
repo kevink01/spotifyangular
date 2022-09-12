@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs';
 import { MessageService } from 'primeng/api';
 import { AlbumService } from './album.service';
 import { Color } from '../utility/index';
-import { Following } from '../models/playlist/following';
+import { Following } from '../models/core/following';
 import { Track } from '../models/components/track';
 import { Album } from '../models/components/album';
 
@@ -40,6 +40,15 @@ export class AlbumComponent implements OnInit, OnDestroy {
               },
             })
           );
+          data.tracks?.forEach((track: Track) => {
+            this.subscription.add(
+              this.albumService.trackPopularity(track.id).subscribe({
+                next: (data: Track) => {
+                  track.popularity = data.popularity;
+                },
+              })
+            );
+          });
           this.duration = this.album.tracks
             ? this.calculateDuration(this.album.tracks)
             : '0 minutes';
@@ -78,7 +87,7 @@ export class AlbumComponent implements OnInit, OnDestroy {
     if (hours === 0) {
       return `${minutes} minutes`;
     } else {
-      return `${hours}hr ${minutes} min`;
+      return `${hours} hr ${minutes} min`;
     }
   }
 

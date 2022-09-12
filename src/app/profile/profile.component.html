@@ -1,0 +1,68 @@
+<div *ngIf="!profile || !playlists">
+  <loading-playlist></loading-playlist>
+</div>
+<div *ngIf="profile && playlists">
+  <p-card>
+    <div class="grid grid-nogutter w-12 mt-1">
+      <div class="flex col-3 justify-content-center">
+        <img [src]="profile.images[0].url" width="200px" height="200px" />
+      </div>
+      <div class="flex flex-column col-9">
+        <h1 class="mt-0 mb-2 text-primary">{{ profile.name }}</h1>
+        <div class="flex flex-row flex-wrap col-12">
+          <div class="col-1">
+            <i class="fa-solid fa-inbox"></i>
+          </div>
+          <div class="col-11">
+            <span>{{ profile.email }}</span>
+          </div>
+          <div class="col-1">
+            <i class="fa-solid fa-flag"></i>
+          </div>
+          <div class="col-11">
+            <span>{{ profile.country }}</span>
+          </div>
+          <div class="col-1">
+            <i class="fa-solid fa-users"></i>
+          </div>
+          <div class="col-11">
+            <span>{{ profile.followers }} followers </span>
+          </div>
+          <div class="col-1">
+            <i class="fa-solid fa-headphones"></i>
+          </div>
+          <div class="col-11">
+            <span>{{ publicPlaylists }} public playlists</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p-carousel
+      [value]="playlists"
+      [numVisible]="3"
+      [numScroll]="1"
+      [circular]="true"
+      [autoplayInterval]="2000"
+    >
+      <ng-template pTemplate="header">
+        <h5>Playlists: {{ playlists.length }}</h5>
+      </ng-template>
+      <ng-template let-playlist pTemplate="item">
+        <div class="playlist" (click)="navigate('playlist', playlist.id)">
+          <p-card>
+            <div class="flex justify-content-center">
+              <img
+                [src]="playlist.images[0].url"
+                width="100px"
+                height="100px"
+              />
+            </div>
+            <div class="flex justify-content-center">
+              <p>{{ playlist.name }}</p>
+            </div>
+          </p-card>
+        </div>
+      </ng-template>
+    </p-carousel>
+  </p-card>
+</div>

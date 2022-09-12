@@ -3,15 +3,15 @@ $grey-link: hsl(0, 0%, 50%);
 
 .card {
   width: 25%;
+  margin: auto;
   margin-top: 1rem;
   &:hover {
     filter: brightness(120%);
     cursor: pointer;
   }
 }
-
-a:link,
-a:visited {
-  color: $grey-link;
-  text-decoration: none;
+.link {
+  &:hover {
+    cursor: pointer;
+  }
 }

@@ -1,49 +1,55 @@
-<p-toolbar #toolbar>
-  <div class="p-toolbar-group-left">
+<div
+  #toolbar
+  id="toolbar"
+  class="grid grid-nogutter col-12"
+  style="height: 15vh"
+>
+  <div class="col-2">
     <button
       pButton
       type="button"
       icon="fa-solid fa-bars"
-      class="p-button-rounded p-button-outlined p-button-text mt-1 mr-2"
+      class="p-button-rounded p-button-outlined p-button-text mr-2"
     ></button>
     <button
       pButton
       type="button"
-      label="Spotify Clone"
+      label="Spotify++"
       class="p-button-lg p-button-text"
-      (click)="returnHome()"
+      (click)="navigate('dashboard')"
     ></button>
   </div>
-  <div class="p-toolbar-group-right">
-    <a
-      *ngIf="profile.name === ''"
-      pButton
-      pRipple
-      type="button"
-      label="Login"
-      class="p-button-rounded p-button-lg"
-      style="height: 55px"
-      [href]="this.AUTH_LINK"
-      ><p-avatar shape="circle" styleClass="mr-2"
-        ><i class="fa-solid fa-user"></i></p-avatar
-    ></a>
-    <p-button
-      *ngIf="profile.name !== ''"
-      type="button"
-      [label]="profile.name"
-      styleClass="p-button-rounded p-button-lg"
-      [style]="{ height: '55px' }"
-      (click)="menu.toggle($event)"
-    >
-      <p-avatar
-        [image]="profile.images[0].url"
-        shape="circle"
-        styleClass="mr-2"
-      ></p-avatar>
-    </p-button>
-    <p-menu #menu [model]="items" [popup]="true"> </p-menu>
+  <div class="col-8">
+    <spotify-player *ngIf="loggedIn"></spotify-player>
   </div>
-</p-toolbar>
+  <div class="flex justify-content-end col-2 mt-1">
+    <p-splitButton
+      [label]="!loggedIn ? 'Login' : profile.name"
+      [model]="!loggedIn ? loginItems : items"
+      styleClass="p-button-rounded p-button-lg"
+      [style]="{ height: '50px' }"
+    >
+      <ng-template pTemplate="content">
+        <div *ngIf="!loggedIn" class="flex align-items-center">
+          <p-avatar shape="circle" styleClass="mr-2"
+            ><i class="fa-solid fa-user"></i
+          ></p-avatar>
+          <a class="link text-black-alpha-90" [href]="this.AUTH_LINK">Login</a>
+        </div>
+        <div *ngIf="loggedIn" class="flex align-items-center">
+          <p-avatar
+            [image]="profile.images[0].url"
+            shape="circle"
+            styleClass="mr-2"
+          ></p-avatar>
+          <span class="ml-2 align-items-start" (click)="navigate('profile')">{{
+            profile.name
+          }}</span>
+        </div>
+      </ng-template>
+    </p-splitButton>
+  </div>
+</div>
 <div class="grid grid-nogutter">
   <div class="col-3"><spotify-sidenav></spotify-sidenav></div>
   <div #content class="col-9"><router-outlet></router-outlet></div>

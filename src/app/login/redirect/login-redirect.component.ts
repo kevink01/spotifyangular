@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Profile } from '../../models/core/profile';
+import { CurrentUser } from '../../models/core/user';
 import { Login } from '../../models/core/login';
 import { LoginService } from '../login.service';
 
@@ -23,10 +23,16 @@ export class LoginRedirectComponent implements OnInit {
     ) as string;
     this.loginService.login(this.code).subscribe((data: Login) => {
       if (data) {
-        this.loginService.getMyProfile().subscribe(async (profile: Profile) => {
-          await this.loginService.updateProfile(profile);
-          this.router.navigate(['/dashboard']);
-        });
+        console.log(data);
+        this.loginService.setLogin(data);
+        this.loginService
+          .getMyProfile()
+          .subscribe(async (profile: CurrentUser) => {
+            await this.loginService.updateProfile(profile);
+            if (this.loginService.isLoggedIn()) {
+              this.router.navigate(['/dashboard']);
+            }
+          });
       }
     });
   }

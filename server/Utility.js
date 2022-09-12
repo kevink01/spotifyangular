@@ -5,6 +5,9 @@
 module.exports = class Utility {
   constructor() {}
 
+  /* ************* */
+  /*     LOGIN     */
+  /* ************* */
   login(data) {
     return {
       access: data.access_token,
@@ -13,11 +16,10 @@ module.exports = class Utility {
     };
   }
 
-  /* ******************** */
-  /*       PROFILE        */
-  /* ******************** */
-
-  profile(data) {
+  /* ************ */
+  /*     USER     */
+  /* ************ */
+  myProfile(data) {
     return {
       country: data.country,
       email: data.email,
@@ -31,7 +33,7 @@ module.exports = class Utility {
     };
   }
 
-  userPlaylist(data) {
+  userPlaylists(data) {
     return {
       playlists: data.items.map((item) => {
         return {
@@ -54,7 +56,7 @@ module.exports = class Utility {
     };
   }
 
-  followedArtists(data) {
+  myFollowedArtists(data) {
     return {
       artists: data.artists.items.map((artist) => {
         return {
@@ -71,7 +73,7 @@ module.exports = class Utility {
     };
   }
 
-  savedAlbums(data) {
+  mySavedAlbums(data) {
     return {
       albums: data.items.map((item) => {
         return {
@@ -116,7 +118,7 @@ module.exports = class Utility {
     };
   }
 
-  topTracks(data) {
+  myTopTracks(data) {
     return {
       tracks: data.items.map((track) => {
         return {
@@ -148,7 +150,7 @@ module.exports = class Utility {
     };
   }
 
-  topArtists(data) {
+  myTopArtists(data) {
     return {
       artists: data.items.map((artist) => {
         return {
@@ -165,7 +167,7 @@ module.exports = class Utility {
     };
   }
 
-  recentlyPlayed(data) {
+  myRecentlyPlayed(data) {
     return {
       tracks: data.items.map((item) => {
         return {
@@ -186,7 +188,7 @@ module.exports = class Utility {
             };
           }),
           date: new Date(item.played_at),
-          duration: item.track.duration,
+          duration: item.track.duration_ms,
           explicit: item.track.explicit,
           id: item.track.id,
           local: item.track.is_local,
@@ -199,11 +201,45 @@ module.exports = class Utility {
     };
   }
 
-  /* ********************* */
-  /*        Playlist       */
-  /* ********************* */
+  /* *************** */
+  /*     PROFILE     */
+  /* *************** */
+  profile(data) {
+    return {
+      followers: data.followers.total,
+      id: data.id,
+      images: data.images,
+      name: data.display_name,
+      type: data.type,
+      uri: data.uri,
+    };
+  }
 
-  featuredPlaylist(data) {
+  /* **************** */
+  /*     Playlist     */
+  /* **************** */
+  createdPlaylist(data) {
+    return {
+      collaborative: data.collaborative,
+      description: data.description,
+      id: data.id,
+      images: data.images,
+      name: data.name,
+      owner: {
+        id: data.owner.id,
+        name: data.owner.name,
+        type: data.owner.type,
+        uri: data.owner.uri,
+      },
+      public: data.public,
+      snapshot: data.snapshot,
+      tracks: data.tracks.items,
+      type: data.type,
+      uri: data.uri,
+    };
+  }
+
+  featuredPlaylists(data) {
     return {
       message: data.message,
       playlists: data.playlists.items.map((playlist) => {
@@ -228,31 +264,9 @@ module.exports = class Utility {
     };
   }
 
-  createPlaylist(data) {
-    return {
-      collaborative: data.collaborative,
-      description: data.description,
-      id: data.id,
-      images: data.images,
-      name: data.name,
-      owner: {
-        id: data.owner.id,
-        name: data.owner.name,
-        type: data.owner.type,
-        uri: data.owner.uri,
-      },
-      public: data.public,
-      snapshot: data.snapshot,
-      tracks: data.tracks.items,
-      type: data.type,
-      uri: data.uri,
-    };
-  }
-
-  /* ****************** */
-  /*       Artist       */
-  /* ****************** */
-
+  /* ************** */
+  /*     Artist     */
+  /* ************** */
   artist(data) {
     return {
       followers: data.followers.total,
@@ -266,7 +280,7 @@ module.exports = class Utility {
     };
   }
 
-  artistsAlbums(data) {
+  artistAlbums(data) {
     return {
       albums: data.items.map((album) => {
         return {
@@ -339,10 +353,9 @@ module.exports = class Utility {
     };
   }
 
-  /* ****************** */
-  /*        Album       */
-  /* ****************** */
-
+  /* ************* */
+  /*     Album     */
+  /* ************* */
   album(data) {
     return {
       artists: data.artists.map((artist) => {
@@ -354,13 +367,14 @@ module.exports = class Utility {
         };
       }),
       copyrights: data.copyrights,
+      date: new Date(data.release_date),
       genres: data.genres,
       id: data.id,
       images: data.images,
       name: data.name,
       popularity: data.popularity,
-      release: new Date(data.release_date),
       tracks: data.tracks.items.map((track) => {
+        console.log(track);
         return {
           artists: track.artists.map((artist) => {
             return {
@@ -386,9 +400,9 @@ module.exports = class Utility {
     };
   }
 
-  /* ****************** */
-  /*        Track       */
-  /* ****************** */
+  /* ************* */
+  /*     Track     */
+  /* ************* */
   track(data) {
     return {
       album: {
@@ -414,6 +428,70 @@ module.exports = class Utility {
       popularity: data.popularity,
       type: data.type,
       uri: data.uri,
+    };
+  }
+  /* ************** */
+  /*     Player     */
+  /* ************** */
+  devices(data) {
+    return {
+      devices: data.devices.map((device) => {
+        return {
+          active: device.active,
+          id: device.id,
+          name: device.name,
+          private: device.private,
+          restricted: device.restricted,
+          type: device.type,
+          volume: device.volume,
+        };
+      }),
+    };
+  }
+
+  playback(data) {
+    return {
+      device: {
+        active: data.device.is_active,
+        id: data.device.id,
+        name: data.device.name,
+        private: data.device.is_private_session,
+        restricted: data.device.is_restricted,
+        type: data.device.type,
+        volume: data.device.volume_percent,
+      },
+      playing: data.is_playing,
+      progress: data.progress_ms,
+      repeat: data.repeat_state,
+      shuffle: data.shuffle_state,
+      track: {
+        album: {
+          date: new Date(data.item.album.release_date),
+          id: data.item.album.id,
+          images: data.item.album.images,
+          name: data.item.album.name,
+          type: data.item.album.type,
+          uri: data.item.album.uri,
+        },
+        artists: data.item.artists.map((artist) => {
+          return {
+            id: artist.id,
+            name: artist.name,
+            type: artist.type,
+            uri: artist.uri,
+          };
+        }),
+        date: new Date(data.timestamp),
+        duration: data.item.duration_ms,
+        explicit: data.item.explicit,
+        id: data.item.id,
+        local: data.item.is_local,
+        name: data.item.name,
+        number: data.item.track_number,
+        popularity: data.item.popularity,
+        type: data.item.type,
+        uri: data.item.uri,
+      },
     };
   }
 };

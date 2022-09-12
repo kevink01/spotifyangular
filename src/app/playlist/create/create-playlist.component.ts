@@ -17,7 +17,7 @@ import { TracksReturn } from '../../models/core/http/tracks';
 })
 export class CreatePlaylistComponent implements OnInit, OnDestroy {
   private _steps: MenuItem[] = [];
-  private _currentStep: number = 1;
+  private _currentStep: number = 0;
   private _hasSubmittedStep: boolean[] = [false, false, false];
 
   private _playlist!: Playlist;

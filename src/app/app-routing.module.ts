@@ -6,16 +6,39 @@ import { LibraryComponent } from './library/library.component';
 import { HomeComponent } from './login/home/home.component';
 import { LoginRedirectComponent } from './login/redirect/login-redirect.component';
 import { PlaylistComponent } from './playlist/playlist.component';
-import { ToolbarComponent } from './toolbar/toolbar.component';
+import { ProfileComponent } from './profile/profile.component';
+import { UserComponent } from './profile/user/user.component';
+import { AuthGuard } from './utility/auth.guard';
 
 const routes: Routes = [
+  // TODO Comment out the canActivate: [AuthGuard] when ready
   { path: '', component: HomeComponent },
-  { path: 'dashboard', component: DashboardComponent },
-  { path: 'library', component: LibraryComponent },
-  { path: 'playlist/:id', component: PlaylistComponent },
-  { path: 'album/:id', component: AlbumComponent },
-  { path: 'login', component: LoginRedirectComponent },
-  { path: '**', redirectTo: 'dashboard', pathMatch: 'full' },
+  { path: 'album/:id', component: AlbumComponent /*canActivate: [AuthGuard]*/ },
+  { path: 'library', component: LibraryComponent /*canActivate: [AuthGuard]*/ },
+  {
+    path: 'playlist/:id',
+    component: PlaylistComponent,
+    /*canActivate: [AuthGuard],*/
+  },
+  { path: 'profile', component: ProfileComponent /*canActivate: [AuthGuard]*/ },
+  {
+    path: 'profile/:id',
+    component: UserComponent /*canActivate: [AuthGuard]*/,
+  },
+  // Guard does not exist on dashboard. The Redirect component will do the authentication
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
+  },
+  {
+    path: 'login',
+    component: LoginRedirectComponent,
+  },
+  {
+    path: '**',
+    redirectTo: 'dashboard',
+    pathMatch: 'full',
+  },
 ];
 
 @NgModule({

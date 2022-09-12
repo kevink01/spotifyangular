@@ -1,5 +1,5 @@
 {
-  "name": "spotify-clone",
+  "name": "spotify-plus-plus",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -29,6 +29,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
+    "https": "^1.0.0",
     "primeflex": "^3.2.1",
     "primeicons": "^5.0.0",
     "primeng": "^14.0.0",
