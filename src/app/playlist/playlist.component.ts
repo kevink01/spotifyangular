@@ -11,7 +11,7 @@ import { Track } from '../models/shared/track';
 @Component({
   selector: 'spotify-playlist',
   templateUrl: './playlist.component.html',
-  styleUrls: ['./playlist.component.scss'],
+  // styleUrls: ['./playlist.component.scss'],
   providers: [DialogService],
 })
 export class PlaylistComponent implements OnInit, OnDestroy {
