@@ -1,0 +1,29 @@
+.album {
+    border-radius: 50%;
+}
+
+.track-parent {
+    position: relative;
+    width: 100%;
+    overflow-x: hidden;
+}
+.track {
+    width: inherit;
+    height: inherit;
+    left: 0%;
+    height: 0%;
+
+    animation: slidedown 5s ease-in-out;
+
+    @keyframes slidedown {
+        0% {
+            max-height: 0;
+        }
+        100% {
+            max-height: auto;
+        }
+    }
+       
+}
+
+

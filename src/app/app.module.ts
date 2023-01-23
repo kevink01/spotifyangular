@@ -28,6 +28,7 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
 import { UserComponent } from './profile/user/user.component';
 import { PlayerComponent } from './player/player.component';
 import { ArtistComponent } from './artist/artist.component';
+import { PlayerNewComponent } from './player-new/player-new.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { ArtistComponent } from './artist/artist.component';
     UserComponent,
     PlayerComponent,
     ArtistComponent,
+    PlayerNewComponent,
   ],
   imports: [
     AppRoutingModule,

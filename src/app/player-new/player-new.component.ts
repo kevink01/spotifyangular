@@ -5,7 +5,7 @@ import { Playback } from '../models/player/playback';
 import { Playing } from '../models/player/playing';
 import { Position } from '../models/player/position';
 import { Shuffle } from '../models/player/shuffle';
-import { PlayerService } from './player.service';
+import { PlayerService } from '../player/player.service';
 import { RepeatState } from '../utility';
 import { Repeat } from '../models/player/repeat';
 import { MenuItem } from 'primeng/api';
@@ -16,11 +16,11 @@ import { Queue } from '../models/player/queue';
 import { Track } from '../models/shared/track';
 
 @Component({
-  selector: 'spotify-player',
-  templateUrl: './player.component.html',
-  styleUrls: ['./player.component.scss'],
+  selector: 'spotify-player-new',
+  templateUrl: './player-new.component.html',
+  styleUrls: ['./player-new.component.scss']
 })
-export class PlayerComponent implements OnInit, OnDestroy {
+export class PlayerNewComponent implements OnInit {
   private _playback!: Playback;
   private _progress: number = 0;
   private _songProgress: number = 0;
@@ -36,10 +36,11 @@ export class PlayerComponent implements OnInit, OnDestroy {
 
   constructor(private playerService: PlayerService, private router: Router) {}
 
+  
   ngOnInit(): void {
     this.subscriptions.add(
       this.playerService.getQueue().subscribe({
-        next: (data) => {
+        next: (data: Queue) => {
           this.queue = data;
         },
       })
@@ -98,7 +99,7 @@ export class PlayerComponent implements OnInit, OnDestroy {
           if (this.queue.queue.length === 0 || this.queue.queue.length === 15) {
             this.subscriptions.add(
               this.playerService.getQueue().subscribe({
-                next: (data) => {
+                next: (data: Queue) => {
                   this.queue = data;
                 },
               })
@@ -183,7 +184,7 @@ export class PlayerComponent implements OnInit, OnDestroy {
           if (this.queue.queue.length === 0 || this.queue.queue.length === 15) {
             this.subscriptions.add(
               this.playerService.getQueue().subscribe({
-                next: (data) => {
+                next: (data: Queue) => {
                   this.queue = data;
                 },
               })
@@ -291,10 +292,6 @@ export class PlayerComponent implements OnInit, OnDestroy {
     return this._devicesMenu;
   }
 
-  go(path: string): void {
-    this.router.navigate([`/${path}`]);
-  }
-  
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
     clearInterval(this.progressChange);
