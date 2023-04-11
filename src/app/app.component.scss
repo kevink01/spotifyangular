@@ -1,0 +1,22 @@
+.contents {
+  display: flex;
+  flex-flow: column;
+  height: 100vh;
+}
+
+.contents .header {
+  flex: 0 1 auto;
+}
+
+.contents .body {
+  flex: 1 1 auto;
+}
+
+.contents .footer {
+  flex: 0 1 50px;
+}
+
+.display {
+    display: flex;
+    height: calc(85vh - 50px);
+}

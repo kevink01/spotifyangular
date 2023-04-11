@@ -1,1 +1,18 @@
-<spotify-toolbar></spotify-toolbar>
+<div class="contents">
+  <div class="header">
+    <spotify-toolbar></spotify-toolbar>
+  </div>
+  <div class="body">
+    <div class="grid grid-nogutter col-12 display">
+      <div class="col-3">
+        <spotify-sidenav></spotify-sidenav>
+      </div>
+      <div class="col-9">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+    <span>Goodbye</span>
+  </div>
+</div>

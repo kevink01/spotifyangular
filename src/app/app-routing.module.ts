@@ -6,6 +6,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { LibraryComponent } from './library/library.component';
 import { HomeComponent } from './login/home/home.component';
 import { LoginRedirectComponent } from './login/redirect/login-redirect.component';
+import { PlayerNewComponent } from './player-new/player-new.component';
 import { PlaylistComponent } from './playlist/playlist.component';
 import { ProfileComponent } from './profile/profile.component';
 import { UserComponent } from './profile/user/user.component';
@@ -35,6 +36,10 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginRedirectComponent,
+  },
+  {
+    path: 'test',
+    component: PlayerNewComponent,
   },
   {
     path: '**',
