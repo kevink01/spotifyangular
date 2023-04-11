@@ -1,4 +1,4 @@
-<div class="flex flex-column" style="height: calc(100vh - 16vh)">
+<!-- <div class="flex flex-column" style="height: calc(100vh - 16vh)">
   <div>
     <div
       class="menu-item col-12 flex flex-row justify-content-start hover:text-primary"
@@ -156,4 +156,14 @@
       </p-scrollPanel>
     </div>
   </div>
+</div> -->
+<div *ngIf="loggedIn" class="box">
+    <div class="header">
+      <span>Hello</span>
+    </div>
+    <div class="footer">
+      <div class="flex align-items-end h-full">
+        <spotify-player-new class="w-full"></spotify-player-new>
+      </div>
+    </div>
 </div>

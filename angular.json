@@ -26,8 +26,8 @@
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": [
               "src/styles.scss",
-              "src/themes/default/spotify-green.scss",
               "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/primeng/resources/themes/arya-green/theme.css",
               "node_modules/primeflex/primeflex.min.css",
               "node_modules/primeicons/primeicons.css",
               "node_modules/@fortawesome/fontawesome-free/scss/fontawesome.scss",
@@ -79,7 +79,11 @@
               "browserTarget": "SpotifyClone:build:development"
             }
           },
-          "defaultConfiguration": "development"
+          "defaultConfiguration": "development",
+          "options": {
+            "browserTarget": "move-safe:build",
+            "proxyConfig": "src/proxy.conf.json"
+          }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
@@ -102,5 +106,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }

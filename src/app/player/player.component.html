@@ -1,4 +1,8 @@
 <div *ngIf="playback && queue" class="grid grid-nogutter col-12">
+  <span
+    (click)="go('test')"
+    class="m-0 text-white-alpha-90 text-lg link"
+  >Test</span>
   <div class="col-1">
     <img
       [src]="playback.track.album.images[0].url"
@@ -20,7 +24,7 @@
     <div class="flex col-12">
       <div
         class="text-color-secondary link"
-        onclick="navigate('/artist/', playback.track.artists[0].id)"
+        onclick="navigate('artist', playback.track.artists[0].id)"
       >
         {{ playback.track.artists[0].name }}
       </div>
